@@ -32,31 +32,31 @@ button:hover {
 }
 
 #lock {
-    background-image: image(url("/usr/share/wlogout/icons/lock-cat.png"));
+    background-image: image(url("assets/lock-cat.png"));
     background-size: 50%;
 }
 
 #suspend {
-    background-image: image(url("/usr/share/wlogout/icons/suspend-cat.png"));
+    background-image: image(url("assets/suspend-cat.png"));
     background-size: 45%;
 }
 
 #logout {
-    background-image: image(url("/usr/share/wlogout/icons/cat-stack.png"));
+    background-image: image(url("assets/cat-stack.png"));
     background-size: 55%;
 }
 
 #hibernate {
-    background-image: image(url("/usr/share/wlogout/icons/hibernate-cat.png"));
+    background-image: image(url("assets/hibernate-cat.png"));
     background-size: 105%;
 }
 
 #shutdown {
-    background-image: image(url("/usr/share/wlogout/icons/cat-in-box.png"));
+    background-image: image(url("assets/cat-in-box.png"));
     background-size: 45%;
 }
 
 #reboot {
-    background-image: image(url("/usr/share/wlogout/icons/reboot-cat.png"));
+    background-image: image(url("assets/reboot-cat.png"));
     background-size: 55%;
 }
