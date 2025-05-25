@@ -1,0 +1,54 @@
+format = """
+$username@$hostname\
+$directory \
+$git_branch $git_status\
+$nodejs$rust$python
+$character
+"""
+
+[character]
+success_symbol = "[❯](bold green) "
+error_symbol = "[❯](bold red) "
+vicmd_symbol = "[❮](bold blue) "
+
+[directory]
+truncation_length = 3
+truncation_symbol = "…/"
+read_only = " "
+style = "bold blue"
+format = "[$path]($style)[$read_only]($read_only_style)"
+
+[username]
+show_always = true
+style_user = "italic fg:#89b4fa"
+# format = "[$user]($style)"
+format = "[ns8]($style)"
+
+[hostname]
+ssh_only = false
+style = "italic fg:#f38ba8"
+format = "[$hostname]($style) "
+
+[git_branch]
+symbol = " "
+style = "fg:#fab387"
+format = "on [$symbol$branch]($style)"
+
+[git_status]
+style = "fg:#f38ba8"
+format = "[$all_status]($style) "
+
+[nodejs]
+symbol = ""
+style = "fg:#a6e3a1"
+format = "[$symbol $version]($style) "
+
+[rust]
+symbol = "🦀"
+style = "fg:#ff6c6b"
+format = "[$symbol $version]($style) "
+
+[python]
+symbol = ""
+style = "fg:#f9e2af"
+format = "[$symbol $version]($style) "

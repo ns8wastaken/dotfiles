@@ -1,0 +1,62 @@
+@import url("/home/renzo/.cache/wal/colors-opacity.css");
+
+* {
+    background-image: none;
+    box-shadow: none;
+}
+
+window {
+    background-color: @background;
+}
+
+button {
+    border-radius: 20px;
+    border-color: @color0;
+    border-style: solid;
+    border-width: 4px;
+
+    margin: 2px;
+
+    text-decoration-color: @foreground;
+    color: @foreground;
+
+    background-color: @color1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25%;
+}
+
+button:hover {
+    background-color: @color4;
+    outline-style: none;
+}
+
+#lock {
+    background-image: image(url("/usr/share/wlogout/icons/lock-cat.png"));
+    background-size: 50%;
+}
+
+#suspend {
+    background-image: image(url("/usr/share/wlogout/icons/suspend-cat.png"));
+    background-size: 45%;
+}
+
+#logout {
+    background-image: image(url("/usr/share/wlogout/icons/cat-stack.png"));
+    background-size: 55%;
+}
+
+#hibernate {
+    background-image: image(url("/usr/share/wlogout/icons/hibernate-cat.png"));
+    background-size: 105%;
+}
+
+#shutdown {
+    background-image: image(url("/usr/share/wlogout/icons/cat-in-box.png"));
+    background-size: 45%;
+}
+
+#reboot {
+    background-image: image(url("/usr/share/wlogout/icons/reboot-cat.png"));
+    background-size: 55%;
+}
