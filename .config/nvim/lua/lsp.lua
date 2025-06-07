@@ -31,9 +31,7 @@ lspconfig.cssls.setup({
     capabilities = cssls_caps
 })
 
--- Clangd-12
-local clangd_cmd = vim.g.is_windows and 'clangd' or 'clangd-12'
+-- Clangd
 lspconfig.clangd.setup({
-    cmd = { clangd_cmd },
     capabilities = capabilities
 })

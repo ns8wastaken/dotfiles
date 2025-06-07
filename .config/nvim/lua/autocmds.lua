@@ -22,18 +22,20 @@ autocmd('ModeChanged', {
     desc = 'Highlighting matched words when searching'
 })
 
-autocmd("VimEnter", {
-    pattern = "*",
+autocmd({ "ColorScheme", "VimEnter", "OptionSet" }, {
     callback = function()
         vim.cmd([[
-            hi Normal      guibg=NONE
-            hi NormalNC    guibg=NONE
-            "hi EndOfBuffer guibg=NONE ctermbg=NONE
-            "hi SignColumn  guibg=NONE ctermbg=NONE
-            "hi VertSplit   guibg=NONE ctermbg=NONE
-            "hi CursorLine  guibg=NONE ctermbg=NONE
+            hi Normal       guibg=NONE
+            hi NormalNC     guibg=NONE
+            hi EndOfBuffer  guibg=NONE
+            hi SignColumn   guibg=NONE
+            hi VertSplit    guibg=NONE
+            hi CursorLine   guibg=NONE
+            hi StatusLineNC guibg=NONE
         ]])
 
-        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1a1a1a" })
+        -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1a1a1a" })
     end,
+    grou = general,
+    desc = 'Hide background and other elements'
 })

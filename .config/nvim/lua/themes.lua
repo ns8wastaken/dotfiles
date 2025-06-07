@@ -5,6 +5,5 @@ return {
     'rebelot/kanagawa.nvim',
     'scottmckendry/cyberdream.nvim',
     'blazkowolf/gruber-darker.nvim',
-    'Skardyy/makurai-nvim',
     'sainnhe/gruvbox-material'
 }

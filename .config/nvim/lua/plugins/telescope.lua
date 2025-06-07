@@ -4,8 +4,14 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
 
     opts = {
+        pickers = {
+            colorscheme = {
+                enable_preview = true
+            },
+        },
+
         defaults = {
-            winblend = 30,
+            -- winblend = 30,
 
             layout_config = {
                 prompt_position = 'top'

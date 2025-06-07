@@ -12,6 +12,7 @@ return {
     { 'echasnovski/mini.surround', opts = {} },
     'johmsalas/text-case.nvim',
     'matze/vim-move',
+    'junegunn/vim-easy-align',
 
     unpack(themes)
 }

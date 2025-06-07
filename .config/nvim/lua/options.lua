@@ -10,6 +10,7 @@ vim.opt.smarttab = true
 vim.opt.mouse = 'a'
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
+vim.opt.scrolloff = 4
 
 -- Code folding
 vim.opt.foldlevel = 99

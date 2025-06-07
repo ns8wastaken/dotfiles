@@ -6,19 +6,19 @@ return {
     config = function()
         require('nvim-treesitter.configs').setup({
             ensure_installed = {
-                'c', 'cpp',
-                'javascript', 'typescript', 'html', 'css',
                 'vim', 'vimdoc',
+                'javascript', 'typescript', 'html', 'css',
                 'python',
+                'c', 'cpp',
                 'markdown', 'yaml', 'toml'
             },
 
             highlight = {
-                enable = true, -- Enable syntax highlighting
+                enable = true -- Enable syntax highlighting
             },
 
             indent = {
-                enable = true, -- Enable smart indentation
+                enable = true -- Enable smart indentation
             }
         })
     end
