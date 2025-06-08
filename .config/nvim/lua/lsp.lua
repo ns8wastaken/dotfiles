@@ -15,9 +15,7 @@ lspconfig.rust_analyzer.setup({
 })
 
 -- Typescript
-lspconfig.ts_ls.setup({
-    capabilities = capabilities
-})
+lspconfig.ts_ls.setup({ capabilities = capabilities })
 
 -- HTML
 lspconfig.html.setup({
@@ -27,11 +25,10 @@ lspconfig.html.setup({
 -- CSS
 local cssls_caps = vim.lsp.protocol.make_client_capabilities()
 cssls_caps.textDocument.completion.completionItem.snippetSupport = true -- Needed otherwise autocomplete wont work
-lspconfig.cssls.setup({
-    capabilities = cssls_caps
-})
+lspconfig.cssls.setup({ capabilities = cssls_caps })
 
 -- Clangd
-lspconfig.clangd.setup({
-    capabilities = capabilities
-})
+lspconfig.clangd.setup({ capabilities = capabilities })
+
+-- Lua
+lspconfig.lua_ls.setup({ capabilities = capabilities })

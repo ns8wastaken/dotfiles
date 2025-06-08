@@ -1,5 +1,8 @@
 local map_set = vim.keymap.set
 
+-- Save file
+map_set('n', '<Leader>w', '<Cmd>w<CR>', vim.g.keymap_opts)
+
 -- Copy / paste
 map_set('v', '<C-c>', '"+y',       vim.g.keymap_opts)
 map_set('i', '<C-v>', '<Esc>"+pa', vim.g.keymap_opts)

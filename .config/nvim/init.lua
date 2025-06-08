@@ -14,8 +14,9 @@ vim.notify = require('notify')
 local ll_themes = {
     default = require('lualine_themes.default'),
     bubbles = require('lualine_themes.bubble'),
+    slanted = require('lualine_themes.slanted')
 }
-require('lualine').setup(ll_themes.default)
+require('lualine').setup(ll_themes.slanted)
 -- require('lualine').setup({ options = { theme = 'gruvbox-material' } })
 
 require('keymaps.telescope')
