@@ -1,0 +1,90 @@
+@import url("/home/renzo/.cache/wal/colors-waybar.css");
+
+* {
+    font-family: "CaskaydiaCove Nerd Font", "Font Awesome 6 Free", "Font Awesome 6 Free Solid";
+    font-weight: bold;
+    font-size: 13px;
+    color: @foreground;
+    padding: 0;
+}
+
+.modules-right,
+.modules-left,
+.modules-center {
+    border-radius: 6px;
+    background-color: @background;
+    margin: 6px 10px 0 10px;
+}
+
+#waybar {
+    background-color: rgba(0, 0, 0, 0.0);
+    border-radius: 8px;
+}
+
+#workspaces,
+#window,
+#tray,
+#clock,
+#custom-power,
+#network,
+#custom-lock,
+#custom-reboot,
+#bluetooth,
+#pulseaudio,
+#custom-temperature,
+#memory,
+#cpu {
+    background-color: transparent;
+    padding: 0 6px;
+}
+
+#tray {
+    margin: 0 5px;
+    padding: 0 5px;
+    background-color: @color3;
+    border-radius: 6px;
+}
+
+#custpm-temperature.critical,
+#pulseaudio.muted {
+    color: #FF0000;
+    padding-top: 0;
+}
+
+#bluetooth:hover,
+#network:hover,
+#pulseaudio:hover,
+#custom-temperature:hover,
+#memory:hover,
+#cpu:hover,
+#clock:hover,
+#custom-lock:hover,
+#custom-reboot:hover,
+#custom-power:hover,
+#window:hover {
+    background-color: @color8;
+    border-radius: 6px;
+}
+
+#workspaces button {
+    background: transparent;
+    border: none;
+    color: @foreground;
+    padding: 0 2px;
+    margin: 0 2px;
+}
+
+#workspaces button:hover {
+    box-shadow: inherit;
+    text-shadow: inherit;
+
+    background-color: @color3;
+    border-radius: 6px;
+}
+
+#workspaces button.active {
+    background-color: @color1;
+    border-radius: 6px;
+    padding: 0 2px;
+    margin: 0 2px;
+}

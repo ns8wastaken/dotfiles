@@ -35,6 +35,9 @@ end
 
 vim.g.keymap_opts = { noremap = true, silent = true }
 
+-- Make floating window borders rounded
+-- vim.o.winborder = 'rounded'
+
 -- Set OS
 local sysname = vim.loop.os_uname().sysname
 vim.g.is_windows = sysname == "Windows_NT"
@@ -42,7 +45,6 @@ vim.g.is_linux   = sysname == "Linux"
 vim.g.is_mac     = sysname == "Darwin"
 
 vim.o.shell = vim.g.ternary(vim.g.is_windows, 'powershell -NoLogo', 'fish')
--- vim.o.guifont = "saxMono:h14"
 
 -- Set the <Leader> char
 vim.g.mapleader = ','

@@ -2,7 +2,7 @@ local lspconfig = require('lspconfig')
 local cmp_lsp = require('cmp_nvim_lsp')
 local capabilities = cmp_lsp.default_capabilities()
 
-enable_inlayhints = function() vim.lsp.inlay_hint.enable(true, { 0 }) end -- Function to enable inlay hints on current buffer
+local enable_inlayhints = function() vim.lsp.inlay_hint.enable(true, { 0 }) end -- Function to enable inlay hints on current buffer
 
 -- Python
 lspconfig.pyright.setup({ capabilities = capabilities })
@@ -31,4 +31,27 @@ lspconfig.cssls.setup({ capabilities = cssls_caps })
 lspconfig.clangd.setup({ capabilities = capabilities })
 
 -- Lua
-lspconfig.lua_ls.setup({ capabilities = capabilities })
+lspconfig.lua_ls.setup({
+    capabilities = capabilities,
+
+    settings = {
+        Lua = {
+            -- runtime = {
+            --     -- Tell the LSP you're using LuaJIT (Neovim uses this)
+            --     version = 'LuaJIT'
+            -- },
+            diagnostics = {
+                -- Recognize the `vim` global
+                globals = { 'vim' }
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false -- Optional: avoid prompt to configure third-party
+            },
+            telemetry = {
+                enable = false,
+            }
+        }
+    }
+})

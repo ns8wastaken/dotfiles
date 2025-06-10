@@ -1,0 +1,8 @@
+{
+    "include": [
+        // "~/.config/waybar/theme1/config.jsonc"
+        // "~/.config/waybar/theme1/config-no-current-window.jsonc"
+        // "~/.config/waybar/theme2/config.jsonc"
+        "~/.config/waybar/theme2/config-no-current-window.jsonc"
+    ]
+}

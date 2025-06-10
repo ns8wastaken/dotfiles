@@ -26,16 +26,22 @@ autocmd({ "ColorScheme", "VimEnter", "OptionSet" }, {
     callback = function()
         vim.cmd([[
             hi Normal       guibg=NONE
+            hi NormalFloat  guibg=NONE
+            hi LineNr       guibg=NONE
+            hi CursorLineNr guibg=NONE
+            hi FloatBorder  guibg=NONE
             hi NormalNC     guibg=NONE
             hi EndOfBuffer  guibg=NONE
             hi SignColumn   guibg=NONE
             hi VertSplit    guibg=NONE
             hi CursorLine   guibg=NONE
             hi StatusLineNC guibg=NONE
+
+            hi TelescopeBorder guibg=NONE
         ]])
 
         -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1a1a1a" })
     end,
-    grou = general,
+    group = general,
     desc = 'Hide background and other elements'
 })
