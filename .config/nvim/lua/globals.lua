@@ -62,7 +62,8 @@ vim.g.neovide_cursor_vfx_particle_density = 3.0
 vim.g.neovide_cursor_vfx_particle_phase = 2.5
 vim.g.neovide_cursor_vfx_opacity = 200.0
 
-vim.g.neovide_cursor_animation_length = 0.075
+-- vim.g.neovide_cursor_animation_length = 0.075
+vim.g.neovide_cursor_animation_length = 0
 
 vim.g.neovide_scroll_animation_length = 0
 

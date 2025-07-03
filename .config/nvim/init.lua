@@ -17,6 +17,14 @@ local ll_themes = {
     slanted = require('lualine_themes.slanted')
 }
 require('lualine').setup(ll_themes.slanted)
+require('lualine').setup({
+    refresh = {
+        statusline = 250,
+        tabline = 250,
+        winbar = 250,
+        refresh_time = 16 -- ~60 fps
+    }
+})
 -- require('lualine').setup({ options = { theme = 'gruvbox-material' } })
 
 require('keymaps.telescope')

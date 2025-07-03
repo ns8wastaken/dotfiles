@@ -27,15 +27,17 @@ autocmd({ "ColorScheme", "VimEnter", "OptionSet" }, {
         vim.cmd([[
             hi Normal       guibg=NONE
             hi NormalFloat  guibg=NONE
+            hi FloatBorder  guibg=NONE
             hi LineNr       guibg=NONE
             hi CursorLineNr guibg=NONE
-            hi FloatBorder  guibg=NONE
             hi NormalNC     guibg=NONE
             hi EndOfBuffer  guibg=NONE
             hi SignColumn   guibg=NONE
             hi VertSplit    guibg=NONE
             hi CursorLine   guibg=NONE
             hi StatusLineNC guibg=NONE
+            hi LspInlayHint guibg=NONE
+            hi LspInlayHint ctermfg=239 guifg=#5a524c
 
             hi TelescopeBorder guibg=NONE
         ]])

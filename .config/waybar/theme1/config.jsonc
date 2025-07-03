@@ -6,7 +6,6 @@
     "margin-right": 10,
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/window",
         "custom/sep",
         "memory",
         "custom/sep",

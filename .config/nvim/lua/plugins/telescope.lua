@@ -1,23 +1,59 @@
-return {
+local M = {
     'nvim-telescope/telescope.nvim',
 
     dependencies = { 'nvim-lua/plenary.nvim' },
 
-    opts = {
-        pickers = {
-            colorscheme = {
-                enable_preview = true
-            },
+    opts = {}
+}
+
+require('telescope.pickers.layout_strategies').horizontal_merged = function(picker, max_columns, max_lines, layout_config)
+    local layout = require('telescope.pickers.layout_strategies')
+        .horizontal(picker, max_columns, max_lines, layout_config)
+
+    layout.prompt.title = ''
+    -- layout.prompt.borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' }
+    layout.prompt.borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
+
+    layout.results.title = ''
+    -- layout.results.borderchars = { '─', '│', '─', '│', '├', '┤', '┘', '└' }
+    layout.results.borderchars = { '─', '│', '─', '│', '├', '┤', '╯', '╰' }
+    layout.results.line = layout.results.line - 1
+    layout.results.height = layout.results.height + 1
+
+    layout.preview.title = ''
+    -- layout.preview.borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' }
+    layout.preview.borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' }
+
+    return layout
+end
+
+local actions = require('telescope.actions')
+
+M.opts = {
+    pickers = {
+        colorscheme = {
+            enable_preview = true
+        },
+    },
+
+    defaults = {
+        mappings = {
+            i = {
+                ["<Esc>"] = actions.close
+            }
         },
 
-        defaults = {
-            -- winblend = 30,
+        layout_strategy = 'horizontal_merged',
 
-            layout_config = {
-                prompt_position = 'top'
-            },
+        sorting_strategy = 'ascending',
 
-            sorting_strategy = 'ascending'
+        layout_config = {
+            prompt_position = 'top',
+            -- width = { padding = 0 },
+            -- height = { padding = 0 },
+            -- preview_width = 0.5
         }
     }
 }
+
+return M

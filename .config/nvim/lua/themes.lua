@@ -5,5 +5,7 @@ return {
     'rebelot/kanagawa.nvim',
     'scottmckendry/cyberdream.nvim',
     'blazkowolf/gruber-darker.nvim',
-    'sainnhe/gruvbox-material'
+    'sainnhe/gruvbox-material',
+    'navarasu/onedark.nvim',
+    'projekt0n/github-nvim-theme'
 }

@@ -14,7 +14,8 @@
         "custom/temperature",
         "cpu",
         "bluetooth",
-        "network"
+        "network",
+        "battery"
     ],
     "hyprland/workspaces": {
         "disable-scroll": false,
@@ -48,12 +49,12 @@
         "format": "<span color='#00FF7F'>{icon}</span>{volume}%",
         "format-muted": "<span color='#FF4040'>󰖁 </span>0%",
         "format-icons": {
-                "headphone":  "<span color='#BF00FF'> </span>",
-                "hands-free": "<span color='#BF00FF'> </span>",
-                "headset":    "<span color='#BF00FF'> </span>",
-                "phone":      "<span color='#00FFFF'> </span>",
-                "portable":   "<span color='#00FFFF'> </span>",
-                "car":        "<span color='#FFA500'> </span>",
+            "headphone":  "<span color='#BF00FF'> </span>",
+            "hands-free": "<span color='#BF00FF'> </span>",
+            "headset":    "<span color='#BF00FF'> </span>",
+            "phone":      "<span color='#00FFFF'> </span>",
+            "portable":   "<span color='#00FFFF'> </span>",
+            "car":        "<span color='#FFA500'> </span>",
             "default": [
                 "<span color='#808080'> </span>",
                 "<span color='#FFFF66'> </span>",
@@ -75,11 +76,10 @@
     "memory": {
         "format": "<span color='#8A2BE2'> </span>{used:0.1f}G/{total:0.1f}G",
         "tooltip": true,
-        "tooltip-format": "RAM\nUsed: {used:0.2f} G\nTotal: {total:0.2f} G"
+        "tooltip-format": "RAM\nUsed: {used:0.2f} G\nTotal: {total:0.2f} G",
+        "interval": 10
     },
     "cpu": {
-        // "format": "<span color='#FF9F0A'> </span>{usage}%",
-        // "tooltip": true
         "interval": 1,
         "format": "<span color='#FF9F0A'> {icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}{icon12}{icon13}{icon14}{icon15}{usage:>2}%</span>",
         "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
@@ -101,5 +101,15 @@
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
         "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+    },
+    "battery": {
+        "bat": "BAT1",
+        "interval": 60,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon} ",
+        "format-icons": ["", "", "", "", ""]
     }
 }
