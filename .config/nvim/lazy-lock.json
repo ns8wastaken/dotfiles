@@ -15,7 +15,7 @@
   "nerdcommenter": { "branch": "master", "commit": "02a3b6455fa07b61b9440a78732f1e9b7876c991" },
   "nvim-cmp": { "branch": "main", "commit": "b5311ab3ed9c846b585c0c15b7559be131ec4be9" },
   "nvim-colorizer.lua": { "branch": "master", "commit": "517df88cf2afb36652830df2c655df2da416a0ae" },
-  "nvim-lspconfig": { "branch": "master", "commit": "1cb30b1bafe5a63a5c6ac20dc39f83487df38855" },
+  "nvim-lspconfig": { "branch": "master", "commit": "d8f03bfd5b54b10352276a0ed1f2ffe9c2e0676f" },
   "nvim-notify": { "branch": "master", "commit": "a22f5d7ac511c2df2fd3290a9f04c48d5a822e2e" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "onedark.nvim": { "branch": "master", "commit": "11de4da47f3e69cb70c3ae9816bd8af166cbe121" },

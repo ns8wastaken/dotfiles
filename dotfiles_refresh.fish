@@ -4,6 +4,7 @@ dotfiles add \
     ~/dotfiles_refresh.fish \
     ~/install_newest_discord_canary.sh \
     ~/setwp.fish \
+    \
     ~/.config/nvim/ \
     ~/.config/hypr/ \
     ~/.config/kitty/ \
@@ -12,4 +13,5 @@ dotfiles add \
     ~/.config/fish/ \
     ~/.config/starship.toml \
     ~/.config/rofi/ \
-    ~/.config/waybar/
+    ~/.config/waybar/ \
+    ~/.config/swaync/
