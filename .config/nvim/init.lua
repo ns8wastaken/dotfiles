@@ -2,6 +2,7 @@
 vim.cmd('syntax on')
 vim.cmd('filetype plugin indent on')
 
+require('filetypes')
 require('options')
 require('globals')
 

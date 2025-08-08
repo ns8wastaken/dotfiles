@@ -1,7 +1,7 @@
 @import url("/home/renzo/.cache/wal/colors-waybar.css");
 
 * {
-    font-family: "CaskaydiaCove Nerd Font", "Font Awesome 6 Free", "Font Awesome 6 Free Solid";
+    font-family: "Maple Mono NF";
     font-weight: bold;
     font-size: 13px;
     color: @foreground;
@@ -46,10 +46,9 @@
     border-radius: 6px;
 }
 
-#custpm-temperature.critical,
+#custom-temperature.critical,
 #pulseaudio.muted {
     color: #FF0000;
-    padding-top: 0;
 }
 
 #bluetooth:hover,
@@ -74,6 +73,7 @@
     color: @foreground;
     padding: 0 2px;
     margin: 0 2px;
+    border-radius: 6px;
 }
 
 #workspaces button.urgent {
@@ -83,14 +83,11 @@
 #workspaces button:hover {
     box-shadow: inherit;
     text-shadow: inherit;
-
     background-color: @color3;
-    border-radius: 6px;
 }
 
 #workspaces button.active {
     background-color: @color1;
-    border-radius: 6px;
     padding: 0 2px;
     margin: 0 2px;
 }

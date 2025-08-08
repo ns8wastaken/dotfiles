@@ -1,6 +1,7 @@
 {
     "include": [
         // "~/.config/waybar/theme1/config.jsonc"
-        "~/.config/waybar/theme2/config.jsonc"
+        // "~/.config/waybar/theme2/config-with-battery.jsonc"
+        "~/.config/waybar/theme3/config-with-battery.jsonc"
     ]
 }

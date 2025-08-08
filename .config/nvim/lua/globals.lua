@@ -36,7 +36,7 @@ end
 vim.g.keymap_opts = { noremap = true, silent = true }
 
 -- Make floating window borders rounded
--- vim.o.winborder = 'rounded'
+vim.o.winborder = "rounded"
 
 -- Set OS
 local sysname = vim.loop.os_uname().sysname

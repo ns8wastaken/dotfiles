@@ -1,44 +1,49 @@
-local lspconfig = require('lspconfig')
+-- local lspconfig = require('lspconfig')
 local cmp_lsp = require('cmp_nvim_lsp')
 local capabilities = cmp_lsp.default_capabilities()
 
 local enable_inlayhints = function() vim.lsp.inlay_hint.enable(true, { 0 }) end -- Function to enable inlay hints on current buffer
 
 -- Python
-lspconfig.pyright.setup({ capabilities = capabilities })
+-- lspconfig.pyright.setup({ capabilities = capabilities })
+vim.lsp.enable('pyright')
+vim.lsp.config('pyright', { capabilities = capabilities })
 
 -- Rust
-lspconfig.rust_analyzer.setup({
+vim.lsp.enable('rust_analyzer')
+vim.lsp.config('rust_analyzer', {
     cmd = { 'rustup', 'run', 'stable', 'rust-analyzer' },
     capabilities = capabilities,
     on_attach = enable_inlayhints
 })
 
 -- Typescript
-lspconfig.ts_ls.setup({ capabilities = capabilities })
+vim.lsp.enable('ts_ls')
+vim.lsp.config('ts_ls', { capabilities = capabilities })
 
 -- HTML
-lspconfig.html.setup({
-    capabilities = capabilities
-})
+vim.lsp.enable('html')
+vim.lsp.config('html', { capabilities = capabilities })
 
 -- CSS
 local cssls_caps = vim.lsp.protocol.make_client_capabilities()
 cssls_caps.textDocument.completion.completionItem.snippetSupport = true -- Needed otherwise autocomplete wont work
-lspconfig.cssls.setup({ capabilities = cssls_caps })
+vim.lsp.enable('cssls')
+vim.lsp.config('cssls', { capabilities = cssls_caps })
 
 -- Clangd
-lspconfig.clangd.setup({ capabilities = capabilities })
+vim.lsp.enable('clangd')
+vim.lsp.config('clangd', { capabilities = capabilities })
 
 -- Lua
-lspconfig.lua_ls.setup({
+vim.lsp.enable('lua_ls')
+vim.lsp.config('lua_ls', {
     capabilities = capabilities,
 
     settings = {
         Lua = {
             -- runtime = {
-            --     -- Tell the LSP you're using LuaJIT (Neovim uses this)
-            --     version = 'LuaJIT'
+            --     version = 'LuaJIT' -- (Neovim uses this)
             -- },
             diagnostics = {
                 -- Recognize the `vim` global
@@ -55,3 +60,7 @@ lspconfig.lua_ls.setup({
         }
     }
 })
+
+-- Go
+vim.lsp.enable('gopls')
+vim.lsp.config('gopls', { capabilities = capabilities })

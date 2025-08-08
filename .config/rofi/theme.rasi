@@ -30,20 +30,16 @@
 window {
     location: center;
     anchor: center;
-    transparency: "real";
+    font-family: "Maple Mono NF";
     padding: 4px;
-    border:  0px;
+    border: 0px;
     border-radius: 20px;
     color: @foreground;
     background-color: @color1;
-    spacing: 0;
-    children: [mainbox];
-    orientation: horizontal;
 }
 
 mainbox {
     spacing: 0;
-    children: [ inputbar, message, listview ];
     background-color: inherit;
 }
 
@@ -52,7 +48,6 @@ message {
     border: 0 2px 2px 2px;
     padding: 5;
     background-color: @color4;
-    font: "Source Code Pro 8";
     color: @color0;
 }
 
@@ -72,8 +67,6 @@ case-indicator {
 }
 
 entry, prompt {
-    text-font: inherit;
-    text-color: inherit;
     background-color: @color7;
     border-radius: 5px;
     padding: 0 5px 0 5px;
@@ -89,7 +82,6 @@ listview {
     border-color: @color7;
     border: 0 2px 2px 2px;
     background-color: @background;
-    dynamic: false;
     lines: 10;
 }
 
@@ -99,7 +91,6 @@ element {
     border-radius: 4px;
     background-color: transparent;
     color: @color1;
-    font: inherit;
 }
 
 element-text {
@@ -147,7 +138,6 @@ element normal normal {
 
 vertb {
     expand: false;
-    children: [ dummy0, mode-switcher, dummy1  ];
 }
 
 dummy0, dummy1 {
