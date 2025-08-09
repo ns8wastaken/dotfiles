@@ -1,8 +1,8 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR EDITOR:/home/renzo/bin/neovide
+SETUVAR EDITOR:/usr/bin/nvim
 SETUVAR --export QT_QPA_PLATFORMTHEME:qt5ct
-SETUVAR VISUAL:/home/renzo/bin/neovide
+SETUVAR VISUAL:/usr/bin/nvim
 SETUVAR XDG_CONFIG_HOME:/home/renzo/\x2econfig
 SETUVAR __fish_initialized:3800
 SETUVAR _fisher_upgraded_to_4_4:\x1d

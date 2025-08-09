@@ -1,7 +1,10 @@
 return {
     'hrsh7th/nvim-cmp',
 
-    dependencies = { 'hrsh7th/cmp-nvim-lsp' },
+    dependencies = {
+        'hrsh7th/cmp-nvim-lsp',
+        'onsails/lspkind.nvim'
+    },
 
     config = function()
         local cmp = require('cmp')
@@ -25,7 +28,46 @@ return {
                 ['<C-Space>'] = cmp.mapping.complete()
             }),
 
-            sources = { { name = 'nvim_lsp' } }
+            formatting = {
+                format = require('lspkind').cmp_format({
+                    mode = "symbol_text",
+                    maxwidth = 100,
+
+                    ellipsis_char = '...',
+
+                    symbol_map = {
+                        Text = "󰉿",
+                        Method = "󰆧",
+                        Function = "󰊕",
+                        Constructor = "",
+                        Field = "󰜢",
+                        Variable = "󰀫",
+                        Class = "󰠱",
+                        Interface = "",
+                        Module = "",
+                        Property = "󰜢",
+                        Unit = "󰑭",
+                        Value = "󰎠",
+                        Enum = "",
+                        Keyword = "󰌋",
+                        Snippet = "",
+                        Color = "󰏘",
+                        File = "󰈙",
+                        Reference = "󰈇",
+                        Folder = "󰉋",
+                        EnumMember = "",
+                        Constant = "󰏿",
+                        Struct = "󰙅",
+                        Event = "",
+                        Operator = "󰆕",
+                        TypeParameter = ""
+                    }
+                })
+            },
+
+            sources = {
+                { name = 'nvim_lsp' }
+            }
         })
     end
 }

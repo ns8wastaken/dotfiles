@@ -9,6 +9,7 @@ dotfiles add \
     ~/.config/kitty/ \
     ~/.config/wlogout/ \
     ~/.config/fastfetch/ \
+    ~/.local/share/fastfetch/ \
     ~/.config/fish/ \
     ~/.config/starship.toml \
     ~/.config/rofi/ \

@@ -1,0 +1,95 @@
+@import url("/home/renzo/.cache/wal/colors-waybar.css");
+
+* {
+    font-family: "Maple Mono NF";
+    font-weight: bold;
+    font-size: 13px;
+    color: @foreground;
+    padding: 0;
+}
+
+window {
+    background-color: transparent;
+}
+
+.modules-left {
+    margin-left: 10px;
+}
+
+.modules-right {
+    margin-right: 10px;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    margin-top: 6px;
+}
+
+.modules-left > * > * {
+    margin-right: 8px;
+}
+
+.modules-center > * > * {
+    margin: 0 4px;
+}
+
+.modules-right > * > * {
+    margin-left: 8px;
+}
+
+.module {
+    background-color: @background;
+    border-radius: 100px;
+    padding: 0 10px;
+    transition: all 250ms;
+}
+
+.module:hover:not(#workspaces) {
+    background-color: @color8;
+}
+
+#custom-temperature.critical,
+#pulseaudio.muted {
+    background-color: #ff0000;
+}
+
+#workspaces button {
+    background-color: transparent;
+    border-radius: 50px;
+    padding: 0 4px;
+}
+
+#workspaces button:hover {
+    background-color: rgb(200, 200, 200);
+    box-shadow: 0 0 6px 2px rgba(200, 200, 200, 0.4);
+}
+
+#workspaces button.active {
+    /* background-color: #5a9bf6; */
+    /* box-shadow: 0 0 6px 2px #5a9bf6; */
+    background-color: @color2;
+    box-shadow: 0 0 6px 2px @color2;
+}
+
+#workspaces button.urgent {
+    background-color: #f75c5c;
+    box-shadow: 0 0 6px 2px #f75c5c;
+}
+
+tooltip {
+    color: @foreground;
+    background-color: @background;
+    /* background-color: transparent; */
+    border-width: 0;
+}
+
+tooltip label {
+    color: @foreground;
+}
+
+tooltip box {
+    margin: 4px;
+    background-color: @background;
+    /* box-shadow: 0 0 2px 6px @background; */
+}

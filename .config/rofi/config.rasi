@@ -1,13 +1,13 @@
+/*****----- Configuration -----*****/
 configuration {
-    timeout {
-        action: "kb-cancel";
-        delay: 0;
-    }
-
-    filebrowser {
-        directories-first: true;
-        sorting-method: "name";
-    }
+	modi: "drun,run,filebrowser,window";
+    show-icons: true;
+    display-drun: "";
+    display-run: "";
+    display-filebrowser: "";
+    display-window: "";
+	drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";
+	window-format: "{w}   {c}   {t}";
 }
 
 @theme "theme.rasi"
