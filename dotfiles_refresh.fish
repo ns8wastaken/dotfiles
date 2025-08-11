@@ -1,9 +1,10 @@
-#!/usr/bin/env fish
+#!/usr/bin/fish
 
 dotfiles add \
     ~/dotfiles_refresh.fish \
     ~/install_newest_discord_canary.sh \
-    ~/setwp.fish \
+    ~/setwp.sh \
+    ~/rofiwp.sh \
     ~/.config/nvim/ \
     ~/.config/hypr/ \
     ~/.config/kitty/ \

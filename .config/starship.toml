@@ -1,54 +1,132 @@
-format = """
-$username@$hostname\
-$directory \
-$git_branch $git_status\
-$nodejs$rust$python
-$character
+'$schema' = 'https://starship.rs/config-schema.json'
+
+# format = '''
+# [╭───](bold green) $directory$git_branch$git_status $cmd_duration
+# [╰─](bold green) $character
+# '''
+#
+# add_newline = true
+#
+# [directory]
+# # truncation_length = 3
+# truncate_to_repo = true
+# style = 'bold cyan'
+#
+# [git_branch]
+# symbol = ''
+# format = '[$branch](bold yellow)'
+#
+# [git_status]
+# format = '[$all_status](red)[$ahead_behind](green)'
+#
+# [cmd_duration]
+# min_time = 500
+# format = 'took [$duration](dimmed white)'
+#
+# [character]
+# success_symbol = '[\$](bold green)'
+# error_symbol = '[!](bold red)'
+
+format = """[](orange)$os\
+[](bg:yellow fg:orange)$directory\
+[](fg:yellow bg:aqua)$git_branch$git_status\
+[](fg:aqua bg:blue)$c$cpp$rust$golang$nodejs$php$java$kotlin$haskell$python\
+[](fg:blue bg:dark_gray)$cmd_duration\
+[ ](fg:dark_gray)$line_break$character\
 """
 
-[character]
-success_symbol = "[❯](bold green) "
-error_symbol = "[❯](bold red) "
-vicmd_symbol = "[❮](bold blue) "
+palette = 'gruvbox_dark'
+
+[palettes.gruvbox_dark]
+fg0        = '#fbf1c7'
+dark_gray  = '#3c3836'
+light_gray = '#665c54'
+blue       = '#458588'
+aqua       = '#689d6a'
+green      = '#98971a'
+orange     = '#d65d0e'
+purple     = '#b16286'
+red        = '#cc241d'
+yellow     = '#d79921'
+
+[os]
+disabled = false
+format = '[$symbol ](bg:orange fg:fg0)'
+
+[os.symbols]
+Windows = '󰍲'
+Arch = '󰣇'
 
 [directory]
+style = 'fg:fg0 bg:yellow'
+format = '[ $path ]($style)'
 truncation_length = 3
-truncation_symbol = "…/"
-read_only = " "
-style = "bold blue"
-format = "[$path]($style)[$read_only]($read_only_style)"
+truncation_symbol = '…/'
 
-[username]
-show_always = true
-style_user = "italic fg:#89b4fa"
-# format = "[$user]($style)"
-format = "[ns8]($style)"
-
-[hostname]
-ssh_only = false
-style = "italic fg:#f38ba8"
-format = "[$hostname]($style) "
+[directory.substitutions]
+'Documents' = '󰈙 '
+'Downloads' = ' '
+'Music' = '󰝚 '
+'Pictures' = ' '
+'Developer' = '󰲋 '
 
 [git_branch]
-symbol = " "
-style = "fg:#fab387"
-format = "on [$symbol$branch]($style)"
+symbol = ''
+style = 'bg:aqua'
+format = '[[ $symbol $branch ](fg:fg0 bg:aqua)]($style)'
 
 [git_status]
-style = "fg:#f38ba8"
-format = "[$all_status]($style) "
+style = 'bg:aqua'
+format = '[[($all_status$ahead_behind )](fg:fg0 bg:aqua)]($style)'
 
 [nodejs]
-symbol = ""
-style = "fg:#a6e3a1"
-format = "[$symbol $version]($style) "
+symbol = ''
+format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+
+[c]
+symbol = ' '
+format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+
+[cpp]
+symbol = ' '
+format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
 
 [rust]
-symbol = "🦀"
-style = "fg:#ff6c6b"
-format = "[$symbol $version]($style) "
+symbol = ''
+format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+
+[golang]
+symbol = ''
+format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+
+[php]
+symbol = ''
+format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+
+[java]
+symbol = ''
+format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+
+[kotlin]
+symbol = ''
+format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+
+[haskell]
+symbol = ''
+format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
 
 [python]
-symbol = ""
-style = "fg:#f9e2af"
-format = "[$symbol $version]($style) "
+symbol = ''
+format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+
+[line_break]
+disabled = false
+
+[cmd_duration]
+min_time = 0
+show_milliseconds = true
+format = '[  $duration](fg:white bg:dark_gray)'
+
+[character]
+success_symbol = '[\$](green)'
+error_symbol = '[!](bold red)'

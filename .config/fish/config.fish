@@ -13,3 +13,7 @@ set -U XDG_CONFIG_HOME $HOME/.config
 set -x QT_QPA_PLATFORMTHEME qt5ct
 
 starship init fish | source
+
+function transient_prompt_func
+    starship module character --status $transient_status
+end

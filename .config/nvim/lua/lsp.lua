@@ -64,3 +64,7 @@ vim.lsp.config('lua_ls', {
 -- Go
 vim.lsp.enable('gopls')
 vim.lsp.config('gopls', { capabilities = capabilities })
+
+-- Assembly
+vim.lsp.enable('asm_lsp')
+vim.lsp.config('asm_lsp', { capabilities = capabilities })
