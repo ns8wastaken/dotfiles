@@ -47,3 +47,12 @@ autocmd('ModeChanged', {
 --     group = general,
 --     desc = 'Hide background and other elements'
 -- })
+
+autocmd({ "ColorScheme", "VimEnter", "OptionSet" }, {
+    callback = function()
+        vim.cmd([[
+            "hi IndentLine guifg=#303030
+            hi IndentLineCurrent guifg=#505050
+        ]])
+    end
+})

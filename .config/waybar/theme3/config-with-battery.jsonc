@@ -72,7 +72,7 @@
             ]
         },
         "on-click-right": "pavucontrol-qt",
-        "on-click": "pactl -- set-sink-mute 0 toggle",
+        "on-click": "pactl set-sink-mute 0 toggle",
         "tooltip": true,
         "tooltip-format": "Volume: {volume}%"
     },

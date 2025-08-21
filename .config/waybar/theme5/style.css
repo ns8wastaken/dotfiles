@@ -1,0 +1,154 @@
+@import "./colors.css";
+
+@define-color background-rgba rgba(0, 0, 0, 0.6);
+
+* {
+    font-family: "KAWAIITEGAKIMOJI";
+    font-size: 16px;
+    color: @foreground;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+.module {
+    padding: 0 12px;
+    margin: 0 4px;
+    border-radius: 8px;
+    background-color: @background-rgba;
+}
+
+.module:hover {
+    opacity: 0.8;
+}
+
+#custom-arch {
+    padding: 0 14px;
+    border: solid 2px @foreground;
+    text-shadow: 0 0 2px #0ff,
+                 0 0 6px #0ff;
+}
+
+#workspaces {
+    background-color: transparent;
+}
+
+#workspaces button {
+    margin: 0 4px;
+    padding: 0 8px;
+    border: solid 2px transparent;
+    transition: all 350ms;
+}
+
+#workspaces button.active {
+    background-color: @background-rgba;
+    border: solid 2px @foreground;
+}
+
+#workspaces button.urgent {
+    color: #cc241d;
+    background: rgba(204, 36, 29, 0.2);
+}
+
+#cpu {
+    font-family: "Input Mono";
+}
+
+#custom-menu {
+    padding: 0 8px;
+    /* border: solid 2px @foreground; */
+}
+
+#custom-updates.green {
+    color: #8ec07c;
+    background: rgba(0, 255, 0, 0.1);
+}
+
+#custom-updates.yellow {
+    color: #d79921;
+    background: rgba(255, 255, 0, 0.1);
+}
+
+#custom-updates.red {
+    color: #cc241d;
+    background: rgba(204, 36, 29, 0.2);
+}
+
+#network.disabled {
+    color: #cc241d;
+    border: solid 2px #cc241d;
+    background: rgba(204, 36, 29, 0.2);
+}
+
+#bluetooth.disabled {
+    color: #458588;
+    border: solid 2px #458588;
+    background: rgba(69, 133, 136, 0.2);
+}
+
+#pulseaudio.sink-muted {
+    color: #d79921;
+    /* border: solid 2px #d79921; */
+    background: rgba(255, 255, 0, 0.1);
+}
+
+#pulseaudio.microphone.source-muted {
+    color: #cc241d;
+    /* border: solid 2px #cc241d; */
+    background: rgba(255, 0, 0, 0.1);
+}
+
+#pulseaudio-slider slider {
+    min-height: 0px;
+    min-width: 0px;
+    background: transparent;
+    box-shadow: none;
+}
+#pulseaudio-slider trough {
+    min-height: 8px;
+    min-width: 100px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+#pulseaudio-slider highlight {
+    min-width: 8px;
+    min-height: 8px;
+    border-radius: 4px;
+    background: @color6;
+}
+
+#backlight-slider slider {
+    min-height: 0px;
+    min-width: 0px;
+    background: transparent;
+    box-shadow: none;
+}
+#backlight-slider trough {
+    min-height: 8px;
+    min-width: 100px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.2);
+}
+#backlight-slider highlight {
+    min-width: 8px;
+    min-height: 8px;
+    border-radius: 4px;
+    background: @color9;
+}
+
+#battery.charging {
+    color: #8ec07c;
+    border: solid 2px #8ec07c;
+}
+
+#battery.warning {
+    color: #d79921;
+    border: solid 2px #d79921;
+}
+
+#battery.critical,
+#battery.plugordie {
+    color: #cc241d;
+    border: solid 2px #cc241d;
+}

@@ -14,5 +14,5 @@ return {
     'matze/vim-move',
     'junegunn/vim-easy-align',
 
-    unpack(themes)
+    themes
 }
