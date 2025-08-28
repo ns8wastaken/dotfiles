@@ -19,7 +19,7 @@ window#waybar {
     background-color: @background-rgba;
 }
 
-.module:hover {
+.module:hover:not(#workspaces):not(#tray) {
     opacity: 0.8;
 }
 
@@ -38,7 +38,12 @@ window#waybar {
     margin: 0 4px;
     padding: 0 8px;
     border: solid 2px transparent;
+    background-color: transparent;
     transition: all 350ms;
+}
+
+#workspaces button:hover {
+    background: transparent;
 }
 
 #workspaces button.active {
@@ -48,7 +53,7 @@ window#waybar {
 
 #workspaces button.urgent {
     color: #cc241d;
-    background: rgba(204, 36, 29, 0.2);
+    background: rgba(204, 36, 29, 0.4);
 }
 
 #cpu {
@@ -62,23 +67,23 @@ window#waybar {
 
 #custom-updates.green {
     color: #8ec07c;
-    background: rgba(0, 255, 0, 0.1);
+    background: rgba(142, 192, 124, 0.3);
 }
 
 #custom-updates.yellow {
     color: #d79921;
-    background: rgba(255, 255, 0, 0.1);
+    background: rgba(215, 153, 33, 0.3);
 }
 
 #custom-updates.red {
     color: #cc241d;
-    background: rgba(204, 36, 29, 0.2);
+    background: rgba(204, 36, 29, 0.3);
 }
 
 #network.disabled {
     color: #cc241d;
     border: solid 2px #cc241d;
-    background: rgba(204, 36, 29, 0.2);
+    background: rgba(204, 36, 29, 0.3);
 }
 
 #bluetooth.disabled {

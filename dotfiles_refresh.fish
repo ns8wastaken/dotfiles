@@ -9,7 +9,7 @@ dotfiles add \
     ~/.config/hypr/ \
     ~/.config/kitty/ \
     ~/.config/wlogout/ \
-    ~/.config/fastfetch/ \
+    # ~/.config/fastfetch/ \
     ~/.local/share/fastfetch/ \
     ~/.config/fish/ \
     ~/.config/starship.toml \

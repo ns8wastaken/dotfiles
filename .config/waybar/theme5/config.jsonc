@@ -83,7 +83,7 @@
         "tooltip": false
     },
     "cpu": {
-        "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}",
+        "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}{icon12}{icon13}{icon14}{icon15}",
         "format-icons": [
             "<span color='#ffadad'>▁</span>",
             "<span color='#ffd6a5'>▂</span>",
@@ -94,9 +94,7 @@
             "<span color='#bdb2ff'>▇</span>",
             "<span color='#ffc6ff'>█</span>"
         ],
-        "interval": 1,
-        "tooltip": true,
-        "tooltip-format": "CPU Frequency: {avg_frequency} GHz"
+        "interval": 1
     },
     "custom/updates": {
         "format": " {}",
@@ -105,6 +103,10 @@
         "interval": 1800
     },
     "network": {
+        "format-wifi": "{icon}",
+        "format-ethernet": "{icon} Wired",
+        "format-disconnected": "{icon}",
+        "format-disabled": "{icon}",
         "format-icons": {
             "wifi": [
                 "<span size='12pt' font='Material Icons'>network_wifi_1_bar</span>",
@@ -116,16 +118,11 @@
             "disabled": "<span size='12pt' font='Material Icons'>signal_wifi_off</span>",
             "disconnected": "<span size='12pt' font='Material Icons'>signal_wifi_bad</span>"
         },
-        "format-wifi": "{icon}",
-        "format-ethernet": "{icon} Wired",
-        "format-disconnected": "{icon}",
-        "format-disabled": "{icon}",
-        "interval": 5,
-        "tooltip-format": "{essid}\t{gwaddr}\n{bandwidthUpBytes} 󰁝\t{bandwidthDownBytes} 󰁅",
         "on-click": "rfkill toggle wifi",
         "on-click-right": "kitty nmtui",
         "tooltip": true,
-        "max-length": 20
+        "tooltip-format": "{essid}\t{gwaddr}\n{bandwidthUpBytes} 󰁝\t{bandwidthDownBytes} 󰁅",
+        "interval": 5
     },
     "bluetooth": {
         "interval": 5,
@@ -162,9 +159,6 @@
         },
         "on-click-right": "pavucontrol",
         "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-        // "on-scroll-up": "",
-        // "on-scroll-down": "",
-        // "reverse-scrolling": true,
         "tooltip": true,
         "tooltip-format": "Volume: {volume}%\n{desc}",
         "ignored-sinks": [ "Easy Effects Sink" ],
