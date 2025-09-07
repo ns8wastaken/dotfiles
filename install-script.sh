@@ -44,10 +44,10 @@ echo "         Installing core packages         "
 echo "          ${CYAN}(swww, waybar, wlogout,         "
 echo "         neovim, kitty, rofi, wal,        "
 echo "           fish, fastfetch, fd,           "
-echo "            ripgrep, blueman)${RESET}             "
+echo "         ripgrep, blueman, copyq)${RESET}         "
 echo "=========================================="
 
-$INSTALL swww waybar wlogout neovim kitty rofi wal fish fastfetch fd ripgrep blueman
+$INSTALL swww waybar wlogout neovim kitty rofi wal fish fastfetch fd ripgrep blueman copyq
 
 
 echo "=========================================="
