@@ -112,11 +112,11 @@
                 "<span size='12pt' font='Material Icons'>network_wifi_1_bar</span>",
                 "<span size='12pt' font='Material Icons'>network_wifi_2_bar</span>",
                 "<span size='12pt' font='Material Icons'>network_wifi_3_bar</span>",
-                "<span size='12pt' font='Material Icons'>signal_wifi_4_bar</span>"
+                "<span size='12pt' font='Material Icons'>network_wifi</span>"
             ],
             "ethernet": "<span size='12pt' font='Material Icons'>lan</span>",
-            "disabled": "<span size='12pt' font='Material Icons'>signal_wifi_off</span>",
-            "disconnected": "<span size='12pt' font='Material Icons'>signal_wifi_bad</span>"
+            "disabled": "<span size='12pt' font='Material Icons'>wifi_off</span>",
+            "disconnected": "<span size='12pt' font='Material Icons Outlined'>signal_wifi_bad</span>"
         },
         "on-click": "rfkill toggle wifi",
         "on-click-right": "kitty nmtui",

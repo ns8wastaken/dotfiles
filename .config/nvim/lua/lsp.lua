@@ -68,3 +68,7 @@ vim.lsp.config('gopls', { capabilities = capabilities })
 -- Assembly
 vim.lsp.enable('asm_lsp')
 vim.lsp.config('asm_lsp', { capabilities = capabilities })
+
+-- GLSL
+vim.lsp.enable('glsl_analyzer')
+vim.lsp.config('glsl_analyzer', { capabilities = capabilities })
