@@ -4,6 +4,8 @@ dotfiles add \
     ~/dotfiles_refresh.fish \
     ~/setwp.sh \
     ~/rofiwp.sh \
+    ~/clear-caches.sh \
+    ~/install-script.sh \
     ~/.config/nvim/ \
     ~/.config/hypr/ \
     ~/.config/kitty/ \
