@@ -30,7 +30,7 @@
 window {
     location: center;
     anchor: center;
-    font-family: "Maple Mono NF";
+    font-family: "Maple Mono NF CN";
     padding: 4px;
     border: 0px;
     border-radius: 20px;

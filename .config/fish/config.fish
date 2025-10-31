@@ -13,6 +13,8 @@ set -Ux VISUAL nvim
 # Path
 set -U fish_user_paths $HOME/bin $fish_user_paths
 set -U fish_user_paths /var/lib/flatpak/exports/bin $fish_user_paths
+set -U fish_user_paths /usr/local/include $fish_user_paths
+set -U fish_user_paths /usr/local/lib $fish_user_paths
 
 starship init fish | source
 

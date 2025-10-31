@@ -3,7 +3,6 @@ return {
 
     dependencies = {
         "neovim/nvim-lspconfig",
-        -- "mfussenegger/nvim-dap", "mfussenegger/nvim-dap-python", --optional
         "nvim-telescope/telescope.nvim"
     },
 
@@ -16,7 +15,7 @@ return {
     opts = {
         search = {
             find_code_venvs = {
-                command = "fd 'python$' ~/code/ --no-ignore"
+                command = "fd 'python$' ~/code/ --no-ignore --color never"
             }
         }
     }

@@ -1,6 +1,6 @@
 /*****----- Global Properties -----*****/
 * {
-    font: "Iosevka Nerd Font 10";
+    font: "Annotation Mono 10";
 }
 
 /*****----- Main Window -----*****/

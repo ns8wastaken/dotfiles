@@ -67,7 +67,7 @@
             "children-class": "extras",
             "transition-left-to-right": false
         },
-        "modules": [ "custom/menu", "cpu", "custom/updates" ]
+        "modules": [ "custom/menu", "custom/cpu-temperature", "cpu", "custom/updates" ]
     },
     "group/audio": {
         "orientation": "inherit",
@@ -81,6 +81,13 @@
     "custom/menu": {
         "format": "<span size='15pt' font='Material Icons'>menu_open</span>",
         "tooltip": false
+    },
+    "custom/cpu-temperature": {
+        "exec": "sensors | awk '/^Package id 0:/ {print int($4)}'",
+        "format": "<span size='12pt' font='Material Icons'>device_thermostat</span>{}°C",
+        "interval": 5,
+        "tooltip": true,
+        "tooltip-format": "CPU Temp: {}°C"
     },
     "cpu": {
         "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}{icon12}{icon13}{icon14}{icon15}",

@@ -19,85 +19,130 @@ confirm() {
     done
 }
 
+is_installed() {
+    pacman -Qi "$1" &> /dev/null
+    return $?
+}
 
-# Colors
-RESET="\e[0m"
-CYAN="\e[36m"
+install_uninstalled() {
+    local packages=("$@")  # Accept package names as arguments
+
+    for package in "${packages[@]}"; do
+        if ! is_installed "$package"; then
+            $INSTALL "$package"
+        fi
+    done
+}
 
 
-echo "=========================================="
-echo "   Installing yay (Yet Another Yaourt)    "
-echo "=========================================="
+if ! is_installed "yay"; then
+    echo "=========================================="
+    echo "   Installing yay (Yet Another Yaourt)    "
+    echo "=========================================="
 
-sudo pacman -S --needed git base-devel
-git clone https://aur.archlinux.org/yay-bin.git
-cd yay
-makepkg -si
+    sudo pacman -S --needed git base-devel
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si
 
-# Clean up (optional)
-cd ..
-rm -rf yay
+    # Clean up (optional)
+    cd ..
+    rm -rf yay
+fi
 
 
 echo "=========================================="
 echo "         Installing core packages         "
-echo "          ${CYAN}(swww, waybar, wlogout,         "
-echo "         neovim, kitty, rofi, wal,        "
-echo "           fish, fastfetch, fd,           "
-echo "         ripgrep, blueman, copyq)${RESET}         "
 echo "=========================================="
 
-$INSTALL swww waybar wlogout neovim kitty rofi wal fish fastfetch fd ripgrep blueman copyq
+install_uninstalled \
+    "swww" \
+    "waybar" \
+    "wlogout" \
+    "neovim" \
+    "kitty" \
+    "rofi" \
+    "python-pywal" \
+    "fish" \
+    "fastfetch" \
 
 
-echo "=========================================="
-echo "           Installing sharship            "
-echo "=========================================="
+if ! is_installed "starship"; then
+    echo "=========================================="
+    echo "           Installing starship            "
+    echo "=========================================="
 
-curl -sS https://starship.rs/install.sh | sh
+    $INSTALL "starship"
+fi
 
 
 echo "=========================================="
 echo "     Installing other wanted packages     "
-echo "     ${CYAN}(vesktop, zen-browser, nwg-look,     "
-echo "         speedcrunch, ncdu, tree)${RESET}         "
 echo "=========================================="
 
-$INSTALL vesktop zen-browser nwg-look speedcrunch \
-    ncdu tree
+install_uninstalled \
+    "man-db" \
+    "7zip" \
+    "ncdu" \
+    "tree" \
+    "btop" \
+    "fd" \
+    "ripgrep" \
+    "blueman" \
+    "copyq" \
+    "nwg-look" \
+    "vesktop" \
+    "zen-browser-bin" \
+    "speedcrunch"
 
 
 echo "=========================================="
 echo "         Installing optional packages         "
 echo "=========================================="
 
-if confirm "Install KeepassXC?"; then
-    $INSTALL keepassxc
+if ! is_installed "keepassxc"; then
+    if confirm "Install KeepassXC?"; then
+        $INSTALL "keepassxc"
+    fi
 fi
 
-if confirm "Install Spotify?"; then
-    $INSTALL spotify-launcher
+if ! is_installed "spotify-launcher"; then
+    if confirm "Install Spotify?"; then
+        $INSTALL "spotify-launcher"
+    fi
 fi
 
-if confirm "Install Steam?"; then
-    # Uncomment [multilib] and its Include line in /etc/pacman.conf
-    sudo sed -i '/^\s*#\[multilib\]/s/^#//' /etc/pacman.conf
-    sudo sed -i '/^\s*#Include = \/etc\/pacman.d\/mirrorlist/s/^#//' /etc/pacman.conf
+if ! is_installed "steam-native-runtime"; then
+    if confirm "Install Steam?"; then
+        # # Uncomment [multilib] and its Include line in /etc/pacman.conf
+        # sudo sed -i '/^\s*#\[multilib\]/s/^#//' /etc/pacman.conf
+        # sudo sed -i '/^\s*#Include = \/etc\/pacman.d\/mirrorlist/s/^#//' /etc/pacman.conf
+        #
+        # # Update package databases
+        # yay -Sy
 
-    # Update package databases
-    yay -Sy
-
-    $INSTALL steam-native-runtime
+        $INSTALL "steam-native-runtime"
+    fi
 fi
 
-if confirm "Install PrismLauncher (Minecraft)"; then
-    $INSTALL prismlauncher
+if ! is_installed "prismlauncher"; then
+    if confirm "Install PrismLauncher (Minecraft)"; then
+        $INSTALL "prismlauncher"
+    fi
 fi
 
-if confirm "Install HeroicGames Launcher (GOG + Epic Games)"; then
-    $INSTALL heroic-games-launcher
+if ! is_installed "heroic-games-launcher"; then
+    if confirm "Install HeroicGames Launcher (GOG + Epic Games)"; then
+        $INSTALL "heroic-games-launcher"
+    fi
 fi
 
-if confirm "Install QBittorrent"; then
-    $INSTALL qbittorrent
+if ! is_installed "qbittorrent"; then
+    if confirm "Install QBittorrent"; then
+        $INSTALL "qbittorrent"
+    fi
 fi
+
+echo "=========================================="
+echo "         Installation Complete!           "
+echo "=========================================="
