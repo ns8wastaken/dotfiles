@@ -22,7 +22,7 @@ autocmd('ModeChanged', {
     desc = 'Highlighting matched words when searching'
 })
 
--- autocmd({ "ColorScheme", "VimEnter", "OptionSet" }, {
+-- autocmd({ 'ColorScheme', 'VimEnter', 'OptionSet' }, {
 --     callback = function()
 --         vim.cmd([[
 --             hi Normal       guibg=NONE
@@ -42,7 +42,7 @@ autocmd('ModeChanged', {
 --             hi TelescopeBorder guibg=NONE
 --         ]])
 --
---         -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1a1a1a" })
+--         -- vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#1a1a1a' })
 --     end,
 --     group = general,
 --     desc = 'Hide background and other elements'

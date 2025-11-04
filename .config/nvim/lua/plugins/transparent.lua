@@ -11,7 +11,7 @@ return {
             -- 'EndOfBuffer',
             'Normal', 'NormalNC', 'NormalFloat', 'FloatBorder',
             'LineNr', 'CursorLineNr', 'EndOfBuffer',
-            'SignColumn', 'VertSplit', 'CursorLine', 'StatusLineNC',
+            'SignColumn', 'VertSplit', 'CursorLine', 'StatusLine', 'StatusLineNC',
             'LspInlayHint', 'LspInlayHint',
             'TelescopeBorder'
         },

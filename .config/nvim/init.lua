@@ -12,17 +12,24 @@ vim.g.load_colorscheme()
 
 vim.notify = require('notify')
 
-local ll_themes = {
-    default = require('lualine_themes.default'),
-    bubbles = require('lualine_themes.bubble'),
-    slanted = require('lualine_themes.slanted')
-}
-require('lualine').setup(ll_themes.slanted)
+local theme_path = vim.fn.stdpath('config') .. '/lua/lualine_themes/'
+local ll_themes = {}
+
+-- Load the lualine themes
+for _, file in ipairs(vim.split(vim.fn.globpath(theme_path, '*.lua'), '\n')) do
+    local filename = vim.fn.fnamemodify(file, ':t')
+    if filename ~= "diagnostics_symbols.lua" then
+        local name = filename:sub(1, -5)
+        ll_themes[name] = require('lualine_themes.' .. name)
+    end
+end
+
+require('lualine').setup(ll_themes.better_bubble)
 require('lualine').setup({
     refresh = {
-        statusline = 250,
-        tabline = 250,
-        winbar = 250,
+        -- statusline = 250,
+        -- tabline = 250,
+        -- winbar = 250,
         refresh_time = 16 -- ~60 fps
     }
 })

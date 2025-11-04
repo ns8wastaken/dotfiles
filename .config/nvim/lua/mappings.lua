@@ -21,15 +21,15 @@ map_set('n', '<C-k>',     vim.lsp.buf.signature_help, vim.g.keymap_opts)
 map_set('n', '<Leader>e', vim.diagnostic.open_float,  vim.g.keymap_opts)
 
 -- Lsp goto errors
-map_set('n', ']g', vim.diagnostic.goto_next, vim.g.keymap_opts)
-map_set('n', '[g', vim.diagnostic.goto_prev, vim.g.keymap_opts)
+map_set('n', ']g', function() vim.diagnostic.jump({count=1, float=true}) end, vim.g.keymap_opts)
+map_set('n', '[g', function() vim.diagnostic.jump({count=-1, float=true}) end, vim.g.keymap_opts)
 
 map_set('n', ']e', function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.jump({count=1, float=true, severity=vim.diagnostic.severity.ERROR})
 end, vim.g.keymap_opts)
 
 map_set('n', '[e', function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.jump({count=-1, float=true, severity=vim.diagnostic.severity.ERROR})
 end, vim.g.keymap_opts)
 
-map_set("n", "<Leader>r", vim.lsp.buf.rename, vim.g.keymap_opts)
+map_set('n', '<Leader>r', vim.lsp.buf.rename, vim.g.keymap_opts)

@@ -13,6 +13,7 @@ return {
     'johmsalas/text-case.nvim',
     'matze/vim-move',
     'junegunn/vim-easy-align',
+    { 'nvim-tree/nvim-web-devicons', opts = {} },
 
     themes
 }

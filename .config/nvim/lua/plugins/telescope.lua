@@ -1,6 +1,8 @@
 local M = {
     'nvim-telescope/telescope.nvim',
+
     dependencies = { 'nvim-lua/plenary.nvim' },
+
     opts = {}
 }
 
@@ -48,8 +50,8 @@ M.opts = {
 
         layout_config = {
             prompt_position = 'top',
-            -- width = { padding = 0 },
-            -- height = { padding = 0 },
+            width = { padding = 0 },
+            height = { padding = 0 },
             -- preview_width = 0.5
         }
     }
