@@ -1,13 +1,13 @@
 return {
-    'nvim-telescope/telescope-file-browser.nvim',
+    "nvim-telescope/telescope-file-browser.nvim",
 
     dependencies = {
-        'nvim-telescope/telescope.nvim',
-        'nvim-lua/plenary.nvim'
+        "nvim-telescope/telescope.nvim",
+        "nvim-lua/plenary.nvim"
     },
 
     config = function()
-        local telescope = require('telescope')
+        local telescope = require("telescope")
 
         telescope.setup({
             extensions = {
@@ -20,6 +20,6 @@ return {
             }
         })
 
-        telescope.load_extension('file_browser')
+        telescope.load_extension("file_browser")
     end
 }

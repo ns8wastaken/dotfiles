@@ -7,10 +7,10 @@ autocmd('FileType', {
         vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
     end,
     group = general,
-    desc = 'Disable New Line Comment'
+    desc = "Disable New Line Comment"
 })
 
-autocmd('ModeChanged', {
+autocmd("ModeChanged", {
     callback = function()
         if vim.fn.getcmdtype() == '/' or vim.fn.getcmdtype() == '?' then
             vim.opt.hlsearch = true
@@ -19,7 +19,7 @@ autocmd('ModeChanged', {
         end
     end,
     group = general,
-    desc = 'Highlighting matched words when searching'
+    desc = "Highlighting matched words when searching"
 })
 
 -- autocmd({ 'ColorScheme', 'VimEnter', 'OptionSet' }, {

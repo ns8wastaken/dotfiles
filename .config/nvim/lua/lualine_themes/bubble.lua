@@ -1,13 +1,13 @@
-local diagnostics_with_symbols = require('lualine_themes.diagnostics_symbols')
+local diagnostics_with_symbols = require("lualine_themes.diagnostics_symbols")
 
 local colors = {
-    blue   = '#80a0ff',
-    cyan   = '#79dac8',
-    black  = '#080808',
-    white  = '#c6c6c6',
-    red    = '#ff5189',
-    violet = '#d183e8',
-    grey   = '#303030',
+    blue   = "#80a0ff",
+    cyan   = "#79dac8",
+    black  = "#080808",
+    white  = "#c6c6c6",
+    red    = "#ff5189",
+    violet = "#d183e8",
+    grey   = "#303030",
 }
 
 local theme = {
@@ -31,24 +31,24 @@ local theme = {
 return {
     options = {
         theme = theme,
-        component_separators = '',
+        component_separators = "",
         section_separators = { left = '', right = '' },
     },
     sections = {
-        lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
-        lualine_b = { 'filename', 'branch' },
+        lualine_a = { { "mode", separator = { left = '' }, right_padding = 2 } },
+        lualine_b = { "filename", "branch" },
         lualine_c = {},
         lualine_x = {},
-        lualine_y = { diagnostics_with_symbols, 'filetype', 'progress' },
-        lualine_z = { { 'location', separator = { right = '' }, left_padding = 2 }, },
+        lualine_y = { diagnostics_with_symbols, "filetype", "progress" },
+        lualine_z = { { "location", separator = { right = '' }, left_padding = 2 }, },
     },
     inactive_sections = {
-        lualine_a = { 'filename' },
+        lualine_a = { "filename" },
         lualine_b = {},
         lualine_c = {},
         lualine_x = {},
         lualine_y = { diagnostics_with_symbols },
-        lualine_z = { 'location' },
+        lualine_z = { "location" },
     },
     tabline = {},
     extensions = {},

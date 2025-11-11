@@ -1,4 +1,4 @@
 return {
-    'diagnostics',
-    symbols = { error = '∇ ', warn = 'ξ ', info = 'ι ', hint = 'φ ' }
+    "diagnostics",
+    symbols = { error = "∇ ", warn = "ξ ", info = "ι ", hint = "φ " }
 }

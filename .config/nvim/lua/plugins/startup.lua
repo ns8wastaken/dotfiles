@@ -1,10 +1,10 @@
 return {
-    'startup-nvim/startup.nvim',
+    "startup-nvim/startup.nvim",
 
     dependencies = {
-        'nvim-telescope/telescope.nvim',
-        'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope-file-browser.nvim'
+        "nvim-telescope/telescope.nvim",
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope-file-browser.nvim"
     },
 
     opts = {
@@ -39,7 +39,7 @@ return {
                 { " Recent Files", "Telescope oldfiles", "<leader>of" },
                 { " File Browser", "Telescope file_browser", "<leader>fb" },
                 { " Colorschemes", "Telescope colorscheme", "<leader>cs" },
-                { " New File", "lua require'startup'.new_file()", "<leader>nf" },
+                { " New File", "lua require('startup').new_file()", "<leader>nf" },
             },
             highlight = "String",
             default_color = "",

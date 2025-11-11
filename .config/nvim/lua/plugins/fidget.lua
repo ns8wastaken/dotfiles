@@ -1,15 +1,15 @@
 return {
-    'j-hui/fidget.nvim',
+    "j-hui/fidget.nvim",
 
     opts = {
         notification = {
             view = {
-                group_separator = '---------------------------'
+                group_separator = "---------------------------"
             },
             window = {
                 normal_hl = "Float",
                 winblend = 0,      -- Opacity = (255 - value)
-                border = 'rounded'
+                border = "rounded"
             }
         }
     }

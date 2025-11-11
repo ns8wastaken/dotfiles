@@ -18,4 +18,4 @@ vim.opt.wildignorecase = true
 
 -- Code folding
 vim.opt.foldlevel = 99
-vim.opt.foldmethod = 'indent'
+vim.opt.foldmethod = "indent"

@@ -1,130 +1,159 @@
-@import url("/home/renzo/.cache/wal/colors-waybar.css");
+@import "./colors.css";
+
+@define-color background-rgba rgba(0, 0, 0, 0.6);
 
 * {
-    border: none;
-    font-family: 'JetBrainsMonoNL Nerd Font Mono';
-    font-size: 14px;
-    padding: 0;
-    color: @foreground; /* General text color */
+    font-family: "KAWAIITEGAKIMOJI";
+    font-size: 16px;
+    color: @foreground;
 }
 
 window#waybar {
-    background: @background; /* Primary color for background */
+    background: transparent;
+}
+
+.module {
+    padding: 0 12px;
+    margin: 0 4px;
     border-radius: 8px;
-    transition-property: background-color;
-    transition-duration: 0.5s;
+    background-color: @background-rgba;
 }
 
-.modules-right {
-    background: transparent;
-    margin: 0 -12px 0 0;
-    border-radius: 20px;
+.module:hover:not(#workspaces):not(#tray) {
+    opacity: 0.8;
 }
 
-.modules-center {
-    background: transparent;
-    margin: 0 0 0 0;
-    border-radius: 20px;
-}
-
-.modules-left {
-    background: transparent;
-    margin: 0 0 0 -12px;
-    border-radius: 20px;
-}
-
-tooltip {
-    color: @foreground;
-    background: @background;
-    border-radius: 12px;
+#custom-arch {
+    padding: 0 14px;
+    border: solid 2px @foreground;
+    text-shadow: 0 0 2px #0ff,
+                 0 0 6px #0ff;
 }
 
 #workspaces {
-    padding: 0 14px;
+    background-color: transparent;
 }
 
 #workspaces button {
-    background: transparent;
-    padding: 1px 5px;
-    color: @foreground;
+    margin: 0 4px;
+    padding: 0 8px;
+    border: solid 2px transparent;
+    background-color: transparent;
+    transition: all 350ms;
 }
 
 #workspaces button:hover {
-    box-shadow: inherit;
-    text-shadow: inherit;
-    color: @color9; /* Accent color for hover */
+    background: transparent;
 }
 
 #workspaces button.active {
-    color: @color9; /* Accent color for active state */
-    transition: all 0.2s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+    background-color: @background-rgba;
+    border: solid 2px @foreground;
 }
 
 #workspaces button.urgent {
-    color: @color0;
-    background: @color3; /* Urgent background color */
-    border-radius: 10px;
+    color: #cc241d;
+    background: rgba(204, 36, 29, 0.4);
 }
 
-#custom-sep {
-    color: @color8; /* Separator color */
-    font-size: 18px;
+#cpu {
+    font-family: "Input Mono";
 }
 
-#window {
-    color: @foreground;
-    font-size: 10px;
-}
-
-#clock {
-    margin: 2px 0 0 0;
-    padding: 2px;
-    border-radius: 10px;
-}
-
-#cpu,
-#memory,
-#temperature,
-#network,
-#pulseaudio,
-#tray,
-#mode,
 #custom-menu {
-    padding: 0 5px;
+    padding: 0 8px;
+    /* border: solid 2px @foreground; */
 }
 
-#mode {
-    color: @color2; /* Secondary color for mode text */
-    font-weight: bold;
+#custom-updates.green {
+    color: #8ec07c;
+    background: rgba(142, 192, 124, 0.3);
 }
 
-/*-----Indicators----*/
-#network.disconnected {
-    color: @color9; /* Error color (network disconnected) */
+#custom-updates.yellow {
+    color: #d79921;
+    background: rgba(215, 153, 33, 0.3);
+}
+
+#custom-updates.red {
+    color: #cc241d;
+    background: rgba(204, 36, 29, 0.3);
 }
 
 #network.disabled {
-    color: @color11; /* Disabled color (network) */
+    color: #cc241d;
+    border: solid 2px #cc241d;
+    background: rgba(204, 36, 29, 0.3);
+}
+
+#bluetooth.disabled {
+    color: #458588;
+    border: solid 2px #458588;
+    background: rgba(69, 133, 136, 0.2);
+}
+
+#pulseaudio.sink-muted {
+    color: #d79921;
+    /* border: solid 2px #d79921; */
+    background: rgba(255, 255, 0, 0.1);
+}
+
+#pulseaudio.microphone.source-muted {
+    color: #cc241d;
+    /* border: solid 2px #cc241d; */
+    background: rgba(255, 0, 0, 0.1);
 }
 
 #pulseaudio-slider slider {
-    background: @color1; /* Slider background */
+    min-height: 0px;
+    min-width: 0px;
+    background: transparent;
     box-shadow: none;
-    margin-right: 7px;
 }
-
 #pulseaudio-slider trough {
-    min-width: 90px;
-    min-height: 10px;
-    border-radius: 8px;
-    background: @color0; /* Slider trough background */
+    min-height: 8px;
+    min-width: 100px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
 }
-
 #pulseaudio-slider highlight {
-    border-radius: 8px;
-    background-color: @color6; /* Slider highlight */
+    min-width: 8px;
+    min-height: 8px;
+    border-radius: 4px;
+    background: @color6;
 }
 
-#pulseaudio.muted {
-    color: @color11; /* Muted color */
+#backlight-slider slider {
+    min-height: 0px;
+    min-width: 0px;
+    background: transparent;
+    box-shadow: none;
+}
+#backlight-slider trough {
+    min-height: 8px;
+    min-width: 100px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.2);
+}
+#backlight-slider highlight {
+    min-width: 8px;
+    min-height: 8px;
+    border-radius: 4px;
+    background: @color9;
+}
+
+#battery.charging {
+    color: #8ec07c;
+    border: solid 2px #8ec07c;
+}
+
+#battery.warning {
+    color: #d79921;
+    border: solid 2px #d79921;
+}
+
+#battery.critical,
+#battery.plugordie {
+    color: #cc241d;
+    border: solid 2px #cc241d;
 }

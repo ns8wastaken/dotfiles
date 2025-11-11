@@ -42,10 +42,10 @@ function M.format_time(seconds)
     local minutes = math.floor((seconds % 3600) / 60)
     local secs = seconds % 60
     return string.format(
-        'You have %d hour%s, %d minute%s, and %d second%s on Neovim.',
-        hours,   vim.g.ternary(hours   == 1, '', 's'),
-        minutes, vim.g.ternary(minutes == 1, '', 's'),
-        secs,    vim.g.ternary(secs    == 1, '', 's')
+        "You have %d hour%s, %d minute%s, and %d second%s on Neovim.",
+        hours,   vim.g.ternary(hours   == 1, "", 's'),
+        minutes, vim.g.ternary(minutes == 1, "", 's'),
+        secs,    vim.g.ternary(secs    == 1, "", 's')
     )
 end
 
@@ -55,10 +55,10 @@ function M.display_usage()
     local total_usage = M.read_number(M.usage_file)
     local total_usage_text = M.format_time(total_usage)
 
-    if M.mode == 'print' then
+    if M.mode == "print" then
         print(total_usage_text)
         return
-    elseif M.mode == 'notify' then
+    elseif M.mode == "notify" then
         vim.notify(total_usage_text)
         return
     end
@@ -71,27 +71,27 @@ function M.display_usage()
     -- Create buffer
     local buf = vim.api.nvim_create_buf(false, true)
     local win_opts = {
-        relative = 'editor',
+        relative = "editor",
         row      = row,
         col      = col,
         width    = width,
         height   = height,
-        style    = 'minimal',
-        border   = 'rounded'
+        style    = "minimal",
+        border   = "rounded"
     }
 
     -- Open float window
     local win = vim.api.nvim_open_win(buf, true, win_opts)
     vim.api.nvim_buf_set_lines(buf, 0, -1, true, { total_usage_text })
-    vim.api.nvim_set_option_value('modifiable', false, { buf = buf })
+    vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
 
     -- Hide cursor
     vim.cmd("silent hi Cursor blend=100")
-    local cursor_opts = vim.api.nvim_get_option_value('guicursor', { scope = 'global' })
-    vim.api.nvim_set_option_value('guicursor', 'a:Cursor/lCursor', { scope = 'global' })
+    local cursor_opts = vim.api.nvim_get_option_value("guicursor", { scope = "global" })
+    vim.api.nvim_set_option_value("guicursor", "a:Cursor/lCursor", { scope = "global" })
 
     -- Allow quitting just by pressing `q`
-    vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = buf, silent = true })
+    vim.keymap.set('n', 'q', "<cmd>close<cr>", { buffer = buf, silent = true })
 
     -- Timer for real-time updates
     local update_timer = vim.loop.new_timer()
@@ -105,9 +105,9 @@ function M.display_usage()
         M.update_usage()
         total_usage = M.read_number(M.usage_file)
         total_usage_text = M.format_time(total_usage)
-        vim.api.nvim_set_option_value('modifiable', true, { buf = buf })
+        vim.api.nvim_set_option_value("modifiable", true, { buf = buf })
         vim.api.nvim_buf_set_lines(buf, 0, -1, true, { total_usage_text })
-        vim.api.nvim_set_option_value('modifiable', false, { buf = buf })
+        vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
 
         -- Update window width if text length changes
         if #total_usage_text ~= width then
@@ -121,8 +121,8 @@ function M.display_usage()
     end))
 
     -- Create autocmd to delete floating window when leaving/closing it
-    local augroup = vim.api.nvim_create_augroup('Usage', { clear = true })
-    vim.api.nvim_create_autocmd('BufLeave', {
+    local augroup = vim.api.nvim_create_augroup("Usage", { clear = true })
+    vim.api.nvim_create_autocmd("BufLeave", {
         buffer = buf,
         group = augroup,
         callback = function()
@@ -132,20 +132,20 @@ function M.display_usage()
             vim.api.nvim_del_augroup_by_id(augroup)
             -- Reset cursor
             vim.cmd("hi Cursor blend=0")
-            vim.api.nvim_set_option_value('guicursor', cursor_opts, { scope = 'global' })
+            vim.api.nvim_set_option_value("guicursor", cursor_opts, { scope = "global" })
         end
     })
 end
 
 function M.setup(opts)
     opts = opts or {}
-    M.usage_file = vim.fn.stdpath('data') .. '/usage/usage'
-    M.usage_last_file = vim.fn.stdpath('data') .. '/usage/usage_last'
-    M.mode = opts.mode or 'float' -- float, print, notify
+    M.usage_file = vim.fn.stdpath("data") .. "/usage/usage"
+    M.usage_last_file = vim.fn.stdpath("data") .. "/usage/usage_last"
+    M.mode = opts.mode or "float" -- float, print, notify
     local timer_interval = (opts.timer_interval_s * 1000) or 60000 -- ms, default 1min
 
     -- Ensure directory exists
-    local usage_dir = vim.fn.stdpath('data') .. '/usage'
+    local usage_dir = vim.fn.stdpath("data") .. "/usage"
     if vim.fn.isdirectory(usage_dir) == 0 then
         vim.fn.mkdir(usage_dir, 'p')
     end
@@ -166,7 +166,7 @@ function M.setup(opts)
     M.timer:start(0, timer_interval, vim.schedule_wrap(M.update_usage))
 
     -- Stop timer on focus lost
-    vim.api.nvim_create_autocmd('FocusLost', {
+    vim.api.nvim_create_autocmd("FocusLost", {
         callback = function()
             if M.timer then
                 M.timer:stop()
@@ -175,7 +175,7 @@ function M.setup(opts)
     })
 
     -- Resume timer on focus gained and reset timestamp
-    vim.api.nvim_create_autocmd('FocusGained', {
+    vim.api.nvim_create_autocmd("FocusGained", {
         callback = function()
             local last = M.read_number(M.usage_last_file)
             if os.time() - last > 300 then -- Ignore if < 5min AFK
@@ -188,7 +188,7 @@ function M.setup(opts)
     })
 
     -- Final update on exit
-    vim.api.nvim_create_autocmd('VimLeave', {
+    vim.api.nvim_create_autocmd("VimLeave", {
         callback = function()
             if M.timer then
                 M.timer:stop()
@@ -199,7 +199,7 @@ function M.setup(opts)
     })
 
     -- Create :Usage command
-    vim.api.nvim_create_user_command('Usage', M.display_usage, { bang = false })
+    vim.api.nvim_create_user_command("Usage", M.display_usage, { bang = false })
 end
 
 return M

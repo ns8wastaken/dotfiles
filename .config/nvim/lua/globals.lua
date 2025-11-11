@@ -19,7 +19,7 @@ vim.g.save_colorscheme = function()
 end
 
 vim.g.load_colorscheme = function()
-    local f = io.open(colorscheme_file, "r")
+    local f = io.open(colorscheme_file, 'r')
 
     if f then
         local name = f:read("*l")
@@ -44,20 +44,20 @@ vim.g.is_windows = sysname == "Windows_NT"
 vim.g.is_linux   = sysname == "Linux"
 vim.g.is_mac     = sysname == "Darwin"
 
-vim.o.shell = vim.g.ternary(vim.g.is_windows, 'powershell -NoLogo', 'fish')
+vim.o.shell = vim.g.ternary(vim.g.is_windows, "powershell -NoLogo", "fish")
 
 -- Set the <Leader> char
 vim.g.mapleader = ','
 
 -- Gruvbox theme settings ('soft', 'medium', 'hard')
-vim.g.gruvbox_material_background = 'medium'
-vim.g.gruvbox_material_foreground = 'medium'
+vim.g.gruvbox_material_background = "medium"
+vim.g.gruvbox_material_foreground = "medium"
 
 
 -- Neovide
 
 -- Railgun particle effect on cursor jump
-vim.g.neovide_cursor_vfx_mode = ''
+vim.g.neovide_cursor_vfx_mode = ""
 vim.g.neovide_cursor_vfx_particle_density = 3.0
 vim.g.neovide_cursor_vfx_particle_phase = 2.5
 vim.g.neovide_cursor_vfx_opacity = 200.0

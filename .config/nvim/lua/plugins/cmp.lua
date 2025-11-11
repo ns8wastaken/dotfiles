@@ -1,13 +1,13 @@
 return {
-    'hrsh7th/nvim-cmp',
+    "hrsh7th/nvim-cmp",
 
     dependencies = {
-        'hrsh7th/cmp-nvim-lsp',
-        'onsails/lspkind.nvim'
+        "hrsh7th/cmp-nvim-lsp",
+        "onsails/lspkind.nvim"
     },
 
     config = function()
-        local cmp = require('cmp')
+        local cmp = require("cmp")
 
         cmp.setup({
             preselect = cmp.PreselectMode.Item,
@@ -17,7 +17,7 @@ return {
             -- },
 
             completion = {
-                completeopt = 'menu,menuone,noinsert'
+                completeopt = "menu,menuone,noinsert"
             },
 
             window = {
@@ -26,18 +26,18 @@ return {
             },
 
             mapping = cmp.mapping.preset.insert({
-                ['<Tab>']   = cmp.mapping.select_next_item(),
-                ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-                ['<C-y>']   = cmp.mapping.confirm({ select = true }),
-                ['<C-Space>'] = cmp.mapping.complete()
+                ["<Tab>"]   = cmp.mapping.select_next_item(),
+                ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+                ["<C-y>"]   = cmp.mapping.confirm({ select = true }),
+                ["<C-Space>"] = cmp.mapping.complete()
             }),
 
             formatting = {
-                format = require('lspkind').cmp_format({
+                format = require("lspkind").cmp_format({
                     mode = "symbol_text",
                     maxwidth = 100,
 
-                    ellipsis_char = '...',
+                    ellipsis_char = "...",
 
                     symbol_map = {
                         Text = "󰉿",
@@ -70,7 +70,8 @@ return {
             },
 
             sources = {
-                { name = 'nvim_lsp' }
+                { name = "nvim_lsp" },
+                { name = "luasnip" }
             }
         })
     end

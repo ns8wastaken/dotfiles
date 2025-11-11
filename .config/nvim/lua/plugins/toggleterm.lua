@@ -1,12 +1,12 @@
 return {
-    'akinsho/toggleterm.nvim',
+    "akinsho/toggleterm.nvim",
 
     opts = {
         open_mapping = [[<Leader>t]],
-        direction = 'float', -- 'vertical', 'horizontal', 'float', 'tab'
+        direction = "float", -- 'vertical', 'horizontal', 'float', 'tab'
 
         float_opts = {
-            border = 'curved'
+            border = "curved"
         }
     }
 }

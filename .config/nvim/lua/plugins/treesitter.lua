@@ -1,16 +1,16 @@
 return {
-    'nvim-treesitter/nvim-treesitter',
+    "nvim-treesitter/nvim-treesitter",
 
-    run = ':TSUpdate',
+    run = ":TSUpdate",
 
     config = function()
-        require('nvim-treesitter.configs').setup({
+        require("nvim-treesitter.configs").setup({
             ensure_installed = {
-                'vim', 'vimdoc',
-                'javascript', 'typescript', 'html', 'css',
-                'python',
-                'c', 'cpp',
-                'markdown', 'yaml', 'toml'
+                "vim", "vimdoc",
+                "javascript", "typescript", "html", "css",
+                "python",
+                "c", "cpp",
+                "markdown", "yaml", "toml"
             },
 
             highlight = {

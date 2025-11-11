@@ -1,5 +1,5 @@
 return {
-    'nvimdev/indentmini.nvim',
+    "nvimdev/indentmini.nvim",
 
     opts = {
         only_current = true

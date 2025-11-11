@@ -1,13 +1,13 @@
 local colors = {
-    transparent = '#000000',
-    blue   = '#80a0ff',
-    cyan   = '#79dac8',
-    black  = '#080808',
-    yellow = '#eedd00',
-    white  = '#c6c6c6',
-    red    = '#ff5189',
-    violet = '#d183e8',
-    gray   = '#303030',
+    transparent = "#000000",
+    blue   = "#80a0ff",
+    cyan   = "#79dac8",
+    black  = "#080808",
+    yellow = "#eedd00",
+    white  = "#c6c6c6",
+    red    = "#ff5189",
+    violet = "#d183e8",
+    gray   = "#303030",
 }
 
 local theme = {
@@ -27,8 +27,8 @@ local theme = {
 M = {
     options = {
         theme = theme,
-        component_separators = '',
-        section_separators = ''
+        component_separators = "",
+        section_separators = ""
     },
     sections = {
         -- These are to remove the defaults
@@ -74,16 +74,16 @@ local function ins_right_in(component)
 end
 
 ins_left {
-    'mode',
+    "mode",
     separator = { left = '', right = '' },
     color = { fg = colors.black, bg = colors.violet }
 }
 
-ins_left('branch')
+ins_left("branch")
 
 ins_left {
-    'diagnostics',
-    sources = { 'nvim_diagnostic' },
+    "diagnostics",
+    sources = { "nvim_diagnostic" },
     symbols = { error = ' ', warn = ' ', info = ' ' },
     separator = { left = '', right = '' },
     diagnostics_color = {
@@ -95,7 +95,7 @@ ins_left {
 }
 
 -- Center the following elements
-ins_left { '%=' }
+ins_left { "%=" }
 
 ins_left {
     "filename",
@@ -121,17 +121,17 @@ ins_left {
     }
 }
 
-ins_right('filetype')
+ins_right("filetype")
 
 ins_right {
-    '%p%%/%L',
+    "%p%%/%L",
     separator = { left = '', right = '' },
     color = { bg = colors.gray }
 }
 
 ins_left_in {
-    'diagnostics',
-    sources = { 'nvim_diagnostic' },
+    "diagnostics",
+    sources = { "nvim_diagnostic" },
     symbols = { error = ' ', warn = ' ', info = ' ' },
     separator = { left = '', right = '' },
     diagnostics_color = {
@@ -143,14 +143,14 @@ ins_left_in {
 }
 
 -- Center the following elements
-ins_left_in { function() return '%=' end, }
+ins_left_in { "%=" }
 
 ins_left_in {
-    'filename',
+    "filename",
     separator = { left = '', right = '' },
     color = { bg = colors.gray }
 }
 
-ins_right_in('filetype')
+ins_right_in("filetype")
 
 return M

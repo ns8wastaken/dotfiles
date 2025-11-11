@@ -15,4 +15,5 @@ dotfiles add \
     ~/.config/starship.toml \
     ~/.config/rofi/ \
     ~/.config/waybar/ \
+    ~/.config/quickshell/ \
     ~/.config/wal/
