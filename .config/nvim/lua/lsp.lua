@@ -2,7 +2,9 @@
 local cmp_lsp = require("cmp_nvim_lsp")
 local capabilities = cmp_lsp.default_capabilities()
 
-local enable_inlayhints = function() vim.lsp.inlay_hint.enable(true, { 0 }) end -- Function to enable inlay hints on current buffer
+local enable_inlayhints = function()
+    vim.lsp.inlay_hint.enable(true, { 0 })
+end -- Function to enable inlay hints on current buffer
 
 -- Python
 -- lspconfig.pyright.setup({ capabilities = capabilities })
@@ -70,8 +72,25 @@ vim.lsp.enable("asm_lsp")
 vim.lsp.config("asm_lsp", { capabilities = capabilities })
 
 -- GLSL
+<<<<<<< HEAD
 vim.lsp.enable("glsl_analyzer")
 vim.lsp.config("glsl_analyzer", { capabilities = capabilities })
 
 -- QML
 vim.lsp.enable("qmlls")
+=======
+vim.lsp.enable('glsl_analyzer')
+vim.lsp.config('glsl_analyzer', { capabilities = capabilities })
+
+-- Nim
+vim.lsp.enable('nim_langserver')
+vim.lsp.config('nim_langserver', {
+    capabilities = capabilities,
+
+    settings = {
+        nim = {
+            nimSuggestPath = '~/.nimble/bin/nimsuggest'
+        }
+    }
+})
+>>>>>>> 227deca (something)
