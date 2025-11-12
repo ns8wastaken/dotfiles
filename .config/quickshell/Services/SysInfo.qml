@@ -35,12 +35,12 @@ Singleton {
                     cpuTemp           = +data.cputemp;
                     memoryUsage       = +data.mem;
                     memoryUsagePer    = +data.memper;
-                    cpuUsageStr       = data.cpu + "%";
+                    cpuUsageStr       = data.cpu + '%';
                     cpuTempStr        = data.cputemp + "°C";
-                    memoryUsageStr    = data.mem + "G";
-                    memoryUsagePerStr = data.memper + "%";
+                    memoryUsageStr    = data.mem + 'G';
+                    memoryUsagePerStr = data.memper + '%';
                     diskUsage         = +data.diskper;
-                    diskUsageStr      = data.diskper + "%";
+                    diskUsageStr      = data.diskper + '%';
                 } catch (e) {
                     console.error("Failed to parse zigstat output:", e);
                 }

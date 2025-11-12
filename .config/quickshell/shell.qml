@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import "Modules/Bar"
 
-Scope {
+ShellRoot {
     readonly property bool disableHotReload:
         Quickshell.env("QS_DISABLE_HOT_RELOAD") === "1"
         || Quickshell.env("QS_DISABLE_HOT_RELOAD") === "true"

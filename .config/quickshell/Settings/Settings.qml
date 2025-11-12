@@ -33,7 +33,7 @@ Singleton {
             if (modelData.active) { return Theme.accentPrimary; }
             if (modelData.urgent) { return Theme.error; }
             if (modelData.focused) { return Theme.error; }
-            return Qt.lighter(Theme.surfaceVariant, 1.6);
+            return Theme.surfaceVariant.lighter(1.6);
         }
 
         function getButtonTextColor(modelData) {
@@ -44,15 +44,8 @@ Singleton {
         }
     }
 
-    // ==================================
-    // ============= Clock ==============
-    // ==================================
-    property QtObject clock: QtObject {
-        property string font: "CQ Mono"
-    }
-
     property string fontFamily: "CQ Mono"
-    property int fontSize: 16
     property int fontSizeSmall: 14
+    property int fontSizeNormal: 16
     property int fontSizeLarge: 18
 }

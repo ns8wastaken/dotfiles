@@ -72,13 +72,11 @@ vim.lsp.enable("asm_lsp")
 vim.lsp.config("asm_lsp", { capabilities = capabilities })
 
 -- GLSL
-<<<<<<< HEAD
 vim.lsp.enable("glsl_analyzer")
 vim.lsp.config("glsl_analyzer", { capabilities = capabilities })
 
 -- QML
 vim.lsp.enable("qmlls")
-=======
 vim.lsp.enable('glsl_analyzer')
 vim.lsp.config('glsl_analyzer', { capabilities = capabilities })
 
@@ -93,4 +91,3 @@ vim.lsp.config('nim_langserver', {
         }
     }
 })
->>>>>>> 227deca (something)

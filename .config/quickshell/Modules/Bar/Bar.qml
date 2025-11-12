@@ -26,11 +26,12 @@ PanelWindow {
         color: Theme.backgroundPrimary
         radius: 8
 
-        border.color: Theme.backgroundPrimary.lighter(4)
+        border.color: Theme.outline
         border.width: 1
 
         Workspaces {}
         Clock {}
         Tray {}
+        Battery {}
     }
 }
