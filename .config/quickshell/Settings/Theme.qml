@@ -19,13 +19,7 @@ Singleton {
         onFileChanged: reload()
 
         onAdapterUpdated: writeAdapter()
-
-        onLoadFailed: function(error) {
-            if (error.includes("No such file")) {
-                themeData = {}
-                writeAdapter()
-            }
-        }
+        onLoadFailed: writeAdapter()
 
         JsonAdapter {
             id: themeData

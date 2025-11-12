@@ -3,8 +3,6 @@ import qs.Settings
 import qs.Services
 
 Item {
-    anchors.fill: parent
-
     Text {
         anchors.centerIn: parent
 

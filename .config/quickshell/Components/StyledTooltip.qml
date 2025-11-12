@@ -1,10 +1,9 @@
 import QtQuick
 import qs.Settings
 
-// TODO: Figure out why tf the tooltip teleports on the first hover
-
 Window {
     id: tooltipWindow
+    color: "transparent"
 
     required property string text
     required property Item targetItem
@@ -14,11 +13,12 @@ Window {
 
     flags: Qt.ToolTip | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
 
-    color: "transparent"
     visible: tooltipVisible
 
-    minimumWidth: tooltipText.implicitWidth + 24
-    minimumHeight: tooltipText.implicitHeight + 16
+    minimumWidth: tooltipText.width + 24
+    minimumHeight: tooltipText.height + 16
+
+    Component.onCompleted: _hideNow()
 
     Timer {
         id: tooltipDelayTimer
@@ -84,15 +84,8 @@ Window {
         z: 2
     }
 
-    // MouseArea {
-    //     anchors.fill: parent
-    //     hoverEnabled: true
-    //     onExited: tooltipWindow.tooltipVisible = false
-    //     cursorShape: Qt.ArrowCursor
-    // }
-
     onTextChanged: {
-        width = Math.max(width, tooltipText.implicitWidth + 24)
-        height = Math.max(height, tooltipText.implicitHeight + 16)
+        width = Math.max(width, tooltipText.width + 24)
+        height = Math.max(height, tooltipText.height + 16)
     }
 }

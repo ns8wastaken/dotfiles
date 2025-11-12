@@ -9,12 +9,6 @@ Row {
 
     spacing: 8
 
-    anchors {
-        right: parent.right
-        rightMargin: 10
-        verticalCenter: parent.verticalCenter
-    }
-
     property bool containsMouse: false
 
     // App icon repeater
@@ -48,11 +42,11 @@ Row {
 
             Rectangle {
                 anchors.centerIn: parent
+                color: "transparent"
 
                 width: 22
                 height: 22
                 radius: 7
-                color: "transparent"
 
                 IconImage {
                     id: trayIcon
@@ -77,6 +71,7 @@ Row {
                         }
                         return icon;
                     }
+
                     opacity: status === Image.Ready ? 1 : 0
 
                     Behavior on opacity {
@@ -96,32 +91,23 @@ Row {
                 cursorShape: Qt.PointingHandCursor
                 acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
 
-                onClicked: (mouse) => {
+                onClicked: function(mouse) {
                     if (!modelData) return;
 
-                    if (mouse.button === Qt.LeftButton) {
-                        // Close any open menu first
-                        if (trayMenu && trayMenu.visible) {
-                            trayMenu.hideMenu()
-                        }
+                    // If menu is already visible, close it
+                    if (trayMenu && trayMenu.visible) {
+                        trayMenu.hideMenu()
+                    }
 
+                    if (mouse.button === Qt.LeftButton) {
                         if (!modelData.onlyMenu) {
                             modelData.activate()
                         }
                     } else if (mouse.button === Qt.MiddleButton) {
-                        // Close any open menu first
-                        if (trayMenu && trayMenu.visible) {
-                            trayMenu.hideMenu()
-                        }
-
                         modelData.secondaryActivate && modelData.secondaryActivate()
                     } else if (mouse.button === Qt.RightButton) {
                         trayTooltip.tooltipVisible = false
                         console.log("Right click on", modelData.id, "hasMenu:", modelData.hasMenu, "menu:", modelData.menu)
-                        // If menu is already visible, close it
-                        if (trayMenu && trayMenu.visible) {
-                            trayMenu.hideMenu()
-                        }
 
                         if (modelData.hasMenu && modelData.menu && trayMenu) {
                             // Anchor the menu to the tray icon item (parent) and position it below the icon

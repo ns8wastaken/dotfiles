@@ -10,22 +10,24 @@ Singleton {
 
     // property int updateInterval: 200
 
-    property string cpuTempStr: ""
     property real cpuUsage: 0
-    property string cpuUsageStr: ""
-    property real memoryUsage: 0
-    property string memoryUsagePerStr: ""
     property real cpuTemp: 0
+    property real memoryUsage: 0
     property real memoryUsagePer: 0
-    property string memoryUsageStr: ""
     property real diskUsage: 0
+    property string cpuUsageStr: ""
+    property string cpuTempStr: ""
+    property string memoryUsageStr: ""
+    property string memoryUsagePerStr: ""
     property string diskUsageStr: ""
 
     Process {
+        id: proc
+
         running: true
 
-        // command: [Quickshell.shellDir + "/Programs/stats", updateInterval]
-        command: [Quickshell.shellDir + "/Programs/stats"]
+        // command: [Quickshell.shellDir + "/Programs/stats.sh", updateInterval]
+        command: [Quickshell.shellDir + "/Programs/stats.sh"]
 
         stdout: SplitParser {
             onRead: function (line) {
@@ -35,16 +37,23 @@ Singleton {
                     cpuTemp           = +data.cputemp;
                     memoryUsage       = +data.mem;
                     memoryUsagePer    = +data.memper;
+                    diskUsage         = +data.diskper;
                     cpuUsageStr       = data.cpu + '%';
                     cpuTempStr        = data.cputemp + "°C";
-                    memoryUsageStr    = data.mem + 'G';
+                    memoryUsageStr    = data.mem + 'M';
                     memoryUsagePerStr = data.memper + '%';
-                    diskUsage         = +data.diskper;
                     diskUsageStr      = data.diskper + '%';
                 } catch (e) {
-                    console.error("Failed to parse zigstat output:", e);
+                    console.error("Failed to parse stats output:", e);
                 }
             }
         }
+    }
+
+    Timer {
+        interval: 5000
+        running: true
+        repeat: true
+        onTriggered: proc.running = true
     }
 }

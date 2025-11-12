@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell
-import "Modules/Bar"
+import qs.Modules.Bar
+import qs.Modules.Notifications
 
 ShellRoot {
     readonly property bool disableHotReload:
@@ -15,4 +16,104 @@ ShellRoot {
         active: true
         sourceComponent: Bar {}
     }
+
+    Loader {
+        active: true
+        sourceComponent: NotificationsPopup {}
+    }
+
+    // PanelWindow {
+    //     Text {
+    //         color: "#000000"
+    //         text: SysInfo.cpuUsageStr
+    //         anchors.centerIn: parent
+    //         anchors.verticalCenterOffset: -40
+    //     }
+    //     Text {
+    //         color: "#000000"
+    //         text: SysInfo.cpuTempStr
+    //         anchors.centerIn: parent
+    //         anchors.verticalCenterOffset: -20
+    //     }
+    //     Text {
+    //         color: "#000000"
+    //         text: SysInfo.memoryUsageStr
+    //         anchors.centerIn: parent
+    //     }
+    //     Text {
+    //         color: "#000000"
+    //         text: SysInfo.memoryUsagePerStr
+    //         anchors.centerIn: parent
+    //         anchors.verticalCenterOffset: 20
+    //     }
+    //     Text {
+    //         color: "#000000"
+    //         text: SysInfo.diskUsageStr
+    //         anchors.centerIn: parent
+    //         anchors.verticalCenterOffset: 40
+    //     }
+    // }
 }
+
+// import Quickshell
+// import Quickshell.Wayland
+// import QtQuick
+// import QtQuick.Effects
+//
+// PanelWindow {
+//     id: root
+//
+//     color: "transparent"
+//     visible: true
+//     WlrLayershell.layer: WlrLayer.Top
+//
+//     mask: Region {
+//         item: container;
+//         intersection: Intersection.Xor
+//     }
+//
+//     anchors {
+//         top: true
+//         left: true
+//         bottom: true
+//         right: true
+//     }
+//
+//     Item {
+//         id: container
+//         anchors.fill: parent
+//
+//         Rectangle {
+//             anchors.fill: parent
+//
+//             color: "#FFFFFF"
+//
+//             layer.enabled: true
+//             layer.effect: MultiEffect {
+//                 maskSource: mask
+//                 maskEnabled: true
+//                 maskInverted: true
+//                 maskThresholdMin: 0.5
+//                 maskSpreadAtMin: 1
+//             }
+//         }
+//
+//         Item {
+//             id: mask
+//
+//             anchors.fill: parent
+//             layer.enabled: true
+//             visible: false
+//
+//             Rectangle {
+//                 anchors.fill: parent
+//                 anchors.leftMargin: 12
+//                 anchors.rightMargin: 12
+//                 anchors.topMargin: 12
+//                 anchors.bottomMargin: 12
+//
+//                 radius: 14
+//             }
+//         }
+//     }
+// }

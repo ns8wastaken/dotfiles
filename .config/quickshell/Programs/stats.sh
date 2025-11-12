@@ -32,8 +32,9 @@ cpu_usage() {
 }
 
 cpu_temp() {
-    local f
-    f=$(find /sys/class/thermal/ -type f -name temp 2>/dev/null | head -n1)
+    # Use the following command to find which zone is of type x86_pkg_temp and use that zone
+    # cat /sys/class/thermal/thermal_zone*/type
+    local f="/sys/class/thermal/thermal_zone1/temp"
     [[ -f $f ]] && echo $(( $(<"$f") / 1000 )) || echo 0
 }
 
@@ -55,9 +56,9 @@ disk_usage() {
 }
 
 cpu=$(cpu_usage)
-temp=$(cpu_temp)
+cputemp=$(cpu_temp)
 read -r used mperc <<< "$(memory_usage)"
-disk=$(disk_usage)
+diskper=$(disk_usage)
 
-printf '{"cpu":%d,"cputemp":%d,"mem":%d,"memper":%d,"disk":%d}\n' \
-       "$cpu" "$temp" "$((used/1024))" "$mperc" "$disk"
+printf '{"cpu":%d,"cputemp":%d,"mem":%d,"memper":%d,"diskper":%d}\n' \
+        "$cpu" "$cputemp" "$((used/1024))" "$mperc" "$diskper"

@@ -39,13 +39,17 @@ Singleton {
         function getButtonTextColor(modelData) {
             return modelData.active
                 ? Theme.textDark
-                // : Theme.textLight;
                 : Theme.textPrimary;
         }
     }
 
+    // ==================================
+    // ============ General =============
+    // ==================================
     property string fontFamily: "CQ Mono"
     property int fontSizeSmall: 14
     property int fontSizeNormal: 16
     property int fontSizeLarge: 18
+
+    property int notificationPadding: 4
 }

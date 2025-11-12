@@ -3,12 +3,6 @@ import Quickshell.Hyprland
 import qs.Settings
 
 Row {
-    anchors {
-        left: parent.left
-        verticalCenter: parent.verticalCenter
-        leftMargin: 10
-    }
-
     // Spacing between workspace buttons
     spacing: 8
 
@@ -33,16 +27,14 @@ Row {
             }
 
             Text {
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.top
-                anchors.topMargin: 2
+                anchors.centerIn: parent
 
                 font.family: Settings.workspaces.labelFont
 
                 color: Settings.workspaces.getButtonTextColor(modelData)
 
                 text: Settings.workspaces.getLabel(modelData.id)
-                font.pixelSize: 13
+                font.pixelSize: Settings.fontSizeSmall
             }
         }
     }
