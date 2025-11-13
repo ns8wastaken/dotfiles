@@ -10,7 +10,7 @@ Item {
         id: text
         anchors.centerIn: parent
 
-        text: Time.time
+        text: TimeService.time
         color: Theme.textPrimary
         font.pixelSize: Settings.fontSizeNormal
         font.family: Settings.fontFamily

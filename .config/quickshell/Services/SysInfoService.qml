@@ -3,12 +3,11 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import qs.Settings
 
 Singleton {
-    id: manager
+    id: root
 
-    // property int updateInterval: 200
+    property int updateInterval: 5000 // ms
 
     property real cpuUsage: 0
     property real cpuTemp: 0
@@ -51,7 +50,7 @@ Singleton {
     }
 
     Timer {
-        interval: 5000
+        interval: root.updateInterval
         running: true
         repeat: true
         onTriggered: proc.running = true

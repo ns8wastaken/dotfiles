@@ -1,7 +1,7 @@
 import QtQuick
 import Quickshell
-import qs.Modules.Bar
-import qs.Modules.Notifications
+import qs.Modules
+import qs.Services
 
 ShellRoot {
     readonly property bool disableHotReload:
@@ -25,30 +25,30 @@ ShellRoot {
     // PanelWindow {
     //     Text {
     //         color: "#000000"
-    //         text: SysInfo.cpuUsageStr
+    //         text: SysInfoService.cpuUsageStr
     //         anchors.centerIn: parent
     //         anchors.verticalCenterOffset: -40
     //     }
     //     Text {
     //         color: "#000000"
-    //         text: SysInfo.cpuTempStr
+    //         text: SysInfoService.cpuTempStr
     //         anchors.centerIn: parent
     //         anchors.verticalCenterOffset: -20
     //     }
     //     Text {
     //         color: "#000000"
-    //         text: SysInfo.memoryUsageStr
+    //         text: SysInfoService.memoryUsageStr
     //         anchors.centerIn: parent
     //     }
     //     Text {
     //         color: "#000000"
-    //         text: SysInfo.memoryUsagePerStr
+    //         text: SysInfoService.memoryUsagePerStr
     //         anchors.centerIn: parent
     //         anchors.verticalCenterOffset: 20
     //     }
     //     Text {
     //         color: "#000000"
-    //         text: SysInfo.diskUsageStr
+    //         text: SysInfoService.diskUsageStr
     //         anchors.centerIn: parent
     //         anchors.verticalCenterOffset: 40
     //     }

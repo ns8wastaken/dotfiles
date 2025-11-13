@@ -23,11 +23,6 @@ MouseArea {
 
         spacing: Settings.notificationPadding
 
-        // Rectangle {
-        //     anchors.fill: parent
-        //     color: "#0000ff"
-        // }
-
         Loader {
             active: modelData.image != ""
             visible: active
@@ -63,8 +58,10 @@ MouseArea {
         Column {
             anchors.verticalCenter: parent.verticalCenter
 
+            // Title
             Text {
                 text: modelData.summary
+
                 font.bold: true
                 color: "#ff0000"
                 font.pixelSize: Settings.fontSizeLarge
@@ -72,8 +69,10 @@ MouseArea {
                 elide: Text.ElideRight
             }
 
+            // Body
             Text {
                 text: modelData.body
+
                 color: "#ff0000"
                 font.pixelSize: Settings.fontSizeNormal
                 elide: Text.ElideRight

@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import qs.Settings
-import "./Modules"
+import qs.Modules.Bar
 
 PanelWindow {
     id: bar

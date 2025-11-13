@@ -44,7 +44,10 @@ Singleton {
             running: true
 
             onTriggered: () => {
-                const index = root.popupNotifications.findIndex(notification => notification.id == notificationId);
+                const index = root.popupNotifications.findIndex(
+                    notification => notification.id == notificationId
+                );
+
                 if (index >= 0) {
                     if (root.popupNotifications[index].desktopEntry === "com.spotify.Client") {
                         root.popupNotifications[index].expire()
