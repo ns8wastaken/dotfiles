@@ -24,6 +24,7 @@ PanelWindow {
         right: 4
     }
 
+    // Background
     Rectangle {
         anchors.fill: parent
 
@@ -34,41 +35,33 @@ PanelWindow {
         border.width: 1
     }
 
-    RowLayout {
-        anchors.fill: parent
+    // Left
+    Row {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: 10
         spacing: bar.spacing
 
-        // Left
-        RowLayout {
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
-            Layout.leftMargin: 10
-            spacing: bar.spacing
+        Workspaces {}
+    }
 
-            Workspaces {}
-        }
+    // Center
+    RowLayout {
+        anchors.centerIn: parent
+        spacing: bar.spacing
 
-        // Filler (pushes middle and right sections apart)
-        Item { Layout.fillWidth: true }
+        Clock {}
+        // Audio {}
+    }
 
-        // Center
-        RowLayout {
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            spacing: bar.spacing
+    // Right
+    RowLayout {
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: parent.right
+        anchors.rightMargin: 10
+        spacing: bar.spacing
 
-            Clock {}
-        }
-
-        // Filler (pushes right section to the right)
-        Item { Layout.fillWidth: true }
-
-        // Right
-        RowLayout {
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            Layout.rightMargin: 10
-            spacing: bar.spacing
-
-            Tray {}
-            Battery {}
-        }
+        Tray {}
+        Battery {}
     }
 }

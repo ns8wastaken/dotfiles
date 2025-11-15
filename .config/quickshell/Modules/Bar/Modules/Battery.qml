@@ -15,7 +15,7 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        text: (UPower.displayDevice.percentage * 100) + '%'
+        text: Math.round(UPower.displayDevice.percentage * 100) + '%'
         color: Theme.textPrimary
         font.family: Settings.fontFamily
         font.pixelSize: Settings.fontSizeNormal
