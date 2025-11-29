@@ -4,11 +4,10 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import qs.Settings
 
 Singleton {
     function applyOpacity(color, opacity) {
-        return color.replace("#", "#" + opacity);
+        return color.replace('#', '#' + opacity);
     }
 
     // FileView to load theme data from JSON file
@@ -16,12 +15,11 @@ Singleton {
         path: Quickshell.shellDir + "/Settings/Theme.json"
 
         watchChanges: true
-        onFileChanged: reload()
+        onFileChanged: this.reload()
 
-        onAdapterUpdated: writeAdapter()
-        onLoadFailed: writeAdapter()
+        onLoadFailed: console.log("Error while loading theme (this may be a complete lie)")
 
-        JsonAdapter {
+        adapter: JsonAdapter {
             id: themeData
 
             // Backgrounds
@@ -29,9 +27,10 @@ Singleton {
             property string backgroundSecondary: "#151720"
             property string backgroundTertiary: "#1D202B"
 
-            // Surfaces & Elevation
-            property string surface: "#1A1C26"
-            property string surfaceVariant: "#2A2D3A"
+            // Accent Colors
+            property string accentPrimary: "#A8AEFF"
+            property string accentSecondary: "#9EA0FF"
+            property string accentTertiary: "#8EABFF"
 
             // Text Colors
             property string textPrimary: "#CACEE2"
@@ -40,26 +39,17 @@ Singleton {
             property string textDark: "#0C0D11"
             property string textLight: "#F3DEFF"
 
-            // Accent Colors
-            property string accentPrimary: "#A8AEFF"
-            property string accentSecondary: "#9EA0FF"
-            property string accentTertiary: "#8EABFF"
+            // Styling
+            property string outline: "#44485A"
+            property string highlight: "#E3C2FF"
 
             // Error/Warning
             property string error: "#FF6B81"
             property string warning: "#FFBB66"
 
-            // Highlights & Focus
-            property string highlight: "#E3C2FF"
-            property string rippleEffect: "#F3DEFF"
-
-            // Additional Theme Properties
-            property string onAccent: "#1A1A1A"
-            property string outline: "#44485A"
-
-            // Shadows & Overlays
-            property string shadow: "#000000"
-            property string overlay: "#11121A"
+            // Surfaces & Elevation
+            property string surface: "#1A1C26"
+            property string surfaceVariant: "#2A2D3A"
         }
     }
 
@@ -68,9 +58,10 @@ Singleton {
     property color backgroundSecondary: themeData.backgroundSecondary
     property color backgroundTertiary: themeData.backgroundTertiary
 
-    // Surfaces & Elevation
-    property color surface: themeData.surface
-    property color surfaceVariant: themeData.surfaceVariant
+    // Accent Colors
+    property color accentPrimary: themeData.accentPrimary
+    property color accentSecondary: themeData.accentSecondary
+    property color accentTertiary: themeData.accentTertiary
 
     // Text Colors
     property color textPrimary: themeData.textPrimary
@@ -79,24 +70,15 @@ Singleton {
     property color textDark: themeData.textDark
     property color textLight: themeData.textLight
 
-    // Accent Colors
-    property color accentPrimary: themeData.accentPrimary
-    property color accentSecondary: themeData.accentSecondary
-    property color accentTertiary: themeData.accentTertiary
+    // Styling
+    property color outline: themeData.outline
+    property color highlight: themeData.highlight
 
     // Error/Warning
     property color error: themeData.error
     property color warning: themeData.warning
 
-    // Highlights & Focus
-    property color highlight: themeData.highlight
-    property color rippleEffect: themeData.rippleEffect
-
-    // Additional Theme Properties
-    property color onAccent: themeData.onAccent
-    property color outline: themeData.outline
-
-    // Shadows & Overlays
-    property color shadow: applyOpacity(themeData.shadow, "B3")
-    property color overlay: applyOpacity(themeData.overlay, "66")
+    // Surfaces & Elevation
+    property color surface: themeData.surface
+    property color surfaceVariant: themeData.surfaceVariant
 }

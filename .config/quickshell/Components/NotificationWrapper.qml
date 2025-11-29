@@ -23,10 +23,10 @@ MouseArea {
 
         spacing: Settings.notificationPadding
 
-        Rectangle {
-            anchors.fill: parent
-            color: "#0000ff"
-        }
+        // Rectangle {
+        //     anchors.fill: parent
+        //     color: "#0000ff"
+        // }
 
         Loader {
             active: modelData.image != ""

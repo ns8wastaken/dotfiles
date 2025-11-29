@@ -14,5 +14,12 @@ Item {
         color: Theme.textPrimary
         font.pixelSize: Settings.fontSizeNormal
         font.family: Settings.fontFamily
+
+        // Show sytem info on hover
+        // MouseArea {
+        //     anchors.fill: parent
+        //
+        //     hoverEnabled: true
+        // }
     }
 }

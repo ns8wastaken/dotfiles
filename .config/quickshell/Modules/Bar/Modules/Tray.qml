@@ -94,34 +94,46 @@ Row {
                 onClicked: function(mouse) {
                     if (!modelData) return;
 
-                    // If menu is already visible, close it
-                    if (trayMenu && trayMenu.visible) {
-                        trayMenu.hideMenu()
-                    }
-
                     if (mouse.button === Qt.LeftButton) {
+                        // If menu is already visible, close it
+                        if (trayMenu && trayMenu.visible) {
+                            trayMenu.hideMenu()
+                        }
+
                         if (!modelData.onlyMenu) {
                             modelData.activate()
                         }
-                    } else if (mouse.button === Qt.MiddleButton) {
+                    }
+
+                    else if (mouse.button === Qt.MiddleButton) {
+                        // If menu is already visible, close it
+                        if (trayMenu && trayMenu.visible) {
+                            trayMenu.hideMenu()
+                        }
+
                         modelData.secondaryActivate && modelData.secondaryActivate()
-                    } else if (mouse.button === Qt.RightButton) {
+                    }
+
+                    else if (mouse.button === Qt.RightButton) {
                         trayTooltip.tooltipVisible = false
-                        console.log("Right click on", modelData.id, "hasMenu:", modelData.hasMenu, "menu:", modelData.menu)
 
                         if (modelData.hasMenu && modelData.menu && trayMenu) {
                             // Anchor the menu to the tray icon item (parent) and position it below the icon
                             const menuX = (width / 2) - (trayMenu.width / 2);
                             const menuY = height + 20;
-                            trayMenu.menu = modelData.menu;
-                            trayMenu.showAt(parent, menuX, menuY);
+                            if (trayMenu.menu == modelData.menu && trayMenu.visible) {
+                                trayMenu.hideMenu();
+                            } else {
+                                trayMenu.menu = modelData.menu;
+                                trayMenu.showAt(parent, menuX, menuY);
+                            }
                         } else {
                             console.log("No menu available for", modelData.id, "or trayMenu not set")
                         }
                     }
                 }
 
-                onEntered: trayTooltip.tooltipVisible = true
+                onEntered: trayTooltip.tooltipVisible = (trayMenu.visible ? false : true)
                 onExited: trayTooltip.tooltipVisible = false
             }
 

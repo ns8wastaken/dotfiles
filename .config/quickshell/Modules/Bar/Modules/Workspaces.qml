@@ -12,11 +12,13 @@ Row {
 
         // Workspace button
         delegate: Rectangle {
-            width: modelData.active ? 52 : 32
+            // width: modelData.active ? 52 : 32
+            width: (modelData.active ? 40 : 20) + workspaceNameText.width
             height: 18
             radius: 40
             color: Settings.workspaces.getButtonColor(modelData)
 
+            // Scaling animation
             Behavior on width {
                 NumberAnimation { duration: 75; easing.type: Easing.InOutQuad }
             }
@@ -27,6 +29,8 @@ Row {
             }
 
             Text {
+                id: workspaceNameText
+
                 anchors.centerIn: parent
 
                 font.family: Settings.workspaces.labelFont

@@ -51,7 +51,6 @@ PanelWindow {
         spacing: bar.spacing
 
         Clock {}
-        // Audio {}
     }
 
     // Right
@@ -62,6 +61,7 @@ PanelWindow {
         spacing: bar.spacing
 
         Tray {}
+        Controls {}
         Battery {}
     }
 }

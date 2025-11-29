@@ -97,7 +97,7 @@ PopupWindow {
                 radius: 8
                 visible: !(entry.modelData?.isSeparator ?? false)
 
-                property color hoverTextColor: mouseArea.containsMouse ? Theme.onAccent : Theme.textPrimary
+                property color hoverTextColor: mouseArea.containsMouse ? Theme.textDark : Theme.textPrimary
 
                 RowLayout {
                     anchors.fill: parent

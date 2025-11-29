@@ -20,16 +20,20 @@ Singleton {
             7: "七",
             8: "八",
             9: "九",
-            10: "十"
+            10: "十",
+            // -98 is special:magic workspace but ill normalize it
+            98: "特別"
         }
 
         property string labelFont: "KAWAIITEGAKIMOJI"
 
         function getLabel(id) {
+            id = Math.abs(id);
             return labels[id] || id;
         }
 
         function getButtonColor(modelData) {
+            if (modelData.name == "special:magic") { return Theme.accentTertiary; }
             if (modelData.active) { return Theme.accentPrimary; }
             if (modelData.urgent) { return Theme.error; }
             if (modelData.focused) { return Theme.error; }
@@ -37,6 +41,9 @@ Singleton {
         }
 
         function getButtonTextColor(modelData) {
+            if (modelData.name == "special:magic") {
+                return Theme.textDark;
+            }
             return modelData.active
                 ? Theme.textDark
                 : Theme.textPrimary;

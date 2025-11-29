@@ -9,6 +9,8 @@ Rectangle {
     color: Theme.surfaceVariant
     radius: 4
 
+    // visible: UPower.displayDevice.isLaptopBattery
+
     Text {
         id: text
 
