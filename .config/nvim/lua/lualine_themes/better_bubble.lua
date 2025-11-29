@@ -124,7 +124,7 @@ ins_left {
 ins_right("filetype")
 
 ins_right {
-    "%p%%/%L",
+    "%p%%/%L:%c",
     separator = { left = '', right = '' },
     color = { bg = colors.gray }
 }
