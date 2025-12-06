@@ -10,10 +10,11 @@ Item {
         id: text
         anchors.centerIn: parent
 
-        text: TimeService.time
         color: Theme.textPrimary
+
         font.pixelSize: Settings.fontSizeNormal
         font.family: Settings.fontFamily
+        text: TimeService.time
 
         // Show sytem info on hover
         // MouseArea {

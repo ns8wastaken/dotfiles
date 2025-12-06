@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Layouts
 import Quickshell
 import qs.Settings
 import qs.Modules.Bar
@@ -37,31 +36,35 @@ PanelWindow {
 
     // Left
     Row {
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.left: parent.left
-        anchors.leftMargin: 10
+        anchors {
+            verticalCenter: parent.verticalCenter
+            left: parent.left
+            leftMargin: 10
+        }
         spacing: bar.spacing
 
-        Workspaces {}
+        Workspaces { anchors.verticalCenter: parent.verticalCenter }
     }
 
     // Center
-    RowLayout {
+    Row {
         anchors.centerIn: parent
         spacing: bar.spacing
 
-        Clock {}
+        Clock { anchors.verticalCenter: parent.verticalCenter }
     }
 
     // Right
-    RowLayout {
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.right: parent.right
-        anchors.rightMargin: 10
+    Row {
+        anchors {
+            verticalCenter: parent.verticalCenter
+            right: parent.right
+            rightMargin: 10
+        }
         spacing: bar.spacing
 
-        Tray {}
-        Controls {}
-        Battery {}
+        Tray { anchors.verticalCenter: parent.verticalCenter }
+        Controls { anchors.verticalCenter: parent.verticalCenter }
+        Battery { anchors.verticalCenter: parent.verticalCenter }
     }
 }

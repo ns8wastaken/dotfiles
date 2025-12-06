@@ -15,8 +15,8 @@ Window {
 
     visible: tooltipVisible
 
-    minimumWidth: tooltipText.width + 24
-    minimumHeight: tooltipText.height + 16
+    minimumWidth: tooltipText.implicitWidth + 24
+    minimumHeight: tooltipText.implicitHeight + 16
 
     Component.onCompleted: _hideNow()
 
@@ -69,11 +69,11 @@ Window {
     Text {
         id: tooltipText
 
-        text: tooltipWindow.text
         color: Theme.textPrimary
 
         font.family: Settings.fontFamily
         font.pixelSize: Settings.fontSizeSmall
+        text: tooltipWindow.text
 
         anchors.centerIn: parent
         horizontalAlignment: Text.AlignHCenter

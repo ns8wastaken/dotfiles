@@ -11,8 +11,8 @@ PanelWindow {
         right: true
     }
 
-    implicitWidth: notifList.width
-    implicitHeight: notifList.height
+    implicitWidth: notifList.implicitWidth
+    implicitHeight: notifList.implicitHeight
 
     Item {
         id: notifList

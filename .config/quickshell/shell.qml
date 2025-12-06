@@ -1,7 +1,6 @@
-import QtQuick
 import Quickshell
+import QtQuick
 import qs.Modules
-import qs.Services
 
 ShellRoot {
     readonly property bool disableHotReload:
@@ -21,6 +20,32 @@ ShellRoot {
         active: true
         sourceComponent: NotificationsPopup {}
     }
+
+    Loader {
+        active: false
+        sourceComponent: Watermark {}
+    }
+
+    Loader {
+        active: true
+        sourceComponent: BackgroundText {
+            borderAnchors {
+                right: true
+                bottom: true
+            }
+
+            borderMargins {
+                right: 50
+                bottom: 50
+            }
+
+            text: "我\n操\n你\n妈"
+            color: "#ffffff"
+            size: 40
+        }
+    }
+
+    AppLauncher {}
 
     // PanelWindow {
     //     Text {

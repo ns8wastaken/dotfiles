@@ -77,8 +77,9 @@ Rectangle {
     }
 
     // Animate progress changes
-    Behavior on progress {
-        NumberAnimation { duration: 300; easing.type: Easing.OutCubic }
+    NumberAnimation on progress {
+        duration: 300
+        easing.type: Easing.OutCubic
     }
 
     // Redraw canvas when properties change

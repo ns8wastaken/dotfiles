@@ -13,10 +13,10 @@ PopupWindow {
     visible: false
     color: "transparent"
 
-    property QsMenuHandle menu
+    property QsMenuHandle menu: null
     property Item anchorItem: null
-    property real anchorX
-    property real anchorY
+    property real anchorX: 0.0
+    property real anchorY: 0.0
 
     anchor.item: anchorItem ? anchorItem : null
     anchor.rect.x: anchorX

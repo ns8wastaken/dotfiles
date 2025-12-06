@@ -1,7 +1,7 @@
 {
     "backgroundPrimary": "#0C0D11",
-    "backgroundSecondary": "#151720",
-    "backgroundTertiary": "#1D202B",
+    "backgroundSecondary": "#FF0000",
+    "backgroundTertiary": "#FF0000",
 
     "accentPrimary": "#A8AEFF",
     "accentSecondary": "#9C9DFF",
@@ -19,6 +19,6 @@
     "error": "#FF6B81",
     "warning": "#FFBB66",
 
-    "surface": "#1A1C26",
+    "surface": "#43485D",
     "surfaceVariant": "#2A2D3A"
 }

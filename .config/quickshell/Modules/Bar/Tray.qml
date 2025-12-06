@@ -1,51 +1,56 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
 import qs.Components
-import qs.Settings
 
 Row {
-    property var trayMenu: CustomTrayMenu {}
+    id: tray
+
+    readonly property var trayMenu: CustomTrayMenu {}
 
     spacing: 8
-
-    property bool containsMouse: false
 
     // App icon repeater
     Repeater {
         model: SystemTray.items
 
-        // App icon
+        // Tray entry (app icon)
         delegate: Item {
-            width: 24
-            height: 24
+            id: trayEntry
 
-            property bool isHovered: trayMouseArea.containsMouse
+            required property var modelData
+            readonly property bool isHovered: trayMouseArea.containsMouse
+            readonly property bool menuAvailable: (
+                trayEntry.modelData.hasMenu &&
+                trayEntry.modelData.menu &&
+                tray.trayMenu
+            )
+
+            implicitWidth: 24
+            implicitHeight: 24
 
             // Hover scale animation
             scale: isHovered ? 1.15 : 1.0
-            Behavior on scale {
-                NumberAnimation {
-                    duration: 150
-                    easing.type: Easing.OutCubic
-                }
+            NumberAnimation on scale {
+                duration: 150
+                easing.type: Easing.OutCubic
             }
 
             // Subtle rotation on hover
             rotation: isHovered ? 5 : 0
-            Behavior on rotation {
-                NumberAnimation {
-                    duration: 200
-                    easing.type: Easing.OutCubic
-                }
+            NumberAnimation on rotation {
+                duration: 200
+                easing.type: Easing.OutCubic
             }
 
             Rectangle {
                 anchors.centerIn: parent
                 color: "transparent"
 
-                width: 22
-                height: 22
+                implicitWidth: 22
+                implicitHeight: 22
                 radius: 7
 
                 IconImage {
@@ -53,15 +58,15 @@ Row {
 
                     anchors.centerIn: parent
 
-                    width: 16
-                    height: 16
+                    implicitWidth: 16
+                    implicitHeight: 16
 
                     smooth: false
                     asynchronous: true
                     backer.fillMode: Image.PreserveAspectFit
 
                     source: {
-                        let icon = modelData?.icon;
+                        let icon = trayEntry.modelData?.icon;
                         if (!icon) return "";
                         // Process icon path
                         if (icon.includes("?path=")) {
@@ -74,11 +79,9 @@ Row {
 
                     opacity: status === Image.Ready ? 1 : 0
 
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: 300
-                            easing.type: Easing.OutCubic
-                        }
+                    NumberAnimation on opacity {
+                        duration: 300
+                        easing.type: Easing.OutCubic
                     }
                 }
             }
@@ -88,58 +91,66 @@ Row {
 
                 anchors.fill: parent
                 hoverEnabled: true
+
                 cursorShape: Qt.PointingHandCursor
-                acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+                acceptedButtons: Qt.LeftButton | Qt.MiddleButton | Qt.RightButton
 
                 onClicked: function(mouse) {
-                    if (!modelData) return;
+                    if (!trayEntry.modelData) return;
 
                     if (mouse.button === Qt.LeftButton) {
-                        // If menu is already visible, close it
-                        if (trayMenu && trayMenu.visible) {
-                            trayMenu.hideMenu()
+                        // If menu is visible, close it
+                        if (tray.trayMenu && tray.trayMenu.visible) {
+                            tray.trayMenu.hideMenu();
                         }
 
-                        if (!modelData.onlyMenu) {
-                            modelData.activate()
+                        // Open application
+                        if (!trayEntry.modelData.onlyMenu) {
+                            trayEntry.modelData.activate();
                         }
                     }
 
-                    else if (mouse.button === Qt.MiddleButton) {
-                        // If menu is already visible, close it
-                        if (trayMenu && trayMenu.visible) {
-                            trayMenu.hideMenu()
-                        }
-
-                        modelData.secondaryActivate && modelData.secondaryActivate()
-                    }
+                    // else if (mouse.button === Qt.MiddleButton) {
+                    //     // If menu is already visible, close it
+                    //     if (tray.trayMenu && tray.trayMenu.visible) {
+                    //         tray.trayMenu.hideMenu();
+                    //     }
+                    //
+                    //     trayEntry.modelData.secondaryActivate
+                    //         && trayEntry.modelData.secondaryActivate()
+                    // }
 
                     else if (mouse.button === Qt.RightButton) {
                         trayTooltip.tooltipVisible = false
 
-                        if (modelData.hasMenu && modelData.menu && trayMenu) {
-                            // Anchor the menu to the tray icon item (parent) and position it below the icon
-                            const menuX = (width / 2) - (trayMenu.width / 2);
-                            const menuY = height + 20;
-                            if (trayMenu.menu == modelData.menu && trayMenu.visible) {
-                                trayMenu.hideMenu();
-                            } else {
-                                trayMenu.menu = modelData.menu;
-                                trayMenu.showAt(parent, menuX, menuY);
-                            }
+                        if (!trayEntry.menuAvailable) {
+                            console.log("No menu available for", trayEntry.modelData.id, "or tray.trayMenu not set")
+                        }
+
+                        // Anchor the menu to the tray icon item (parent) and position it below the icon
+                        if (tray.trayMenu.menu == trayEntry.modelData.menu && tray.trayMenu.visible) {
+                            // The same tray entry is right clicked (just hide the menu)
+                            tray.trayMenu.hideMenu();
                         } else {
-                            console.log("No menu available for", modelData.id, "or trayMenu not set")
+                            // A different entry is right clicked (hide the menu then show it again to remove artifacts)
+                            tray.trayMenu.hideMenu();
+                            tray.trayMenu.menu = trayEntry.modelData.menu;
+                            tray.trayMenu.showAt(
+                                parent,
+                                (width - tray.trayMenu.width) / 2,
+                                height + 20
+                            );
                         }
                     }
                 }
 
-                onEntered: trayTooltip.tooltipVisible = (trayMenu.visible ? false : true)
+                onEntered: trayTooltip.tooltipVisible = (tray.trayMenu.visible ? false : true)
                 onExited: trayTooltip.tooltipVisible = false
             }
 
             StyledTooltip {
                 id: trayTooltip
-                text: modelData.tooltipTitle || modelData.name || modelData.id || "Tray Item"
+                text: trayEntry.modelData.tooltipTitle || trayEntry.modelData.name || trayEntry.modelData.id || "Tray Item"
                 targetItem: trayIcon
                 delay: 200
             }

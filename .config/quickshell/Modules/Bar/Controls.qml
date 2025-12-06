@@ -1,13 +1,18 @@
 import QtQuick
-import Quickshell
 import qs.Components
+import qs.Settings
+import qs.Modules.Bar.Controls
 
-Squircle {
-    roundness: 4.0
-    fillColor: "#ffffff"
+Pill {
+    id: controls
 
-    implicitWidth: 20
+    property int padding: 8
+    property int spacing: 6
+
+    implicitWidth: row.implicitWidth
     implicitHeight: 20
+
+    color: Theme.surfaceVariant
 
     MouseArea {
         id: mouseArea
@@ -16,41 +21,14 @@ Squircle {
         anchors.fill: parent
     }
 
-    PopupWindow {
-        anchor {
-            window: parentWindow
-            // rect.x: parentWindow.implicitWidth / 2 - implicitWidth / 2
-            // rect.y: parentWindow.implicitHeight
-        }
+    Row {
+        id: row
 
-        visible: mouseArea.containsMouse
+        anchors.fill: parent
+        leftPadding: parent.padding
+        rightPadding: parent.padding
+        spacing: parent.spacing
 
-        implicitWidth: 500
-        implicitHeight: 500
-    }
-
-    PanelWindow {
-        implicitWidth: squircle.width
-        implicitHeight: squircle.height
-        color: "transparent"
-
-        visible: mouseArea.containsMouse
-
-        Squircle {
-            id: squircle
-
-            roundness: 4.0
-            fillColor: "#3498db"
-            width: 200
-            height: 200
-
-            Squircle {
-                roundness: 4.0
-                fillColor: "#317fb3"
-                anchors.centerIn: parent
-                width: 100
-                height: 100
-            }
-        }
+        Network {}
     }
 }

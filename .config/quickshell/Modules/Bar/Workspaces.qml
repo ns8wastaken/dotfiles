@@ -13,14 +13,15 @@ Row {
         // Workspace button
         delegate: Rectangle {
             // width: modelData.active ? 52 : 32
-            width: (modelData.active ? 40 : 20) + workspaceNameText.width
-            height: 18
+            implicitWidth: (modelData.active ? 40 : 20) + workspaceLabel.width
+            implicitHeight: 18
             radius: 40
-            color: Settings.workspaces.getButtonColor(modelData)
+            color: Theme.getWorkspaceColor(modelData)
 
             // Scaling animation
-            Behavior on width {
-                NumberAnimation { duration: 75; easing.type: Easing.InOutQuad }
+            NumberAnimation on implicitWidth {
+                duration: 75
+                easing.type: Easing.InOutQuad
             }
 
             MouseArea {
@@ -29,16 +30,15 @@ Row {
             }
 
             Text {
-                id: workspaceNameText
+                id: workspaceLabel
 
                 anchors.centerIn: parent
 
-                font.family: Settings.workspaces.labelFont
+                color: Theme.getWorkspaceTextColor(modelData)
 
-                color: Settings.workspaces.getButtonTextColor(modelData)
-
-                text: Settings.workspaces.getLabel(modelData.id)
+                font.family: Settings.workspaces.fontFamily
                 font.pixelSize: Settings.fontSizeSmall
+                text: Icons.getWorkspaceLabel(modelData.id)
             }
         }
     }

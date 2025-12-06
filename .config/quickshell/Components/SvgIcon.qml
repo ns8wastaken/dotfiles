@@ -6,8 +6,8 @@ import QtQuick
 Item {
     id: root
 
-    property string source
-    property color color
+    required property string source
+    required property color color
     property real size: 30
 
     width: size
@@ -16,12 +16,12 @@ Item {
     IconImage {
         id: icon
         anchors.fill: parent
-        source: Qt.resolvedUrl(Quickshell.shellPath("assets/icons/" + root.source))
+        source: Qt.resolvedUrl(Quickshell.shellPath("assets/icons/" + parent.source))
     }
 
     ColorOverlay {
         anchors.fill: parent
         source: icon
-        color: root.color
+        color: parent.color
     }
 }
