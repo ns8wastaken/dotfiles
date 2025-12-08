@@ -27,21 +27,16 @@ PopupWindow {
             console.warn("CustomTrayMenu: anchorItem is undefined, not showing menu.");
             return;
         }
-        anchorItem = item
-        anchorX = x
-        anchorY = y
-        visible = true
-        forceActiveFocus()
-        Qt.callLater(() => trayMenu.anchor.updateAnchor())
+        anchorItem = item;
+        anchorX = x;
+        anchorY = y;
+        visible = true;
+        trayMenu.forceActiveFocus();
+        Qt.callLater(() => trayMenu.anchor.updateAnchor());
     }
 
     function hideMenu() {
         visible = false
-    }
-
-    Item {
-        anchors.fill: parent
-        Keys.onEscapePressed: trayMenu.hideMenu()
     }
 
     QsMenuOpener {
@@ -72,32 +67,53 @@ PopupWindow {
         }
 
         delegate: Rectangle {
-            id: entry
+            id: trayEntry
+
             required property var modelData
+
+            readonly property bool isSeparator: trayEntry.modelData?.isSeparator ?? false
 
             width: listView.width
             height: (modelData?.isSeparator) ? 8 : 32
+
             color: "transparent"
+
             radius: 12
 
             // Separator
             Rectangle {
                 anchors.centerIn: parent
+
+                visible: trayEntry.isSeparator
+
                 width: parent.width - 20
                 height: 1
+
                 color: Theme.surfaceVariant
-                visible: entry.modelData?.isSeparator ?? false
             }
 
             // Button
             Rectangle {
                 id: bg
-                anchors.fill: parent
-                color: mouseArea.containsMouse ? Theme.highlight : "transparent"
-                radius: 8
-                visible: !(entry.modelData?.isSeparator ?? false)
 
-                property color hoverTextColor: mouseArea.containsMouse ? Theme.textDark : Theme.textPrimary
+                anchors.fill: parent
+
+                visible: !trayEntry.isSeparator
+
+                color: mouseArea.containsMouse ? Theme.highlight : "transparent"
+
+                Behavior on color {
+                    ColorAnimation {
+                        duration: 100
+                        easing.type: Easing.OutQuad
+                    }
+                }
+
+                radius: 8
+
+                property color hoverTextColor: mouseArea.containsMouse
+                    ? Theme.textDark
+                    : Theme.textPrimary;
 
                 RowLayout {
                     anchors.fill: parent
@@ -107,33 +123,60 @@ PopupWindow {
 
                     Text {
                         Layout.fillWidth: true
-                        color: (modelData?.enabled ?? true) ? bg.hoverTextColor : Theme.textDisabled
-                        text: modelData?.text ?? ""
-                        font.family: Settings.fontFamily
+
+                        color: (trayEntry.modelData?.enabled ?? true)
+                            ? bg.hoverTextColor
+                            : Theme.textDisabled;
+
+                        Behavior on color {
+                            ColorAnimation {
+                                duration: 100
+                                easing.type: Easing.OutQuad
+                            }
+                        }
+
+                        text: trayEntry.modelData?.text ?? ""
+
+                        font.family: Settings.bar.fontFamily
                         font.pixelSize: Settings.fontSizeSmall
+
                         verticalAlignment: Text.AlignVCenter
+
                         elide: Text.ElideRight
                     }
 
-                    Image {
-                        Layout.preferredWidth: 16
-                        Layout.preferredHeight: 16
-                        source: modelData?.icon ?? ""
-                        visible: (modelData?.icon ?? "") !== ""
-                        fillMode: Image.PreserveAspectFit
+                    Component {
+                        id: icon
+                        Image {
+                            id: iconImage
+                            width: 16
+                            height: 16
+                            source: trayEntry.modelData?.icon ?? ""
+                            fillMode: Image.PreserveAspectFit
+                        }
+                    }
+
+                    Loader {
+                        active: icon.iconImage.source !== ""
+                        sourceComponent: icon
                     }
                 }
 
                 MouseArea {
                     id: mouseArea
+
                     anchors.fill: parent
+
                     hoverEnabled: true
-                    enabled: (modelData?.enabled ?? true) && !(modelData?.isSeparator ?? false) && trayMenu.visible
+
+                    enabled: (trayEntry.modelData?.enabled ?? true)
+                        && !(trayEntry.modelData?.isSeparator ?? false)
+                        && trayMenu.visible
 
                     onClicked: {
-                        if (modelData && !modelData.isSeparator) {
-                            modelData.triggered()
-                            trayMenu.hideMenu()
+                        if (trayEntry.modelData && !trayEntry.modelData.isSeparator) {
+                            trayEntry.modelData.triggered();
+                            trayMenu.hideMenu();
                         }
                     }
                 }

@@ -1,8 +1,6 @@
 import QtQuick
-import Quickshell
 import qs.Settings
 import qs.Components
-import qs.Services
 
 Rectangle {
     id: root
@@ -24,7 +22,7 @@ Rectangle {
             anchors.centerIn: parent
 
             color: Theme.textPrimary
-            font.pointSize: Settings.fontSizeSmall
+            font.pointSize: Settings.fontSizeSmaller
 
             text: "signal_wifi_4_bar"
         }

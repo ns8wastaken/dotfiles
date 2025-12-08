@@ -10,13 +10,14 @@ Variants {
     required property string text
     required property string color
     required property int size
+    required property string fontFamily
     property margins borderMargins
     property panelAnchors borderAnchors
 
     // Create the panel once on each monitor.
     model: Quickshell.screens
 
-    PanelWindow {
+    delegate: PanelWindow {
         required property var modelData
 
         screen: modelData
@@ -42,7 +43,7 @@ Variants {
 
                 color: root.color
 
-                font.family: "HanyiSentyScholar"
+                font.family: root.fontFamily
                 font.pointSize: root.size
             }
         }

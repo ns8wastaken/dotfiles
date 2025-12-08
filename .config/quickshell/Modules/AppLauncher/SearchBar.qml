@@ -1,28 +1,24 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import qs.Components
 import qs.Settings
 
-Rectangle {
+Pill {
     id: searchBar
-
-    implicitHeight: 50
 
     // radius: GlobalState.ThemeManager.radiusMedium
     // color: GlobalState.Colors.surface_variant
     // border.color: GlobalState.Colors.outline
-    radius: 8
     color: Theme.backgroundPrimary
     border.color: Theme.outline
     border.width: 1
 
-    property alias text: textInput.placeholderText
+    property alias text: textInput.text
 
     RowLayout {
         anchors.fill: parent
-        // anchors.margins: GlobalState.ThemeManager.spacingMedium
-        // spacing: GlobalState.ThemeManager.spacingMedium
-        anchors.margins: 8
+        anchors.leftMargin: searchBar.implicitHeight / 4
         spacing: 8
 
         // Text {
@@ -35,14 +31,34 @@ Rectangle {
         TextField {
             id: textInput
 
-            Layout.fillWidth: true
+            // Layout.fillWidth: true
 
             placeholderText: "Run program..."
             placeholderTextColor: Theme.textPrimary
-            font.family: Settings.fontFamily
+
+            font.family: Settings.placeholderFontFamily
             font.pixelSize: Settings.fontSizeNormal
+
             background: Rectangle { color: "transparent" }
             color: Theme.textPrimary
+        }
+    }
+
+    // Same as Ctrl+Backspace
+    Shortcut {
+        sequence: "Ctrl+W"
+        onActivated: {
+            if (textInput.cursorPosition === 0) return;
+
+            const end = textInput.cursorPosition - 1;
+
+            let start = end;
+            while (start > 0 && textInput.text[start - 1] !== " ") {
+                start--;
+            }
+
+            textInput.text = textInput.text.slice(0, start) + textInput.text.slice(end + 1);
+            textInput.cursorPosition = start;
         }
     }
 

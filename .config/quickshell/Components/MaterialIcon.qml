@@ -5,5 +5,4 @@ import qs.Settings
 
 Text {
     font.family: Settings.iconFontFamily
-    font.pointSize: Settings.fontSizeNormal
 }

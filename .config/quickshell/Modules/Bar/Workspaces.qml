@@ -12,21 +12,25 @@ Row {
 
         // Workspace button
         delegate: Rectangle {
-            // width: modelData.active ? 52 : 32
+            required property var modelData
+
             implicitWidth: (modelData.active ? 40 : 20) + workspaceLabel.width
             implicitHeight: 18
             radius: 40
             color: Theme.getWorkspaceColor(modelData)
 
             // Scaling animation
-            NumberAnimation on implicitWidth {
-                duration: 75
-                easing.type: Easing.InOutQuad
+            Behavior on implicitWidth {
+                NumberAnimation {
+                    duration: 75
+                    easing.type: Easing.InOutCubic
+                }
             }
 
+            // Switch to workspace on click
             MouseArea {
                 anchors.fill: parent
-                onClicked: Hyprland.dispatch("workspace " + modelData.id)
+                onClicked: Hyprland.dispatch("workspace " + parent.modelData.id)
             }
 
             Text {
@@ -34,11 +38,11 @@ Row {
 
                 anchors.centerIn: parent
 
-                color: Theme.getWorkspaceTextColor(modelData)
+                color: Theme.getWorkspaceTextColor(parent.modelData)
 
                 font.family: Settings.workspaces.fontFamily
                 font.pixelSize: Settings.fontSizeSmall
-                text: Icons.getWorkspaceLabel(modelData.id)
+                text: Icons.getWorkspaceLabel(parent.modelData.id)
             }
         }
     }

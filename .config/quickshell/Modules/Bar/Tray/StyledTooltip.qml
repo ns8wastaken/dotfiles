@@ -71,7 +71,7 @@ Window {
 
         color: Theme.textPrimary
 
-        font.family: Settings.fontFamily
+        font.family: Settings.bar.fontFamily
         font.pixelSize: Settings.fontSizeSmall
         text: tooltipWindow.text
 

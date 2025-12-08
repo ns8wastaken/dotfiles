@@ -34,9 +34,10 @@ Singleton {
             // Text Colors
             property string textPrimary: "#CACEE2"
             property string textSecondary: "#B7BBD0"
-            property string textDisabled: "#6B718A"
-            property string textDark: "#0C0D11"
+            property string textPrimaryInverted: "#191b29"
             property string textLight: "#F3DEFF"
+            property string textDark: "#0C0D11"
+            property string textDisabled: "#6B718A"
 
             // Styling
             property string outline: "#44485A"
@@ -65,6 +66,7 @@ Singleton {
     // Text Colors
     property color textPrimary: themeData.textPrimary
     property color textSecondary: themeData.textSecondary
+    property color textPrimaryInverted: themeData.textPrimaryInverted
     property color textDisabled: themeData.textDisabled
     property color textDark: themeData.textDark
     property color textLight: themeData.textLight

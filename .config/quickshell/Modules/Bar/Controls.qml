@@ -10,9 +10,9 @@ Pill {
     property int spacing: 6
 
     implicitWidth: row.implicitWidth
-    implicitHeight: 20
+    implicitHeight: 18
 
-    color: Theme.surfaceVariant
+    color: Theme.surface
 
     MouseArea {
         id: mouseArea

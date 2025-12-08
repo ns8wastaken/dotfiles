@@ -5,97 +5,127 @@ import Quickshell.Io
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
-import qs.Components
+import qs.Modules.AppLauncher
 import qs.Settings
+import "../Utils/Fuzzysort.js" as Fuzzysort
 
 PanelWindow {
     id: launcher
 
     property var open: false
 
-    readonly property list<DesktopEntry> visibleEntries: Array
-        .from(DesktopEntries.applications.values)
-        .sort((d1, d2) => d1.name.localeCompare(d2.name))
-        // .filter(
-        //     application => application.name
-        //         .toLowerCase()
-        //         .includes(searchBar.text.toLowerCase())
-        // )
-    property real selectedEntry: 0
+    property int nVisibleItems: 8
+
+    readonly property list<DesktopEntry> entries: Fuzzysort.sort(
+        searchBar.text,
+        Array.from(DesktopEntries.applications.values)
+            .sort((e1, e2) => e1.name.localeCompare(e2.name)),
+        e => e.name
+    )
+    property real selectedIdx: 0
+    readonly property DesktopEntry selectedEntry: launcher.entries[launcher.selectedIdx] ?? null
 
     WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
+    color: "transparent"
     visible: open
 
-    implicitWidth: 400
-    implicitHeight: 600
-    color: "#222222"
+    implicitWidth: launcherPanel.implicitWidth + 2 * 8
+    implicitHeight: launcherPanel.implicitHeight + 2 * 8
 
-    ColumnLayout {
-        anchors.centerIn: parent
+    Rectangle {
+        id: launcherPanel
 
-        SearchBar {
-            id: searchBar
-            implicitWidth: 300
+        implicitWidth: 500
+        implicitHeight: column.implicitHeight
+
+        color: Theme.backgroundPrimary
+        anchors.fill: parent
+
+        radius: 18
+        border {
+            color: Theme.outline
+            width: 1
         }
 
-        ListView {
-            model: launcher.visibleEntries
+        ColumnLayout {
+            id: column
+
+            anchors.centerIn: parent
             spacing: 8
-            implicitHeight: 180
 
-            delegate: Rectangle {
-                id: appEntry
+            SearchBar {
+                id: searchBar
+                implicitWidth: launcherPanel.implicitWidth
+                implicitHeight: 40
+                z: 1
+            }
 
-                required property var modelData
+            ListView {
+                id: entryListView
 
-                implicitWidth: searchBar.implicitWidth
-                implicitHeight: entryRow.implicitHeight + 4
+                readonly property int appEntryHeight: 50
 
-                radius: 6
+                model: launcher.entries
 
-                color: modelData.name === launcher.visibleEntries[launcher.selectedEntry].name
-                    ? Theme.highlight
-                    : Theme.backgroundPrimary
+                spacing: 8
+                implicitHeight: (appEntryHeight + spacing) * launcher.nVisibleItems - spacing
 
-                Row {
-                    id: entryRow
+                z: 0
 
-                    anchors.fill: parent
-                    anchors.centerIn: parent
-
-                    spacing: 8
-
-                    // Icon
-                    Item {
-                        implicitWidth: itemIcon.width
-                        implicitHeight: itemIcon.height
-
-                        Image {
-                            id: itemIcon
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            width: 30
-                            height: 30
-                            source: Quickshell.iconPath(appEntry.modelData.icon, true)
-                        }
-                    }
-
-                    // App name
-                    Text {
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        width: parent.width - itemIcon.width - parent.spacing
-
-                        font.family: Settings.fontFamily
-                        // font.pointSize: Size.launcherFontSize
-                        color: Theme.textPrimary
-                        elide: Text.ElideRight
-
-                        text: appEntry.modelData.name
-                    }
+                delegate: AppEntry {
+                    id: appEntry
+                    implicitWidth: launcherPanel.implicitWidth
+                    implicitHeight: entryListView.appEntryHeight
+                    isSelected: modelData.name === launcher.selectedEntry?.name
                 }
             }
+        }
+    }
+
+    function offsetSelected(n: int) {
+        launcher.selectedIdx = Math.min(
+            Math.max(
+                launcher.selectedIdx + n,
+                0
+            ),
+            launcher.entries.length - 1
+        );
+    }
+
+    function run() {
+        selectedEntry?.execute();
+        open = false;
+    }
+
+    function toggle() {
+        if (!launcher.open) {
+            searchBar.clear();
+            searchBar.setFocus();
+            selectedIdx = 0;
+        }
+        open = !open;
+    }
+
+    function centerScroll() {
+        entryListView.positionViewAtIndex(launcher.selectedIdx, ListView.Contain);
+    }
+
+    // Scroll the list when the selected index changes
+    Connections {
+        target: launcher
+        function onSelectedIdxChanged() {
+            launcher.centerScroll();
+        }
+    }
+
+    // Clamp the selected index when typing (as the old idx may become > entries.length)
+    Connections {
+        target: searchBar
+        function onTextChanged() {
+            launcher.offsetSelected(0);
+            launcher.centerScroll();
         }
     }
 
@@ -105,29 +135,28 @@ PanelWindow {
     }
 
     Shortcut {
-        sequences: [StandardKey.MoveToPreviousLine]
-        onActivated: launcher.selectedEntry = Math.max(
-            launcher.selectedEntry - 1,
-            0
-        )
+        sequences: [StandardKey.MoveToPreviousLine, "Ctrl+P"]
+        onActivated: launcher.offsetSelected(-1)
     }
 
     Shortcut {
-        sequences: [StandardKey.MoveToNextLine]
-        onActivated: launcher.selectedEntry = Math.min(
-            launcher.selectedEntry + 1,
-            launcher.visibleEntries.length - 1
-        )
+        sequences: [StandardKey.MoveToNextLine, "Ctrl+N"]
+        onActivated: launcher.offsetSelected(1)
+    }
+
+    Shortcut {
+        sequence: "Return"
+        onActivated: launcher.run()
     }
 
     IpcHandler {
         target: "launcher"
 
-        function toggle() {
+        function toggle(): void {
             if (!launcher.open) {
                 searchBar.clear();
                 searchBar.setFocus();
-                launcher.selectedEntry = 0;
+                launcher.selectedIdx = 0;
             }
             launcher.open = !launcher.open;
         }

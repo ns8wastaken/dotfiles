@@ -4,21 +4,35 @@ import qs.Components
 import qs.Settings
 
 Pill {
-    implicitWidth: text.width + 10
-    implicitHeight: text.height + 5
+    implicitWidth: text.width + 12
+    implicitHeight: 18
 
-    color: Theme.surfaceVariant
+    color: Theme.surface
 
     // visible: UPower.displayDevice.isLaptopBattery
 
-    Text {
+    Row {
         id: text
 
         anchors.centerIn: parent
 
-        color: Theme.textPrimary
-        font.pixelSize: Settings.fontSizeNormal
-        font.family: Settings.fontFamily
-        text: Math.round(UPower.displayDevice.percentage * 100) + '%'
+        MaterialIcon {
+            anchors.verticalCenter: parent.verticalCenter
+
+            text: "battery_full"
+            color: Theme.textPrimary
+            font.pixelSize: Settings.fontSizeSmall
+        }
+
+        Text {
+            anchors.verticalCenter: parent.verticalCenter
+
+            text: Math.round(UPower.displayDevice.percentage * 100) + '%'
+
+            font.pixelSize: Settings.fontSizeSmall
+            font.family: Settings.bar.fontFamily
+
+            color: Theme.textPrimary
+        }
     }
 }

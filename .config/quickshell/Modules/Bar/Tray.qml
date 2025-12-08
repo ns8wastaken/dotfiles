@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
-import qs.Components
+import qs.Modules.Bar.Tray
 
 Row {
     id: tray
@@ -33,16 +33,20 @@ Row {
 
             // Hover scale animation
             scale: isHovered ? 1.15 : 1.0
-            NumberAnimation on scale {
-                duration: 150
-                easing.type: Easing.OutCubic
+            Behavior on scale {
+                NumberAnimation {
+                    duration: 150
+                    easing.type: Easing.OutCubic
+                }
             }
 
             // Subtle rotation on hover
             rotation: isHovered ? 5 : 0
-            NumberAnimation on rotation {
-                duration: 200
-                easing.type: Easing.OutCubic
+            Behavior on rotation {
+                NumberAnimation {
+                    duration: 200
+                    easing.type: Easing.OutCubic
+                }
             }
 
             Rectangle {
@@ -150,7 +154,10 @@ Row {
 
             StyledTooltip {
                 id: trayTooltip
-                text: trayEntry.modelData.tooltipTitle || trayEntry.modelData.name || trayEntry.modelData.id || "Tray Item"
+                text: trayEntry.modelData.tooltipTitle
+                    || trayEntry.modelData.name
+                    || trayEntry.modelData.id
+                    || "Tray Item"
                 targetItem: trayIcon
                 delay: 200
             }

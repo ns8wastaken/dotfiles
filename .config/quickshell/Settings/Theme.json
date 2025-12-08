@@ -1,6 +1,6 @@
 {
     "backgroundPrimary": "#0C0D11",
-    "backgroundSecondary": "#FF0000",
+    "backgroundSecondary": "#13141B",
     "backgroundTertiary": "#FF0000",
 
     "accentPrimary": "#A8AEFF",
@@ -9,6 +9,7 @@
 
     "textPrimary": "#CACEE2",
     "textSecondary": "#B7BBD0",
+    "textPrimaryInverted": "#191B29",
     "textLight": "#F3DEFF",
     "textDark": "#0C0D11",
     "textDisabled": "#6B718A",
@@ -19,6 +20,6 @@
     "error": "#FF6B81",
     "warning": "#FFBB66",
 
-    "surface": "#43485D",
+    "surface": "#35394A",
     "surfaceVariant": "#2A2D3A"
 }

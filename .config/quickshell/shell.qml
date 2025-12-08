@@ -11,21 +11,16 @@ ShellRoot {
         Quickshell.watchFiles = !disableHotReload;
     }
 
-    Loader {
-        active: true
-        sourceComponent: Bar {}
-    }
+    Bar {}
+    NotificationsPopup {}
 
-    Loader {
-        active: true
-        sourceComponent: NotificationsPopup {}
-    }
-
+    // "Activate Linux" watermark
     Loader {
         active: false
         sourceComponent: Watermark {}
     }
 
+    // Text that is overlayed on the background
     Loader {
         active: true
         sourceComponent: BackgroundText {
@@ -40,6 +35,7 @@ ShellRoot {
             }
 
             text: "我\n操\n你\n妈"
+            fontFamily: "HanyiSentyScholar"
             color: "#ffffff"
             size: 40
         }

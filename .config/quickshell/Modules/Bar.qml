@@ -9,18 +9,19 @@ PanelWindow {
 
     property int spacing: 8
 
+    implicitHeight: 32
+
     anchors {
         top: true
         left: true
         right: true
     }
 
-    implicitHeight: 32
-
     margins {
-        top: 4
-        left: 4
-        right: 4
+        top: Settings.bar.margins.top
+        left: Settings.bar.margins.left
+        right: Settings.bar.margins.right
+        bottom: Settings.bar.margins.bottom
     }
 
     // Background

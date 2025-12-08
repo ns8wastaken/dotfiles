@@ -8,7 +8,7 @@ Item {
 
     required property string source
     required property color color
-    property real size: 30
+    required property real size
 
     width: size
     height: size
@@ -16,12 +16,12 @@ Item {
     IconImage {
         id: icon
         anchors.fill: parent
-        source: Qt.resolvedUrl(Quickshell.shellPath("assets/icons/" + parent.source))
+        source: Qt.resolvedUrl(Quickshell.shellPath("assets/icons/" + root.source))
     }
 
     ColorOverlay {
         anchors.fill: parent
         source: icon
-        color: parent.color
+        color: root.color
     }
 }

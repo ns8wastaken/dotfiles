@@ -1,34 +1,50 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
-import QtQuick.Layouts
 import Quickshell
+import Quickshell.Wayland
+import qs.Modules.NotificationsPopup
 import qs.Services
-import qs.Components
 import qs.Settings
 
-PanelWindow {
-    anchors {
-        top: true
-        right: true
-    }
+Variants {
+    id: root
 
-    implicitWidth: notifList.implicitWidth
-    implicitHeight: notifList.implicitHeight
+    model: Quickshell.screens
 
-    Item {
-        id: notifList
+    property int marginTop: Settings.notifications.marginTop
+    property int marginRight: Settings.notifications.marginRight
 
-        implicitWidth: notifications.implicitWidth + (Settings.notificationPadding * 2)
-        implicitHeight: notifications.implicitHeight + (Settings.notificationPadding * 2)
+    delegate: PanelWindow {
+        required property var modelData
 
-        ColumnLayout {
-            id: notifications
+        WlrLayershell.layer: WlrLayer.Overlay
 
-            anchors.centerIn: parent
-            spacing: Settings.notificationPadding
+        anchors {
+            top: true
+            right: true
+        }
+
+        margins.top: root.marginTop
+        margins.right: root.marginRight
+
+        color: "transparent"
+
+        mask: Region { item: notifList }
+
+        implicitWidth: Settings.notifications.width
+        implicitHeight: (Settings.notifications.height + Settings.notifications.spacing)
+            * Settings.notifications.maxVisible - Settings.notifications.spacing
+
+        Column {
+            id: notifList
+
+            anchors.top: parent.top
+            spacing: Settings.notifications.spacing
 
             Repeater {
-                model: NotificationService.popupNotifications
-                delegate: NotificationWrapper {}
+                model: NotificationService.notifications
+                delegate: NotificationEntry {}
             }
         }
     }
