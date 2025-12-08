@@ -21,22 +21,23 @@ Pill {
         anchors.leftMargin: searchBar.implicitHeight / 4
         spacing: 8
 
-        // Text {
-        //     text: "🔍"
-        //     // font.pixelSize: GlobalState.ThemeManager.fontSizeLarge
-        //     font.pixelSize: 16
-        //     Layout.alignment: Qt.AlignVCenter
-        // }
+        // Search icon
+        MaterialIcon {
+            text: "search"
+            font.pixelSize: Settings.fontSizeLarge
+            color: Theme.textPrimary
+        }
 
+        // Search field
         TextField {
             id: textInput
 
-            // Layout.fillWidth: true
+            Layout.fillWidth: true
 
             placeholderText: "Run program..."
             placeholderTextColor: Theme.textPrimary
 
-            font.family: Settings.placeholderFontFamily
+            font.family: Settings.appLauncher.fontFamily
             font.pixelSize: Settings.fontSizeNormal
 
             background: Rectangle { color: "transparent" }

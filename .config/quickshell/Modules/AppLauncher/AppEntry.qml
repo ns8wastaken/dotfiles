@@ -13,9 +13,9 @@ Rectangle {
 
     radius: 10
 
-    color: isSelected ? Theme.highlight : Theme.backgroundSecondary
+    color: isSelected ? Theme.highlight.darker(1.2) : Theme.backgroundSecondary
 
-    Row {
+    RowLayout {
         id: entryRow
 
         anchors.fill: parent
@@ -30,7 +30,7 @@ Rectangle {
 
         // Icon
         Rectangle {
-            anchors.verticalCenter: parent.verticalCenter
+            // Layout.alignment: Qt.AlignVCenter
 
             implicitWidth: parent.height - 2 * appEntry.margins
             implicitHeight: parent.height - 2 * appEntry.margins
@@ -57,18 +57,17 @@ Rectangle {
 
         // App name
         Text {
-            anchors.verticalCenter: parent.verticalCenter
+            // Layout.alignment: Qt.AlignVCenter
+            Layout.fillWidth: true
 
             text: appEntry.modelData.name
 
-            Layout.fillWidth: true
-
-
-            font.family: Settings.placeholderFontFamily
+            font.family: Settings.appLauncher.fontFamily
+            font.pixelSize: Settings.fontSizeSmall
 
             color: appEntry.isSelected
                 ? Theme.textPrimaryInverted
-                : Theme.textPrimary
+                : Theme.textPrimary;
 
             elide: Text.ElideRight
         }

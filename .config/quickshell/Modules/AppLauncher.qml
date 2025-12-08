@@ -65,7 +65,7 @@ PanelWindow {
             ListView {
                 id: entryListView
 
-                readonly property int appEntryHeight: 50
+                readonly property int appEntryHeight: 40
 
                 model: launcher.entries
 

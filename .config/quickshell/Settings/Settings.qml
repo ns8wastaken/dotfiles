@@ -46,6 +46,20 @@ Singleton {
     }
 
     // ==================================
+    // ========== App Launcher ==========
+    // ==================================
+    readonly property var appLauncher: QtObject {
+        readonly property string fontFamily: "CQ Mono"
+
+        readonly property int width: 350
+        readonly property int height: 60
+
+        readonly property int spacing: 4
+
+        readonly property int nVisible: 5
+    }
+
+    // ==================================
     // ============ General =============
     // ==================================
     readonly property string iconFontFamily: "Material Icons Round"

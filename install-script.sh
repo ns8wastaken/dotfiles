@@ -64,7 +64,7 @@ install_uninstalled \
     "rofi" \
     "python-pywal" \
     "fish" \
-    "fastfetch" \
+    "fastfetch"
 
 
 if ! is_installed "starship"; then
