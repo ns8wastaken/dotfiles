@@ -25,17 +25,18 @@ ShellRoot {
     Loader {
         active: true
         sourceComponent: BackgroundText {
-            borderAnchors {
+            anchors {
                 right: true
                 bottom: true
             }
 
-            borderMargins {
+            margins {
                 right: 50
                 bottom: 50
             }
 
-            text: "我\n操\n你\n妈"
+            // text: "我\n操\n你\n妈"
+            text: "吃\n喝\n拉\n撒\n睡"
             fontFamily: "HanyiSentyScholar"
             color: Theme.textPrimary
             size: 40

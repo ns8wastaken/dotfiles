@@ -5,8 +5,8 @@ import qs.Components
 Item {
     anchors.verticalCenter: parent.verticalCenter
 
-    implicitWidth: text.implicitWidth
-    implicitHeight: text.implicitHeight
+    width: text.width
+    height: text.height
 
     MouseArea {
         anchors.fill: parent

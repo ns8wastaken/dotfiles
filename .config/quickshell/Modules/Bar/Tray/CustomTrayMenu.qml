@@ -22,7 +22,7 @@ PopupWindow {
     anchor.rect.x: anchorX
     anchor.rect.y: anchorY - 4
 
-    function showAt(item, x, y) {
+    function showAt(item: Item, x: int, y: int) {
         if (!item) {
             console.warn("CustomTrayMenu: anchorItem is undefined, not showing menu.");
             return;
@@ -31,8 +31,7 @@ PopupWindow {
         anchorX = x;
         anchorY = y;
         visible = true;
-        trayMenu.forceActiveFocus();
-        Qt.callLater(() => trayMenu.anchor.updateAnchor());
+        // Qt.callLater(() => trayMenu.anchor.updateAnchor());
     }
 
     function hideMenu() {
@@ -73,7 +72,7 @@ PopupWindow {
 
             readonly property bool isSeparator: trayEntry.modelData?.isSeparator ?? false
 
-            width: listView.width
+            implicitWidth: listView.width
             height: (modelData?.isSeparator) ? 8 : 32
 
             color: "transparent"
@@ -145,20 +144,13 @@ PopupWindow {
                         elide: Text.ElideRight
                     }
 
-                    Component {
-                        id: icon
-                        Image {
-                            id: iconImage
-                            width: 16
-                            height: 16
-                            source: trayEntry.modelData?.icon ?? ""
-                            fillMode: Image.PreserveAspectFit
-                        }
-                    }
-
-                    Loader {
-                        active: icon.iconImage.source !== ""
-                        sourceComponent: icon
+                    Image {
+                        visible: iconImage.source !== ""
+                        id: iconImage
+                        width: 16
+                        height: 16
+                        source: trayEntry.modelData?.icon ?? ""
+                        fillMode: Image.PreserveAspectFit
                     }
                 }
 
@@ -171,7 +163,7 @@ PopupWindow {
 
                     enabled: (trayEntry.modelData?.enabled ?? true)
                         && !(trayEntry.modelData?.isSeparator ?? false)
-                        && trayMenu.visible
+                        && trayMenu.visible;
 
                     onClicked: {
                         if (trayEntry.modelData && !trayEntry.modelData.isSeparator) {

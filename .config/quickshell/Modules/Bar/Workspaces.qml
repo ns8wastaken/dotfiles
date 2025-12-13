@@ -14,13 +14,13 @@ Row {
         delegate: Rectangle {
             required property var modelData
 
-            implicitWidth: (modelData.active ? 40 : 20) + workspaceLabel.width
-            implicitHeight: 18
+            width: (modelData.active ? 40 : 20) + workspaceLabel.width
+            height: 18
             radius: 40
             color: Theme.getWorkspaceColor(modelData)
 
             // Scaling animation
-            Behavior on implicitWidth {
+            Behavior on width {
                 NumberAnimation {
                     duration: 75
                     easing.type: Easing.InOutCubic

@@ -4,13 +4,14 @@ import QtQuick
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
 import qs.Modules.Bar.Tray
+import qs.Settings
 
 Row {
     id: tray
 
     readonly property var trayMenu: CustomTrayMenu {}
 
-    spacing: 8
+    spacing: Settings.bar.traySpacing
 
     // App icon repeater
     Repeater {
@@ -21,15 +22,15 @@ Row {
             id: trayEntry
 
             required property var modelData
-            readonly property bool isHovered: trayMouseArea.containsMouse
+            readonly property bool isHovered: trayEntryMouseArea.containsMouse
             readonly property bool menuAvailable: (
                 trayEntry.modelData.hasMenu &&
                 trayEntry.modelData.menu &&
                 tray.trayMenu
             )
 
-            implicitWidth: 24
-            implicitHeight: 24
+            width: 24
+            height: 24
 
             // Hover scale animation
             scale: isHovered ? 1.15 : 1.0
@@ -53,17 +54,17 @@ Row {
                 anchors.centerIn: parent
                 color: "transparent"
 
-                implicitWidth: 22
-                implicitHeight: 22
-                radius: 7
+                width: 22
+                height: 22
+                // radius: 7
 
                 IconImage {
                     id: trayIcon
 
                     anchors.centerIn: parent
 
-                    implicitWidth: 16
-                    implicitHeight: 16
+                    width: 16
+                    height: 16
 
                     smooth: false
                     asynchronous: true
@@ -91,7 +92,7 @@ Row {
             }
 
             MouseArea {
-                id: trayMouseArea
+                id: trayEntryMouseArea
 
                 anchors.fill: parent
                 hoverEnabled: true
@@ -125,7 +126,7 @@ Row {
                     // }
 
                     else if (mouse.button === Qt.RightButton) {
-                        trayTooltip.tooltipVisible = false
+                        trayEntryTooltip.tooltipVisible = false
 
                         if (!trayEntry.menuAvailable) {
                             console.log("No menu available for", trayEntry.modelData.id, "or tray.trayMenu not set")
@@ -148,16 +149,16 @@ Row {
                     }
                 }
 
-                onEntered: trayTooltip.tooltipVisible = (tray.trayMenu.visible ? false : true)
-                onExited: trayTooltip.tooltipVisible = false
+                onEntered: trayEntryTooltip.tooltipVisible = (tray.trayMenu.visible ? false : true)
+                onExited: trayEntryTooltip.tooltipVisible = false
             }
 
             StyledTooltip {
-                id: trayTooltip
+                id: trayEntryTooltip
                 text: trayEntry.modelData.tooltipTitle
                     || trayEntry.modelData.name
                     || trayEntry.modelData.id
-                    || "Tray Item"
+                    || "Tray Item";
                 targetItem: trayIcon
                 delay: 200
             }

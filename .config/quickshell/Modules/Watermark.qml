@@ -21,8 +21,8 @@ Variants {
             bottom: 50
         }
 
-        implicitWidth: content.width
-        implicitHeight: content.height
+        width: content.width
+        height: content.height
 
         color: "transparent"
 

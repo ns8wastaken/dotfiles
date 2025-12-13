@@ -57,8 +57,9 @@ PanelWindow {
 
             SearchBar {
                 id: searchBar
+                readonly property int searchBarHeight: 40
                 implicitWidth: launcherPanel.implicitWidth
-                implicitHeight: 40
+                implicitHeight: searchBarHeight
                 z: 1
             }
 
@@ -76,8 +77,8 @@ PanelWindow {
 
                 delegate: AppEntry {
                     id: appEntry
-                    implicitWidth: launcherPanel.implicitWidth
-                    implicitHeight: entryListView.appEntryHeight
+                    width: launcherPanel.implicitWidth
+                    height: entryListView.appEntryHeight
                     isSelected: modelData.name === launcher.selectedEntry?.name
                 }
             }

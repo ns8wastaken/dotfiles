@@ -18,7 +18,7 @@ Pill {
 
     RowLayout {
         anchors.fill: parent
-        anchors.leftMargin: searchBar.implicitHeight / 4
+        anchors.leftMargin: searchBar.height / 4
         spacing: 8
 
         // Search icon

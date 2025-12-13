@@ -9,8 +9,8 @@ Pill {
     property int padding: 8
     property int spacing: 6
 
-    implicitWidth: row.implicitWidth
-    implicitHeight: 18
+    width: row.implicitWidth
+    height: 18
 
     color: Theme.surface
 

@@ -15,8 +15,8 @@ Window {
 
     visible: tooltipVisible
 
-    minimumWidth: tooltipText.implicitWidth + 24
-    minimumHeight: tooltipText.implicitHeight + 16
+    minimumWidth: tooltipText.width + 24
+    minimumHeight: tooltipText.height + 16
 
     Component.onCompleted: _hideNow()
 

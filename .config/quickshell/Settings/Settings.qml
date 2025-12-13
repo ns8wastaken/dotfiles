@@ -25,6 +25,8 @@ Singleton {
             readonly property int right: 4
             readonly property int bottom: 0
         }
+
+        readonly property int traySpacing: 6
     }
 
     // ==================================
@@ -69,4 +71,8 @@ Singleton {
     readonly property int fontSizeNormal: 16
     readonly property int fontSizeLarge: 18
     readonly property int fontSizeLarger: 20
+
+    // function shellFont(name: string): string {
+    //     return Quickshell.shellDir + "/Assets/Fonts/" + name;
+    // }
 }

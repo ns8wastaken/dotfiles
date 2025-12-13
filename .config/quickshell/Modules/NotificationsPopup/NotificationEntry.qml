@@ -9,8 +9,8 @@ Rectangle {
 
     required property var modelData
 
-    implicitWidth: Settings.notifications.width
-    implicitHeight: Settings.notifications.height
+    width: Settings.notifications.width
+    height: Settings.notifications.height
 
     color: Theme.backgroundPrimary
 
@@ -31,8 +31,8 @@ Rectangle {
     Component {
         id: realImage
         RoundedImage {
-            implicitWidth: row.height - 2 * Settings.notifications.popupMargins
-            implicitHeight: row.height - 2 * Settings.notifications.popupMargins
+            width: row.height - 2 * Settings.notifications.popupMargins
+            height: row.height - 2 * Settings.notifications.popupMargins
             image.fillMode: Image.PreserveAspectFit
             image.source: root.modelData.image
             color: Theme.backgroundPrimary
@@ -54,8 +54,8 @@ Rectangle {
     Row {
         id: row
 
-        width: parent.implicitWidth
-        height: parent.implicitHeight
+        width: parent.width
+        height: parent.height
 
         padding: Settings.notifications.popupMargins
         spacing: Settings.notifications.popupMargins

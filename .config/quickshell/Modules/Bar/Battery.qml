@@ -4,8 +4,8 @@ import qs.Components
 import qs.Settings
 
 Pill {
-    implicitWidth: text.width + 12
-    implicitHeight: 18
+    width: text.width + 12
+    height: 18
 
     color: Theme.surface
 

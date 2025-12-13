@@ -11,8 +11,8 @@ Variants {
     required property var color
     required property int size
     required property string fontFamily
-    property margins borderMargins
-    property panelAnchors borderAnchors
+    property panelAnchors anchors
+    property margins margins
 
     // Create the panel once on each monitor.
     model: Quickshell.screens
@@ -22,8 +22,8 @@ Variants {
 
         screen: modelData
 
-        anchors: root.borderAnchors
-        margins: root.borderMargins
+        anchors: root.anchors
+        margins: root.margins
 
         implicitWidth: content.width
         implicitHeight: content.height
