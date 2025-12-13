@@ -20,10 +20,7 @@ swww img "$wallpaper" \
     --transition-duration 1.5 \
     --transition-step 20 \
     --transition-fps 144 \
-    && wal -i "$wallpaper" > /dev/null 2>&1
-
-# Optional: reload apps using pywal colors
-killall waybar && nohup waybar > /dev/null 2>&1 & disown
+    && wallust run "$wallpaper" -u #> /dev/null 2>&1
 
 # Optional: send notification
-# notify-send "Wallpaper set" "$wallpaper"
+notify-send "Wallpaper set" "$wallpaper"

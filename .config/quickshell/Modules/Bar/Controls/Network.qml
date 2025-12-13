@@ -2,15 +2,11 @@ import QtQuick
 import qs.Settings
 import qs.Components
 
-Rectangle {
-    id: root
-
+Item {
     anchors.verticalCenter: parent.verticalCenter
 
     implicitWidth: text.implicitWidth
     implicitHeight: text.implicitHeight
-
-    color: "transparent"
 
     MouseArea {
         anchors.fill: parent

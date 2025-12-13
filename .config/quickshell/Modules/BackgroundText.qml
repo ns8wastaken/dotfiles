@@ -1,14 +1,14 @@
 pragma ComponentBehavior: Bound
 
-import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import QtQuick
 
 Variants {
     id: root
 
     required property string text
-    required property string color
+    required property var color
     required property int size
     required property string fontFamily
     property margins borderMargins

@@ -16,4 +16,8 @@ dotfiles add \
     ~/.config/rofi/ \
     ~/.config/waybar/ \
     ~/.config/quickshell/ \
-    ~/.config/wal/
+    ~/.config/wallust/
+
+dotfiles restore --staged \
+    ~/.config/nvim/lazy-lock.json \
+    ~/.config/fish/fish_variables

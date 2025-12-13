@@ -30,5 +30,6 @@ Pill {
         spacing: parent.spacing
 
         Network {}
+        Audio {}
     }
 }

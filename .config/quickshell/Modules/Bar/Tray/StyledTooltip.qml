@@ -59,7 +59,7 @@ Window {
 
         radius: 6
         color: Theme.backgroundPrimary
-        border.color: Theme.accentPrimary
+        border.color: Theme.outline
         border.width: 1
 
         opacity: 0.9

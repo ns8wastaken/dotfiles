@@ -1,6 +1,7 @@
 import Quickshell
 import QtQuick
 import qs.Modules
+import qs.Settings
 
 ShellRoot {
     readonly property bool disableHotReload:
@@ -36,7 +37,7 @@ ShellRoot {
 
             text: "我\n操\n你\n妈"
             fontFamily: "HanyiSentyScholar"
-            color: "#ffffff"
+            color: Theme.textPrimary
             size: 40
         }
     }

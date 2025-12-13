@@ -108,6 +108,12 @@ Rectangle {
         }
     }
 
+    Timer {
+        interval: 5000
+        running: true
+        onTriggered: root.expire()
+    }
+
     NumberAnimation on x {
         // id: slideIn
         from: Settings.notifications.width

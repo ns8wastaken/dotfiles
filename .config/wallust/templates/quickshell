@@ -1,0 +1,25 @@
+{
+    "backgroundPrimary": "{{background}}",
+    "backgroundSecondary": "{{background | lighten(0.1)}}",
+    "backgroundTertiary": "{{color1}}",
+
+    "accentPrimary": "{{color4}}",
+    "accentSecondary": "{{color5}}",
+    "accentTertiary": "{{color6}}",
+
+    "textPrimary": "{{foreground}}",
+    "textSecondary": "{{foreground | darken(0.15)}}",
+    "textPrimaryInverted": "{{background}}",
+    "textLight": "{{color15}}",
+    "textDark": "{{background}}",
+    "textDisabled": "{{color8}}",
+
+    "outline": "{{color8}}",
+    "highlight": "{{color13}}",
+
+    "error": "{{color1}}",
+    "warning": "{{color3}}",
+
+    "surface": "{{color0}}",
+    "surfaceVariant": "{{color2}}"
+}

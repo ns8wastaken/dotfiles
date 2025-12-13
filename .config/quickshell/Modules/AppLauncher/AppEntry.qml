@@ -4,7 +4,7 @@ import QtQuick.Layouts
 import qs.Settings
 
 Rectangle {
-    id: appEntry
+    id: root
 
     required property var modelData
     required property bool isSelected
@@ -13,7 +13,7 @@ Rectangle {
 
     radius: 10
 
-    color: isSelected ? Theme.highlight.darker(1.2) : Theme.backgroundSecondary
+    color: isSelected ? Theme.highlight.darker(1.1) : Theme.backgroundSecondary
 
     RowLayout {
         id: entryRow
@@ -22,8 +22,8 @@ Rectangle {
         anchors.centerIn: parent
 
         anchors {
-            leftMargin: appEntry.margins
-            rightMargin: appEntry.margins
+            leftMargin: root.margins
+            rightMargin: root.margins
         }
 
         spacing: 8
@@ -32,8 +32,8 @@ Rectangle {
         Rectangle {
             // Layout.alignment: Qt.AlignVCenter
 
-            implicitWidth: parent.height - 2 * appEntry.margins
-            implicitHeight: parent.height - 2 * appEntry.margins
+            implicitWidth: parent.height - 2 * root.margins
+            implicitHeight: parent.height - 2 * root.margins
 
             radius: 8
 
@@ -51,7 +51,7 @@ Rectangle {
                 width: parent.height - 8
                 height: parent.height - 8
 
-                source: Quickshell.iconPath(appEntry.modelData.icon, true)
+                source: Quickshell.iconPath(root.modelData.icon, true)
             }
         }
 
@@ -60,12 +60,12 @@ Rectangle {
             // Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
 
-            text: appEntry.modelData.name
+            text: root.modelData.name
 
             font.family: Settings.appLauncher.fontFamily
             font.pixelSize: Settings.fontSizeSmall
 
-            color: appEntry.isSelected
+            color: root.isSelected
                 ? Theme.textPrimaryInverted
                 : Theme.textPrimary;
 
