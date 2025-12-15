@@ -9,7 +9,6 @@ dotfiles add \
     ~/.config/nvim/ \
     ~/.config/hypr/ \
     ~/.config/kitty/ \
-    ~/.config/wlogout/ \
     ~/.local/share/fastfetch/ \
     ~/.config/fish/ \
     ~/.config/starship.toml \
@@ -20,5 +19,4 @@ dotfiles add \
 
 dotfiles restore --staged \
     ~/.config/nvim/lazy-lock.json \
-    ~/.config/fish/fish_variables \
-    ~/.config/quickshell/.qmlls.ini
+    ~/.config/fish/fish_variables

@@ -47,16 +47,16 @@ PathView {
                 anchors.right: parent.right
                 anchors.margins: 8
 
-                text: root.filteredWallpaperNames[wallpaperEntry.index]
+                text: root.filteredWallpaperNames[wallpaperEntry.index] ?? "Temp Name"
 
                 color: "#ffffff"
 
                 font.family: Config.fonts.sans
-                font.pixelSize: 12
+                font.pixelSize: Config.fontSizeSmaller
 
                 elide: Text.ElideMiddle
 
-                style: Text.Raised
+                style: Text.Outline
                 styleColor: Theme.backgroundPrimary
             }
         }

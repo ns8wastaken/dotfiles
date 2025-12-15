@@ -18,14 +18,9 @@ Scope {
 
     readonly property string wallpaperDir: "/home/ns8/wallpapers"
 
-    property string searchQuery: ""
     property list<string> wallpaperList: []
 
-    readonly property list<string> filteredWallpaperList: Fuzzysort.sort(
-        searchQuery,
-        Array.from(wallpaperList)
-            .sort((w1, w2) => w1.localeCompare(w2))
-    );
+    readonly property list<string> filteredWallpaperList: Fuzzysort.sort(searchBar.text, wallpaperList);
     readonly property list<string> filteredWallpaperNames: filteredWallpaperList
         .map(w => w.slice(wallpaperDir.length + 1));
 
@@ -84,13 +79,13 @@ Scope {
             SlidingWallpapers {
                 id: slidingWallpapers
 
-                filteredWallpaperNames: root.filteredWallpaperNames
-
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
+                filteredWallpaperNames: root.filteredWallpaperNames
+
                 model: root.filteredWallpaperList
-                pathItemCount: 9
+                pathItemCount: Config.wallpaperPicker.nVisible
             }
         }
 

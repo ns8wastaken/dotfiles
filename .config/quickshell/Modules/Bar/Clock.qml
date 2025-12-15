@@ -18,7 +18,7 @@ Item {
         color: Theme.textPrimary
 
         font.pixelSize: Config.fontSizeNormal
-        font.family: Config.fonts.sans
+        font.family: Config.fonts.clock
         text: TimeService.time
 
         MouseArea {
