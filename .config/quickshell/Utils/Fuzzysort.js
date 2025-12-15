@@ -1,3 +1,5 @@
+.pragma library
+
 function sort(query, src, keyFn = x => x) {
     if (!query) return src;
 
@@ -18,9 +20,19 @@ function sort(query, src, keyFn = x => x) {
         return score;
     }
 
-    return src
-        .map(item => ({ item, score: score(keyFn(item)) }))
-        .filter(x => x.score > 0)
-        .sort((a, b) => b.score - a.score)
-        .map(x => x.item);
+    const result = [];
+    for (const item of src) {
+        const s = score(keyFn(item));
+        if (s > 0) result.push({ item, score: s });
+    }
+
+    // sort in place
+    result.sort((a, b) => b.score - a.score);
+
+    // extract items
+    for (let i = 0; i < result.length; i++) {
+        result[i] = result[i].item;
+    }
+
+    return result;
 }

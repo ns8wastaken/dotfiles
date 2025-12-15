@@ -20,7 +20,7 @@ swww img "$wallpaper" \
     --transition-duration 1.5 \
     --transition-step 20 \
     --transition-fps 144 \
-    && wallust run "$wallpaper" -u #> /dev/null 2>&1
+    && wallust run "$wallpaper" -u -q #--check-contrast
 
 # Optional: send notification
 notify-send "Wallpaper set" "$wallpaper"

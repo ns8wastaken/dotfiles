@@ -1,19 +1,16 @@
 pragma ComponentBehavior: Bound
 
-import QtQuick
 import Quickshell
 import Quickshell.Wayland
+import QtQuick
 import qs.Modules.NotificationsPopup
 import qs.Services
-import qs.Settings
+import qs.Config
 
 Variants {
     id: root
 
     model: Quickshell.screens
-
-    property int marginTop: Settings.notifications.marginTop
-    property int marginRight: Settings.notifications.marginRight
 
     delegate: PanelWindow {
         required property var modelData
@@ -25,22 +22,24 @@ Variants {
             right: true
         }
 
-        margins.top: root.marginTop
-        margins.right: root.marginRight
+        margins {
+            top: Config.notifications.marginTop
+            right: Config.notifications.marginRight
+        }
 
         color: "transparent"
 
         mask: Region { item: notifList }
 
-        implicitWidth: Settings.notifications.width
-        implicitHeight: (Settings.notifications.height + Settings.notifications.spacing)
-            * Settings.notifications.maxVisible - Settings.notifications.spacing
+        implicitWidth: Config.notifications.width
+        implicitHeight: (Config.notifications.height + Config.notifications.spacing)
+            * Config.notifications.maxVisible - Config.notifications.spacing;
 
         Column {
             id: notifList
 
             anchors.top: parent.top
-            spacing: Settings.notifications.spacing
+            spacing: Config.notifications.spacing
 
             Repeater {
                 model: NotificationService.notifications

@@ -5,35 +5,39 @@ import Quickshell.Io
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
+import qs.Components
 import qs.Modules.AppLauncher
-import qs.Settings
+import qs.Config
+import qs.Theme
 import "../Utils/Fuzzysort.js" as Fuzzysort
 
 PanelWindow {
-    id: launcher
+    id: root
+
+    readonly property int padding: 8
+    readonly property int appEntryRadius: 10
 
     property var open: false
-
-    property int nVisibleItems: 8
 
     readonly property list<DesktopEntry> entries: Fuzzysort.sort(
         searchBar.text,
         Array.from(DesktopEntries.applications.values)
             .sort((e1, e2) => e1.name.localeCompare(e2.name)),
         e => e.name
-    )
-    property real selectedIdx: 0
-    readonly property DesktopEntry selectedEntry: launcher.entries[launcher.selectedIdx] ?? null
+    );
+    property int selectedIdx: 0
+    readonly property DesktopEntry selectedEntry: entries[selectedIdx] ?? null
 
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
-    color: "transparent"
     visible: open
+    color: "transparent"
 
-    implicitWidth: launcherPanel.implicitWidth + 2 * 8
-    implicitHeight: launcherPanel.implicitHeight + 2 * 8
+    implicitWidth: launcherPanel.implicitWidth + 2 * padding
+    implicitHeight: launcherPanel.implicitHeight + 2 * padding
 
+    // Background
     Rectangle {
         id: launcherPanel
 
@@ -43,12 +47,15 @@ PanelWindow {
         color: Theme.backgroundPrimary
         anchors.fill: parent
 
-        radius: 18
-        border {
-            color: Theme.outline
-            width: 1
-        }
+        topLeftRadius: root.padding + searchBar.radius
+        topRightRadius: root.padding + searchBar.radius
+        bottomLeftRadius: root.padding + root.appEntryRadius
+        bottomRightRadius: root.padding + root.appEntryRadius
 
+        border.color: Theme.outline
+        border.width: 1
+
+        // Search bar + app list
         ColumnLayout {
             id: column
 
@@ -57,41 +64,54 @@ PanelWindow {
 
             SearchBar {
                 id: searchBar
-                readonly property int searchBarHeight: 40
-                implicitWidth: launcherPanel.implicitWidth
-                implicitHeight: searchBarHeight
-                z: 1
+
+                Layout.preferredWidth: launcherPanel.implicitWidth
+                Layout.preferredHeight: 40
+
+                backgroundColor: Theme.backgroundPrimary
+                borderColor: Theme.outline
+                borderWidth: 1
+
+                iconColor: Theme.textPrimary
+                iconSize: Config.fontSizeLarge
+
+                textColor: Theme.textPrimary
+                placeholderColor: Theme.textPrimary
+                placeholderText: "Run program..."
+
+                textFont.family: Config.fonts.sans
+                textFont.pixelSize: Config.fontSizeNormal
             }
 
+            // App list
             ListView {
                 id: entryListView
 
                 readonly property int appEntryHeight: 40
 
-                model: launcher.entries
+                model: root.entries
 
                 spacing: 8
-                implicitHeight: (appEntryHeight + spacing) * launcher.nVisibleItems - spacing
-
-                z: 0
+                implicitHeight: (appEntryHeight + spacing) * Config.appLauncher.nVisible - spacing
 
                 delegate: AppEntry {
                     id: appEntry
                     width: launcherPanel.implicitWidth
                     height: entryListView.appEntryHeight
-                    isSelected: modelData.name === launcher.selectedEntry?.name
+                    radius: root.appEntryRadius
+                    isSelected: modelData.name === root.selectedEntry?.name
                 }
             }
         }
     }
 
-    function offsetSelected(n: int) {
-        launcher.selectedIdx = Math.min(
+    function offsetSelectedIdx(n: int) {
+        root.selectedIdx = Math.min(
             Math.max(
-                launcher.selectedIdx + n,
+                root.selectedIdx + n,
                 0
             ),
-            launcher.entries.length - 1
+            root.entries.length - 1
         );
     }
 
@@ -101,23 +121,24 @@ PanelWindow {
     }
 
     function toggle() {
-        if (!launcher.open) {
+        if (!root.open) {
             searchBar.clear();
-            searchBar.setFocus();
+            // searchBar.setFocus();
+            searchBar.focus = true;
             selectedIdx = 0;
         }
         open = !open;
     }
 
     function centerScroll() {
-        entryListView.positionViewAtIndex(launcher.selectedIdx, ListView.Contain);
+        entryListView.positionViewAtIndex(root.selectedIdx, ListView.Contain);
     }
 
     // Scroll the list when the selected index changes
     Connections {
-        target: launcher
+        target: root
         function onSelectedIdxChanged() {
-            launcher.centerScroll();
+            root.centerScroll();
         }
     }
 
@@ -125,41 +146,41 @@ PanelWindow {
     Connections {
         target: searchBar
         function onTextChanged() {
-            launcher.offsetSelected(0);
-            launcher.centerScroll();
+            root.offsetSelectedIdx(0);
+            root.centerScroll();
         }
     }
 
     Shortcut {
         sequences: [StandardKey.Cancel]
-        onActivated: launcher.open = false
+        onActivated: root.open = false
     }
 
     Shortcut {
         sequences: [StandardKey.MoveToPreviousLine, "Ctrl+P"]
-        onActivated: launcher.offsetSelected(-1)
+        onActivated: root.offsetSelectedIdx(-1)
     }
 
     Shortcut {
         sequences: [StandardKey.MoveToNextLine, "Ctrl+N"]
-        onActivated: launcher.offsetSelected(1)
+        onActivated: root.offsetSelectedIdx(1)
     }
 
     Shortcut {
         sequence: "Return"
-        onActivated: launcher.run()
+        onActivated: root.run()
     }
 
     IpcHandler {
         target: "launcher"
 
         function toggle(): void {
-            if (!launcher.open) {
+            if (!root.open) {
                 searchBar.clear();
-                searchBar.setFocus();
-                launcher.selectedIdx = 0;
+                searchBar.focusField();
+                root.selectedIdx = 0;
             }
-            launcher.open = !launcher.open;
+            root.open = !root.open;
         }
     }
 }

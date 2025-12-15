@@ -16,7 +16,7 @@ Item {
     IconImage {
         id: icon
         anchors.fill: parent
-        source: Qt.resolvedUrl(Quickshell.shellPath("assets/icons/" + root.source))
+        source: Qt.resolvedUrl(Quickshell.shellPath("Assets/Icons/" + root.source))
     }
 
     ColorOverlay {

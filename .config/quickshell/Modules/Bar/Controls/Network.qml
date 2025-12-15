@@ -1,6 +1,7 @@
 import QtQuick
-import qs.Settings
 import qs.Components
+import qs.Config
+import qs.Theme
 
 Item {
     anchors.verticalCenter: parent.verticalCenter
@@ -18,7 +19,7 @@ Item {
             anchors.centerIn: parent
 
             color: Theme.textPrimary
-            font.pointSize: Settings.fontSizeSmaller
+            font.pointSize: Config.fontSizeSmaller
 
             text: "signal_wifi_4_bar"
         }

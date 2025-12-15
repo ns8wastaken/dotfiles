@@ -1,0 +1,76 @@
+{
+    "placeholderFontFamily": "",
+
+    "fontSizeSmaller": 12,
+    "fontSizeSmall": 14,
+    "fontSizeNormal": 16,
+    "fontSizeLarge": 18,
+    "fontSizeLarger": 20,
+
+    "fonts": {
+        "sans": "Rubik",
+        "mono": "Caskaydia Mono NF",
+        "icon": "Material Icons Round",
+        "clock": "Rubik",
+        "japanese": "KAWAIITEGAKIMOJI",
+        "cute": "Pacifico"
+    },
+
+    "bar": {
+        "spacing": 8,
+
+        "margins": {
+            "top": 4,
+            "left": 4,
+            "right": 4,
+            "bottom": 0
+        },
+
+        "tray": {
+            "iconSize": 16,
+            "spacing": 12
+        }
+    },
+
+    "notifications": {
+        "width": 350,
+        "height": 60,
+
+        "popupMargins": 4,
+        "spacing": 4,
+
+        "marginTop": 4,
+        "marginRight": 4,
+
+        "maxVisible": 4
+    },
+
+    "appLauncher": {
+        "width": 350,
+        "height": 60,
+
+        "spacing": 4,
+
+        "nVisible": 8
+    },
+
+    "wallpaperPicker": {
+        "width": 1200,
+        "height": 600,
+
+        "spacing": 4,
+
+        "nVisible": 5
+    },
+
+    "wlogout": {
+        "width": 1100,
+        "height": 550,
+
+        "bgAlpha": 0.7,
+
+        "spacing": 4,
+
+        "nCols": 3
+    }
+}

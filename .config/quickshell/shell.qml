@@ -1,7 +1,8 @@
 import Quickshell
 import QtQuick
 import qs.Modules
-import qs.Settings
+import qs.Config
+import qs.Theme
 
 ShellRoot {
     readonly property bool disableHotReload:
@@ -14,6 +15,8 @@ ShellRoot {
 
     Bar {}
     NotificationsPopup {}
+    WallpaperPicker {}
+    WLogout {}
 
     // "Activate Linux" watermark
     Loader {
@@ -24,22 +27,29 @@ ShellRoot {
     // Text that is overlayed on the background
     Loader {
         active: true
-        sourceComponent: BackgroundText {
-            anchors {
-                right: true
-                bottom: true
+        sourceComponent: Scope {
+            FontLoader {
+                id: bgTextFont
+                source: Config.shellFont("HanyiSentyScholar.ttf")
             }
 
-            margins {
-                right: 50
-                bottom: 50
-            }
+            BackgroundText {
+                anchors {
+                    right: true
+                    bottom: true
+                }
 
-            // text: "我\n操\n你\n妈"
-            text: "吃\n喝\n拉\n撒\n睡"
-            fontFamily: "HanyiSentyScholar"
-            color: Theme.textPrimary
-            size: 40
+                margins {
+                    right: 50
+                    bottom: 50
+                }
+
+                // text.text: "我\n操\n你\n妈"
+                text.text: "吃\n喝\n拉\n撒\n睡"
+                text.color: Theme.textPrimary
+                text.font.family: bgTextFont.name
+                text.font.pointSize: 40
+            }
         }
     }
 
@@ -135,7 +145,7 @@ ShellRoot {
 //                 anchors.topMargin: 12
 //                 anchors.bottomMargin: 12
 //
-//                 radius: 14
+//                 radius: 16
 //             }
 //         }
 //     }

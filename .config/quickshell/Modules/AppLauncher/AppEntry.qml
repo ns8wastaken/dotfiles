@@ -1,7 +1,8 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.Settings
+import qs.Config
+import qs.Theme
 
 Rectangle {
     id: root
@@ -10,8 +11,6 @@ Rectangle {
     required property bool isSelected
 
     readonly property int margins: 4
-
-    radius: 10
 
     color: isSelected ? Theme.highlight.darker(1.1) : Theme.backgroundSecondary
 
@@ -26,12 +25,10 @@ Rectangle {
             rightMargin: root.margins
         }
 
-        spacing: 8
+        spacing: root.margins
 
         // Icon
         Rectangle {
-            // Layout.alignment: Qt.AlignVCenter
-
             implicitWidth: parent.height - 2 * root.margins
             implicitHeight: parent.height - 2 * root.margins
 
@@ -52,18 +49,21 @@ Rectangle {
                 height: parent.height - 8
 
                 source: Quickshell.iconPath(root.modelData.icon, true)
+
+                mipmap: true
+                antialiasing: true
+                smooth: true
             }
         }
 
         // App name
         Text {
-            // Layout.alignment: Qt.AlignVCenter
             Layout.fillWidth: true
 
             text: root.modelData.name
 
-            font.family: Settings.appLauncher.fontFamily
-            font.pixelSize: Settings.fontSizeSmall
+            font.family: Config.fonts.sans
+            font.pixelSize: Config.fontSizeSmall
 
             color: root.isSelected
                 ? Theme.textPrimaryInverted

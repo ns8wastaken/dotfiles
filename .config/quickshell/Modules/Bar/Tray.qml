@@ -4,14 +4,14 @@ import QtQuick
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
 import qs.Modules.Bar.Tray
-import qs.Settings
+import qs.Config
 
 Row {
-    id: tray
+    id: root
 
-    readonly property var trayMenu: CustomTrayMenu {}
+    readonly property var trayMenu: TrayMenu {}
 
-    spacing: Settings.bar.traySpacing
+    spacing: Config.bar.tray.spacing
 
     // App icon repeater
     Repeater {
@@ -26,11 +26,11 @@ Row {
             readonly property bool menuAvailable: (
                 trayEntry.modelData.hasMenu &&
                 trayEntry.modelData.menu &&
-                tray.trayMenu
-            )
+                root.trayMenu
+            );
 
-            width: 24
-            height: 24
+            width: Config.bar.tray.iconSize
+            height: Config.bar.tray.iconSize
 
             // Hover scale animation
             scale: isHovered ? 1.15 : 1.0
@@ -50,44 +50,35 @@ Row {
                 }
             }
 
-            Rectangle {
+            IconImage {
+                id: trayEntryIcon
+
                 anchors.centerIn: parent
-                color: "transparent"
 
-                width: 22
-                height: 22
-                // radius: 7
+                width: trayEntry.width
+                height: trayEntry.width
 
-                IconImage {
-                    id: trayIcon
+                smooth: false
+                asynchronous: true
+                backer.fillMode: Image.PreserveAspectFit
 
-                    anchors.centerIn: parent
-
-                    width: 16
-                    height: 16
-
-                    smooth: false
-                    asynchronous: true
-                    backer.fillMode: Image.PreserveAspectFit
-
-                    source: {
-                        let icon = trayEntry.modelData?.icon;
-                        if (!icon) return "";
-                        // Process icon path
-                        if (icon.includes("?path=")) {
-                            const [name, path] = icon.split("?path=");
-                            const fileName = name.substring(name.lastIndexOf("/") + 1);
-                            return `file://${path}/${fileName}`;
-                        }
-                        return icon;
+                source: {
+                    let icon = trayEntry.modelData?.icon;
+                    if (!icon) return "";
+                    // Process icon path
+                    if (icon.includes("?path=")) {
+                        const [name, path] = icon.split("?path=");
+                        const fileName = name.substring(name.lastIndexOf("/") + 1);
+                        return `file://${path}/${fileName}`;
                     }
+                    return icon;
+                }
 
-                    opacity: status === Image.Ready ? 1 : 0
+                opacity: status === Image.Ready ? 1 : 0
 
-                    NumberAnimation on opacity {
-                        duration: 300
-                        easing.type: Easing.OutCubic
-                    }
+                NumberAnimation on opacity {
+                    duration: 300
+                    easing.type: Easing.OutCubic
                 }
             }
 
@@ -105,8 +96,8 @@ Row {
 
                     if (mouse.button === Qt.LeftButton) {
                         // If menu is visible, close it
-                        if (tray.trayMenu && tray.trayMenu.visible) {
-                            tray.trayMenu.hideMenu();
+                        if (root.trayMenu && root.trayMenu.visible) {
+                            root.trayMenu.hideMenu();
                         }
 
                         // Open application
@@ -117,8 +108,8 @@ Row {
 
                     // else if (mouse.button === Qt.MiddleButton) {
                     //     // If menu is already visible, close it
-                    //     if (tray.trayMenu && tray.trayMenu.visible) {
-                    //         tray.trayMenu.hideMenu();
+                    //     if (root.trayMenu && root.trayMenu.visible) {
+                    //         root.trayMenu.hideMenu();
                     //     }
                     //
                     //     trayEntry.modelData.secondaryActivate
@@ -129,37 +120,37 @@ Row {
                         trayEntryTooltip.tooltipVisible = false
 
                         if (!trayEntry.menuAvailable) {
-                            console.log("No menu available for", trayEntry.modelData.id, "or tray.trayMenu not set")
+                            console.log("No menu available for", trayEntry.modelData.id, "or root.trayMenu not set")
                         }
 
-                        // Anchor the menu to the tray icon item (parent) and position it below the icon
-                        if (tray.trayMenu.menu == trayEntry.modelData.menu && tray.trayMenu.visible) {
-                            // The same tray entry is right clicked (just hide the menu)
-                            tray.trayMenu.hideMenu();
+                        // Anchor the menu to the root icon item (parent) and position it below the icon
+                        if (root.trayMenu.menu == trayEntry.modelData.menu && root.trayMenu.visible) {
+                            // The same root entry is right clicked (just hide the menu)
+                            root.trayMenu.hideMenu();
                         } else {
                             // A different entry is right clicked (hide the menu then show it again to remove artifacts)
-                            tray.trayMenu.hideMenu();
-                            tray.trayMenu.menu = trayEntry.modelData.menu;
-                            tray.trayMenu.showAt(
+                            root.trayMenu.hideMenu();
+                            root.trayMenu.menu = trayEntry.modelData.menu;
+                            root.trayMenu.showAt(
                                 parent,
-                                (width - tray.trayMenu.width) / 2,
-                                height + 20
-                            );
+                                (parent.width - root.trayMenu.implicitWidth) / 2,
+                                parent.height + 18
+                            )
                         }
                     }
                 }
 
-                onEntered: trayEntryTooltip.tooltipVisible = (tray.trayMenu.visible ? false : true)
+                onEntered: trayEntryTooltip.tooltipVisible = !root.trayMenu.visible
                 onExited: trayEntryTooltip.tooltipVisible = false
             }
 
-            StyledTooltip {
+            Tooltip {
                 id: trayEntryTooltip
+                targetItem: trayEntryIcon
                 text: trayEntry.modelData.tooltipTitle
                     || trayEntry.modelData.name
                     || trayEntry.modelData.id
                     || "Tray Item";
-                targetItem: trayIcon
                 delay: 200
             }
         }

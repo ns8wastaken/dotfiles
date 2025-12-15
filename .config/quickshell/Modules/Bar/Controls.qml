@@ -1,7 +1,7 @@
 import QtQuick
-import qs.Components
-import qs.Settings
 import qs.Modules.Bar.Controls
+import qs.Components
+import qs.Theme
 
 Pill {
     id: controls

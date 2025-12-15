@@ -1,13 +1,13 @@
-import QtQuick
 import Quickshell
-import qs.Settings
+import QtQuick
 import qs.Modules.Bar
+import qs.Config
+import qs.Theme
 
 PanelWindow {
-    id: bar
-    color: "transparent"
+    id: root
 
-    property int spacing: 8
+    color: "transparent"
 
     implicitHeight: 32
 
@@ -18,10 +18,10 @@ PanelWindow {
     }
 
     margins {
-        top: Settings.bar.margins.top
-        left: Settings.bar.margins.left
-        right: Settings.bar.margins.right
-        bottom: Settings.bar.margins.bottom
+        top: Config.bar.margins.top
+        left: Config.bar.margins.left
+        right: Config.bar.margins.right
+        bottom: Config.bar.margins.bottom
     }
 
     // Background
@@ -42,7 +42,7 @@ PanelWindow {
             left: parent.left
             leftMargin: 10
         }
-        spacing: bar.spacing
+        spacing: Config.bar.spacing
 
         Workspaces { anchors.verticalCenter: parent.verticalCenter }
     }
@@ -50,7 +50,7 @@ PanelWindow {
     // Center
     Row {
         anchors.centerIn: parent
-        spacing: bar.spacing
+        spacing: Config.bar.spacing
 
         Clock { anchors.verticalCenter: parent.verticalCenter }
     }
@@ -62,7 +62,7 @@ PanelWindow {
             right: parent.right
             rightMargin: 10
         }
-        spacing: bar.spacing
+        spacing: Config.bar.spacing
 
         Tray { anchors.verticalCenter: parent.verticalCenter }
         Controls { anchors.verticalCenter: parent.verticalCenter }

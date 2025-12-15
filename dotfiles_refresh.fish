@@ -20,4 +20,5 @@ dotfiles add \
 
 dotfiles restore --staged \
     ~/.config/nvim/lazy-lock.json \
-    ~/.config/fish/fish_variables
+    ~/.config/fish/fish_variables \
+    ~/.config/quickshell/.qmlls.ini

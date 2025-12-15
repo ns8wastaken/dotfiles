@@ -1,7 +1,8 @@
 import QtQuick
-import qs.Settings
-import qs.Components
 import qs.Services
+import qs.Components
+import qs.Config
+import qs.Theme
 
 Item {
     anchors.verticalCenter: parent.verticalCenter
@@ -19,7 +20,7 @@ Item {
             anchors.centerIn: parent
 
             color: AudioService.muted ? Theme.textDisabled : Theme.textPrimary
-            font.pointSize: Settings.fontSizeSmaller
+            font.pointSize: Config.fontSizeSmaller
 
             text: AudioService.volume < 0.05
                 ? "volume_off"

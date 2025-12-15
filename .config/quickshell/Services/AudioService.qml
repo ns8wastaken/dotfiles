@@ -7,20 +7,6 @@ import QtQuick
 Singleton {
     id: root
 
-    // readonly property var _nodes: Pipewire.nodes.values.reduce((acc, node) => {
-    //     if (!node.isStream) {
-    //         if (node.isSink) {
-    //             acc.sinks.push(node);
-    //         } else if (node.audio) {
-    //             acc.sources.push(node);
-    //         }
-    //     }
-    //     return acc;
-    // }, {
-    //     sources: [],
-    //     sinks: []
-    // });
-
     readonly property var _nodes: {
         const sinks = [];
         const sources = [];
@@ -60,10 +46,10 @@ Singleton {
     readonly property real sourceVolume: sourceReady ? (source.audio.volume ?? 0) : 0
     readonly property int sourcePercentage: Math.round(sourceVolume * 100)
 
-    function setVolume(newVolume) {
+    function setVolume(newVolume: real) {
         if (sinkReady && sink.audio) {
-            sink.audio.muted = false
-            sink.audio.volume = Math.max(0, Math.min(1.5, newVolume))
+            sink.audio.muted = false;
+            sink.audio.volume = Math.max(0, Math.min(1.5, newVolume));
         }
     }
 
@@ -73,15 +59,10 @@ Singleton {
         }
     }
 
-    function increaseVolume() {
-        setVolume(volume + 0.05);
-    }
+    function increaseVolume() { setVolume(volume + 0.05); }
+    function decreaseVolume() { setVolume(volume - 0.05); }
 
-    function decreaseVolume() {
-        setVolume(volume - 0.05);
-    }
-
-    function setSourceVolume(newVolume) {
+    function setSourceVolume(newVolume: real) {
         if (sourceReady && source.audio) {
             source.audio.muted = false;
             source.audio.volume = Math.max(0, Math.min(1.5, newVolume));

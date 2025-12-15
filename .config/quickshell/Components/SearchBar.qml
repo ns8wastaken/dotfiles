@@ -1,42 +1,113 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import qs.Settings
+import qs.Config
 
-Rectangle {
-    id: searchBar
-    implicitHeight: 50
+Pill {
+    id: root
 
-    // radius: GlobalState.ThemeManager.radiusMedium
-    // color: GlobalState.Colors.surface_variant
-    // border.color: GlobalState.Colors.outline
-    radius: 8
-    color: Theme.backgroundPrimary
-    border.color: Theme.outline
-    border.width: 1
+    /* =======================
+     * Public API
+     * ======================= */
+
+    // Text API
+    property alias text: textField.text
+    property alias cursorPosition: textField.cursorPosition
+
+    // Appearance
+    property color backgroundColor: "transparent"
+    property color borderColor: "transparent"
+    property int borderWidth: 0
+
+    property color iconColor: "#ffffff"
+    property int iconSize: Config.fontSizeLarge
+    property string iconText: "search"
+
+    property color textColor: "#ffffff"
+    property color placeholderColor: textColor
+    property string placeholderText: ""
+
+    property font textFont
+
+    // Layout
+    property int horizontalPadding: height / 4
+    property int spacing: 8
+
+    // Behavior
+    signal accepted(text: string)
+
+    /* =======================
+     * Pill styling
+     * ======================= */
+
+    color: backgroundColor
+    border.color: borderColor
+    border.width: borderWidth
+
+    /* =======================
+     * Content
+     * ======================= */
 
     RowLayout {
         anchors.fill: parent
-        // anchors.margins: GlobalState.ThemeManager.spacingMedium
-        // spacing: GlobalState.ThemeManager.spacingMedium
-        anchors.margins: 8
-        spacing: 8
+        anchors.leftMargin: root.horizontalPadding
+        anchors.rightMargin: root.horizontalPadding
 
-        // Text {
-        //     text: "🔍"
-        //     // font.pixelSize: GlobalState.ThemeManager.fontSizeLarge
-        //     font.pixelSize: 16
-        //     Layout.alignment: Qt.AlignVCenter
-        // }
+        spacing: root.spacing
+
+        MaterialIcon {
+            text: root.iconText
+            font.pixelSize: root.iconSize
+            color: root.iconColor
+        }
 
         TextField {
+            id: textField
+
             Layout.fillWidth: true
-            placeholderText: "chicken"
-            // font.family: GlobalState.ThemeManager.fontFamily
-            // font.pixelSize: GlobalState.ThemeManager.fontSizeMedium
-            font.pixelSize: 14
+            Layout.alignment: Qt.AlignVCenter
+
+            placeholderText: root.placeholderText
+            placeholderTextColor: root.placeholderColor
+
+            font: root.textFont
+            color: root.textColor
+
             background: Rectangle { color: "transparent" }
-            onTextChanged: searchBar.textChanged(text)
+
+            onAccepted: root.accepted(text)
         }
+    }
+
+    /* =======================
+     * Shortcuts / helpers
+     * ======================= */
+
+    // Ctrl+Backspace behavior
+    Shortcut {
+        sequence: "Ctrl+W"
+        onActivated: {
+            if (textField.cursorPosition === 0) return;
+
+            const end = textField.cursorPosition - 1;
+            let start = end;
+
+            while (start > 0 && textField.text[start - 1] !== " ")
+                start--;
+
+            textField.text =
+                textField.text.slice(0, start) +
+                textField.text.slice(end + 1);
+
+            textField.cursorPosition = start;
+        }
+    }
+
+    function clear() {
+        textField.clear()
+    }
+
+    function focusField() {
+        textField.forceActiveFocus()
     }
 }

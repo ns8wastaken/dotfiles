@@ -1,8 +1,8 @@
 pragma Singleton
 
 import Quickshell
-import QtQuick
 import Quickshell.Services.Notifications
+import QtQuick
 
 Singleton {
     id: root

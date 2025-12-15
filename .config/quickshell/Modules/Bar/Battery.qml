@@ -1,7 +1,8 @@
 import QtQuick
 import Quickshell.Services.UPower
 import qs.Components
-import qs.Settings
+import qs.Config
+import qs.Theme
 
 Pill {
     width: text.width + 12
@@ -9,7 +10,7 @@ Pill {
 
     color: Theme.surface
 
-    // visible: UPower.displayDevice.isLaptopBattery
+    visible: UPower.displayDevice.isLaptopBattery
 
     Row {
         id: text
@@ -21,7 +22,7 @@ Pill {
 
             text: "battery_full"
             color: Theme.textPrimary
-            font.pixelSize: Settings.fontSizeSmall
+            font.pixelSize: Config.fontSizeSmall
         }
 
         Text {
@@ -29,8 +30,8 @@ Pill {
 
             text: Math.round(UPower.displayDevice.percentage * 100) + '%'
 
-            font.pixelSize: Settings.fontSizeSmall
-            font.family: Settings.bar.fontFamily
+            font.pixelSize: Config.fontSizeSmall
+            font.family: Config.fonts.sans
 
             color: Theme.textPrimary
         }

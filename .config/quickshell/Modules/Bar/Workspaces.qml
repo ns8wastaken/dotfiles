@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell.Hyprland
-import qs.Settings
+import qs.Config
+import qs.Theme
 
 Row {
     // Spacing between workspace buttons
@@ -40,8 +41,8 @@ Row {
 
                 color: Theme.getWorkspaceTextColor(parent.modelData)
 
-                font.family: Settings.workspaces.fontFamily
-                font.pixelSize: Settings.fontSizeSmall
+                font.family: Config.fonts.japanese
+                font.pixelSize: Config.fontSizeSmall
                 text: Icons.getWorkspaceLabel(parent.modelData.id)
             }
         }

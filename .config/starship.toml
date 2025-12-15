@@ -12,28 +12,19 @@
 # truncate_to_repo = true
 # style = 'bold cyan'
 #
-# [git_branch]
-# symbol = ''
-# format = '[$branch](bold yellow)'
-#
-# [git_status]
-# format = '[$all_status](red)[$ahead_behind](green)'
-#
 # [cmd_duration]
 # min_time = 500
 # format = 'took [$duration](dimmed white)'
-#
-# [character]
-# success_symbol = '[\$](bold green)'
-# error_symbol = '[!](bold red)'
 
-format = """[](orange)$os\
-[](bg:yellow fg:orange)$directory\
-[](fg:yellow bg:aqua)$git_branch$git_status\
-[](fg:aqua bg:blue)$c$cpp$rust$golang$nodejs$php$java$kotlin$haskell$python\
-[](fg:blue bg:dark_gray)$cmd_duration\
+format = """[](orange)[$os](bg:orange fg:fg0)\
+[](bg:yellow fg:orange)[$directory](fg:fg0 bg:yellow)\
+[](fg:yellow bg:aqua)[$git_branch](fg:fg0 bg:aqua)\
+[](fg:aqua bg:blue)[$c$cpp$rust$golang$nodejs$php$java$kotlin$haskell$python](fg:fg0 bg:blue)\
+[](fg:blue bg:dark_gray)[$cmd_duration](fg:white bg:dark_gray)\
 [ ](fg:dark_gray)$line_break$character\
 """
+
+# format = "$directory$git_branch$git_status $character"
 
 palette = 'gruvbox_dark'
 
@@ -49,17 +40,20 @@ purple     = '#b16286'
 red        = '#cc241d'
 yellow     = '#d79921'
 
+[character]
+success_symbol = '[\$](green)'
+error_symbol = '[!](bold red)'
+
 [os]
 disabled = false
-format = '[$symbol ](bg:orange fg:fg0)'
+format = '$symbol '
 
 [os.symbols]
 Windows = '󰍲'
 Arch = '󰣇'
 
 [directory]
-style = 'fg:fg0 bg:yellow'
-format = '[ $path ]($style)'
+format = ' $path '
 truncation_length = 3
 truncation_symbol = '…/'
 
@@ -71,53 +65,47 @@ truncation_symbol = '…/'
 'Developer' = '󰲋 '
 
 [git_branch]
-symbol = ''
-style = 'bg:aqua'
-format = '[[ $symbol $branch ](fg:fg0 bg:aqua)]($style)'
-
-[git_status]
-style = 'bg:aqua'
-format = '[[($all_status$ahead_behind )](fg:fg0 bg:aqua)]($style)'
+format = '  $branch$all_status$ahead_behind '
 
 [nodejs]
 symbol = ''
-format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+format = ' $symbol $version '
 
 [c]
 symbol = ' '
-format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+format = ' $symbol $version '
 
 [cpp]
 symbol = ' '
-format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+format = ' $symbol $version '
 
 [rust]
 symbol = ''
-format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+format = ' $symbol $version '
 
 [golang]
 symbol = ''
-format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+format = ' $symbol $version '
 
 [php]
 symbol = ''
-format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+format = ' $symbol $version '
 
 [java]
 symbol = ''
-format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+format = ' $symbol $version '
 
 [kotlin]
 symbol = ''
-format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+format = ' $symbol $version '
 
 [haskell]
 symbol = ''
-format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+format = ' $symbol $version '
 
 [python]
 symbol = ''
-format = '[ $symbol( $version) ](fg:fg0 bg:blue)'
+format = ' $symbol $version '
 
 [line_break]
 disabled = false
@@ -125,8 +113,4 @@ disabled = false
 [cmd_duration]
 min_time = 0
 show_milliseconds = true
-format = '[  $duration](fg:white bg:dark_gray)'
-
-[character]
-success_symbol = '[\$](green)'
-error_symbol = '[!](bold red)'
+format = '  $duration'

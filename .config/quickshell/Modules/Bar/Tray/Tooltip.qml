@@ -1,9 +1,9 @@
 import QtQuick
-import qs.Settings
+import qs.Config
+import qs.Theme
 
 Window {
-    id: tooltipWindow
-    color: "transparent"
+    id: root
 
     required property string text
     required property Item targetItem
@@ -15,6 +15,8 @@ Window {
 
     visible: tooltipVisible
 
+    color: "transparent"
+
     minimumWidth: tooltipText.width + 24
     minimumHeight: tooltipText.height + 16
 
@@ -22,10 +24,10 @@ Window {
 
     Timer {
         id: tooltipDelayTimer
-        interval: tooltipWindow.delay
+        interval: root.delay
         repeat: false
-        running: tooltipWindow.tooltipVisible && tooltipWindow.delay > 0
-        onTriggered: tooltipWindow._showNow()
+        running: root.tooltipVisible && root.delay > 0
+        onTriggered: root._showNow()
     }
 
     onTooltipVisibleChanged: {
@@ -47,11 +49,11 @@ Window {
     }
 
     Connections {
-        target: tooltipWindow.targetItem
-        function onXChanged()      { if (tooltipWindow.visible) tooltipWindow._showNow(); }
-        function onYChanged()      { if (tooltipWindow.visible) tooltipWindow._showNow(); }
-        function onWidthChanged()  { if (tooltipWindow.visible) tooltipWindow._showNow(); }
-        function onHeightChanged() { if (tooltipWindow.visible) tooltipWindow._showNow(); }
+        target: root.targetItem
+        function onXChanged()      { if (root.visible) root._showNow(); }
+        function onYChanged()      { if (root.visible) root._showNow(); }
+        function onWidthChanged()  { if (root.visible) root._showNow(); }
+        function onHeightChanged() { if (root.visible) root._showNow(); }
     }
 
     Rectangle {
@@ -71,9 +73,9 @@ Window {
 
         color: Theme.textPrimary
 
-        font.family: Settings.bar.fontFamily
-        font.pixelSize: Settings.fontSizeSmall
-        text: tooltipWindow.text
+        font.family: Config.fonts.sans
+        font.pixelSize: Config.fontSizeSmall
+        text: root.text
 
         anchors.centerIn: parent
         horizontalAlignment: Text.AlignHCenter

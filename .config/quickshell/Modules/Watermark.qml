@@ -42,7 +42,7 @@ Variants {
             }
 
             Text {
-                text: "Go to Settings to activate Linux"
+                text: "Go to Config to activate Linux"
                 color: "#50ffffff"
                 font.pointSize: 14
             }

@@ -1,15 +1,17 @@
 pragma ComponentBehavior: Bound
 
+import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import Quickshell
-import qs.Settings
+import qs.Config
+import qs.Theme
 
 PopupWindow {
-    id: trayMenu
+    id: root
 
-    implicitWidth: 180
-    implicitHeight: Math.max(40, listView.contentHeight + 12)
+    implicitWidth: 200
+    implicitHeight: listView.contentHeight + 12
+
     visible: false
     color: "transparent"
 
@@ -20,7 +22,7 @@ PopupWindow {
 
     anchor.item: anchorItem ? anchorItem : null
     anchor.rect.x: anchorX
-    anchor.rect.y: anchorY - 4
+    anchor.rect.y: anchorY
 
     function showAt(item: Item, x: int, y: int) {
         if (!item) {
@@ -31,7 +33,6 @@ PopupWindow {
         anchorX = x;
         anchorY = y;
         visible = true;
-        // Qt.callLater(() => trayMenu.anchor.updateAnchor());
     }
 
     function hideMenu() {
@@ -40,7 +41,7 @@ PopupWindow {
 
     QsMenuOpener {
         id: opener
-        menu: trayMenu.menu
+        menu: root.menu
     }
 
     Rectangle {
@@ -54,26 +55,29 @@ PopupWindow {
 
     ListView {
         id: listView
+
         anchors.fill: parent
         anchors.margins: 6
         spacing: 2
+
         interactive: false
-        enabled: trayMenu.visible
+
+        enabled: root.visible
+
         clip: true
 
         model: ScriptModel {
-            values: opener.children ? [...opener.children.values] : []
+            values: opener.children ? opener.children.values : []
         }
 
         delegate: Rectangle {
             id: trayEntry
 
             required property var modelData
+            readonly property bool isSeparator: trayEntry.modelData.isSeparator ?? false
 
-            readonly property bool isSeparator: trayEntry.modelData?.isSeparator ?? false
-
-            implicitWidth: listView.width
-            height: (modelData?.isSeparator) ? 8 : 32
+            width: listView.width
+            height: modelData.isSeparator ? 8 : 32
 
             color: "transparent"
 
@@ -82,6 +86,7 @@ PopupWindow {
             // Separator
             Rectangle {
                 anchors.centerIn: parent
+                anchors.verticalCenterOffset: 1
 
                 visible: trayEntry.isSeparator
 
@@ -93,20 +98,13 @@ PopupWindow {
 
             // Button
             Rectangle {
-                id: bg
+                id: button
 
                 anchors.fill: parent
 
                 visible: !trayEntry.isSeparator
 
                 color: mouseArea.containsMouse ? Theme.highlight : "transparent"
-
-                Behavior on color {
-                    ColorAnimation {
-                        duration: 100
-                        easing.type: Easing.OutQuad
-                    }
-                }
 
                 radius: 8
 
@@ -120,36 +118,33 @@ PopupWindow {
                     anchors.rightMargin: 12
                     spacing: 8
 
+                    // Button text
                     Text {
                         Layout.fillWidth: true
 
-                        color: (trayEntry.modelData?.enabled ?? true)
-                            ? bg.hoverTextColor
+                        text: trayEntry.modelData.text ?? ""
+
+                        color: trayEntry.modelData.enabled
+                            ? button.hoverTextColor
                             : Theme.textDisabled;
 
-                        Behavior on color {
-                            ColorAnimation {
-                                duration: 100
-                                easing.type: Easing.OutQuad
-                            }
-                        }
-
-                        text: trayEntry.modelData?.text ?? ""
-
-                        font.family: Settings.bar.fontFamily
-                        font.pixelSize: Settings.fontSizeSmall
-
-                        verticalAlignment: Text.AlignVCenter
+                        font.family: Config.fonts.sans
+                        font.pixelSize: Config.fontSizeSmall
 
                         elide: Text.ElideRight
                     }
 
+                    // Icon
                     Image {
-                        visible: iconImage.source !== ""
                         id: iconImage
-                        width: 16
-                        height: 16
-                        source: trayEntry.modelData?.icon ?? ""
+
+                        visible: !!trayEntry.modelData.icon
+
+                        Layout.preferredWidth: 16
+                        Layout.preferredHeight: 16
+
+                        source: trayEntry.modelData.icon ?? ""
+
                         fillMode: Image.PreserveAspectFit
                     }
                 }
@@ -161,14 +156,14 @@ PopupWindow {
 
                     hoverEnabled: true
 
-                    enabled: (trayEntry.modelData?.enabled ?? true)
-                        && !(trayEntry.modelData?.isSeparator ?? false)
-                        && trayMenu.visible;
+                    enabled: (trayEntry.modelData.enabled ?? true)
+                        && !(trayEntry.modelData.isSeparator ?? false)
+                        && root.visible;
 
                     onClicked: {
                         if (trayEntry.modelData && !trayEntry.modelData.isSeparator) {
                             trayEntry.modelData.triggered();
-                            trayMenu.hideMenu();
+                            root.hideMenu();
                         }
                     }
                 }

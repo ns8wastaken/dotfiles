@@ -2,22 +2,21 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import qs.Components
-import qs.Settings
+import qs.Config
+import qs.Theme
 
 Rectangle {
     id: root
 
     required property var modelData
 
-    width: Settings.notifications.width
-    height: Settings.notifications.height
+    width: Config.notifications.width
+    height: Config.notifications.height
 
     color: Theme.backgroundPrimary
 
-    border {
-        color: Theme.outline
-        width: 1
-    }
+    border.color: Theme.outline
+    border.width: 1
 
     radius: 12
 
@@ -31,11 +30,10 @@ Rectangle {
     Component {
         id: realImage
         RoundedImage {
-            width: row.height - 2 * Settings.notifications.popupMargins
-            height: row.height - 2 * Settings.notifications.popupMargins
+            width: row.height - 2 * Config.notifications.popupMargins
+            height: row.height - 2 * Config.notifications.popupMargins
             image.fillMode: Image.PreserveAspectFit
             image.source: root.modelData.image
-            color: Theme.backgroundPrimary
             radius: 8
         }
     }
@@ -44,7 +42,7 @@ Rectangle {
     Component {
         id: fallbackIcon
         SvgIcon {
-            size: row.height - 2 * Settings.notifications.popupMargins
+            size: row.height - 2 * Config.notifications.popupMargins
             source: "bell.svg"
             color: Theme.textPrimary
         }
@@ -57,8 +55,8 @@ Rectangle {
         width: parent.width
         height: parent.height
 
-        padding: Settings.notifications.popupMargins
-        spacing: Settings.notifications.popupMargins
+        padding: Config.notifications.popupMargins
+        spacing: Config.notifications.popupMargins
 
         // Image
         Loader {
@@ -66,14 +64,14 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             sourceComponent: root.modelData.image !== ""
                 ? realImage
-                : fallbackIcon
+                : fallbackIcon;
         }
 
         // Notification contents
         Column {
             anchors.verticalCenter: parent.verticalCenter
 
-            width: root.width - iconLoader.width - Settings.notifications.popupMargins * 3
+            width: root.width - iconLoader.width - Config.notifications.popupMargins * 3
 
             // Title
             Text {
@@ -81,8 +79,8 @@ Rectangle {
 
                 text: root.modelData.summary
 
-                font.family: Settings.notifications.fontFamily
-                font.pixelSize: Settings.fontSizeNormal
+                font.family: Config.fonts.sans
+                font.pixelSize: Config.fontSizeNormal
                 font.bold: true
 
                 color: Theme.textPrimary
@@ -96,8 +94,8 @@ Rectangle {
 
                 text: root.modelData.body
 
-                font.family: Settings.notifications.fontFamily
-                font.pixelSize: Settings.fontSizeSmall
+                font.family: Config.fonts.sans
+                font.pixelSize: Config.fontSizeSmall
 
                 color: Theme.textPrimary
 
@@ -114,29 +112,35 @@ Rectangle {
         onTriggered: root.expire()
     }
 
-    NumberAnimation on x {
+    NumberAnimation {
         // id: slideIn
-        from: Settings.notifications.width
+        target: root
+        property: "x"
+        from: Config.notifications.width
         to: 0
         duration: 150
         easing.type: Easing.OutCubic
         running: true
     }
 
-    NumberAnimation on x {
+    NumberAnimation {
         id: slideOutExpire
+        target: root
+        property: "x"
         from: 0
-        to: Settings.notifications.width
+        to: Config.notifications.width
         duration: 150
         easing.type: Easing.InCubic
         onStopped: root.modelData.expire()
         running: false
     }
 
-    NumberAnimation on x {
+    NumberAnimation {
         id: slideOutDismiss
+        target: root
+        property: "x"
         from: 0
-        to: Settings.notifications.width
+        to: Config.notifications.width
         duration: 150
         easing.type: Easing.InCubic
         onStopped: root.modelData.expire()

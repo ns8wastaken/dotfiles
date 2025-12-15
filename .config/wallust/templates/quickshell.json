@@ -17,8 +17,8 @@
     "outline": "{{color8}}",
     "highlight": "{{color13}}",
 
-    "error": "{{color1}}",
-    "warning": "{{color3}}",
+    "error": "#FF6B81",
+    "warning": "#FFBB66",
 
     "surface": "{{color0}}",
     "surfaceVariant": "{{color2}}"
