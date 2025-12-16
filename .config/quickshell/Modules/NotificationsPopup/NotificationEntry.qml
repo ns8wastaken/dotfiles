@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 
+import Quickshell.Services.Notifications
 import QtQuick
 import qs.Components
 import qs.Config
@@ -8,7 +9,7 @@ import qs.Theme
 Rectangle {
     id: root
 
-    required property var modelData
+    required property Notification modelData
 
     width: Config.notifications.width
     height: Config.notifications.height

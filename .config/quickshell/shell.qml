@@ -44,8 +44,24 @@ ShellRoot {
                     bottom: 50
                 }
 
-                // text.text: "我\n操\n你\n妈"
                 text.text: "吃\n喝\n拉\n撒\n睡"
+                text.color: Theme.textPrimary
+                text.font.family: bgTextFont.name
+                text.font.pointSize: 40
+            }
+
+            BackgroundText {
+                anchors {
+                    right: true
+                    bottom: true
+                }
+
+                margins {
+                    right: 120
+                    bottom: 50
+                }
+
+                text.text: "我\n操\n你\n妈"
                 text.color: Theme.textPrimary
                 text.font.family: bgTextFont.name
                 text.font.pointSize: 40

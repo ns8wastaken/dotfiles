@@ -7,7 +7,7 @@ import qs.Theme
 Rectangle {
     id: root
 
-    required property var modelData
+    required property DesktopEntry modelData
     required property bool isSelected
 
     readonly property int margins: 4

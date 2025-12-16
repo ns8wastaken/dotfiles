@@ -6,8 +6,8 @@ Variants {
     // Create the panel once on each monitor.
     model: Quickshell.screens
 
-    PanelWindow {
-        required property var modelData
+    delegate: PanelWindow {
+        required property ShellScreen modelData
 
         screen: modelData
 

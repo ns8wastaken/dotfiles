@@ -13,7 +13,7 @@ Variants {
     model: Quickshell.screens
 
     delegate: PanelWindow {
-        required property var modelData
+        required property ShellScreen modelData
 
         WlrLayershell.layer: WlrLayer.Overlay
 

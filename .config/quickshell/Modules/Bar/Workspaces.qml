@@ -1,19 +1,23 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import Quickshell.Hyprland
 import qs.Config
 import qs.Theme
 
 Row {
-    // Spacing between workspace buttons
+    id: root
+
     spacing: 8
 
-    // Workspace button repeater
+    readonly property int animationDuration: 75
+
     Repeater {
         model: Hyprland.workspaces
 
         // Workspace button
         delegate: Rectangle {
-            required property var modelData
+            required property HyprlandWorkspace modelData
 
             width: (modelData.active ? 40 : 20) + workspaceLabel.width
             height: 18
@@ -23,8 +27,14 @@ Row {
             // Scaling animation
             Behavior on width {
                 NumberAnimation {
-                    duration: 75
+                    duration: root.animationDuration
                     easing.type: Easing.InOutCubic
+                }
+            }
+
+            Behavior on color {
+                ColorAnimation {
+                    duration: root.animationDuration
                 }
             }
 
@@ -44,6 +54,12 @@ Row {
                 font.family: Config.fonts.japanese
                 font.pixelSize: Config.fontSizeSmall
                 text: Icons.getWorkspaceLabel(parent.modelData.id)
+
+                Behavior on color {
+                    ColorAnimation {
+                        duration: root.animationDuration
+                    }
+                }
             }
         }
     }

@@ -14,7 +14,7 @@ PathView {
     delegate: Item {
         id: wallpaperEntry
 
-        required property var modelData
+        required property string modelData
         required property int index
 
         width: 400

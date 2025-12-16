@@ -73,7 +73,7 @@ PopupWindow {
         delegate: Rectangle {
             id: trayEntry
 
-            required property var modelData
+            required property QsMenuEntry modelData
             readonly property bool isSeparator: trayEntry.modelData.isSeparator ?? false
 
             width: listView.width
