@@ -16,7 +16,7 @@ Scope {
 
     property bool open: false
 
-    readonly property string wallpaperDir: "/home/ns8/wallpapers"
+    readonly property string wallpaperDir: "/home/renzo/wallpapers"
 
     property list<string> wallpaperList: []
 
@@ -26,7 +26,7 @@ Scope {
 
     Process {
         workingDirectory: root.wallpaperDir
-        command: ["fd", ".", "-a", "-c", "never"]
+        command: ["fd", ".", "-a", "-t", "file", "-c", "never"]
         running: true
         stdout: SplitParser {
             onRead: line => root.wallpaperList.push(line)
