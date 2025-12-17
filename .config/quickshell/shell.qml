@@ -70,38 +70,6 @@ ShellRoot {
     }
 
     AppLauncher {}
-
-    // PanelWindow {
-    //     Text {
-    //         color: "#000000"
-    //         text: SysInfoService.cpuUsageStr
-    //         anchors.centerIn: parent
-    //         anchors.verticalCenterOffset: -40
-    //     }
-    //     Text {
-    //         color: "#000000"
-    //         text: SysInfoService.cpuTempStr
-    //         anchors.centerIn: parent
-    //         anchors.verticalCenterOffset: -20
-    //     }
-    //     Text {
-    //         color: "#000000"
-    //         text: SysInfoService.memoryUsageStr
-    //         anchors.centerIn: parent
-    //     }
-    //     Text {
-    //         color: "#000000"
-    //         text: SysInfoService.memoryUsagePerStr
-    //         anchors.centerIn: parent
-    //         anchors.verticalCenterOffset: 20
-    //     }
-    //     Text {
-    //         color: "#000000"
-    //         text: SysInfoService.diskUsageStr
-    //         anchors.centerIn: parent
-    //         anchors.verticalCenterOffset: 40
-    //     }
-    // }
 }
 
 // import Quickshell

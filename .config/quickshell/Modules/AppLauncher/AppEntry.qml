@@ -12,7 +12,7 @@ Rectangle {
 
     readonly property int margins: 4
 
-    color: isSelected ? Theme.highlight.darker(1.1) : Theme.backgroundSecondary
+    color: isSelected ? Theme.highlight : Theme.backgroundSecondary
 
     RowLayout {
         id: entryRow

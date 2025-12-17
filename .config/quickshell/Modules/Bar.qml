@@ -67,5 +67,6 @@ PanelWindow {
         Tray { anchors.verticalCenter: parent.verticalCenter }
         Controls { anchors.verticalCenter: parent.verticalCenter }
         Battery { anchors.verticalCenter: parent.verticalCenter }
+        ExtraMenu {}
     }
 }

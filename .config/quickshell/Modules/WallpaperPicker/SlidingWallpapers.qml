@@ -42,10 +42,12 @@ PathView {
 
             // Wallpaper name
             Text {
-                anchors.bottom: parent.bottom
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.margins: 8
+                anchors {
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                    margins: 8
+                }
 
                 text: root.filteredWallpaperNames[wallpaperEntry.index] ?? "Temp Name"
 

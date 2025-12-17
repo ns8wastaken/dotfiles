@@ -3,7 +3,6 @@
 dotfiles add \
     ~/dotfiles_refresh.fish \
     ~/setwp.sh \
-    ~/rofiwp.sh \
     ~/clear-caches.sh \
     ~/install-script.sh \
     ~/.config/nvim/ \
@@ -12,8 +11,6 @@ dotfiles add \
     ~/.local/share/fastfetch/ \
     ~/.config/fish/ \
     ~/.config/starship.toml \
-    ~/.config/rofi/ \
-    ~/.config/waybar/ \
     ~/.config/quickshell/ \
     ~/.config/wallust/
 

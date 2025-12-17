@@ -16,7 +16,7 @@ Scope {
 
     property bool open: false
 
-    readonly property string wallpaperDir: "/home/renzo/wallpapers"
+    readonly property string wallpaperDir: Quickshell.env("HOME") + "/wallpapers"
 
     property list<string> wallpaperList: []
 

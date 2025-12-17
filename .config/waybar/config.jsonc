@@ -1,7 +1,0 @@
-{
-    "reload_style_on_change": true,
-
-    "include": [
-        "~/.config/waybar/theme1/config.jsonc"
-    ]
-}

@@ -25,26 +25,21 @@ Singleton {
 
         running: true
 
-        // command: [Quickshell.shellDir + "/Programs/stats.sh", updateInterval]
         command: [Quickshell.shellDir + "/Programs/stats.sh"]
 
         stdout: SplitParser {
             onRead: function (line) {
-                try {
-                    const data = JSON.parse(line);
-                    cpuUsage          = +data.cpu;
-                    cpuTemp           = +data.cputemp;
-                    memoryUsage       = +data.mem;
-                    memoryUsagePer    = +data.memper;
-                    diskUsage         = +data.diskper;
-                    cpuUsageStr       = data.cpu + '%';
-                    cpuTempStr        = data.cputemp + "°C";
-                    memoryUsageStr    = data.mem + 'M';
-                    memoryUsagePerStr = data.memper + '%';
-                    diskUsageStr      = data.diskper + '%';
-                } catch (e) {
-                    console.error("Failed to parse stats output:", e);
-                }
+                const data = JSON.parse(line);
+                root.cpuUsage          = +data.cpu;
+                root.cpuTemp           = +data.cputemp;
+                root.memoryUsage       = +data.mem;
+                root.memoryUsagePer    = +data.memper;
+                root.diskUsage         = +data.diskper;
+                root.cpuUsageStr       = data.cpu + '%';
+                root.cpuTempStr        = data.cputemp + "°C";
+                root.memoryUsageStr    = data.mem + 'M';
+                root.memoryUsagePerStr = data.memper + '%';
+                root.diskUsageStr      = data.diskper + '%';
             }
         }
     }

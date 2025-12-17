@@ -99,13 +99,23 @@ PanelWindow {
                             // TODO: not offset manually
                             anchors.verticalCenterOffset: -20
                             source: Qt.resolvedUrl(Quickshell.shellPath("Assets/WLogout/" + logoutButton.modelData.icon))
+
                             width: size
                             height: size
+                            scale: mouseArea.containsMouse ? 1.05 : 1
+
                             fillMode: Image.PreserveAspectFit
 
                             smooth: true
                             antialiasing: true
                             mipmap: true
+
+                            Behavior on scale {
+                                NumberAnimation {
+                                    duration: 100
+                                    easing.type: Easing.InOutQuad
+                                }
+                            }
                         }
 
                         Text {

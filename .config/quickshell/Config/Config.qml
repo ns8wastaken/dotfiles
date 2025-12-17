@@ -26,18 +26,11 @@ Singleton {
     property alias wallpaperPicker: adapter.wallpaperPicker
     property alias wlogout:         adapter.wlogout
 
-    // ElapsedTimer {
-    //     id: timer
-    // }
-
     FileView {
         path: Quickshell.shellPath("shell.json")
         watchChanges: true
 
-        onFileChanged: {
-            // timer.restart();
-            reload();
-        }
+        onFileChanged: reload();
 
         adapter: JsonAdapter {
             id: adapter

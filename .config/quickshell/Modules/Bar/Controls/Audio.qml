@@ -7,8 +7,8 @@ import qs.Theme
 Item {
     anchors.verticalCenter: parent.verticalCenter
 
-    width: text.implicitWidth
-    height: text.implicitHeight
+    width: text.width
+    height: text.height
 
     MouseArea {
         anchors.fill: parent
