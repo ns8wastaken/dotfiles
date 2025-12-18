@@ -29,7 +29,8 @@ Pill {
         rightPadding: parent.padding
         spacing: parent.spacing
 
-        Network {}
         Audio {}
+        Microphone {}
+        Network {}
     }
 }

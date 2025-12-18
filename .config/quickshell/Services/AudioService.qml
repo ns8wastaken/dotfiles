@@ -46,10 +46,9 @@ Singleton {
     readonly property real sourceVolume: sourceReady ? (source.audio.volume ?? 0) : 0
     readonly property int sourcePercentage: Math.round(sourceVolume * 100)
 
-    function setVolume(newVolume: real) {
+    function setVolume(volume: real) {
         if (sinkReady && sink.audio) {
-            sink.audio.muted = false;
-            sink.audio.volume = Math.max(0, Math.min(1.5, newVolume));
+            sink.audio.volume = Math.max(0, Math.min(1.5, volume));
         }
     }
 
@@ -62,10 +61,9 @@ Singleton {
     function increaseVolume() { setVolume(volume + 0.05); }
     function decreaseVolume() { setVolume(volume - 0.05); }
 
-    function setSourceVolume(newVolume: real) {
+    function setSourceVolume(volume: real) {
         if (sourceReady && source.audio) {
-            source.audio.muted = false;
-            source.audio.volume = Math.max(0, Math.min(1.5, newVolume));
+            source.audio.volume = Math.max(0, Math.min(1.5, volume));
         }
     }
 

@@ -10,7 +10,7 @@ Row {
 
     spacing: 8
 
-    readonly property int animationDuration: 75
+    readonly property int animationDuration: 125
 
     Repeater {
         model: Hyprland.workspaces
