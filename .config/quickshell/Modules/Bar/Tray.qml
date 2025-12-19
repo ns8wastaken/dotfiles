@@ -152,6 +152,7 @@ Row {
                     || trayEntry.modelData.id
                     || "Tray Item";
                 delay: 200
+                visible: trayEntryMouseArea.containsMouse
             }
         }
     }
