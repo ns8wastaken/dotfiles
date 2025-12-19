@@ -17,10 +17,10 @@ PopupWindow {
 
     property QsMenuHandle menu: null
     property Item anchorItem: null
-    property real anchorX: 0.0
-    property real anchorY: 0.0
+    property int anchorX: 0.0
+    property int anchorY: 0.0
 
-    anchor.item: anchorItem ? anchorItem : null
+    anchor.item: anchorItem
     anchor.rect.x: anchorX
     anchor.rect.y: anchorY
 

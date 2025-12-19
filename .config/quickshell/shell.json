@@ -23,7 +23,7 @@
             "top": 4,
             "left": 4,
             "right": 4,
-            "bottom": 0
+            "bottom": 4
         },
 
         "tray": {
@@ -39,10 +39,8 @@
         "popupMargins": 4,
         "spacing": 4,
 
-        "marginTop": 4,
-        "marginRight": 4,
-
-        "maxVisible": 4
+        "marginTop": 0,
+        "marginRight": 4
     },
 
     "appLauncher": {

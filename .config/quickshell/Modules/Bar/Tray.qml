@@ -1,10 +1,12 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import QtQuick.Controls
 import Quickshell.Services.SystemTray
 import Quickshell.Widgets
 import qs.Modules.Bar.Tray
 import qs.Config
+import qs.Theme
 
 Row {
     id: root
@@ -13,7 +15,7 @@ Row {
 
     spacing: Config.bar.tray.spacing
 
-    // App icon repeater
+    // Tray entry repeater
     Repeater {
         model: SystemTray.items
 
@@ -32,24 +34,6 @@ Row {
             width: Config.bar.tray.iconSize
             height: Config.bar.tray.iconSize
 
-            // Hover scale animation
-            scale: isHovered ? 1.15 : 1.0
-            Behavior on scale {
-                NumberAnimation {
-                    duration: 150
-                    easing.type: Easing.OutCubic
-                }
-            }
-
-            // Subtle rotation on hover
-            rotation: isHovered ? 5 : 0
-            Behavior on rotation {
-                NumberAnimation {
-                    duration: 200
-                    easing.type: Easing.OutCubic
-                }
-            }
-
             IconImage {
                 id: trayEntryIcon
 
@@ -58,27 +42,37 @@ Row {
                 width: trayEntry.width
                 height: trayEntry.width
 
-                smooth: false
+                antialiasing: true
                 asynchronous: true
                 backer.fillMode: Image.PreserveAspectFit
 
-                source: {
-                    let icon = trayEntry.modelData?.icon;
-                    if (!icon) return "";
-                    // Process icon path
-                    if (icon.includes("?path=")) {
-                        const [name, path] = icon.split("?path=");
-                        const fileName = name.substring(name.lastIndexOf("/") + 1);
-                        return `file://${path}/${fileName}`;
-                    }
-                    return icon;
-                }
+                source: trayEntry.modelData.icon
 
                 opacity: status === Image.Ready ? 1 : 0
 
-                NumberAnimation on opacity {
-                    duration: 300
-                    easing.type: Easing.OutCubic
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 300
+                        easing.type: Easing.OutCubic
+                    }
+                }
+
+                // Hover scale animation
+                scale: trayEntry.isHovered ? 1.15 : 1.0
+                Behavior on scale {
+                    NumberAnimation {
+                        duration: 200
+                        easing.type: Easing.OutCubic
+                    }
+                }
+
+                // Subtle rotation on hover
+                rotation: trayEntry.isHovered ? 5 : 0
+                Behavior on rotation {
+                    NumberAnimation {
+                        duration: 200
+                        easing.type: Easing.OutCubic
+                    }
                 }
             }
 
@@ -117,8 +111,6 @@ Row {
                     // }
 
                     else if (mouse.button === Qt.RightButton) {
-                        trayEntryTooltip.tooltipVisible = false
-
                         if (!trayEntry.menuAvailable) {
                             console.log("No menu available for", trayEntry.modelData.id, "or root.trayMenu not set")
                         }
@@ -134,25 +126,53 @@ Row {
                             root.trayMenu.showAt(
                                 parent,
                                 (parent.width - root.trayMenu.implicitWidth) / 2,
-                                parent.height + 18
+                                parent.height + 12
                             )
                         }
                     }
                 }
-
-                onEntered: trayEntryTooltip.tooltipVisible = !root.trayMenu.visible
-                onExited: trayEntryTooltip.tooltipVisible = false
             }
 
-            Tooltip {
+            ToolTip {
                 id: trayEntryTooltip
-                targetItem: trayEntryIcon
+
+                visible: trayEntry.isHovered && !root.trayMenu.visible
+
+                delay: 200
+
                 text: trayEntry.modelData.tooltipTitle
                     || trayEntry.modelData.name
                     || trayEntry.modelData.id
                     || "Tray Item";
-                delay: 200
-                visible: trayEntryMouseArea.containsMouse
+
+                font.family: Config.fonts.sans
+                font.pixelSize: Config.fontSizeSmall
+
+                contentItem: Text {
+                    anchors.centerIn: tooltipRect
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    text: trayEntryTooltip.text
+                    font: trayEntryTooltip.font
+                    color: Theme.textPrimary
+                }
+
+                background: Rectangle {
+                    id: tooltipRect
+
+                    width: trayEntryTooltip.width + 24
+                    height: trayEntryTooltip.height + 16
+
+                    color: Theme.backgroundPrimary
+
+                    radius: 6
+
+                    border.color: Theme.outline
+                    border.width: 1
+                }
+
+                x: (trayEntry.width - tooltipRect.width) / 2
+                y: trayEntry.height + 12
             }
         }
     }

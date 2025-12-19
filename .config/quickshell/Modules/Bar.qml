@@ -1,39 +1,16 @@
-import Quickshell
 import QtQuick
 import qs.Modules.Bar
 import qs.Config
 import qs.Theme
 
-PanelWindow {
+Rectangle {
     id: root
 
-    color: "transparent"
+    color: Theme.backgroundPrimary
+    radius: 8
 
-    implicitHeight: 32
-
-    anchors {
-        top: true
-        left: true
-        right: true
-    }
-
-    margins {
-        top: Config.bar.margins.top
-        left: Config.bar.margins.left
-        right: Config.bar.margins.right
-        bottom: Config.bar.margins.bottom
-    }
-
-    // Background
-    Rectangle {
-        anchors.fill: parent
-
-        color: Theme.backgroundPrimary
-        radius: 8
-
-        border.color: Theme.outline
-        border.width: 1
-    }
+    border.color: Theme.outline
+    border.width: 1
 
     // Left
     Row {

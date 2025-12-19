@@ -13,8 +13,67 @@ ShellRoot {
         Quickshell.watchFiles = !disableHotReload;
     }
 
-    Bar {}
-    NotificationsPopup {}
+    PanelWindow {
+        id: fsPanelWindow
+
+        // We love inclusion
+        exclusionMode: ExclusionMode.Ignore
+
+        anchors {
+            top: true
+            bottom: true
+            left: true
+            right: true
+        }
+
+        // Where clicky is allowed to happen
+        Variants {
+            id: clickyRegions
+            model: fsPanelWindow.contentItem.children
+
+            delegate: Region {
+                required property Item modelData
+                item: modelData
+            }
+        }
+
+        // No clicky outside of the clicky places
+        mask: Region { regions: clickyRegions.instances }
+        color: "transparent"
+
+        PanelWindow {
+            id: barExclusiveZone
+            anchors.top: true
+            implicitWidth: 0
+            implicitHeight: 0
+            // Subtract 4 because its hyprland's outer gap
+            exclusiveZone: bar.height + bar.anchors.topMargin + bar.anchors.bottomMargin - 4
+        }
+        Bar {
+            id: bar
+
+            height: 32
+
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+                topMargin: Config.bar.margins.top
+                bottomMargin: Config.bar.margins.bottom
+                leftMargin: Config.bar.margins.left
+                rightMargin: Config.bar.margins.right
+            }
+        }
+
+        NotificationsPopup {
+            anchors {
+                right: parent.right
+                top: parent.top
+                topMargin: barExclusiveZone.exclusiveZone + 4 + Config.notifications.marginTop
+                rightMargin: Config.notifications.marginRight
+            }
+        }
+    }
     WallpaperPicker {}
     WLogout {}
 

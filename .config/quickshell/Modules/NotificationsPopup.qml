@@ -1,50 +1,46 @@
-pragma ComponentBehavior: Bound
-
-import Quickshell
-import Quickshell.Wayland
 import QtQuick
 import qs.Modules.NotificationsPopup
 import qs.Services
 import qs.Config
 
-Variants {
+ListView {
     id: root
 
-    model: Quickshell.screens
+    implicitWidth: Config.notifications.width
+    // implicitHeight: Math.min(contentHeight, parent.height)
+    implicitHeight: contentHeight
 
-    delegate: PanelWindow {
-        required property ShellScreen modelData
+    spacing: Config.notifications.spacing
 
-        WlrLayershell.layer: WlrLayer.Overlay
+    model: NotificationService.notifications
 
-        anchors {
-            top: true
-            right: true
-        }
-
-        margins {
-            top: Config.notifications.marginTop
-            right: Config.notifications.marginRight
-        }
-
-        color: "transparent"
-
-        mask: Region { item: notifList }
-
-        implicitWidth: Config.notifications.width
-        implicitHeight: (Config.notifications.height + Config.notifications.spacing)
-            * Config.notifications.maxVisible - Config.notifications.spacing;
-
-        Column {
-            id: notifList
-
-            anchors.top: parent.top
-            spacing: Config.notifications.spacing
-
-            Repeater {
-                model: NotificationService.notifications
-                delegate: NotificationEntry {}
+    add: Transition {
+        ParallelAnimation {
+            PropertyAnimation {
+                property: "x"
+                from: root.implicitWidth
+                duration: 200
+                easing.type: Easing.InOutCubic
+            }
+            PropertyAnimation {
+                property: "opacity"
+                from: 0
+                to: 1
+                duration: 300
+                easing.type: Easing.InOutCubic
             }
         }
     }
+
+    addDisplaced: Transition {
+        PropertyAnimation {
+            property: "y"
+            duration: 200
+            easing.type: Easing.InOutCubic
+        }
+    }
+
+    removeDisplaced: addDisplaced
+
+    delegate: NotificationEntry {}
 }
