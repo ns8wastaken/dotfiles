@@ -17,8 +17,10 @@ set -U fish_user_paths /usr/local/include           $fish_user_paths
 set -U fish_user_paths /usr/local/lib               $fish_user_paths
 set -U fish_user_paths /usr/lib/qt6/bin             $fish_user_paths
 
+function starship_transient_prompt_func
+    starship module character --status $status
+end
+
 starship init fish | source
 
-function transient_prompt_func
-    starship module character --status $transient_status
-end
+enable_transience

@@ -7,8 +7,8 @@ ListView {
     id: root
 
     implicitWidth: Config.notifications.width
-    // implicitHeight: Math.min(contentHeight, parent.height)
-    implicitHeight: contentHeight
+    implicitHeight: Math.min(contentHeight, parent.height)
+    // implicitHeight: contentHeight
 
     spacing: Config.notifications.spacing
 
