@@ -1,25 +1,28 @@
 return {
     "nvim-treesitter/nvim-treesitter",
+    branch = 'master',
 
-    run = ":TSUpdate",
+    build = ":TSUpdate",
 
-    config = function()
-        require("nvim-treesitter.configs").setup({
-            ensure_installed = {
-                "vim", "vimdoc",
-                "javascript", "typescript", "html", "css",
-                "python",
-                "c", "cpp",
-                "markdown", "yaml", "toml"
-            },
+    main = "nvim-treesitter.configs",
 
-            highlight = {
-                enable = true -- Enable syntax highlighting
-            },
+    opts = {
+        ensure_installed = {
+            "vim", "vimdoc",
+            "javascript", "typescript", "html", "css",
+            "python",
+            "c", "cpp",
+            "markdown", "yaml", "toml"
+        },
 
-            indent = {
-                enable = true -- Enable smart indentation
-            }
-        })
-    end
+        auto_install = true,
+
+        highlight = {
+            enable = true -- Enable syntax highlighting
+        },
+
+        indent = {
+            enable = true -- Enable smart indentation
+        }
+    }
 }
