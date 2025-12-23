@@ -2,19 +2,33 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Io
-import Quickshell.Wayland
+import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
+import qs.Managers
 import qs.Components
 import qs.Modules.WallpaperPicker
 import qs.Config
 import qs.Theme
 import "../Utils/Fuzzysort.js" as Fuzzysort
+import "../Utils/Keys.js" as KeyUtils
 
-Scope {
+WindowManager.WmWindow {
     id: root
 
-    property bool open: false
+    handle: "wallpaperPicker"
+
+    Component.onCompleted: {
+        WindowManager.register(handle, root);
+    }
+
+    onWmOpened: {
+        searchBar.clear();
+    }
+
+    onWmFocused: {
+        searchBar.focusField();
+    }
 
     readonly property string wallpaperDir: Quickshell.env("HOME") + "/wallpapers"
 
@@ -23,6 +37,15 @@ Scope {
     readonly property list<string> filteredWallpaperList: Fuzzysort.sort(searchBar.text, wallpaperList);
     readonly property list<string> filteredWallpaperNames: filteredWallpaperList
         .map(w => w.slice(wallpaperDir.length + 1));
+
+    width: Config.wallpaperPicker.width
+    height: Config.wallpaperPicker.height
+
+    color: Theme.backgroundPrimary
+    radius: 30
+
+    border.width: 1
+    border.color: Theme.outline
 
     Process {
         workingDirectory: root.wallpaperDir
@@ -33,54 +56,48 @@ Scope {
         }
     }
 
-    PanelWindow {
-        implicitWidth: Config.wallpaperPicker.width
-        implicitHeight: Config.wallpaperPicker.height
+    ColumnLayout {
+        clip: true
 
-        visible: root.open
-        color: "transparent"
+        anchors.fill: parent
+        anchors.margins: 12
 
-        // Background
-        Rectangle {
-            anchors.fill: parent
-            color: Theme.backgroundPrimary
-            radius: 30
+        spacing: 12
+
+        SearchBar {
+            id: searchBar
+
+            Layout.fillWidth: true
+            Layout.preferredHeight: 40
+
+            backgroundColor: Theme.backgroundPrimary
+            borderColor: Theme.outline
+            borderWidth: 1
+
+            iconColor: Theme.textPrimary
+            iconSize: Config.fontSizeLarge
+
+            textColor: Theme.textPrimary
+            placeholderColor: Theme.textPrimary
+            placeholderText: "Search wallpapers..."
+
+            textFont.family: Config.fonts.sans
+            textFont.pixelSize: Config.fontSizeNormal
         }
 
-        WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: 12
-
-            spacing: 12
-
-            SearchBar {
-                id: searchBar
-
-                Layout.fillWidth: true
-                Layout.preferredHeight: 40
-
-                backgroundColor: Theme.backgroundPrimary
-                borderColor: Theme.outline
-                borderWidth: 1
-
-                iconColor: Theme.textPrimary
-                iconSize: Config.fontSizeLarge
-
-                textColor: Theme.textPrimary
-                placeholderColor: Theme.textPrimary
-                placeholderText: "Search wallpapers..."
-
-                textFont.family: Config.fonts.sans
-                textFont.pixelSize: Config.fontSizeNormal
-            }
+            color: Theme.backgroundSecondary
+            radius: searchBar.radius
 
             SlidingWallpapers {
                 id: slidingWallpapers
 
-                Layout.fillWidth: true
-                Layout.fillHeight: true
+                anchors.centerIn: parent
+
+                width: parent.width
 
                 filteredWallpaperNames: root.filteredWallpaperNames
 
@@ -88,44 +105,54 @@ Scope {
                 pathItemCount: Config.wallpaperPicker.nVisible
             }
         }
+    }
 
-        // Border
-        Rectangle {
-            anchors.fill: parent
+    Keys.onPressed: function(event) {
+        if (!shortcutsEnabled)
+            return;
 
-            color: "transparent"
-
-            radius: 30
-            border.width: 1
-            border.color: Theme.outline
+        // Ctrl+W -> delete previous word
+        if (KeyUtils.key(event, Qt.Key_W) && KeyUtils.ctrl(event)) {
+            searchBar.deletePreviousWord();
+            event.accepted = true;
+            return;
         }
 
-        Shortcut {
-            sequences: [StandardKey.Cancel]
-            onActivated: root.open = false
+        // Escape -> close
+        if (KeyUtils.key(event, Qt.Key_Escape)) {
+            close();
+            event.accepted = true;
+            return;
         }
 
-        Shortcut {
-            sequences: [StandardKey.MoveToPreviousLine, "Ctrl+P"]
-            onActivated: slidingWallpapers.incrementCurrentIndex()
+        // Ctrl+P -> previous wallpaper
+        if (KeyUtils.key(event, Qt.Key_P) && KeyUtils.ctrl(event)) {
+            slidingWallpapers.incrementCurrentIndex();
+            event.accepted = true;
+            return;
         }
 
-        Shortcut {
-            sequences: [StandardKey.MoveToNextLine, "Ctrl+N"]
-            onActivated: slidingWallpapers.decrementCurrentIndex()
+        // Ctrl+N -> next wallpaper
+        if (KeyUtils.key(event, Qt.Key_N) && KeyUtils.ctrl(event)) {
+            slidingWallpapers.decrementCurrentIndex();
+            event.accepted = true;
+            return;
         }
 
-        Shortcut {
-            sequences: ["Return", "Enter"]
-            onActivated: root.set_wallpaper()
+        // Enter / Return -> set wallpaper
+        if (
+            KeyUtils.key(event, Qt.Key_Return)
+            || KeyUtils.key(event, Qt.Key_Enter)
+        ) {
+            set_wallpaper();
+            close();
+            event.accepted = true;
+            return;
         }
     }
 
     function set_wallpaper() {
         let path = filteredWallpaperList[slidingWallpapers.currentIndex];
-
-        // Close the wallpaper picker
-        open = false;
 
         // Set the wallpaper
         Quickshell.execDetached({
@@ -133,15 +160,8 @@ Scope {
         });
     }
 
-    IpcHandler {
-        target: "wallpaper-picker"
-
-        function toggle(): void {
-            if (!root.open) {
-                searchBar.clear();
-                searchBar.focusField();
-            }
-            root.open = !root.open;
-        }
+    GlobalShortcut {
+        name: "wallpaperPicker"
+        onPressed: root.toggle()
     }
 }

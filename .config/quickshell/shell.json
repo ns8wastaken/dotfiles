@@ -43,9 +43,8 @@
         "marginRight": 4
     },
 
-    "appLauncher": {
+    "launcher": {
         "width": 350,
-        "height": 60,
 
         "spacing": 4,
 
@@ -67,7 +66,7 @@
 
         "bgAlpha": 0.7,
 
-        "spacing": 4,
+        "spacing": 8,
 
         "nCols": 3
     }

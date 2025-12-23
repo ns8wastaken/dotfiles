@@ -6,6 +6,7 @@ import QtQuick.Layouts
 import qs.Config
 import qs.Theme
 
+// TODO: dont use popup windows
 PopupWindow {
     id: root
 

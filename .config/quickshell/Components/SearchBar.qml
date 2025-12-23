@@ -79,35 +79,28 @@ Pill {
         }
     }
 
-    /* =======================
-     * Shortcuts / helpers
-     * ======================= */
-
     // Ctrl+Backspace behavior
-    Shortcut {
-        sequence: "Ctrl+W"
-        onActivated: {
-            if (textField.cursorPosition === 0) return;
+    function deletePreviousWord() {
+        if (textField.cursorPosition === 0) return;
 
-            const end = textField.cursorPosition - 1;
-            let start = end;
+        const end = textField.cursorPosition - 1;
+        let start = end;
 
-            while (start > 0 && textField.text[start - 1] !== " ")
-                start--;
+        while (start > 0 && textField.text[start - 1] !== " ")
+            start--;
 
-            textField.text =
-                textField.text.slice(0, start) +
-                textField.text.slice(end + 1);
+        textField.text =
+            textField.text.slice(0, start)
+            + textField.text.slice(end + 1);
 
-            textField.cursorPosition = start;
-        }
+        textField.cursorPosition = start;
     }
 
     function clear() {
-        textField.clear()
+        textField.clear();
     }
 
     function focusField() {
-        textField.forceActiveFocus()
+        textField.focus = true;
     }
 }

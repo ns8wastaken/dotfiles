@@ -135,8 +135,8 @@ void main() {
   // it might misbehave over time just like real CRT!!
   float flickerAmount = 0.01; // attempt to recreate CRT flicker(yes, I'm
   // serious). If behaves badly - make it smaller, or comment out
-  col *= 1.0 +
-         flickerAmount * sin(display_framerate * 2.0 * time); // comment out to
+  // col *= 1.0 +
+  //        flickerAmount * sin(display_framerate * 2.0 * time); // comment out to
   // disable
   ///////////////////////////////////////////////////////////////////////////////////////////////
 

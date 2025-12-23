@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import qs.Modules
 import qs.Config
@@ -33,12 +34,13 @@ ShellRoot {
 
             delegate: Region {
                 required property Item modelData
-                item: modelData
+                item: modelData.visible ? modelData : null
             }
         }
 
         // No clicky outside of the clicky places
         mask: Region { regions: clickyRegions.instances }
+
         color: "transparent"
 
         PanelWindow {
@@ -46,7 +48,7 @@ ShellRoot {
             anchors.top: true
             implicitWidth: 0
             implicitHeight: 0
-            // Subtract 4 because its hyprland's outer gap
+            // -4 because its hyprland's outer gap
             exclusiveZone: bar.height + bar.anchors.topMargin + bar.anchors.bottomMargin - 4
         }
         Bar {
@@ -69,12 +71,27 @@ ShellRoot {
             anchors {
                 right: parent.right
                 top: parent.top
-                topMargin: barExclusiveZone.exclusiveZone + 4 + Config.notifications.marginTop
+                // +4 because its hyprland's outer gap
+                topMargin: barExclusiveZone.exclusiveZone + Config.notifications.marginTop + 4
                 rightMargin: Config.notifications.marginRight
             }
         }
+
+        // Toggleable menus
+        WlrLayershell.keyboardFocus: (launcher.visible || wallpaperPicker.visible)
+            ? WlrKeyboardFocus.Exclusive
+            : WlrKeyboardFocus.None;
+
+        Launcher {
+            id: launcher
+            anchors.centerIn: parent
+        }
+
+        WallpaperPicker {
+            id: wallpaperPicker
+            anchors.centerIn: parent
+        }
     }
-    WallpaperPicker {}
     WLogout {}
 
     // "Activate Linux" watermark
@@ -127,8 +144,6 @@ ShellRoot {
             }
         }
     }
-
-    AppLauncher {}
 }
 
 // import Quickshell

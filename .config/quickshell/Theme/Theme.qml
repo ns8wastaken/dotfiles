@@ -5,6 +5,20 @@ import Quickshell.Io
 import QtQuick
 
 Singleton {
+    function getWorkspaceColor(modelData): color {
+        if (modelData.name == "special:magic") return Theme.accentTertiary;
+        if (modelData.active) return Theme.accentPrimary;
+        if (modelData.urgent) return Theme.error;
+        if (modelData.focused) return Theme.error;
+        return Theme.surface;
+    }
+
+    function getWorkspaceTextColor(modelData): color {
+        if (modelData.name == "special:magic") return Theme.textDark;
+        if (modelData.active) return Theme.textDark;
+        return Theme.textPrimary;
+    }
+
     property alias backgroundPrimary: themeData.backgroundPrimary
     property alias backgroundSecondary: themeData.backgroundSecondary
     property alias backgroundTertiary: themeData.backgroundTertiary
@@ -28,20 +42,6 @@ Singleton {
 
     property alias surface: themeData.surface
     property alias surfaceVariant: themeData.surfaceVariant
-
-    function getWorkspaceColor(modelData): color {
-        if (modelData.name == "special:magic") return Theme.accentTertiary;
-        if (modelData.active) return Theme.accentPrimary;
-        if (modelData.urgent) return Theme.error;
-        if (modelData.focused) return Theme.error;
-        return Theme.surface;
-    }
-
-    function getWorkspaceTextColor(modelData): color {
-        if (modelData.name == "special:magic") return Theme.textDark;
-        if (modelData.active) return Theme.textDark;
-        return Theme.textPrimary;
-    }
 
     FileView {
         path: Quickshell.shellPath("Theme/Theme.json")

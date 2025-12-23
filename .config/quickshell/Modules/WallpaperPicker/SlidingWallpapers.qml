@@ -36,6 +36,7 @@ PathView {
 
             image.asynchronous: true
             image.smooth: true
+            image.mipmap: true
 
             bgRect.border.color: isSelected ? "#4a9eff" : "transparent"
             bgRect.border.width: 3

@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import Quickshell
-import Quickshell.Io
+import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
@@ -143,11 +143,8 @@ PanelWindow {
         onActivated: root.open = false
     }
 
-    IpcHandler {
-        target: "wlogout"
-
-        function toggle(): void {
-            root.open = !root.open;
-        }
+    GlobalShortcut {
+        name: "wlogout"
+        onPressed: root.open = !root.open
     }
 }

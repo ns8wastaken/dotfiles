@@ -2,6 +2,7 @@ pragma Singleton
 
 import Quickshell
 import Quickshell.Io
+import QtQuick
 import qs.Config
 
 Singleton {
@@ -19,9 +20,9 @@ Singleton {
 
     property alias iconFontFamily:  adapter.iconFontFamily
 
-    property alias appLauncher:     adapter.appLauncher
     property alias bar:             adapter.bar
     property alias fonts:           adapter.fonts
+    property alias launcher:        adapter.launcher
     property alias notifications:   adapter.notifications
     property alias wallpaperPicker: adapter.wallpaperPicker
     property alias wlogout:         adapter.wlogout
@@ -45,9 +46,9 @@ Singleton {
             property int fontSizeLarge
             property int fontSizeLarger
 
-            property AppLauncherConfig     appLauncher:     AppLauncherConfig {}
             property BarConfig             bar:             BarConfig {}
             property FontsConfig           fonts:           FontsConfig {}
+            property LauncherConfig        launcher:        LauncherConfig {}
             property NotificationConfig    notifications:   NotificationConfig {}
             property WallpaperPickerConfig wallpaperPicker: WallpaperPickerConfig {}
             property WLogoutConfig         wlogout:         WLogoutConfig {}

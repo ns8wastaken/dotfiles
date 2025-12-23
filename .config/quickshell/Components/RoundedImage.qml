@@ -24,7 +24,6 @@ Item {
             anchors.fill: parent
             anchors.margins: bgRect.border.width
             visible: false
-            mipmap: true
             smooth: true
             asynchronous: true
             antialiasing: true
