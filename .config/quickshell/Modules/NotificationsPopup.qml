@@ -8,11 +8,8 @@ ListView {
 
     implicitWidth: Config.notifications.width
     implicitHeight: Math.min(contentHeight, parent.height)
-    // implicitHeight: contentHeight
 
     spacing: Config.notifications.spacing
-
-    model: NotificationService.notifications
 
     add: Transition {
         ParallelAnimation {
@@ -42,5 +39,9 @@ ListView {
 
     removeDisplaced: addDisplaced
 
+    orientation: ListView.Vertical
+    // verticalLayoutDirection: ListView.BottomToTop
+
+    model: NotificationService.notifications
     delegate: NotificationEntry {}
 }

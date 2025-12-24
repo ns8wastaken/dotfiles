@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Io
 import Quickshell.Hyprland
+import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import qs.Managers
@@ -15,20 +16,14 @@ import "../Utils/Keys.js" as KeyUtils
 
 WindowManager.WmWindow {
     id: root
-
     handle: "wallpaperPicker"
 
     Component.onCompleted: {
         WindowManager.register(handle, root);
     }
 
-    onWmOpened: {
-        searchBar.clear();
-    }
-
-    onWmFocused: {
-        searchBar.focusField();
-    }
+    onWmOpened: searchBar.clear();
+    onWmFocused: searchBar.focusField();
 
     readonly property string wallpaperDir: Quickshell.env("HOME") + "/wallpapers"
 
@@ -38,8 +33,12 @@ WindowManager.WmWindow {
     readonly property list<string> filteredWallpaperNames: filteredWallpaperList
         .map(w => w.slice(wallpaperDir.length + 1));
 
-    width: Config.wallpaperPicker.width
-    height: Config.wallpaperPicker.height
+    width: (Config.wallpaperPicker.wallpaperWidth + Config.wallpaperPicker.spacing) * 2
+    height: Config.wallpaperPicker.wallpaperHeight
+        + Config.wallpaperPicker.spacing * 2
+        + pickerCol.spacing
+        + pickerCol.anchors.margins * 2
+        + searchBar.height;
 
     color: Theme.backgroundPrimary
     radius: 30
@@ -57,6 +56,8 @@ WindowManager.WmWindow {
     }
 
     ColumnLayout {
+        id: pickerCol
+
         clip: true
 
         anchors.fill: parent
@@ -92,17 +93,21 @@ WindowManager.WmWindow {
             color: Theme.backgroundSecondary
             radius: searchBar.radius
 
-            SlidingWallpapers {
-                id: slidingWallpapers
+            ClippingRectangle {
+                anchors.fill: parent
+                anchors.margins: Config.wallpaperPicker.spacing
 
-                anchors.centerIn: parent
+                radius: 16
 
-                width: parent.width
+                color: "transparent"
 
-                filteredWallpaperNames: root.filteredWallpaperNames
-
-                model: root.filteredWallpaperList
-                pathItemCount: Config.wallpaperPicker.nVisible
+                WallpaperView {
+                    id: slidingWallpapers
+                    anchors.fill: parent
+                    width: parent.width
+                    filteredWallpaperNames: root.filteredWallpaperNames
+                    model: root.filteredWallpaperList
+                }
             }
         }
     }
@@ -125,14 +130,14 @@ WindowManager.WmWindow {
             return;
         }
 
-        // Ctrl+P -> previous wallpaper
+        // Ctrl+P -> next wallpaper
         if (KeyUtils.key(event, Qt.Key_P) && KeyUtils.ctrl(event)) {
             slidingWallpapers.incrementCurrentIndex();
             event.accepted = true;
             return;
         }
 
-        // Ctrl+N -> next wallpaper
+        // Ctrl+N -> previous wallpaper
         if (KeyUtils.key(event, Qt.Key_N) && KeyUtils.ctrl(event)) {
             slidingWallpapers.decrementCurrentIndex();
             event.accepted = true;

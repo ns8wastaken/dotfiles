@@ -5,23 +5,34 @@ import qs.Components
 import qs.Config
 import qs.Theme
 
-PathView {
+ListView {
     id: root
 
     required property list<string> filteredWallpaperNames
 
-    // Wallpaper entry
+    orientation: ListView.Horizontal
+    spacing: Config.wallpaperPicker.spacing
+
+    cacheBuffer: width
+    reuseItems: true
+
+    highlightMoveDuration: 200
+    highlightRangeMode: ListView.StrictlyEnforceRange
+    preferredHighlightBegin: (width - Config.wallpaperPicker.wallpaperWidth) / 2
+    preferredHighlightEnd: preferredHighlightBegin + Config.wallpaperPicker.wallpaperWidth
+
+    keyNavigationWraps: true
+
     delegate: Item {
         id: wallpaperEntry
 
         required property string modelData
         required property int index
 
-        width: 400
-        height: 300
+        anchors.verticalCenter: parent.verticalCenter
 
-        scale: PathView.scale
-        z: PathView.z
+        width: Config.wallpaperPicker.wallpaperWidth
+        height: Config.wallpaperPicker.wallpaperHeight
 
         // Wallpaper
         RoundedImage {
@@ -38,9 +49,6 @@ PathView {
             image.smooth: true
             image.mipmap: true
 
-            bgRect.border.color: isSelected ? "#4a9eff" : "transparent"
-            bgRect.border.width: 3
-
             // Wallpaper name
             Text {
                 anchors {
@@ -50,7 +58,10 @@ PathView {
                     margins: 8
                 }
 
-                text: root.filteredWallpaperNames[wallpaperEntry.index] ?? "Temp Name"
+                antialiasing: true
+                smooth: true
+
+                text: root.filteredWallpaperNames[wallpaperEntry.index] ?? "Placeholder name"
 
                 color: "#ffffff"
 
@@ -64,24 +75,4 @@ PathView {
             }
         }
     }
-
-    path: Path {
-        startX: -100
-        startY: root.height / 2
-
-        PathAttribute { name: "z";     value: 0   }
-        PathAttribute { name: "scale"; value: 0.6 }
-
-        PathLine      { x: root.width / 2; y: root.height / 2 }
-        PathAttribute { name: "z";     value: 10  }
-        PathAttribute { name: "scale"; value: 1.0 }
-
-        PathLine      { x: root.width + 100; y: root.height / 2 }
-        PathAttribute { name: "z";     value: 0   }
-        PathAttribute { name: "scale"; value: 0.6 }
-    }
-
-    // Center the highlighted wallpaper
-    preferredHighlightBegin: 0.5
-    preferredHighlightEnd: 0.5
 }

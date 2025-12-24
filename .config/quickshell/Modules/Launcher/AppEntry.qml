@@ -41,7 +41,7 @@ Rectangle {
             Image {
                 id: itemIcon
 
-                readonly property bool isLoaded: status == Image.Ready
+                readonly property bool isLoaded: status === Image.Ready
 
                 anchors.centerIn: parent
 

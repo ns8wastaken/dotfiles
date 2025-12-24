@@ -5,12 +5,12 @@ import QtQuick
 
 Singleton {
     component WmWindow: Rectangle {
-        property string handle
+        final property string handle
 
         /* ---- WM-controlled state ---- */
-        property bool shortcutsEnabled: false
-        property bool opened: false
-        property bool focused: false
+        final property bool shortcutsEnabled: false
+        final property bool opened: false
+        final property bool focused: false
 
         visible: opened
         z: focused ? 1000 : 0
@@ -33,6 +33,7 @@ Singleton {
     property var handles: ({}) // handle -> WmWindow
     property string focusedHandle: ""
     property list<string> focusHistory: [] // array of handles, most recent = last
+    readonly property bool wantsKeyboardFocus: focusedHandle !== ""
 
     /* -----------------------------
      * Registration
@@ -118,7 +119,6 @@ Singleton {
         const idx = focusHistory.indexOf(handle);
         if (idx !== -1)
             focusHistory.splice(idx, 1);
-
         focusHistory.push(handle);
     }
 

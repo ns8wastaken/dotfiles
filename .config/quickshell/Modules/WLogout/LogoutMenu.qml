@@ -2,149 +2,139 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Hyprland
-import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
+import qs.Managers
 import qs.Config
 import qs.Theme
+import "../../Utils/Keys.js" as KeyUtils
 
-PanelWindow {
+WindowManager.WmWindow {
     id: root
+    handle: "wlogout"
 
-    property bool open: false
+    Component.onCompleted: {
+        WindowManager.register(handle, root);
+    }
+
+    onWmFocused: focus = true
 
     default property list<LogoutButton> buttons
 
-    exclusionMode: ExclusionMode.Ignore
-    WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
+    color: Theme.backgroundPrimary.alpha(Config.wlogout.bgAlpha)
 
-    anchors {
-        top: true
-        left: true
-        bottom: true
-        right: true
-    }
-
-    visible: open
-    color: "transparent"
-
-    contentItem {
-        focus: true
-
-        Keys.onPressed: function(event) {
-            for (const button of buttons) {
-                if (event.key == button.keybind) {
-                    button.exec();
-                    open = false;
-                }
-            }
-        }
-    }
-
-    // Fullscreen rect
-    Rectangle {
-        color: Theme.backgroundPrimary.alpha(Config.wlogout.bgAlpha)
+    MouseArea {
         anchors.fill: parent
+        onClicked: root.close()
+    }
 
-        MouseArea {
-            anchors.fill: parent
+    // Button layout
+    GridLayout {
+        anchors.centerIn: parent
 
-            onClicked: root.open = false
+        width: Config.wlogout.width
+        height: Config.wlogout.height
 
-            GridLayout {
-                anchors.centerIn: parent
+        columns: Config.wlogout.nCols
+        columnSpacing: Config.wlogout.spacing
+        rowSpacing: Config.wlogout.spacing
 
-                width: Config.wlogout.width
-                height: Config.wlogout.height
+        Repeater {
+            model: root.buttons
 
-                columns: Config.wlogout.nCols
-                columnSpacing: Config.wlogout.spacing
-                rowSpacing: Config.wlogout.spacing
+            delegate: Rectangle {
+                id: logoutButton
 
-                Repeater {
-                    model: root.buttons
+                required property LogoutButton modelData
 
-                    delegate: Rectangle {
-                        id: logoutButton
+                Layout.fillWidth: true
+                Layout.fillHeight: true
 
-                        required property LogoutButton modelData
+                radius: 16
 
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
+                color: mouseArea.containsMouse ? Theme.highlight : Theme.backgroundPrimary
 
-                        radius: 16
+                border.color: Theme.outline
+                border.width: mouseArea.containsMouse ? 0 : 1
 
-                        color: mouseArea.containsMouse ? Theme.highlight : Theme.backgroundPrimary
+                MouseArea {
+                    id: mouseArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    onClicked: {
+                        logoutButton.modelData.exec();
+                        root.close();
+                    }
+                }
 
-                        border.color: Theme.outline
-                        border.width: mouseArea.containsMouse ? 0 : 1
+                Image {
+                    id: icon
 
-                        MouseArea {
-                            id: mouseArea
-                            anchors.fill: parent
-                            hoverEnabled: true
-                            onClicked: {
-                                logoutButton.modelData.exec();
-                                root.open = false;
-                            }
-                        }
+                    readonly property int size: Math.min(parent.width, parent.height) * 0.75
 
-                        Image {
-                            id: icon
+                    anchors.centerIn: parent
+                    // TODO: not offset manually
+                    anchors.verticalCenterOffset: -20
+                    source: Qt.resolvedUrl(Quickshell.shellPath("Assets/WLogout/" + logoutButton.modelData.icon))
 
-                            readonly property int size: Math.min(parent.width, parent.height) * 0.75
+                    width: size
+                    height: size
+                    scale: mouseArea.containsMouse ? 1.05 : 1
 
-                            anchors.centerIn: parent
-                            // TODO: not offset manually
-                            anchors.verticalCenterOffset: -20
-                            source: Qt.resolvedUrl(Quickshell.shellPath("Assets/WLogout/" + logoutButton.modelData.icon))
+                    fillMode: Image.PreserveAspectFit
 
-                            width: size
-                            height: size
-                            scale: mouseArea.containsMouse ? 1.05 : 1
+                    smooth: true
+                    antialiasing: true
+                    mipmap: true
 
-                            fillMode: Image.PreserveAspectFit
-
-                            smooth: true
-                            antialiasing: true
-                            mipmap: true
-
-                            Behavior on scale {
-                                NumberAnimation {
-                                    duration: 100
-                                    easing.type: Easing.InOutQuad
-                                }
-                            }
-                        }
-
-                        Text {
-                            anchors {
-                                bottom: logoutButton.bottom
-                                bottomMargin: 20
-                                horizontalCenter: parent.horizontalCenter
-                            }
-
-                            text: logoutButton.modelData.text
-
-                            font.family: Config.fonts.cute
-                            font.pixelSize: Config.fontSizeLarger
-
-                            color: "#ffffff"
+                    Behavior on scale {
+                        NumberAnimation {
+                            duration: 100
+                            easing.type: Easing.InOutQuad
                         }
                     }
                 }
+
+                Text {
+                    anchors {
+                        bottom: logoutButton.bottom
+                        bottomMargin: 20
+                        horizontalCenter: parent.horizontalCenter
+                    }
+
+                    text: logoutButton.modelData.text
+
+                    font.family: Config.fonts.cute
+                    font.pixelSize: Config.fontSizeLarger
+
+                    color: "#ffffff"
+                }
             }
         }
     }
 
-    Shortcut {
-        sequence: "Escape"
-        onActivated: root.open = false
+    Keys.onPressed: function(event) {
+        if (!shortcutsEnabled)
+            return;
+
+        // Escape -> close
+        if (KeyUtils.key(event, Qt.Key_Escape)) {
+            close()
+            event.accepted = true;
+            return;
+        }
+
+        // Handle button keybinds
+        for (const button of buttons) {
+            if (event.key == button.keybind) {
+                button.exec();
+                close();
+            }
+        }
     }
 
     GlobalShortcut {
         name: "wlogout"
-        onPressed: root.open = !root.open
+        onPressed: root.toggle()
     }
 }

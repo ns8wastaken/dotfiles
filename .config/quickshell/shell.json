@@ -52,12 +52,10 @@
     },
 
     "wallpaperPicker": {
-        "width": 1200,
-        "height": 600,
+        "wallpaperWidth": 400,
+        "wallpaperHeight": 300,
 
-        "spacing": 4,
-
-        "nVisible": 5
+        "spacing": 6
     },
 
     "wlogout": {

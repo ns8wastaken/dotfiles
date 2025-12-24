@@ -14,7 +14,6 @@ import "../Utils/Keys.js" as KeyUtils
 
 WindowManager.WmWindow {
     id: root
-
     handle: "launcher"
 
     Component.onCompleted: {

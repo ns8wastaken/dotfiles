@@ -1,6 +1,7 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
+import qs.Managers
 import qs.Modules
 import qs.Config
 import qs.Theme
@@ -78,21 +79,14 @@ ShellRoot {
         }
 
         // Toggleable menus
-        WlrLayershell.keyboardFocus: (launcher.visible || wallpaperPicker.visible)
+        WlrLayershell.keyboardFocus: WindowManager.wantsKeyboardFocus
             ? WlrKeyboardFocus.Exclusive
             : WlrKeyboardFocus.None;
 
-        Launcher {
-            id: launcher
-            anchors.centerIn: parent
-        }
-
-        WallpaperPicker {
-            id: wallpaperPicker
-            anchors.centerIn: parent
-        }
+        Launcher { anchors.centerIn: parent }
+        WallpaperPicker { anchors.centerIn: parent }
+        WLogout { anchors.fill: parent }
     }
-    WLogout {}
 
     // "Activate Linux" watermark
     Loader {
