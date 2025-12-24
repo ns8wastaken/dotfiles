@@ -1,11 +1,10 @@
 pragma ComponentBehavior: Bound
 
-import Quickshell
-import Quickshell.Io
 import Quickshell.Hyprland
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
+import qs.Services
 import qs.Managers
 import qs.Components
 import qs.Modules.WallpaperPicker
@@ -22,16 +21,15 @@ WindowManager.WmWindow {
         WindowManager.register(handle, root);
     }
 
-    onWmOpened: searchBar.clear();
+    onWmOpened: {
+        searchBar.clear();
+        Wallpapers.reload();
+    }
     onWmFocused: searchBar.focusField();
 
-    readonly property string wallpaperDir: Quickshell.env("HOME") + "/wallpapers"
-
-    property list<string> wallpaperList: []
-
-    readonly property list<string> filteredWallpaperList: Fuzzysort.sort(searchBar.text, wallpaperList);
+    readonly property list<string> filteredWallpaperList: Fuzzysort.sort(searchBar.text, Wallpapers.wallpaperList);
     readonly property list<string> filteredWallpaperNames: filteredWallpaperList
-        .map(w => w.slice(wallpaperDir.length + 1));
+        .map(w => w.slice(Wallpapers.wallpaperDir.length + 1));
 
     width: (Config.wallpaperPicker.wallpaperWidth + Config.wallpaperPicker.spacing) * 2
     height: Config.wallpaperPicker.wallpaperHeight
@@ -45,15 +43,6 @@ WindowManager.WmWindow {
 
     border.width: 1
     border.color: Theme.outline
-
-    Process {
-        workingDirectory: root.wallpaperDir
-        command: ["fd", ".", "-a", "-t", "file", "-c", "never"]
-        running: true
-        stdout: SplitParser {
-            onRead: line => root.wallpaperList.push(line)
-        }
-    }
 
     ColumnLayout {
         id: pickerCol
@@ -149,20 +138,11 @@ WindowManager.WmWindow {
             KeyUtils.key(event, Qt.Key_Return)
             || KeyUtils.key(event, Qt.Key_Enter)
         ) {
-            set_wallpaper();
+            Wallpapers.setWallpaper(filteredWallpaperList[slidingWallpapers.currentIndex]);
             close();
             event.accepted = true;
             return;
         }
-    }
-
-    function set_wallpaper() {
-        let path = filteredWallpaperList[slidingWallpapers.currentIndex];
-
-        // Set the wallpaper
-        Quickshell.execDetached({
-            command: ["sh", "-c", `~/setwp.sh ${path}`]
-        });
     }
 
     GlobalShortcut {

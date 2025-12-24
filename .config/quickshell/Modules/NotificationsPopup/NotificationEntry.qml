@@ -79,7 +79,7 @@ Rectangle {
 
             width: root.width - iconLoader.width - Config.notifications.popupMargins * 3
 
-            // Title
+            /* ---- Title ---- */
             Text {
                 width: parent.width
 
@@ -94,7 +94,7 @@ Rectangle {
                 elide: Text.ElideRight
             }
 
-            // Body
+            /* ---- Body ---- */
             Text {
                 width: parent.width
 
