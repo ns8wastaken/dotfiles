@@ -4,7 +4,53 @@ import Quickshell
 import QtQuick
 
 Singleton {
+    component WmOpenAnimation: ParallelAnimation {
+        id: wmOpenAnimationRoot
+
+        required property WmWindow target
+        default property list<Animation> animations
+        readonly property bool hasCustomAnimations: animations.length > 0
+
+        NumberAnimation {
+            target: wmOpenAnimationRoot.target; property: "scale"
+            to: 1; duration: 150
+            easing.type: Easing.InOutCubic
+        }
+        NumberAnimation {
+            target: wmOpenAnimationRoot.target; property: "opacity"
+            to: 1; duration: 150
+            easing.type: Easing.InOutCubic
+        }
+
+        onStarted: target.wmOpenAnimStarted()
+        onFinished: target.wmOpenAnimFinished()
+    }
+
+    component WmCloseAnimation: ParallelAnimation {
+        id: wmCloseAnimationRoot
+
+        required property WmWindow target
+        default property list<Animation> animations
+        readonly property bool hasCustomAnimations: animations.length > 0
+
+        NumberAnimation {
+            target: wmCloseAnimationRoot.target; property: "scale"
+            to: 0.9; duration: 150
+            easing.type: Easing.InOutCubic
+        }
+        NumberAnimation {
+            target: wmCloseAnimationRoot.target; property: "opacity"
+            to: 0; duration: 150
+            easing.type: Easing.InOutCubic
+        }
+
+        onStarted: target.wmCloseAnimStarted()
+        onFinished: target.wmCloseAnimFinished()
+    }
+
     component WmWindow: Rectangle {
+        id: wmWindowRoot
+
         final property string handle
 
         /* ---- WM-controlled state ---- */
@@ -12,12 +58,15 @@ Singleton {
         final property bool opened: false
         final property bool focused: false
 
+        // Scale and opacity are set in order for the animation to properly work
+        scale: 0.9
+        opacity: 0
         visible: opened
         z: focused ? 1000 : 0
 
         /* ---- Basic Functions ---- */
-        function open() { WindowManager.open(handle); }
-        function close() { WindowManager.close(handle); }
+        function open() { wmOpenAnim.start() }
+        function close() { wmCloseAnim.start() }
         function toggle() { opened ? close() : open(); }
 
         /* ---- Signals ---- */
@@ -25,6 +74,26 @@ Singleton {
         signal wmUnfocused()
         signal wmOpened()
         signal wmClosed()
+
+        signal wmOpenAnimStarted()
+        signal wmOpenAnimFinished()
+        signal wmCloseAnimStarted()
+        signal wmCloseAnimFinished()
+
+        /* ---- Open / Close Animations ---- */
+        // TODO: allow the user to change these
+        WmOpenAnimation {
+            id: wmOpenAnim
+            target: wmWindowRoot
+        }
+
+        WmCloseAnimation {
+            id: wmCloseAnim
+            target: wmWindowRoot
+        }
+
+        onWmOpenAnimStarted: WindowManager.open(handle)
+        onWmCloseAnimFinished: WindowManager.close(handle)
     }
 
     /* -----------------------------

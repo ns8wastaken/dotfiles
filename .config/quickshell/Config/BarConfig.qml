@@ -4,14 +4,18 @@ import QtQuick
 JsonObject {
     property int spacing
 
-    property JsonObject margins: JsonObject {
+    property MarginsConfig margins: MarginsConfig {}
+
+    property TrayConfig tray: TrayConfig {}
+
+    component MarginsConfig: JsonObject {
         property int top
         property int left
         property int right
         property int bottom
     }
 
-    property JsonObject tray: JsonObject {
+    component TrayConfig: JsonObject {
         property int iconSize
         property int spacing
     }

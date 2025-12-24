@@ -1,5 +1,6 @@
 pragma ComponentBehavior: Bound
 
+import Quickshell
 import Quickshell.Services.Notifications
 import QtQuick
 import qs.Components
@@ -13,6 +14,7 @@ Rectangle {
     readonly property int expireTimeout: modelData.expireTimeout >= 0
         ? modelData.expireTimeout
         : Config.notifications.defaultExpireTimeout;
+    readonly property string appIconPath: Quickshell.iconPath(root.modelData.appIcon, true)
 
     width: Config.notifications.width
     height: Config.notifications.height
@@ -37,7 +39,7 @@ Rectangle {
             width: row.height - 2 * Config.notifications.popupMargins
             height: row.height - 2 * Config.notifications.popupMargins
             image.fillMode: Image.PreserveAspectFit
-            image.source: root.modelData.image
+            image.source: root.appIconPath
             radius: 8
         }
     }
@@ -66,7 +68,7 @@ Rectangle {
         Loader {
             id: iconLoader
             anchors.verticalCenter: parent.verticalCenter
-            sourceComponent: root.modelData.image !== ""
+            sourceComponent: root.appIconPath !== ""
                 ? realImage
                 : fallbackIcon;
         }
@@ -121,7 +123,7 @@ Rectangle {
         target: root
         property: "x"
         from: 0
-        to: Config.notifications.width
+        to: root.width
         duration: 150
         easing.type: Easing.InCubic
         onStopped: root.modelData.expire()
@@ -133,7 +135,7 @@ Rectangle {
         target: root
         property: "x"
         from: 0
-        to: Config.notifications.width
+        to: root.width
         duration: 150
         easing.type: Easing.InCubic
         onStopped: root.modelData.dismiss()

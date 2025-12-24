@@ -43,6 +43,7 @@ ListView {
     orientation: ListView.Vertical
     // verticalLayoutDirection: ListView.BottomToTop
 
+    // Causes a bit of flickering
     // model: ScriptModel {
     //     values: [...NotificationService.notifications.values].reverse()
     // }

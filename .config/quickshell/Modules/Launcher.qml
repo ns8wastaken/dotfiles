@@ -25,9 +25,7 @@ WindowManager.WmWindow {
         selectedIdx = 0;
     }
 
-    onWmFocused: {
-        searchBar.focusField();
-    }
+    onWmFocused: searchBar.focusField()
 
     readonly property int margins: 8
     readonly property int appEntryRadius: 10
@@ -93,7 +91,7 @@ WindowManager.WmWindow {
 
             model: root.entries
 
-            spacing: 8
+            spacing: Config.launcher.spacing
             implicitHeight: (appEntryHeight + spacing) * Config.launcher.nVisible - spacing
 
             delegate: AppEntry {
