@@ -9,22 +9,22 @@ Singleton {
 
     property alias notifications: notifServer.trackedNotifications
 
+    signal notification(notification: Notification)
+
     NotificationServer {
         id: notifServer
 
-        imageSupported: true
-
+        actionsSupported: false
         bodySupported: true
-        bodyMarkupSupported: true
-        bodyImagesSupported: true
-
-        actionsSupported: true
+        bodyMarkupSupported: false
+        bodyImagesSupported: false
+        bodyHyperlinksSupported: false
+        persistenceSupported: false
+        imageSupported: true
 
         onNotification: function(notif) {
             notif.tracked = true;
             root.notification(notif);
         }
     }
-
-    signal notification(notification: Notification)
 }

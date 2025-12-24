@@ -10,6 +10,9 @@ Rectangle {
     id: root
 
     required property Notification modelData
+    readonly property int expireTimeout: modelData.expireTimeout >= 0
+        ? modelData.expireTimeout
+        : Config.notifications.defaultExpireTimeout;
 
     width: Config.notifications.width
     height: Config.notifications.height
@@ -108,20 +111,9 @@ Rectangle {
     }
 
     Timer {
-        interval: 5000
+        interval: root.expireTimeout
         running: true
         onTriggered: root.expire()
-    }
-
-    NumberAnimation {
-        // id: slideIn
-        target: root
-        property: "x"
-        from: Config.notifications.width
-        to: 0
-        duration: 150
-        easing.type: Easing.OutCubic
-        running: true
     }
 
     NumberAnimation {
@@ -144,7 +136,7 @@ Rectangle {
         to: Config.notifications.width
         duration: 150
         easing.type: Easing.InCubic
-        onStopped: root.modelData.expire()
+        onStopped: root.modelData.dismiss()
         running: false
     }
 

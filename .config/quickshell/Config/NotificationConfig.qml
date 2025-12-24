@@ -10,4 +10,6 @@ JsonObject {
 
     property int marginTop
     property int marginRight
+
+    property int defaultExpireTimeout
 }

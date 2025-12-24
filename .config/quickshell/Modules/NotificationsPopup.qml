@@ -1,3 +1,4 @@
+import Quickshell
 import QtQuick
 import qs.Modules.NotificationsPopup
 import qs.Services
@@ -42,6 +43,10 @@ ListView {
     orientation: ListView.Vertical
     // verticalLayoutDirection: ListView.BottomToTop
 
+    // model: ScriptModel {
+    //     values: [...NotificationService.notifications.values].reverse()
+    // }
     model: NotificationService.notifications
+
     delegate: NotificationEntry {}
 }

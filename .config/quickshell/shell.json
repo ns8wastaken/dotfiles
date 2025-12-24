@@ -40,14 +40,14 @@
         "spacing": 4,
 
         "marginTop": 0,
-        "marginRight": 4
+        "marginRight": 4,
+
+        "defaultExpireTimeout": 5000
     },
 
     "launcher": {
         "width": 350,
-
         "spacing": 4,
-
         "nVisible": 8
     },
 
@@ -62,7 +62,7 @@
         "width": 1100,
         "height": 550,
 
-        "bgAlpha": 0.7,
+        "bgAlpha": 0.8,
 
         "spacing": 8,
 
