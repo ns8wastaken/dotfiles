@@ -52,7 +52,6 @@ Rectangle {
 
                 mipmap: true
                 antialiasing: true
-                smooth: true
             }
         }
 

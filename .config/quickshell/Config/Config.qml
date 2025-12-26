@@ -27,6 +27,38 @@ Singleton {
     property alias wallpaperPicker: adapter.wallpaperPicker
     property alias wlogout:         adapter.wlogout
 
+    // property QtObject fonts: QtObject {
+    //     property FontLoader sansLoader: FontLoader {
+    //         source: root.shellFont(adapter.fonts.sans)
+    //     }
+    //     property string sans: sansLoader.name
+    //
+    //     property FontLoader monoLoader: FontLoader {
+    //         source: root.shellFont(adapter.fonts.mono)
+    //     }
+    //     property string mono: monoLoader.name
+    //
+    //     property FontLoader iconLoader: FontLoader {
+    //         source: root.shellFont(adapter.fonts.icon)
+    //     }
+    //     property string icon: iconLoader.name
+    //
+    //     property FontLoader clockLoader: FontLoader {
+    //         source: root.shellFont(adapter.fonts.clock)
+    //     }
+    //     property string clock: clockLoader.name
+    //
+    //     property FontLoader japaneseLoader: FontLoader {
+    //         source: root.shellFont(adapter.fonts.japanese)
+    //     }
+    //     property string japanese: japaneseLoader.name
+    //
+    //     property FontLoader cuteLoader: FontLoader {
+    //         source: root.shellFont(adapter.fonts.cute)
+    //     }
+    //     property string cute: cuteLoader.name
+    // }
+
     FileView {
         path: Quickshell.shellPath("shell.json")
         watchChanges: true

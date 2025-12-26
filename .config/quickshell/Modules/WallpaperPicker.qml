@@ -1,11 +1,10 @@
 pragma ComponentBehavior: Bound
 
-import Quickshell.Hyprland
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import qs.Services
-import qs.Managers
+import qs.Managers.Types
 import qs.Components
 import qs.Modules.WallpaperPicker
 import qs.Config
@@ -13,13 +12,8 @@ import qs.Theme
 import "../Utils/Fuzzysort.js" as Fuzzysort
 import "../Utils/Keys.js" as KeyUtils
 
-WindowManager.WmWindow {
+WmWindow {
     id: root
-    handle: "wallpaperPicker"
-
-    Component.onCompleted: {
-        WindowManager.register(handle, root);
-    }
 
     onWmOpened: {
         searchBar.clear();
@@ -32,11 +26,11 @@ WindowManager.WmWindow {
         .map(w => w.slice(Wallpapers.wallpaperDir.length + 1));
 
     width: (Config.wallpaperPicker.wallpaperWidth + Config.wallpaperPicker.spacing) * 2
-    height: Config.wallpaperPicker.wallpaperHeight
-        + Config.wallpaperPicker.spacing * 2
+    height: pickerCol.anchors.margins * 2
+        + searchBar.height
         + pickerCol.spacing
-        + pickerCol.anchors.margins * 2
-        + searchBar.height;
+        + Config.wallpaperPicker.spacing * 2
+        + wallpaperView.implicitHeight;
 
     color: Theme.backgroundPrimary
     radius: 30
@@ -46,8 +40,6 @@ WindowManager.WmWindow {
 
     ColumnLayout {
         id: pickerCol
-
-        clip: true
 
         anchors.fill: parent
         anchors.margins: 12
@@ -91,7 +83,7 @@ WindowManager.WmWindow {
                 color: "transparent"
 
                 WallpaperView {
-                    id: slidingWallpapers
+                    id: wallpaperView
                     anchors.fill: parent
                     width: parent.width
                     filteredWallpaperNames: root.filteredWallpaperNames
@@ -102,7 +94,7 @@ WindowManager.WmWindow {
     }
 
     Keys.onPressed: function(event) {
-        if (!shortcutsEnabled)
+        if (!focused)
             return;
 
         // Ctrl+W -> delete previous word
@@ -121,14 +113,14 @@ WindowManager.WmWindow {
 
         // Ctrl+P -> next wallpaper
         if (KeyUtils.key(event, Qt.Key_P) && KeyUtils.ctrl(event)) {
-            slidingWallpapers.incrementCurrentIndex();
+            wallpaperView.incrementCurrentIndex();
             event.accepted = true;
             return;
         }
 
         // Ctrl+N -> previous wallpaper
         if (KeyUtils.key(event, Qt.Key_N) && KeyUtils.ctrl(event)) {
-            slidingWallpapers.decrementCurrentIndex();
+            wallpaperView.decrementCurrentIndex();
             event.accepted = true;
             return;
         }
@@ -138,15 +130,10 @@ WindowManager.WmWindow {
             KeyUtils.key(event, Qt.Key_Return)
             || KeyUtils.key(event, Qt.Key_Enter)
         ) {
-            Wallpapers.setWallpaper(filteredWallpaperList[slidingWallpapers.currentIndex]);
+            Wallpapers.setWallpaper(filteredWallpaperList[wallpaperView.currentIndex]);
             close();
             event.accepted = true;
             return;
         }
-    }
-
-    GlobalShortcut {
-        name: "wallpaperPicker"
-        onPressed: root.toggle()
     }
 }

@@ -10,6 +10,8 @@ ListView {
 
     required property list<string> filteredWallpaperNames
 
+    implicitHeight: Config.wallpaperPicker.wallpaperHeight
+
     orientation: ListView.Horizontal
     spacing: Config.wallpaperPicker.spacing
 
@@ -23,57 +25,49 @@ ListView {
 
     keyNavigationWraps: true
 
-    delegate: Item {
+    // Wallpaper
+    delegate: RoundedImage {
         id: wallpaperEntry
 
         required property string modelData
         required property int index
 
-        anchors.verticalCenter: parent.verticalCenter
+        readonly property bool isSelected: root.currentIndex === index
 
         width: Config.wallpaperPicker.wallpaperWidth
         height: Config.wallpaperPicker.wallpaperHeight
 
-        // Wallpaper
-        RoundedImage {
-            readonly property bool isSelected: root.currentIndex === wallpaperEntry.index
+        radius: 16
 
-            anchors.fill: parent
+        image.source: modelData
+        image.sourceSize.height: Config.wallpaperPicker.wallpaperHeight
+        image.fillMode: Image.PreserveAspectCrop
 
-            radius: 16
+        image.asynchronous: true
+        image.mipmap: true
 
-            image.source: wallpaperEntry.modelData
-            image.sourceSize.height: Config.wallpaperPicker.wallpaperHeight
-            image.fillMode: Image.PreserveAspectCrop
-
-            image.asynchronous: true
-            image.smooth: true
-            image.mipmap: true
-
-            // Wallpaper name
-            Text {
-                anchors {
-                    bottom: parent.bottom
-                    left: parent.left
-                    right: parent.right
-                    margins: 8
-                }
-
-                antialiasing: true
-                smooth: true
-
-                text: root.filteredWallpaperNames[wallpaperEntry.index] ?? "Placeholder name"
-
-                color: "#ffffff"
-
-                font.family: Config.fonts.sans
-                font.pixelSize: Config.fontSizeSmaller
-
-                elide: Text.ElideMiddle
-
-                style: Text.Outline
-                styleColor: Theme.backgroundPrimary
+        // Wallpaper name
+        Text {
+            anchors {
+                bottom: parent.bottom
+                left: parent.left
+                right: parent.right
+                margins: 6
             }
+
+            text: root.filteredWallpaperNames[wallpaperEntry.index] ?? "Placeholder name"
+
+            color: "#ffffff"
+
+            font.family: Config.fonts.sans
+            font.pixelSize: Config.fontSizeSmaller
+
+            style: Text.Outline
+            styleColor: Theme.backgroundPrimary
+
+            elide: Text.ElideMiddle
+
+            horizontalAlignment: Text.AlignHCenter
         }
     }
 }

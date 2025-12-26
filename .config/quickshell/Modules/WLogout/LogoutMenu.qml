@@ -1,27 +1,21 @@
 pragma ComponentBehavior: Bound
 
 import Quickshell
-import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
-import qs.Managers
+import qs.Managers.Types
 import qs.Config
 import qs.Theme
 import "../../Utils/Keys.js" as KeyUtils
 
-WindowManager.WmWindow {
+WmWindow {
     id: root
-    handle: "wlogout"
-
-    Component.onCompleted: {
-        WindowManager.register(handle, root);
-    }
-
-    onWmFocused: focus = true
 
     default property list<LogoutButton> buttons
 
     color: Theme.backgroundPrimary.alpha(Config.wlogout.bgAlpha)
+
+    focus: true
 
     MouseArea {
         anchors.fill: parent
@@ -83,7 +77,6 @@ WindowManager.WmWindow {
 
                     fillMode: Image.PreserveAspectFit
 
-                    smooth: true
                     antialiasing: true
                     mipmap: true
 
@@ -114,7 +107,7 @@ WindowManager.WmWindow {
     }
 
     Keys.onPressed: function(event) {
-        if (!shortcutsEnabled)
+        if (!focused)
             return;
 
         // Escape -> close
@@ -131,10 +124,5 @@ WindowManager.WmWindow {
                 close();
             }
         }
-    }
-
-    GlobalShortcut {
-        name: "wlogout"
-        onPressed: root.toggle()
     }
 }

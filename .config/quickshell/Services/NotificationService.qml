@@ -16,7 +16,7 @@ Singleton {
 
         actionsSupported: false
         bodySupported: true
-        bodyMarkupSupported: false
+        bodyMarkupSupported: true // TODO: missing href and img
         bodyImagesSupported: false
         bodyHyperlinksSupported: false
         persistenceSupported: false

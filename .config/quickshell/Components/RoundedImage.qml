@@ -25,7 +25,6 @@ import Quickshell.Widgets
 //             anchors.fill: parent
 //             anchors.margins: bgRect.border.width
 //             visible: false
-//             smooth: true
 //             asynchronous: true
 //             antialiasing: true
 //             onStatusChanged: root.statusChanged(status)
@@ -57,5 +56,6 @@ ClippingRectangle {
 
     Image {
         id: image
+        anchors.fill: parent
     }
 }

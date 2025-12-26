@@ -23,6 +23,7 @@ Singleton {
     }
 
     function setWallpaper(path: string) {
+        // TODO: move the script into qs config
         Quickshell.execDetached(["sh", "-c", `~/setwp.sh ${path}`]);
     }
 

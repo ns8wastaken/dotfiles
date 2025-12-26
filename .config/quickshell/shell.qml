@@ -1,7 +1,12 @@
+//@ pragma Env QSG_RENDER_LOOP=threaded
+//@ pragma Env QSG_USE_SIMPLE_ANIMATION_DRIVER=1
+
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Hyprland
 import QtQuick
 import qs.Managers
+import qs.Managers.Types
 import qs.Modules
 import qs.Config
 import qs.Theme
@@ -83,9 +88,41 @@ ShellRoot {
             ? WlrKeyboardFocus.Exclusive
             : WlrKeyboardFocus.None;
 
-        Launcher { anchors.centerIn: parent }
-        WallpaperPicker { anchors.centerIn: parent }
-        WLogout { anchors.fill: parent }
+        WmLoader {
+            id: launcher
+            handle: "launcher"
+            anchors.centerIn: parent
+            sourceComponent: Launcher {}
+        }
+
+        WmLoader {
+            id: wallpaperPicker
+            handle: "wallpaperPicker"
+            anchors.centerIn: parent
+            sourceComponent: WallpaperPicker {}
+        }
+
+        WmLoader {
+            id: wlogout
+            handle: "wlogout"
+            anchors.fill: parent
+            sourceComponent: WLogout {}
+        }
+
+        GlobalShortcut {
+            name: "launcher"
+            onPressed: launcher.toggle()
+        }
+
+        GlobalShortcut {
+            name: "wallpaperPicker"
+            onPressed: wallpaperPicker.toggle()
+        }
+
+        GlobalShortcut {
+            name: "wlogout"
+            onPressed: wlogout.toggle()
+        }
     }
 
     // "Activate Linux" watermark
@@ -139,66 +176,3 @@ ShellRoot {
         }
     }
 }
-
-// import Quickshell
-// import Quickshell.Wayland
-// import QtQuick
-// import QtQuick.Effects
-//
-// PanelWindow {
-//     id: root
-//
-//     color: "transparent"
-//     visible: true
-//     WlrLayershell.layer: WlrLayer.Top
-//
-//     mask: Region {
-//         item: container;
-//         intersection: Intersection.Xor
-//     }
-//
-//     anchors {
-//         top: true
-//         left: true
-//         bottom: true
-//         right: true
-//     }
-//
-//     Item {
-//         id: container
-//         anchors.fill: parent
-//
-//         Rectangle {
-//             anchors.fill: parent
-//
-//             color: "#FFFFFF"
-//
-//             layer.enabled: true
-//             layer.effect: MultiEffect {
-//                 maskSource: mask
-//                 maskEnabled: true
-//                 maskInverted: true
-//                 maskThresholdMin: 0.5
-//                 maskSpreadAtMin: 1
-//             }
-//         }
-//
-//         Item {
-//             id: mask
-//
-//             anchors.fill: parent
-//             layer.enabled: true
-//             visible: false
-//
-//             Rectangle {
-//                 anchors.fill: parent
-//                 anchors.leftMargin: 12
-//                 anchors.rightMargin: 12
-//                 anchors.topMargin: 12
-//                 anchors.bottomMargin: 12
-//
-//                 radius: 16
-//             }
-//         }
-//     }
-// }

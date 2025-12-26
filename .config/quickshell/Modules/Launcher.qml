@@ -1,10 +1,9 @@
 pragma ComponentBehavior: Bound
 
 import Quickshell
-import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
-import qs.Managers
+import qs.Managers.Types
 import qs.Components
 import qs.Modules.Launcher
 import qs.Config
@@ -12,13 +11,8 @@ import qs.Theme
 import "../Utils/Fuzzysort.js" as Fuzzysort
 import "../Utils/Keys.js" as KeyUtils
 
-WindowManager.WmWindow {
+WmWindow {
     id: root
-    handle: "launcher"
-
-    Component.onCompleted: {
-        WindowManager.register(handle, root);
-    }
 
     onWmOpened: {
         searchBar.clear();
@@ -136,7 +130,7 @@ WindowManager.WmWindow {
     }
 
     Keys.onPressed: function(event) {
-        if (!shortcutsEnabled)
+        if (!focused)
             return;
 
         // Ctrl+W -> delete previous word
@@ -181,10 +175,5 @@ WindowManager.WmWindow {
 
     function run() {
         selectedEntry?.execute();
-    }
-
-    GlobalShortcut {
-        name: "launcher"
-        onPressed: root.toggle()
     }
 }
