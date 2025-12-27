@@ -19,7 +19,7 @@ Pill {
         text: "menu"
 
         color: Theme.textPrimary
-        font.pointSize: Config.fontSizeSmaller
+        font.pixelSize: Config.fontSizeNormal
     }
 
     MouseArea {

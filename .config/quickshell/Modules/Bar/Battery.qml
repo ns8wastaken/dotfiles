@@ -26,17 +26,17 @@ Pill {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            text: UPower.displayDevice.percentage < min
+            text: UPower.displayDevice.percentage <= min
                 ? "battery_0_bar"
-                : UPower.displayDevice.percentage < min + step
+                : UPower.displayDevice.percentage <= min + step
                 ? "battery_1_bar"
-                : UPower.displayDevice.percentage < min + step * 2
+                : UPower.displayDevice.percentage <= min + step * 2
                 ? "battery_2_bar"
-                : UPower.displayDevice.percentage < min + step * 3
+                : UPower.displayDevice.percentage <= min + step * 3
                 ? "battery_3_bar"
-                : UPower.displayDevice.percentage < min + step * 4
+                : UPower.displayDevice.percentage <= min + step * 4
                 ? "battery_5_bar"
-                : UPower.displayDevice.percentage < min + step * 5
+                : UPower.displayDevice.percentage <= min + step * 5
                 ? "battery_5_bar"
                 : UPower.displayDevice.percentage < max
                 ? "battery_6_bar"

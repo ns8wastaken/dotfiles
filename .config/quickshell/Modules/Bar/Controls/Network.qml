@@ -19,7 +19,7 @@ Item {
             anchors.centerIn: parent
 
             color: Theme.textPrimary
-            font.pointSize: Config.fontSizeSmaller
+            font.pixelSize: Config.fontSizeNormal
 
             text: "signal_wifi_4_bar"
         }

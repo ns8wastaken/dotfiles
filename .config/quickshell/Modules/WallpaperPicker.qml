@@ -19,6 +19,7 @@ WmWindow {
         searchBar.clear();
         Wallpapers.reload();
     }
+
     onWmFocused: searchBar.focusField();
 
     readonly property list<string> filteredWallpaperList: Fuzzysort.sort(searchBar.text, Wallpapers.wallpaperList);

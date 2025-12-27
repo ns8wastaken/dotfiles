@@ -20,7 +20,7 @@ Item {
             anchors.centerIn: parent
 
             color: AudioService.sourceMuted ? Theme.textDisabled : Theme.textPrimary
-            font.pointSize: Config.fontSizeSmaller
+            font.pixelSize: Config.fontSizeNormal
 
             text: AudioService.sourceMuted ? "mic_off" : "mic";
         }

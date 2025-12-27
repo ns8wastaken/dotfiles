@@ -6,15 +6,12 @@ import QtQuick
 
 Singleton {
     function getWorkspaceColor(modelData): color {
-        if (modelData.name == "special:magic") return Theme.accentTertiary;
         if (modelData.active) return Theme.accentPrimary;
         if (modelData.urgent) return Theme.error;
-        if (modelData.focused) return Theme.error;
         return Theme.surface;
     }
 
     function getWorkspaceTextColor(modelData): color {
-        if (modelData.name == "special:magic") return Theme.textDark;
         if (modelData.active) return Theme.textDark;
         return Theme.textPrimary;
     }

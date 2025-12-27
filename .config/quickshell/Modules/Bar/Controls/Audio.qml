@@ -7,35 +7,56 @@ import qs.Theme
 Item {
     anchors.verticalCenter: parent.verticalCenter
 
-    width: text.width
-    height: text.height
+    width: row.implicitWidth
+    height: row.implicitHeight
 
     MouseArea {
-        anchors.fill: parent
+        anchors.fill: row
         cursorShape: Qt.PointingHandCursor
+        acceptedButtons: Qt.LeftButton
+
+        onClicked: function(mouse) {
+            AudioService.sink.toggleMute();
+        }
+    }
+
+    Row {
+        id: row
+
+        anchors.centerIn: parent
 
         MaterialIcon {
             id: text
 
-            anchors.centerIn: parent
+            readonly property real min: 0.05
+            readonly property real max: 0.95
+            readonly property real step: Math.round((max - min) / 2 * 100) / 100
 
-            color: AudioService.muted ? Theme.textDisabled : Theme.textPrimary
-            font.pointSize: Config.fontSizeSmaller
+            anchors.verticalCenter: parent.verticalCenter
 
-            text: AudioService.volume < 0.05
+            color: AudioService.sink.muted ? Theme.textDisabled : Theme.textPrimary
+            font.pixelSize: Config.fontSizeNormal
+
+            text: AudioService.sink.volume <= min
                 ? "volume_off"
-                : AudioService.volume < 0.45
+                : AudioService.sink.volume <= min + step
                 ? "volume_mute"
-                : AudioService.volume < 0.8
+                : AudioService.sink.volume < max
                 ? "volume_down"
                 : "volume_up";
         }
 
-        acceptedButtons: Qt.LeftButton
+        Text {
+            // TODO: add a setting for this
+            visible: true
 
-        onClicked: function(mouse) {
-            // mouse.button === Qt.LeftButton
-            AudioService.toggleMute();
+            anchors.verticalCenter: parent.verticalCenter
+            text: AudioService.sink.percentage + '%'
+
+            color: Theme.textPrimary
+
+            font.family: Config.fonts.sans
+            font.pixelSize: Config.fontSizeSmall
         }
     }
 }
