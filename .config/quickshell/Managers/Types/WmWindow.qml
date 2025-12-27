@@ -10,7 +10,6 @@ Rectangle {
     z: focused ? 1000 : 0
 
     /* ---- Signals ---- */
-    signal wmOpened()
     signal wmFocused()
     signal wmUnfocused()
 

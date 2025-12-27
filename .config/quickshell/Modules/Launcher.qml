@@ -14,7 +14,7 @@ import "../Utils/Keys.js" as KeyUtils
 WmWindow {
     id: root
 
-    onWmOpened: {
+    Component.onCompleted: {
         searchBar.clear();
         selectedIdx = 0;
     }

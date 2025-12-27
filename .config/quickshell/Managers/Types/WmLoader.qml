@@ -56,7 +56,6 @@ Loader {
     onStatusChanged: {
         if (status === Loader.Ready) {
             item._handle = handle;
-            item.wmOpened();
         }
     }
 }
