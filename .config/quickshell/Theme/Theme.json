@@ -1,25 +1,25 @@
 {
-    "backgroundPrimary": "#252525",
-    "backgroundSecondary": "#3B3B3B",
-    "backgroundTertiary": "#222626",
+    "backgroundPrimary": "#0B0012",
+    "backgroundSecondary": "#231A2A",
+    "backgroundTertiary": "#643188",
 
-    "accentPrimary": "#6B9065",
-    "accentSecondary": "#8FACB0",
-    "accentTertiary": "#CDC2D2",
+    "accentPrimary": "#B3ACA6",
+    "accentSecondary": "#6CCC7F",
+    "accentTertiary": "#F9E33B",
 
-    "textPrimary": "#EEEAEF",
-    "textSecondary": "#CAC7CB",
-    "textPrimaryInverted": "#252525",
-    "textLight": "#DED8E0",
-    "textDark": "#252525",
-    "textDisabled": "#9B979D",
+    "textPrimary": "#FDF5BA",
+    "textSecondary": "#D7D09E",
+    "textPrimaryInverted": "#0B0012",
+    "textLight": "#F4E994",
+    "textDark": "#0B0012",
+    "textDisabled": "#AAA368",
 
-    "outline": "#9B979D",
-    "highlight": "#8FACB0",
+    "outline": "#AAA368",
+    "highlight": "#6CCC7F",
 
     "error": "#FF6B81",
     "warning": "#FFBB66",
 
-    "surface": "#4A4B4B",
-    "surfaceVariant": "#44666A"
+    "surface": "#0F0014",
+    "surfaceVariant": "#5A5553"
 }

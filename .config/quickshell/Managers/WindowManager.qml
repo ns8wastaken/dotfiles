@@ -32,7 +32,8 @@ Singleton {
         const loader = handles[handle];
         if (!loader) return;
 
-        loader.state = "ACTIVE";
+        loader.active = true;
+        loader.opened = true;
 
         focus(handle);
     }
@@ -41,7 +42,7 @@ Singleton {
         const loader = handles[handle];
         if (!loader) return;
 
-        loader.state = "";
+        loader.opened = false;
 
         // Remove from history
         const idx = focusHistory.indexOf(handle);

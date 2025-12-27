@@ -86,7 +86,7 @@ WmWindow {
                 WallpaperView {
                     id: wallpaperView
                     anchors.fill: parent
-                    width: parent.width
+                    // width: parent.width
                     filteredWallpaperNames: root.filteredWallpaperNames
                     model: root.filteredWallpaperList
                 }

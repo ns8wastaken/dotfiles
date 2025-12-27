@@ -15,7 +15,8 @@ ListView {
     orientation: ListView.Horizontal
     spacing: Config.wallpaperPicker.spacing
 
-    cacheBuffer: width
+    // Preload 1 wallpaper before and after the visible ones
+    cacheBuffer: Config.wallpaperPicker.wallpaperWidth * 2
     reuseItems: true
 
     highlightMoveDuration: 200
@@ -24,6 +25,8 @@ ListView {
     preferredHighlightEnd: preferredHighlightBegin + Config.wallpaperPicker.wallpaperWidth
 
     keyNavigationWraps: true
+
+    flickDeceleration: 2000
 
     // Wallpaper
     delegate: RoundedImage {

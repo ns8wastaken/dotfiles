@@ -2,13 +2,14 @@ import QtQuick
 import qs.Managers
 
 Loader {
-    id: animatedLoaderRoot
+    id: root
 
     required final property string handle
+    property bool opened: false
 
     Component.onCompleted: {
         active = false;
-        WindowManager.register(handle, animatedLoaderRoot);
+        WindowManager.register(handle, root);
     }
 
     visible: active
@@ -20,11 +21,11 @@ Loader {
 
     states: State {
         name: "ACTIVE"
+        when: root.opened && root.status === Loader.Ready
 
         PropertyChanges {
-            animatedLoaderRoot.active: true
-            animatedLoaderRoot.opacity: 1
-            animatedLoaderRoot.scale: 1
+            root.opacity: 1
+            root.scale: 1
         }
     }
 
@@ -34,12 +35,13 @@ Loader {
 
         SequentialAnimation {
             PropertyAction {
-                target: animatedLoaderRoot
+                target: root
                 property: "active"
+                value: root.state === "ACTIVE"
             }
 
             PropertyAnimation {
-                target: animatedLoaderRoot
+                target: root
                 properties: "opacity, scale"
                 duration: 100
                 easing.type: Easing.InOutCubic
