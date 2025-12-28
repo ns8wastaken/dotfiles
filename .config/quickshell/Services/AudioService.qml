@@ -11,18 +11,19 @@ Singleton {
         required property PwNode node
 
         readonly property bool _ready: node !== null && node.audio !== null
+
         readonly property bool muted: _ready ? (node.audio.muted ?? false) : false
         readonly property real volume: {
             if (!_ready) return 0;
             const vol = node.audio.volume;
-            if (vol === undefined || vol === null || isNaN(vol)) return 0;
+            if (!vol) return 0;
             return Math.round(vol * 100) / 100;
         }
         readonly property int percentage: volume * 100
 
         function setVolume(vol: real) {
             if (_ready && node.audio) {
-                node.audio.volume = Math.round(Math.max(0, Math.min(1, vol)) * 100) / 100;
+                node.audio.volume = vol; // auto clamped
             }
         }
 

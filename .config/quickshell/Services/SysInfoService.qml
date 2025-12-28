@@ -7,6 +7,7 @@ import QtQuick
 Singleton {
     id: root
 
+    // TODO: make this a setting
     property int updateInterval: 5000 // ms
 
     property real cpuUsage: 0
@@ -25,11 +26,12 @@ Singleton {
 
         running: true
 
-        command: [Quickshell.shellDir + "/Programs/stats.sh"]
+        workingDirectory: Quickshell.shellPath("Programs")
+        command: ["./stats.sh"]
 
-        stdout: SplitParser {
-            onRead: function (line) {
-                const data = JSON.parse(line);
+        stdout: StdioCollector {
+            onStreamFinished: function () {
+                const data = JSON.parse(text);
                 root.cpuUsage          = +data.cpu;
                 root.cpuTemp           = +data.cputemp;
                 root.memoryUsage       = +data.mem;

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Read /proc/stat once (instant)
 cpu_usage_snapshot() {

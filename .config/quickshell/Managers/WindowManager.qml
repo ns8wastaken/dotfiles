@@ -25,6 +25,11 @@ Singleton {
         handles[handle] = loader;
     }
 
+    function unregister(handle: string, loader: WmLoader) {
+        close(handle);
+        delete handles[handle];
+    }
+
     /* -----------------------------
      * Open / Close
      * --------------------------- */
@@ -65,6 +70,12 @@ Singleton {
     function focus(handle: string) {
         const loader = handles[handle];
         if (!loader|| !loader.active) return;
+
+        if (focusedHandle && handles[focusedHandle]) {
+            const old = handles[focusedHandle];
+            old.item.focused = false;
+            old.item.wmUnfocused();
+        }
 
         focusedHandle = handle;
         loader.focus = true;

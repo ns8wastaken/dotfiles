@@ -8,8 +8,8 @@ import qs.Components
 import qs.Modules.Launcher
 import qs.Config
 import qs.Theme
-import "../Utils/Fuzzysort.js" as Fuzzysort
-import "../Utils/Keys.js" as KeyUtils
+import qs.Utils
+import "../Utils/Scripts/Fuzzy.js" as Fuzzy
 
 WmWindow {
     id: root
@@ -24,7 +24,7 @@ WmWindow {
     readonly property int margins: 8
     readonly property int appEntryRadius: 10
 
-    readonly property list<DesktopEntry> entries: Fuzzysort.sort(
+    readonly property list<DesktopEntry> entries: Fuzzy.sort(
         searchBar.text,
         Array.from(DesktopEntries.applications.values)
             .sort((e1, e2) => e1.name.localeCompare(e2.name)),
@@ -134,38 +134,35 @@ WmWindow {
             return;
 
         // Ctrl+W -> delete previous word
-        if (KeyUtils.key(event, Qt.Key_W) && KeyUtils.ctrl(event)) {
+        if (Key.match(event, Qt.Key_W, Qt.ControlModifier)) {
             searchBar.deletePreviousWord();
             event.accepted = true;
             return;
         }
 
         // Escape -> close
-        if (KeyUtils.key(event, Qt.Key_Escape)) {
+        if (Key.match(event, Qt.Key_Escape)) {
             close();
             event.accepted = true;
             return;
         }
 
         // Ctrl+P -> previous entry
-        if (KeyUtils.key(event, Qt.Key_P) && KeyUtils.ctrl(event)) {
+        if (Key.match(event, Qt.Key_P, Qt.ControlModifier)) {
             offsetSelectedIdx(-1);
             event.accepted = true;
             return;
         }
 
         // Ctrl+N -> next entry
-        if (KeyUtils.key(event, Qt.Key_N) && KeyUtils.ctrl(event)) {
+        if (Key.match(event, Qt.Key_N, Qt.ControlModifier)) {
             offsetSelectedIdx(1);
             event.accepted = true;
             return;
         }
 
         // Enter / Return -> run program
-        if (
-            KeyUtils.key(event, Qt.Key_Return)
-            || KeyUtils.key(event, Qt.Key_Enter)
-        ) {
+        if (Key.match(event, Qt.Key_Return) || Key.match(event, Qt.Key_Enter)) {
             run();
             close();
             event.accepted = true;

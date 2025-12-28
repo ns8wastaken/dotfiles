@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Check if argument is given
+if [ -z "$1" ]; then
+    echo "Usage: setwp.sh /path/to/image"
+    exit 1
+fi
+
+wallpaper="$1"
+
+# Check if file exists
+if [ ! -f "$wallpaper" ]; then
+    notify-send "Error: File does not exist: $wallpaper"
+    exit 0
+fi
+
+# Set wallpaper with swww
+swww img "$wallpaper" \
+    --transition-type any \
+    --transition-duration 1.5 \
+    --transition-step 20 \
+    --transition-fps 144 \
+    && wallust run "$wallpaper" -u -q #--check-contrast
+
+# Optional: send notification
+notify-send "Wallpaper set" "$wallpaper"

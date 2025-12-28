@@ -1,21 +1,21 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import qs.Services
 import qs.Components
+import qs.Utils
 import qs.Config
 import qs.Theme
 
 ListView {
     id: root
 
-    required property list<string> filteredWallpaperNames
-
     implicitHeight: Config.wallpaperPicker.wallpaperHeight
 
     orientation: ListView.Horizontal
     spacing: Config.wallpaperPicker.spacing
 
-    // Preload 1 wallpaper before and after the visible ones
+    // Preload 2 wallpapers before and after the visible ones
     cacheBuffer: Config.wallpaperPicker.wallpaperWidth * 2
     reuseItems: true
 
@@ -32,17 +32,16 @@ ListView {
     delegate: RoundedImage {
         id: wallpaperEntry
 
-        required property string modelData
         required property int index
-
-        readonly property bool isSelected: root.currentIndex === index
+        required property url fileUrl
+        required property url fileName
 
         width: Config.wallpaperPicker.wallpaperWidth
         height: Config.wallpaperPicker.wallpaperHeight
 
         radius: 16
 
-        image.source: modelData
+        image.source: fileUrl
         image.sourceSize.height: Config.wallpaperPicker.wallpaperHeight
         image.fillMode: Image.PreserveAspectCrop
 
@@ -58,7 +57,7 @@ ListView {
                 margins: 6
             }
 
-            text: root.filteredWallpaperNames[wallpaperEntry.index] ?? "Placeholder name"
+            text: wallpaperEntry.fileName
 
             color: "#ffffff"
 

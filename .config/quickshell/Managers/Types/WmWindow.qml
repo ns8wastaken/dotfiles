@@ -2,6 +2,8 @@ import QtQuick
 import qs.Managers
 
 Rectangle {
+    DragHandler {}
+
     /* ---- WM-controlled state ---- */
     final property string _handle // set by the wm
     final property bool focused: false

@@ -12,6 +12,10 @@ Loader {
         WindowManager.register(handle, root);
     }
 
+    Component.onDestruction: {
+        WindowManager.unregister(handle);
+    }
+
     visible: active
     focus: active
 

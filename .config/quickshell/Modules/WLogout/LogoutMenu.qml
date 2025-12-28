@@ -6,7 +6,7 @@ import QtQuick.Layouts
 import qs.Managers.Types
 import qs.Config
 import qs.Theme
-import "../../Utils/Keys.js" as KeyUtils
+import qs.Utils
 
 WmWindow {
     id: root
@@ -111,7 +111,7 @@ WmWindow {
             return;
 
         // Escape -> close
-        if (KeyUtils.key(event, Qt.Key_Escape)) {
+        if (Key.match(event, Qt.Key_Escape)) {
             close()
             event.accepted = true;
             return;
