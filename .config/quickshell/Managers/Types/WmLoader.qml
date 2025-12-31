@@ -4,8 +4,12 @@ import qs.Managers
 Loader {
     id: root
 
-    required final property string handle
+    required property string handle
     property bool opened: false
+    property bool focused: false
+
+    property bool draggable: false
+    property bool resetPosition: true // TODO
 
     Component.onCompleted: {
         active = false;
@@ -16,6 +20,8 @@ Loader {
         WindowManager.unregister(handle);
     }
 
+    DragHandler { enabled: root.draggable }
+
     visible: active
     focus: active
 
@@ -24,24 +30,26 @@ Loader {
     scale: 0.9
 
     states: State {
-        name: "ACTIVE"
+        name: "VISIBLE"
         when: root.opened && root.status === Loader.Ready
 
         PropertyChanges {
-            root.opacity: 1
-            root.scale: 1
+            root {
+                opacity: 1
+                scale: 1
+            }
         }
     }
 
     transitions: Transition {
-        to: "ACTIVE"
+        to: "VISIBLE"
         reversible: true
 
         SequentialAnimation {
             PropertyAction {
                 target: root
                 property: "active"
-                value: root.state === "ACTIVE"
+                value: root.state === "VISIBLE"
             }
 
             PropertyAnimation {

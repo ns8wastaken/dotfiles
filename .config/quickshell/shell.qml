@@ -73,7 +73,7 @@ ShellRoot {
             }
         }
 
-        NotificationsPopup {
+        NotificationPopups {
             anchors {
                 right: parent.right
                 top: parent.top
@@ -91,14 +91,19 @@ ShellRoot {
         WmLoader {
             id: launcher
             handle: "launcher"
-            anchors.centerIn: parent
+            draggable: true
+            x: (fsPanelWindow.width - width) / 2
+            y: (fsPanelWindow.height - height) / 2
             sourceComponent: Launcher {}
         }
 
         WmLoader {
             id: wallpaperPicker
             handle: "wallpaperPicker"
-            anchors.centerIn: parent
+            draggable: true
+            resetPosition: false
+            x: (fsPanelWindow.width - width) / 2
+            y: (fsPanelWindow.height - height) / 2
             sourceComponent: WallpaperPicker {}
         }
 
@@ -152,7 +157,8 @@ ShellRoot {
                 }
 
                 text.text: "吃\n喝\n拉\n撒\n睡"
-                text.color: Theme.textPrimary
+                // text.color: Theme.textPrimary
+                text.color: "#000000"
                 text.font.family: bgTextFont.name
                 text.font.pointSize: 40
             }
@@ -169,7 +175,8 @@ ShellRoot {
                 }
 
                 text.text: "我\n操\n你\n妈"
-                text.color: Theme.textPrimary
+                // text.color: Theme.textPrimary
+                text.color: "#000000"
                 text.font.family: bgTextFont.name
                 text.font.pointSize: 40
             }

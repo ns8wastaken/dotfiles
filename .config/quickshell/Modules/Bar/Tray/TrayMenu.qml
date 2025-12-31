@@ -2,63 +2,58 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import QtQuick
+import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Config
 import qs.Theme
 
-// TODO: dont use popup windows
-PopupWindow {
+Popup {
     id: root
 
-    implicitWidth: 200
-    implicitHeight: listView.contentHeight + 12
-
-    visible: false
-    color: "transparent"
-
     property QsMenuHandle menu: null
-    property Item anchorItem: null
-    property int anchorX: 0.0
-    property int anchorY: 0.0
 
-    anchor.item: anchorItem
-    anchor.rect.x: anchorX
-    anchor.rect.y: anchorY
-
-    function showAt(item: Item, x: int, y: int) {
-        if (!item) {
-            console.warn("CustomTrayMenu: anchorItem is undefined, not showing menu.");
+    function update(_trayEntry: Item) {
+        if (!_trayEntry) {
+            console.warn("CustomTrayMenu: trayEntry is undefined, not showing menu.");
             return;
         }
-        anchorItem = item;
-        anchorX = x;
-        anchorY = y;
+        menu = _trayEntry.modelData.menu;
+        parent = _trayEntry;
+        x = (parent.width - implicitWidth) / 2;
+        y = parent.height + 12;
         visible = true;
     }
 
     function hideMenu() {
-        visible = false
+        visible = false;
     }
+
+    popupType: Popup.Window
+
+    background: Rectangle {
+        color: Theme.backgroundPrimary
+        radius: 12
+
+        border.color: Theme.outline
+        border.width: 1
+    }
+
+    padding: 6
+
+    implicitWidth: 200
+    implicitHeight: listView.contentHeight > 0
+        ? listView.contentHeight + padding * 2
+        : 1;
 
     QsMenuOpener {
         id: opener
         menu: root.menu
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: Theme.backgroundPrimary
-        border.color: Theme.outline
-        border.width: 1
-        radius: 12
-        z: 0
-    }
-
     ListView {
         id: listView
 
         anchors.fill: parent
-        anchors.margins: 6
         spacing: 2
 
         interactive: false
@@ -68,7 +63,7 @@ PopupWindow {
         clip: true
 
         model: ScriptModel {
-            values: opener.children ? opener.children.values : []
+            values: opener.children.values ?? []
         }
 
         delegate: Rectangle {
@@ -144,7 +139,7 @@ PopupWindow {
                         Layout.preferredWidth: 16
                         Layout.preferredHeight: 16
 
-                        source: trayEntry.modelData.icon ?? ""
+                        source: trayEntry.modelData.icon
 
                         fillMode: Image.PreserveAspectFit
                     }
@@ -157,12 +152,12 @@ PopupWindow {
 
                     hoverEnabled: true
 
-                    enabled: (trayEntry.modelData.enabled ?? true)
-                        && !(trayEntry.modelData.isSeparator ?? false)
+                    enabled: trayEntry.modelData.enabled
+                        && !trayEntry.modelData.isSeparator
                         && root.visible;
 
                     onClicked: {
-                        if (trayEntry.modelData && !trayEntry.modelData.isSeparator) {
+                        if (!trayEntry.modelData.isSeparator) {
                             trayEntry.modelData.triggered();
                             root.hideMenu();
                         }

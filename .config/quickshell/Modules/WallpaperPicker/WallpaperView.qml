@@ -1,11 +1,8 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import qs.Services
 import qs.Components
-import qs.Utils
 import qs.Config
-import qs.Theme
 
 ListView {
     id: root
@@ -41,10 +38,9 @@ ListView {
 
         radius: 16
 
-        image.source: fileUrl
+        image.source: wallpaperEntry.fileUrl
         image.sourceSize.height: Config.wallpaperPicker.wallpaperHeight
         image.fillMode: Image.PreserveAspectCrop
-
         image.asynchronous: true
         image.mipmap: true
 
@@ -65,7 +61,7 @@ ListView {
             font.pixelSize: Config.fontSizeSmaller
 
             style: Text.Outline
-            styleColor: Theme.backgroundPrimary
+            styleColor: "#000000"
 
             elide: Text.ElideMiddle
 

@@ -5,7 +5,7 @@ JsonObject {
     property int width
     property int height
 
-    property int popupMargins
+    property int imageMargins
     property int spacing
 
     property int marginTop

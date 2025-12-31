@@ -8,9 +8,10 @@ Singleton {
     /* -----------------------------
      * State
      * --------------------------- */
-    property var handles: ({}) // handle -> WmWindow
+    property var handles: ({}) // handle -> WmLoader
     property string focusedHandle: ""
     property list<string> focusHistory: [] // array of handles, most recent = last
+
     readonly property bool wantsKeyboardFocus: focusedHandle !== ""
 
     /* -----------------------------
@@ -25,9 +26,35 @@ Singleton {
         handles[handle] = loader;
     }
 
-    function unregister(handle: string, loader: WmLoader) {
+    function unregister(handle: string) {
         close(handle);
         delete handles[handle];
+    }
+
+    function _openLoader(loader: WmLoader) {
+        loader.active = true;
+        loader.opened = true;
+    }
+
+    function _closeLoader(loader: WmLoader) {
+        loader.opened = false;
+    }
+
+    function _focusLoader(loader: WmLoader) {
+        loader.focus = true;
+        // TODO: make sure status === Loader.ready or something
+        loader.item.focused = true;
+        loader.item.wmFocused();
+    }
+
+    function _focusLastOpen() {
+        for (let i = focusHistory.length - 1; i >= 0; i--) {
+            const h = focusHistory[i];
+            if (handles[h]?.active) {
+                focus(h);
+                return;
+            }
+        }
     }
 
     /* -----------------------------
@@ -37,8 +64,7 @@ Singleton {
         const loader = handles[handle];
         if (!loader) return;
 
-        loader.active = true;
-        loader.opened = true;
+        _openLoader(loader);
 
         focus(handle);
     }
@@ -47,7 +73,7 @@ Singleton {
         const loader = handles[handle];
         if (!loader) return;
 
-        loader.opened = false;
+        _closeLoader(loader);
 
         // Remove from history
         const idx = focusHistory.indexOf(handle);
@@ -71,6 +97,7 @@ Singleton {
         const loader = handles[handle];
         if (!loader|| !loader.active) return;
 
+        // Unfocus the old handle
         if (focusedHandle && handles[focusedHandle]) {
             const old = handles[focusedHandle];
             old.item.focused = false;
@@ -78,26 +105,13 @@ Singleton {
         }
 
         focusedHandle = handle;
-        loader.focus = true;
-        // TODO: make sure status === Loader.ready or something
-        loader.item.focused = true;
-        loader.item.wmFocused();
+        _focusLoader(loader);
 
         // Update history (move handle to the end)
         const idx = focusHistory.indexOf(handle);
         if (idx !== -1)
             focusHistory.splice(idx, 1);
         focusHistory.push(handle);
-    }
-
-    function _focusLastOpen() {
-        for (let i = focusHistory.length - 1; i >= 0; i--) {
-            const h = focusHistory[i];
-            if (handles[h]?.active) {
-                focus(h);
-                return;
-            }
-        }
     }
 
     /* -----------------------------

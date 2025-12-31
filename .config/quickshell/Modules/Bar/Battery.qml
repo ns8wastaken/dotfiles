@@ -1,6 +1,7 @@
 import QtQuick
 import Quickshell.Services.UPower
 import qs.Components
+import qs.Widgets
 import qs.Config
 import qs.Theme
 
@@ -18,32 +19,18 @@ Pill {
         id: text
 
         anchors.centerIn: parent
+        spacing: 4
 
-        MaterialIcon {
-            readonly property real min: 0.05
-            readonly property real max: 0.95
-            readonly property real step: (max - min) / 6
+        LevelLucideIcon {
+            icons: ["battery-warning", "battery", "battery-low", "battery-medium", "battery-full"]
+            value: UPower.displayDevice.percentage
+            min: 0.10
+            max: 0.95
 
             anchors.verticalCenter: parent.verticalCenter
 
-            text: UPower.displayDevice.percentage <= min
-                ? "battery_0_bar"
-                : UPower.displayDevice.percentage <= min + step
-                ? "battery_1_bar"
-                : UPower.displayDevice.percentage <= min + step * 2
-                ? "battery_2_bar"
-                : UPower.displayDevice.percentage <= min + step * 3
-                ? "battery_3_bar"
-                : UPower.displayDevice.percentage <= min + step * 4
-                ? "battery_5_bar"
-                : UPower.displayDevice.percentage <= min + step * 5
-                ? "battery_5_bar"
-                : UPower.displayDevice.percentage < max
-                ? "battery_6_bar"
-                : "battery_full";
-
             color: Theme.textPrimary
-            font.pixelSize: Config.fontSizeSmall
+            size: Config.fontSizeNormal
         }
 
         Text {

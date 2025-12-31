@@ -11,15 +11,15 @@ Pill {
 
     color: Theme.surface
 
-    MaterialIcon {
+    LucideIcon {
         id: text
 
         anchors.centerIn: parent
 
-        text: "menu"
+        source: "ellipsis"
 
         color: Theme.textPrimary
-        font.pixelSize: Config.fontSizeNormal
+        size: Config.fontSizeNormal
     }
 
     MouseArea {
@@ -32,37 +32,37 @@ Pill {
         visible: mouseArea.containsMouse
 
         Text {
-            color: "#000000"
-            text: SysInfoService.cpuUsageStr
             anchors.centerIn: parent
             anchors.verticalCenterOffset: -40
+            text: SysInfoService.cpuUsageStr
+            color: "#000000"
         }
 
         Text {
-            color: "#000000"
-            text: SysInfoService.cpuTempStr
             anchors.centerIn: parent
             anchors.verticalCenterOffset: -20
+            text: SysInfoService.cpuTempStr
+            color: "#000000"
         }
 
         Text {
-            color: "#000000"
-            text: SysInfoService.memoryUsageStr
             anchors.centerIn: parent
+            text: SysInfoService.memoryUsageStr
+            color: "#000000"
         }
 
         Text {
-            color: "#000000"
-            text: SysInfoService.memoryUsagePerStr
             anchors.centerIn: parent
             anchors.verticalCenterOffset: 20
+            text: SysInfoService.memoryUsagePerStr
+            color: "#000000"
         }
 
         Text {
-            color: "#000000"
-            text: SysInfoService.diskUsageStr
             anchors.centerIn: parent
             anchors.verticalCenterOffset: 40
+            text: SysInfoService.diskUsageStr
+            color: "#000000"
         }
     }
 }

@@ -4,8 +4,6 @@ import qs.Config
 import qs.Theme
 
 Item {
-    anchors.verticalCenter: parent.verticalCenter
-
     width: text.width
     height: text.height
 
@@ -13,15 +11,14 @@ Item {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
 
-        MaterialIcon {
+        LucideIcon {
             id: text
 
             anchors.centerIn: parent
 
+            source: "wifi"
             color: Theme.textPrimary
-            font.pixelSize: Config.fontSizeNormal
-
-            text: "signal_wifi_4_bar"
+            size: Config.fontSizeNormal
         }
     }
 }

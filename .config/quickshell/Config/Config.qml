@@ -9,7 +9,7 @@ Singleton {
     id: root
 
     function shellFont(name: string): string {
-        return Quickshell.shellDir + "/Assets/Fonts/" + name;
+        return Quickshell.shellPath("Assets/Fonts/" + name);
     }
 
     property alias fontSizeSmaller: adapter.fontSizeSmaller

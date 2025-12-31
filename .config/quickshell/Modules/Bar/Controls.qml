@@ -6,9 +6,6 @@ import qs.Theme
 Pill {
     id: controls
 
-    property int padding: 8
-    property int spacing: 6
-
     width: row.implicitWidth
     height: 18
 
@@ -24,13 +21,15 @@ Pill {
     Row {
         id: row
 
-        anchors.fill: parent
-        leftPadding: parent.padding
-        rightPadding: parent.padding
-        spacing: parent.spacing
+        property int padding: 8
 
-        Audio {}
-        Microphone {}
-        Network {}
+        anchors.fill: parent
+        leftPadding: padding
+        rightPadding: padding
+        spacing: 8
+
+        Audio { anchors.verticalCenter: parent.verticalCenter }
+        Microphone { anchors.verticalCenter: parent.verticalCenter }
+        Network { anchors.verticalCenter: parent.verticalCenter }
     }
 }

@@ -84,6 +84,7 @@ WmWindow {
 
                     model: SortFilterProxyModel {
                         id: sorter
+                        model: WallpaperService.wallpapers
 
                         readonly property string query: searchBar.text.toLowerCase();
 
@@ -93,17 +94,13 @@ WmWindow {
                             wallpaperView.currentIndex = 0;
                         }
 
-                        model: Wallpapers.wallpapers
-
                         component WEntry: QtObject { property string fileName }
-
                         sorters: FunctionSorter {
                             function sort(lhsData: WEntry, rhsData: WEntry) : int {
                                 return Fuzzy.score(sorter.query, rhsData.fileName.toLowerCase())
                                     - Fuzzy.score(sorter.query, lhsData.fileName.toLowerCase());
                             }
                         }
-
                         filters: FunctionFilter {
                             function filter(data: WEntry): bool {
                                 if (!searchBar.text) return true;
@@ -150,7 +147,7 @@ WmWindow {
 
         // Enter / Return -> set wallpaper
         if (Key.match(event, Qt.Key_Return) || Key.match(event, Qt.Key_Enter)) {
-            Wallpapers.setWallpaper(wallpaperView.currentItem.fileUrl);
+            WallpaperService.setWallpaper(wallpaperView.currentItem.fileUrl);
             close();
             event.accepted = true;
             return;

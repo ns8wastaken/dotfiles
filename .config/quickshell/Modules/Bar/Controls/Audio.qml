@@ -1,12 +1,10 @@
 import QtQuick
 import qs.Services
-import qs.Components
+import qs.Widgets
 import qs.Config
 import qs.Theme
 
 Item {
-    anchors.verticalCenter: parent.verticalCenter
-
     width: row.implicitWidth
     height: row.implicitHeight
 
@@ -18,32 +16,33 @@ Item {
         onClicked: function(mouse) {
             AudioService.sink.toggleMute();
         }
+
+        onWheel: function(event) {
+            if (event.angleDelta.y > 0) {
+                AudioService.sink.increaseVolume();
+            } else if (event.angleDelta.y < 0) {
+                AudioService.sink.decreaseVolume();
+            }
+            event.accepted = true;
+        }
     }
 
     Row {
         id: row
 
         anchors.centerIn: parent
+        spacing: 4
 
-        MaterialIcon {
-            id: text
-
-            readonly property real min: 0.05
-            readonly property real max: 0.95
-            readonly property real step: Math.round((max - min) / 2 * 100) / 100
+        LevelLucideIcon {
+            icons: ["volume-off", "volume", "volume-1", "volume-2"]
+            value: AudioService.sink.volume
+            min: 0.05
+            max: 0.95
 
             anchors.verticalCenter: parent.verticalCenter
 
+            size: Config.fontSizeNormal
             color: AudioService.sink.muted ? Theme.textDisabled : Theme.textPrimary
-            font.pixelSize: Config.fontSizeNormal
-
-            text: AudioService.sink.volume <= min
-                ? "volume_off"
-                : AudioService.sink.volume <= min + step
-                ? "volume_mute"
-                : AudioService.sink.volume < max
-                ? "volume_down"
-                : "volume_up";
         }
 
         Text {
@@ -53,7 +52,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             text: AudioService.sink.percentage + '%'
 
-            color: Theme.textPrimary
+            color: AudioService.sink.muted ? Theme.textDisabled : Theme.textPrimary
 
             font.family: Config.fonts.sans
             font.pixelSize: Config.fontSizeSmall
