@@ -14,7 +14,7 @@ import qs.Config
 ShellRoot {
     readonly property bool disableHotReload:
         Quickshell.env("QS_DISABLE_HOT_RELOAD") === "1"
-        || Quickshell.env("QS_DISABLE_HOT_RELOAD") === "true"
+        || Quickshell.env("QS_DISABLE_HOT_RELOAD") === "true";
 
     Component.onCompleted: {
         Quickshell.watchFiles = !disableHotReload;

@@ -23,7 +23,7 @@ Singleton {
 
         function setVolume(vol: real) {
             if (_ready && node.audio) {
-                node.audio.volume = vol; // auto clamped
+                node.audio.volume = Math.max(0, Math.min(1, vol));
             }
         }
 
