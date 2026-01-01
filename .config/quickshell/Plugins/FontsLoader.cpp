@@ -4,39 +4,39 @@
 #include <QDirIterator>
 #include <QSet>
 
-FontService::FontService(QObject *parent)
+FontsLoader::FontsLoader(QObject *parent)
     : QObject(parent)
 {}
 
-QString FontService::directory() const {
+QString FontsLoader::directory() const {
     return m_directory;
 }
 
-void FontService::setDirectory(const QString &dir) {
+void FontsLoader::setDirectory(const QString &dir) {
     m_directory = dir;
 }
 
-QStringList FontService::extensions() const {
+QStringList FontsLoader::extensions() const {
     return m_extensions;
 }
 
-void FontService::setExtensions(const QStringList &exts) {
+void FontsLoader::setExtensions(const QStringList &exts) {
     m_extensions = exts;
 }
 
-bool FontService::recursive() const {
+bool FontsLoader::recursive() const {
     return m_recursive;
 }
 
-void FontService::setRecursive(bool value) {
+void FontsLoader::setRecursive(bool value) {
     m_recursive = value;
 }
 
-QStringList FontService::families() const {
+QStringList FontsLoader::families() const {
     return m_families;
 }
 
-void FontService::load() {
+void FontsLoader::load() {
     QSet<QString> families;
 
     QStringList filters;

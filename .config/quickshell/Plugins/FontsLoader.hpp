@@ -4,7 +4,7 @@
 #include <QStringList>
 #include <QtQml/qqml.h>
 
-class FontService final : public QObject {
+class FontsLoader final : public QObject {
     Q_OBJECT
 
     Q_PROPERTY(QString directory READ directory WRITE setDirectory)
@@ -17,7 +17,7 @@ class FontService final : public QObject {
     QML_SINGLETON
 
 public:
-    explicit FontService(QObject *parent = nullptr);
+    explicit FontsLoader(QObject *parent = nullptr);
 
     QString directory() const;
     void setDirectory(const QString &dir);

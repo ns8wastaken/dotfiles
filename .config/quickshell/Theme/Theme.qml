@@ -3,9 +3,15 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import QtQuick
-import qs.Services // Import to load fonts
+import ShellModule
 
 Singleton {
+    Component.onCompleted: {
+        FontsLoader.directory = Quickshell.shellPath("Assets/Fonts");
+        FontsLoader.load();
+        console.log(FontsLoader.families);
+    }
+
     function getWorkspaceColor(modelData): color {
         if (modelData.active) return colors.accentPrimary;
         if (modelData.urgent) return colors.error;

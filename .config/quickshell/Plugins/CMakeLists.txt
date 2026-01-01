@@ -36,7 +36,7 @@ function(qml_module arg_TARGET)
     target_link_libraries(${arg_TARGET} PRIVATE Qt::Core Qt::Qml ${arg_LIBRARIES})
 endfunction()
 
-qml_module(testPlug
+qml_module(shellModule
     URI ShellModule
     SOURCES
         TestPlug.hpp TestPlug.cpp

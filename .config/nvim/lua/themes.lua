@@ -14,5 +14,6 @@ return {
         "kartikp10/noctis.nvim",
         dependencies = { "rktjmp/lush.nvim" },
         name = "noctis"
-    }
+    },
+    { "sainnhe/sonokai",               name = "sonokai" }
 }

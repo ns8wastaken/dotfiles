@@ -10,7 +10,6 @@ import qs.Managers
 import qs.Managers.Types
 import qs.Modules
 import qs.Config
-import ShellModule
 
 ShellRoot {
     readonly property bool disableHotReload:
@@ -19,7 +18,6 @@ ShellRoot {
 
     Component.onCompleted: {
         Quickshell.watchFiles = !disableHotReload;
-        console.log(TestPlug.testProperty)
     }
 
     PanelWindow {
