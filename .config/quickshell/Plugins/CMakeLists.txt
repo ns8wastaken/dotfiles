@@ -40,7 +40,7 @@ qml_module(testPlug
     URI ShellModule
     SOURCES
         TestPlug.hpp TestPlug.cpp
-        # FontsLoader.hpp FontsLoader.cpp
+        FontsLoader.hpp FontsLoader.cpp
     LIBRARIES
         Qt::Gui
 )

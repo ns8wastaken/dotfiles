@@ -3,7 +3,7 @@ pragma Singleton
 import Quickshell
 import Quickshell.Io
 import QtQuick
-import qs.Services
+import qs.Services // Import to load fonts
 
 Singleton {
     function getWorkspaceColor(modelData): color {
