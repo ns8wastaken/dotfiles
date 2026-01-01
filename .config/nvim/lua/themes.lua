@@ -8,5 +8,6 @@ return {
     { "sainnhe/gruvbox-material",      name = "gruvbox-material" },
     { "navarasu/onedark.nvim",         name = "onedark" },
     { "projekt0n/github-nvim-theme",   name = "github" },
-    { "catppuccin/nvim",               name = "catppuccin" }
+    { "catppuccin/nvim",               name = "catppuccin" },
+    { "folke/tokyonight.nvim",         name = "tokyo-night" }
 }

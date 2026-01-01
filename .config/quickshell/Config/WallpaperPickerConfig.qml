@@ -1,5 +1,4 @@
 import Quickshell.Io
-import QtQuick
 
 JsonObject {
     property int wallpaperWidth

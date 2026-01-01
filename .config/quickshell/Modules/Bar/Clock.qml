@@ -1,5 +1,6 @@
 import Quickshell
 import QtQuick
+import QtQuick.Controls
 import qs.Services
 import qs.Config
 import qs.Theme
@@ -28,18 +29,26 @@ Item {
         }
     }
 
-    PopupWindow {
+    Popup {
         id: popup
 
         visible: mouseArea.containsMouse
 
-        implicitWidth: 200
-        implicitHeight: 100
+        background: Rectangle {
+            color: Theme.backgroundPrimary
+            radius: 12
+            border.color: Theme.outline
+            border.width: 1
+        }
 
-        anchor {
-            window: root.QsWindow.window
-            rect.x: (parentWindow?.width - width) / 2
-            rect.y: 50
+        padding: 6
+
+        x: (parent.width - width) / 2
+        y: 30
+
+        Rectangle {
+            implicitWidth: 100
+            implicitHeight: 100
         }
     }
 }

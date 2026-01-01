@@ -11,10 +11,10 @@ Rectangle {
     id: root
 
     required property Notification modelData
-    readonly property int expireTimeout: modelData.expireTimeout >= 0
+    readonly property int expireTimeout: modelData?.expireTimeout >= 0
         ? modelData.expireTimeout
         : Config.notifications.defaultExpireTimeout;
-    readonly property string appIconPath: Quickshell.iconPath(root.modelData.appIcon, true)
+    readonly property string appIconPath: Quickshell.iconPath(root.modelData?.appIcon, true)
 
     width: Config.notifications.width
     height: Config.notifications.height
@@ -83,7 +83,7 @@ Rectangle {
             Text {
                 width: parent.width
 
-                text: root.modelData.summary
+                text: root.modelData?.summary
 
                 font.family: Config.fonts.sans
                 font.pixelSize: Config.fontSizeNormal
@@ -98,7 +98,7 @@ Rectangle {
             Text {
                 width: parent.width
 
-                text: root.modelData.body
+                text: root.modelData?.body
 
                 font.family: Config.fonts.sans
                 font.pixelSize: Config.fontSizeSmall

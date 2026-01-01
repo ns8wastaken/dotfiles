@@ -11,7 +11,7 @@ Singleton {
 
     readonly property string home: Quickshell.env("HOME")
 
-    function toFsPath(path: string, returnEmptyOnFail = false): string {
+    function toLocalFile(path: string, returnEmptyOnFail = false): string {
         if (path.startsWith("file://"))
             return path.slice(7);
 
@@ -30,6 +30,8 @@ Singleton {
             path = home;
         } else if (path.startsWith("~/")) {
             path = home + path.slice(1);
+        } else if (path.startsWith("./")) {
+            path = cwd + path.slice(2);
         }
 
         /* ---- Stackificationalization ---- */

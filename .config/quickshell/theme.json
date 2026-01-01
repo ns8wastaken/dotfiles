@@ -1,0 +1,24 @@
+{
+    "fontSize": {
+        "smaller": 12,
+        "small": 14,
+        "normal": 16,
+        "large": 18,
+        "larger": 20
+    },
+
+    "fonts": {
+        "sans": "Itim",
+        "mono": "Caskaydia Mono NF",
+        "icon": "Material Icons Round",
+        "clock": "Itim",
+        "japanese": "KAWAIITEGAKIMOJI",
+        "cute": "Pacifico"
+    },
+
+    "spacing": {
+        "small": 4,
+        "normal": 8,
+        "large": 12
+    }
+}

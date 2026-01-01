@@ -6,80 +6,70 @@ import QtQuick
 
 Singleton {
     function getWorkspaceColor(modelData): color {
-        if (modelData.active) return Theme.accentPrimary;
-        if (modelData.urgent) return Theme.error;
-        return Theme.surface;
+        if (modelData.active) return accentPrimary;
+        if (modelData.urgent) return error;
+        return surface;
     }
 
     function getWorkspaceTextColor(modelData): color {
-        if (modelData.active) return Theme.textDark;
-        return Theme.textPrimary;
+        if (modelData.active) return textDark;
+        return textPrimary;
     }
 
-    property alias backgroundPrimary: themeData.backgroundPrimary
-    property alias backgroundSecondary: themeData.backgroundSecondary
-    property alias backgroundTertiary: themeData.backgroundTertiary
+    // property alias color:    themeAdapter.color
+    property alias backgroundPrimary:   themeAdapter.color.backgroundPrimary
+    property alias backgroundSecondary: themeAdapter.color.backgroundSecondary
+    property alias backgroundTertiary:  themeAdapter.color.backgroundTertiary
+    property alias accentPrimary:       themeAdapter.color.accentPrimary
+    property alias accentSecondary:     themeAdapter.color.accentSecondary
+    property alias accentTertiary:      themeAdapter.color.accentTertiary
+    property alias textPrimary:         themeAdapter.color.textPrimary
+    property alias textSecondary:       themeAdapter.color.textSecondary
+    property alias textPrimaryInverted: themeAdapter.color.textPrimaryInverted
+    property alias textDisabled:        themeAdapter.color.textDisabled
+    property alias textDark:            themeAdapter.color.textDark
+    property alias textLight:           themeAdapter.color.textLight
+    property alias outline:             themeAdapter.color.outline
+    property alias highlight:           themeAdapter.color.highlight
+    property alias error:               themeAdapter.color.error
+    property alias warning:             themeAdapter.color.warning
+    property alias surface:             themeAdapter.color.surface
+    property alias surfaceVariant:      themeAdapter.color.surfaceVariant
 
-    property alias accentPrimary: themeData.accentPrimary
-    property alias accentSecondary: themeData.accentSecondary
-    property alias accentTertiary: themeData.accentTertiary
-
-    property alias textPrimary: themeData.textPrimary
-    property alias textSecondary: themeData.textSecondary
-    property alias textPrimaryInverted: themeData.textPrimaryInverted
-    property alias textDisabled: themeData.textDisabled
-    property alias textDark: themeData.textDark
-    property alias textLight: themeData.textLight
-
-    property alias outline: themeData.outline
-    property alias highlight: themeData.highlight
-
-    property alias error: themeData.error
-    property alias warning: themeData.warning
-
-    property alias surface: themeData.surface
-    property alias surfaceVariant: themeData.surfaceVariant
+    property alias font:     themeConfigAdapter.font
+    property alias fontSize: themeConfigAdapter.fontSize
+    property alias spacing:  themeConfigAdapter.spacing
 
     FileView {
+        // TODO: allow the user to use a premade theme
         path: Quickshell.shellPath("Theme/Theme.json")
 
         watchChanges: true
-        onFileChanged: this.reload()
+        onFileChanged: reload()
 
         onLoadFailed: console.log("Error while loading theme (this may be a complete lie)")
 
         adapter: JsonAdapter {
-            id: themeData
+            id: themeAdapter
 
-            // Backgrounds
-            property color backgroundPrimary: "#0C0D11"
-            property color backgroundSecondary: "#14161C"
-            property color backgroundTertiary: "#FF0000"
+            property ColorTheme color: ColorTheme {}
+        }
+    }
 
-            // Accent Colors
-            property color accentPrimary: "#A8AEFF"
-            property color accentSecondary: "#9C9DFF"
-            property color accentTertiary: "#79A8FF"
+    FileView {
+        path: Quickshell.shellPath("theme.json")
 
-            // Text Colors
-            property color textPrimary: "#CACEE2"
-            property color textSecondary: "#B7BBD0"
-            property color textPrimaryInverted: "#191B29"
-            property color textLight: "#F3DEFF"
-            property color textDark: "#0C0D11"
-            property color textDisabled: "#6B718A"
+        watchChanges: true
+        onFileChanged: reload()
 
-            // Styling
-            property color outline: "#44485A"
-            property color highlight: "#E3C2FF"
+        onLoadFailed: console.log("Error while loading theme config (this may be a complete lie)")
 
-            // Error/Warning
-            property color error: "#FF6B81"
-            property color warning: "#FFBB66"
+        adapter: JsonAdapter {
+            id: themeConfigAdapter
 
-            // Surfaces & Elevation
-            property color surface: "#35394A"
-            property color surfaceVariant: "#2A2D3A"
+            property FontTheme     font:     FontTheme {}
+            property FontSizeTheme fontSize: FontSizeTheme {}
+            property SpacingTheme  spacing:  SpacingTheme {}
         }
     }
 }

@@ -31,7 +31,7 @@ Singleton {
 
     function setWallpaper(path: string) {
         // TODO: perhaps find a better way to do this without using _path
-        _path = Paths.toFsPath(path);
+        _path = Paths.toLocalFile(path);
         proc.running = true;
     }
 }

@@ -1,3 +1,4 @@
+//@ pragma Env QML_IMPORT_PATH=/usr/local/lib/qt-6/qml
 //@ pragma Env QSG_RENDER_LOOP=threaded
 //@ pragma Env QSG_USE_SIMPLE_ANIMATION_DRIVER=1
 
@@ -9,7 +10,6 @@ import qs.Managers
 import qs.Managers.Types
 import qs.Modules
 import qs.Config
-import qs.Theme
 
 ShellRoot {
     readonly property bool disableHotReload:
@@ -136,50 +136,5 @@ ShellRoot {
         sourceComponent: Watermark {}
     }
 
-    // Text that is overlayed on the background
-    Loader {
-        active: true
-        sourceComponent: Scope {
-            FontLoader {
-                id: bgTextFont
-                source: Config.shellFont("HanyiSentyScholar.ttf")
-            }
-
-            BackgroundText {
-                anchors {
-                    right: true
-                    bottom: true
-                }
-
-                margins {
-                    right: 50
-                    bottom: 50
-                }
-
-                text.text: "吃\n喝\n拉\n撒\n睡"
-                // text.color: Theme.textPrimary
-                text.color: "#000000"
-                text.font.family: bgTextFont.name
-                text.font.pointSize: 40
-            }
-
-            BackgroundText {
-                anchors {
-                    right: true
-                    bottom: true
-                }
-
-                margins {
-                    right: 120
-                    bottom: 50
-                }
-
-                text.text: "我\n操\n你\n妈"
-                // text.color: Theme.textPrimary
-                text.color: "#000000"
-                text.font.family: bgTextFont.name
-                text.font.pointSize: 40
-            }
-        }
-    }
+    BackgroundText {}
 }

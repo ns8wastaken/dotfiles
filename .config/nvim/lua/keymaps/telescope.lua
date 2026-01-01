@@ -9,7 +9,15 @@ map_set('n', "<Leader>fb", function()
 end, vim.g.keymap_opts)
 
 local telescope_builtin = require("telescope.builtin")
-map_set('n', "<Leader>ff", telescope_builtin.find_files,  vim.g.keymap_opts)
+map_set('n', "<Leader>ff", function()
+    telescope_builtin.find_files({
+        find_command = {
+            "fd",
+            "--type", "f",
+            "--no-require-git"
+        }
+    })
+end,  vim.g.keymap_opts)
 map_set('n', "<leader>fg", telescope_builtin.live_grep,   vim.g.keymap_opts)
 map_set('n', "<Leader>km", telescope_builtin.keymaps,     vim.g.keymap_opts)
 map_set('n', "<Leader>cs", telescope_builtin.colorscheme, vim.g.keymap_opts)

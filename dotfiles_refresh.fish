@@ -5,6 +5,7 @@ dotfiles add \
     ~/setwp.sh \
     ~/clear-caches.sh \
     ~/install-script.sh \
+    ~/install-script-python.py \
     ~/.config/nvim/ \
     ~/.config/hypr/ \
     ~/.config/kitty/ \
@@ -13,7 +14,3 @@ dotfiles add \
     ~/.config/starship.toml \
     ~/.config/quickshell/ \
     ~/.config/wallust/
-
-dotfiles restore --staged \
-    ~/.config/nvim/lazy-lock.json \
-    ~/.config/fish/fish_variables

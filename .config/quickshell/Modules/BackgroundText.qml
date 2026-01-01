@@ -1,69 +1,65 @@
-pragma ComponentBehavior: Bound
-
 import Quickshell
-import Quickshell.Wayland
 import QtQuick
+import qs.Widgets
+import qs.Config
 
-// Variants {
-//     id: root
-//
-//     // required property string text
-//     // required property var color
-//     // required property int size
-//     // required property string fontFamily
-//     property alias text: bgText
-//     property panelAnchors anchors
-//     property margins margins
-//
-//     // Create the panel once on each monitor.
-//     model: Quickshell.screens
-//
-//     delegate: PanelWindow {
-//         required property var modelData
-//
-//         screen: modelData
-//
-//         anchors: root.anchors
-//         margins: root.margins
-//
-//         implicitWidth: bgText.width
-//         implicitHeight: bgText.height
-//
-//         color: "transparent"
-//
-//         // Give the window an empty click mask so all clicks pass through it.
-//         mask: Region {}
-//
-//         WlrLayershell.layer: WlrLayer.Background
-//
-//         Text {
-//             id: bgText
-//
-//             // text: root.text
-//             //
-//             // font.family: root.fontFamily
-//             // font.pointSize: root.size
-//             //
-//             // color: root.color
-//         }
-//     }
-// }
+Loader {
+    active: true
+    sourceComponent: Scope {
+        FontLoader {
+            id: bgTextFont
+            source: Config.shellFont("HanyiSentyScholar.ttf")
+        }
 
+        BackgroundText {
+            anchors {
+                right: true
+                bottom: true
+            }
 
-PanelWindow {
-    property alias text: bgText
+            margins {
+                right: 50
+                bottom: 50
+            }
 
-    implicitWidth: bgText.width
-    implicitHeight: bgText.height
+            text.text: "吃\n喝\n拉\n撒\n睡"
+            text.color: "#000000"
+            text.font.family: bgTextFont.name
+            text.font.pointSize: 40
+        }
 
-    color: "transparent"
+        BackgroundText {
+            anchors {
+                right: true
+                bottom: true
+            }
 
-    // Give the window an empty click mask so all clicks pass through it.
-    mask: Region {}
+            margins {
+                right: 120
+                bottom: 50
+            }
 
-    WlrLayershell.layer: WlrLayer.Background
+            text.text: "我\n操\n你\n妈"
+            text.color: "#000000"
+            text.font.family: bgTextFont.name
+            text.font.pointSize: 40
+        }
 
-    Text {
-        id: bgText
+        BackgroundText {
+            anchors {
+                right: true
+                bottom: true
+            }
+
+            margins {
+                right: 190
+                bottom: 50
+            }
+
+            text.text: "自\n强\n不\n息"
+            text.color: "#000000"
+            text.font.family: bgTextFont.name
+            text.font.pointSize: 40
+        }
     }
 }

@@ -33,7 +33,6 @@ Popup {
     background: Rectangle {
         color: Theme.backgroundPrimary
         radius: 12
-
         border.color: Theme.outline
         border.width: 1
     }

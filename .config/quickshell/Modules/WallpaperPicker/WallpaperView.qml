@@ -38,7 +38,7 @@ ListView {
 
         radius: 16
 
-        image.source: wallpaperEntry.fileUrl
+        image.source: fileUrl
         image.sourceSize.height: Config.wallpaperPicker.wallpaperHeight
         image.fillMode: Image.PreserveAspectCrop
         image.asynchronous: true
