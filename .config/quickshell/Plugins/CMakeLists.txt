@@ -2,8 +2,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Qml Gui Quick Concurrent Sql Network DBus)
-find_package(PkgConfig REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Core Qml Gui)
 
 set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml")
 qt_standard_project_setup(REQUIRES 6.9)
@@ -38,10 +37,10 @@ function(qml_module arg_TARGET)
 endfunction()
 
 qml_module(testPlug
-    URI TestPlug
+    URI ShellModule
     SOURCES
         TestPlug.hpp TestPlug.cpp
+        # FontsLoader.hpp FontsLoader.cpp
     LIBRARIES
-        Qt::Core
-        Qt::Quick
+        Qt::Gui
 )
