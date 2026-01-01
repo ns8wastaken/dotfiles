@@ -14,6 +14,7 @@ return {
     "matze/vim-move",
     "junegunn/vim-easy-align",
     { "nvim-tree/nvim-web-devicons", opts = {} },
+    "nvim-pack/nvim-spectre",
 
     themes
 }

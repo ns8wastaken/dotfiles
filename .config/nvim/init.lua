@@ -31,12 +31,12 @@ require("lualine").setup({
         -- tabline = 250,
         -- winbar = 250,
         refresh_time = 16 -- ~60 fps
-    }
-})
--- require('lualine').setup({ options = { theme = 'gruvbox-material' } })
+    },
 
-require("keymaps.telescope")
-require("keymaps.vim-easy-align")
+    -- options = { theme = 'gruvbox-material' }
+})
+
+vim.g.require_dir("/lua/keymaps/")
 require("mappings") -- Default stuff but fancy keybinds
 require("lsp")
 require("autocmds")

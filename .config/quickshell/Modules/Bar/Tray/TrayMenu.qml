@@ -31,9 +31,9 @@ Popup {
     popupType: Popup.Window
 
     background: Rectangle {
-        color: Theme.backgroundPrimary
+        color: Theme.colors.backgroundPrimary
         radius: 12
-        border.color: Theme.outline
+        border.color: Theme.colors.outline
         border.width: 1
     }
 
@@ -88,7 +88,7 @@ Popup {
                 width: parent.width - 20
                 height: 1
 
-                color: Theme.surfaceVariant
+                color: Theme.colors.surfaceVariant
             }
 
             // Button
@@ -99,13 +99,13 @@ Popup {
 
                 visible: !trayEntry.isSeparator
 
-                color: mouseArea.containsMouse ? Theme.highlight : "transparent"
+                color: mouseArea.containsMouse ? Theme.colors.highlight : "transparent"
 
                 radius: 8
 
                 property color hoverTextColor: mouseArea.containsMouse
-                    ? Theme.textDark
-                    : Theme.textPrimary;
+                    ? Theme.colors.textDark
+                    : Theme.colors.textPrimary;
 
                 RowLayout {
                     anchors.fill: parent
@@ -121,10 +121,10 @@ Popup {
 
                         color: trayEntry.modelData.enabled
                             ? button.hoverTextColor
-                            : Theme.textDisabled;
+                            : Theme.colors.textDisabled;
 
-                        font.family: Config.fonts.sans
-                        font.pixelSize: Config.fontSizeSmall
+                        font.family: Theme.fonts.sans
+                        font.pixelSize: Theme.fontSize.small
 
                         elide: Text.ElideRight
                     }

@@ -9,7 +9,7 @@ Pill {
     width: text.width + 2 * 6
     height: 18
 
-    color: Theme.surface
+    color: Theme.colors.surface
 
     LucideIcon {
         id: text
@@ -18,8 +18,8 @@ Pill {
 
         source: "ellipsis"
 
-        color: Theme.textPrimary
-        size: Config.fontSizeNormal
+        color: Theme.colors.textPrimary
+        size: Theme.fontSize.normal
     }
 
     MouseArea {

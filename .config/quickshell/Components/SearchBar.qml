@@ -20,7 +20,7 @@ Pill {
     property int borderWidth: 0
 
     property color iconColor: "#ffffff"
-    property int iconSize: Config.fontSizeLarge
+    property int iconSize: Theme.fontSize.large
     property string iconText: "search"
 
     property color textColor: "#ffffff"

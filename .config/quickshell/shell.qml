@@ -136,5 +136,8 @@ ShellRoot {
         sourceComponent: Watermark {}
     }
 
-    BackgroundText {}
+    Loader {
+        active: true
+        sourceComponent: BackgroundText {}
+    }
 }

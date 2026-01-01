@@ -51,8 +51,8 @@ Row {
 
                 color: Theme.getWorkspaceTextColor(parent.modelData)
 
-                font.family: Config.fonts.japanese
-                font.pixelSize: Config.fontSizeSmall
+                font.family: Theme.fonts.japanese
+                font.pixelSize: Theme.fontSize.small
                 text: Icons.getWorkspaceLabel(parent.modelData.id)
 
                 Behavior on color {

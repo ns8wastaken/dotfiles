@@ -17,8 +17,8 @@ Item {
             anchors.centerIn: parent
 
             source: "wifi"
-            color: Theme.textPrimary
-            size: Config.fontSizeNormal
+            color: Theme.colors.textPrimary
+            size: Theme.fontSize.normal
         }
     }
 }

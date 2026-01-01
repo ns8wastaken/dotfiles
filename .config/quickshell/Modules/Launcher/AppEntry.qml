@@ -12,7 +12,7 @@ Rectangle {
 
     readonly property int margins: 4
 
-    color: isSelected ? Theme.highlight : Theme.backgroundSecondary
+    color: isSelected ? Theme.colors.highlight : Theme.colors.backgroundSecondary
 
     RowLayout {
         id: entryRow
@@ -34,7 +34,7 @@ Rectangle {
 
             radius: 8
 
-            color: Theme.backgroundSecondary
+            color: Theme.colors.backgroundSecondary
 
             visible: itemIcon.isLoaded
 
@@ -61,12 +61,12 @@ Rectangle {
 
             text: root.modelData.name
 
-            font.family: Config.fonts.sans
-            font.pixelSize: Config.fontSizeSmall
+            font.family: Theme.fonts.sans
+            font.pixelSize: Theme.fontSize.small
 
             color: root.isSelected
-                ? Theme.textPrimaryInverted
-                : Theme.textPrimary;
+                ? Theme.colors.textPrimaryInverted
+                : Theme.colors.textPrimary;
 
             elide: Text.ElideRight
         }

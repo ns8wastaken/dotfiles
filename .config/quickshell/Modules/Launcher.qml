@@ -36,14 +36,14 @@ WmWindow {
     implicitWidth: Config.launcher.width + 2 * margins
     implicitHeight: column.implicitHeight + 2 * margins
 
-    color: Theme.backgroundPrimary
+    color: Theme.colors.backgroundPrimary
 
     topLeftRadius: root.margins + searchBar.radius
     topRightRadius: root.margins + searchBar.radius
     bottomLeftRadius: root.margins + root.appEntryRadius
     bottomRightRadius: root.margins + root.appEntryRadius
 
-    border.color: Theme.outline
+    border.color: Theme.colors.outline
     border.width: 1
 
     // Search bar + app list
@@ -62,19 +62,19 @@ WmWindow {
             Layout.fillWidth: true
             Layout.preferredHeight: 40
 
-            backgroundColor: Theme.backgroundPrimary
-            borderColor: Theme.outline
+            backgroundColor: Theme.colors.backgroundPrimary
+            borderColor: Theme.colors.outline
             borderWidth: 1
 
-            iconColor: Theme.textPrimary
-            iconSize: Config.fontSizeLarge
+            iconColor: Theme.colors.textPrimary
+            iconSize: Theme.fontSize.large
 
-            textColor: Theme.textPrimary
-            placeholderColor: Theme.textPrimary
+            textColor: Theme.colors.textPrimary
+            placeholderColor: Theme.colors.textPrimary
             placeholderText: "Run program..."
 
-            textFont.family: Config.fonts.sans
-            textFont.pixelSize: Config.fontSizeNormal
+            textFont.family: Theme.fonts.sans
+            textFont.pixelSize: Theme.fontSize.normal
         }
 
         // App list

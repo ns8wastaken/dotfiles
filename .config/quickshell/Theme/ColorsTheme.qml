@@ -1,8 +1,7 @@
 import Quickshell.Io
 import QtQuick
 
-JsonObject {
-    // Backgrounds
+JsonAdapter {
     property color backgroundPrimary: "#0C0D11"
     property color backgroundSecondary: "#14161C"
     property color backgroundTertiary: "#FF0000"

@@ -33,6 +33,19 @@ vim.g.load_colorscheme = function()
     end
 end
 
+vim.g.require_dir = function(dir)
+    local keymaps_path = vim.fn.stdpath("config") .. dir
+
+    -- Iterate over all .lua files in the keymaps folder
+    for _, file in ipairs(vim.fn.glob(keymaps_path .. "*.lua", false, true)) do
+        -- Strip path and extension to get module name
+        local module_name = file:match("lua/(.*)%.lua$")
+        if module_name then
+            require(module_name:gsub("/", "."))
+        end
+    end
+end
+
 vim.g.keymap_opts = { noremap = true, silent = true }
 
 -- Make floating window borders rounded

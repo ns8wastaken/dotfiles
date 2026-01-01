@@ -1,8 +1,8 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
-import qs.Config
+import qs.Theme
 
 Text {
-    font.family: Config.fonts.icon
+    font.family: Theme.fonts.icon
 }

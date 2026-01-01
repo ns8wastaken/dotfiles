@@ -11,7 +11,7 @@ Pill {
     width: text.width + 12
     height: 18
 
-    color: Theme.surface
+    color: Theme.colors.surface
 
     visible: UPower.displayDevice.isLaptopBattery
 
@@ -29,8 +29,8 @@ Pill {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            color: Theme.textPrimary
-            size: Config.fontSizeNormal
+            color: Theme.colors.textPrimary
+            size: Theme.fontSize.normal
         }
 
         Text {
@@ -38,10 +38,10 @@ Pill {
 
             text: Math.round(UPower.displayDevice.percentage * 100) + '%'
 
-            font.pixelSize: Config.fontSizeSmall
-            font.family: Config.fonts.sans
+            font.pixelSize: Theme.fontSize.small
+            font.family: Theme.fonts.sans
 
-            color: Theme.textPrimary
+            color: Theme.colors.textPrimary
         }
     }
 }

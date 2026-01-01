@@ -1,21 +1,4 @@
 {
-    "placeholderFontFamily": "",
-
-    "fontSizeSmaller": 12,
-    "fontSizeSmall": 14,
-    "fontSizeNormal": 16,
-    "fontSizeLarge": 18,
-    "fontSizeLarger": 20,
-
-    "fonts": {
-        "sans": "Itim",
-        "mono": "Caskaydia Mono NF",
-        "icon": "Material Icons Round",
-        "clock": "Itim",
-        "japanese": "KAWAIITEGAKIMOJI",
-        "cute": "Pacifico"
-    },
-
     "bar": {
         "spacing": 8,
 

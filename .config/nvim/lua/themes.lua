@@ -9,5 +9,10 @@ return {
     { "navarasu/onedark.nvim",         name = "onedark" },
     { "projekt0n/github-nvim-theme",   name = "github" },
     { "catppuccin/nvim",               name = "catppuccin" },
-    { "folke/tokyonight.nvim",         name = "tokyo-night" }
+    { "daschw/leaf.nvim",              name = "leaf" },
+    {
+        "kartikp10/noctis.nvim",
+        dependencies = { "rktjmp/lush.nvim" },
+        name = "noctis"
+    }
 }

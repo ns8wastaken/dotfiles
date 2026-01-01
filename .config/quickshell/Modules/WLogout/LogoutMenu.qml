@@ -13,7 +13,7 @@ WmWindow {
 
     default property list<LogoutButton> buttons
 
-    color: Theme.backgroundPrimary.alpha(Config.wlogout.bgAlpha)
+    color: Theme.colors.backgroundPrimary.alpha(Config.wlogout.bgAlpha)
 
     focus: true
 
@@ -46,9 +46,9 @@ WmWindow {
 
                 radius: 16
 
-                color: mouseArea.containsMouse ? Theme.highlight : Theme.backgroundPrimary
+                color: mouseArea.containsMouse ? Theme.colors.highlight : Theme.colors.backgroundPrimary
 
-                border.color: Theme.outline
+                border.color: Theme.colors.outline
                 border.width: mouseArea.containsMouse ? 0 : 1
 
                 MouseArea {
@@ -97,8 +97,8 @@ WmWindow {
 
                     text: logoutButton.modelData.text
 
-                    font.family: Config.fonts.cute
-                    font.pixelSize: Config.fontSizeLarger
+                    font.family: Theme.fonts.cute
+                    font.pixelSize: Theme.fontSize.larger
 
                     color: "#ffffff"
                 }

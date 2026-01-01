@@ -25,7 +25,7 @@ Item {
 
         source: AudioService.source.muted ? "mic-off" : "mic";
 
-        color: AudioService.source.muted ? Theme.textDisabled : Theme.textPrimary
-        size: Config.fontSizeNormal
+        color: AudioService.source.muted ? Theme.colors.textDisabled : Theme.colors.textPrimary
+        size: Theme.fontSize.normal
     }
 }

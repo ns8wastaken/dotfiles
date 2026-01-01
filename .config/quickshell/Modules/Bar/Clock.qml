@@ -1,8 +1,6 @@
-import Quickshell
 import QtQuick
 import QtQuick.Controls
 import qs.Services
-import qs.Config
 import qs.Theme
 
 Item {
@@ -16,28 +14,26 @@ Item {
 
         anchors.centerIn: parent
 
-        color: Theme.textPrimary
+        color: Theme.colors.textPrimary
 
-        font.pixelSize: Config.fontSizeNormal
-        font.family: Config.fonts.clock
+        font.pixelSize: Theme.fontSize.normal
+        font.family: Theme.fonts.clock
         text: TimeService.time
 
-        MouseArea {
-            id: mouseArea
-            anchors.fill: parent
-            hoverEnabled: true
+        HoverHandler {
+            id: hoverHandler
         }
     }
 
     Popup {
         id: popup
 
-        visible: mouseArea.containsMouse
+        visible: hoverHandler.hovered
 
         background: Rectangle {
-            color: Theme.backgroundPrimary
+            color: Theme.colors.backgroundPrimary
             radius: 12
-            border.color: Theme.outline
+            border.color: Theme.colors.outline
             border.width: 1
         }
 
@@ -47,7 +43,7 @@ Item {
         y: 30
 
         Rectangle {
-            implicitWidth: 100
+            implicitWidth: 200
             implicitHeight: 100
         }
     }

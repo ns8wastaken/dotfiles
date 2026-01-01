@@ -19,9 +19,9 @@ Rectangle {
     width: Config.notifications.width
     height: Config.notifications.height
 
-    color: Theme.backgroundPrimary
+    color: Theme.colors.backgroundPrimary
 
-    border.color: Theme.outline
+    border.color: Theme.colors.outline
     border.width: 1
 
     radius: 12
@@ -50,7 +50,7 @@ Rectangle {
         LucideIcon {
             source: "bell-ring"
             size: row.height - 2 * Config.notifications.imageMargins
-            color: Theme.textPrimary
+            color: Theme.colors.textPrimary
         }
     }
 
@@ -85,11 +85,11 @@ Rectangle {
 
                 text: root.modelData?.summary
 
-                font.family: Config.fonts.sans
-                font.pixelSize: Config.fontSizeNormal
+                font.family: Theme.fonts.sans
+                font.pixelSize: Theme.fontSize.normal
                 font.bold: true
 
-                color: Theme.textPrimary
+                color: Theme.colors.textPrimary
 
                 elide: Text.ElideRight
             }
@@ -100,10 +100,10 @@ Rectangle {
 
                 text: root.modelData?.body
 
-                font.family: Config.fonts.sans
-                font.pixelSize: Config.fontSizeSmall
+                font.family: Theme.fonts.sans
+                font.pixelSize: Theme.fontSize.small
 
-                color: Theme.textPrimary
+                color: Theme.colors.textPrimary
 
                 maximumLineCount: 2
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere

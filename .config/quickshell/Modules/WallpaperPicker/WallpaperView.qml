@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import qs.Components
 import qs.Config
+import qs.Theme
 
 ListView {
     id: root
@@ -57,8 +58,8 @@ ListView {
 
             color: "#ffffff"
 
-            font.family: Config.fonts.sans
-            font.pixelSize: Config.fontSizeSmaller
+            font.family: Theme.fonts.sans
+            font.pixelSize: Theme.fontSize.smaller
 
             style: Text.Outline
             styleColor: "#000000"

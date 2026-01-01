@@ -41,8 +41,8 @@ Item {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            size: Config.fontSizeNormal
-            color: AudioService.sink.muted ? Theme.textDisabled : Theme.textPrimary
+            size: Theme.fontSize.normal
+            color: AudioService.sink.muted ? Theme.colors.textDisabled : Theme.colors.textPrimary
         }
 
         Text {
@@ -52,10 +52,10 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             text: AudioService.sink.percentage + '%'
 
-            color: AudioService.sink.muted ? Theme.textDisabled : Theme.textPrimary
+            color: AudioService.sink.muted ? Theme.colors.textDisabled : Theme.colors.textPrimary
 
-            font.family: Config.fonts.sans
-            font.pixelSize: Config.fontSizeSmall
+            font.family: Theme.fonts.sans
+            font.pixelSize: Theme.fontSize.small
         }
     }
 }
