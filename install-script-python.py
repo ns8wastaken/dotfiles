@@ -6,7 +6,9 @@ INSTALL_CMD = "yay -S --needed --noconfirm"
 
 # TODO: install quickshell from source
 CORE_PACKAGES = [
-    "swww", "neovim", "kitty", "wallust", "fish", "fastfetch"
+    "swww", "neovim", "kitty", "wallust", "fish", "fastfetch",
+    # Utilities?
+    "grimblast", "hyprpicker"
 ]
 
 OTHER_PACKAGES = [

@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import qs.Config
+import qs.Theme
 
 Pill {
     id: root
@@ -31,7 +31,7 @@ Pill {
 
     // Layout
     property int horizontalPadding: height / 4
-    property int spacing: 8
+    property int spacing: Theme.spacing.normal
 
     // Behavior
     signal accepted(text: string)

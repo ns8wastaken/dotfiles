@@ -64,7 +64,9 @@ install_uninstalled \
     "rofi" \
     "python-pywal" \
     "fish" \
-    "fastfetch"
+    "fastfetch" \
+    "grimblast" \
+    "hyprpicker"
 
 
 if ! is_installed "starship"; then

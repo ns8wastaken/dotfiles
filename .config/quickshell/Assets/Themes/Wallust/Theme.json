@@ -1,0 +1,25 @@
+{
+    "backgroundPrimary": "#252525",
+    "backgroundSecondary": "#3B3B3B",
+    "backgroundTertiary": "#222626",
+
+    "accentPrimary": "#6B9065",
+    "accentSecondary": "#8FACB0",
+    "accentTertiary": "#CDC2D2",
+
+    "textPrimary": "#EEEAEF",
+    "textSecondary": "#CAC7CB",
+    "textPrimaryInverted": "#252525",
+    "textLight": "#DED8E0",
+    "textDark": "#252525",
+    "textDisabled": "#9B979D",
+
+    "outline": "#9B979D",
+    "highlight": "#8FACB0",
+
+    "error": "#FF6B81",
+    "warning": "#FFBB66",
+
+    "surface": "#4A4B4B",
+    "surfaceVariant": "#44666A"
+}

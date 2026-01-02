@@ -26,7 +26,7 @@ Pill {
         anchors.fill: parent
         leftPadding: padding
         rightPadding: padding
-        spacing: 8
+        spacing: Theme.spacing.normal
 
         Audio { anchors.verticalCenter: parent.verticalCenter }
         Microphone { anchors.verticalCenter: parent.verticalCenter }

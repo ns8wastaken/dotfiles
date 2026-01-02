@@ -8,7 +8,7 @@ import qs.Theme
 Row {
     id: root
 
-    spacing: 8
+    spacing: Theme.spacing.normal
 
     readonly property int animationDuration: 125
 

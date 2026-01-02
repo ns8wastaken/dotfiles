@@ -31,7 +31,7 @@ Item {
         id: row
 
         anchors.centerIn: parent
-        spacing: 4
+        spacing: Theme.spacing.small
 
         LevelLucideIcon {
             icons: ["volume-off", "volume", "volume-1", "volume-2"]

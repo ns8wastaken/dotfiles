@@ -1,7 +1,6 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.Config
 import qs.Theme
 
 Rectangle {
@@ -12,7 +11,7 @@ Rectangle {
 
     readonly property int margins: 4
 
-    color: isSelected ? Theme.colors.highlight : Theme.colors.backgroundSecondary
+    color: isSelected ? Theme.colors.highlight : Theme.colors.backgroundPrimary
 
     RowLayout {
         id: entryRow
@@ -34,7 +33,7 @@ Rectangle {
 
             radius: 8
 
-            color: Theme.colors.backgroundSecondary
+            color: Theme.colors.backgroundPrimary
 
             visible: itemIcon.isLoaded
 

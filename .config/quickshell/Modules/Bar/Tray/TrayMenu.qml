@@ -4,7 +4,6 @@ import Quickshell
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import qs.Config
 import qs.Theme
 
 Popup {
@@ -69,7 +68,7 @@ Popup {
             id: trayEntry
 
             required property QsMenuEntry modelData
-            readonly property bool isSeparator: trayEntry.modelData.isSeparator ?? false
+            readonly property bool isSeparator: trayEntry?.modelData.isSeparator ?? false
 
             width: listView.width
             height: modelData.isSeparator ? 8 : 32
@@ -111,15 +110,15 @@ Popup {
                     anchors.fill: parent
                     anchors.leftMargin: 12
                     anchors.rightMargin: 12
-                    spacing: 8
+                    spacing: Theme.spacing.normal
 
                     // Button text
                     Text {
                         Layout.fillWidth: true
 
-                        text: trayEntry.modelData.text ?? ""
+                        text: trayEntry ? trayEntry.modelData.text : ""
 
-                        color: trayEntry.modelData.enabled
+                        color: trayEntry?.modelData.enabled
                             ? button.hoverTextColor
                             : Theme.colors.textDisabled;
 
@@ -138,7 +137,7 @@ Popup {
                         Layout.preferredWidth: 16
                         Layout.preferredHeight: 16
 
-                        source: trayEntry.modelData.icon
+                        source: trayEntry ? trayEntry.modelData.icon : ""
 
                         fillMode: Image.PreserveAspectFit
                     }
@@ -151,8 +150,8 @@ Popup {
 
                     hoverEnabled: true
 
-                    enabled: trayEntry.modelData.enabled
-                        && !trayEntry.modelData.isSeparator
+                    enabled: trayEntry?.modelData.enabled
+                        && !trayEntry?.modelData.isSeparator
                         && root.visible;
 
                     onClicked: {

@@ -54,7 +54,7 @@ WmWindow {
         anchors.fill: parent
         anchors.margins: root.margins
 
-        spacing: 8
+        spacing: Theme.spacing.normal
 
         SearchBar {
             id: searchBar

@@ -19,7 +19,7 @@ Pill {
         id: text
 
         anchors.centerIn: parent
-        spacing: 4
+        spacing: Theme.spacing.small
 
         LevelLucideIcon {
             icons: ["battery-warning", "battery", "battery-low", "battery-medium", "battery-full"]

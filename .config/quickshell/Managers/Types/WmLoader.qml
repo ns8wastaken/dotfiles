@@ -27,7 +27,7 @@ Loader {
 
     /* ---- Animation ---- */
     opacity: 0
-    scale: 0.9
+    scale: 0.75
 
     states: State {
         name: "VISIBLE"
@@ -55,7 +55,7 @@ Loader {
             PropertyAnimation {
                 target: root
                 properties: "opacity, scale"
-                duration: 100
+                duration: 130
                 easing.type: Easing.InOutCubic
             }
         }

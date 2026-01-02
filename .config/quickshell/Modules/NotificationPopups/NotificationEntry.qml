@@ -83,7 +83,7 @@ Rectangle {
             Text {
                 width: parent.width
 
-                text: root.modelData?.summary
+                text: root.modelData?.summary ?? ""
 
                 font.family: Theme.fonts.sans
                 font.pixelSize: Theme.fontSize.normal
@@ -98,7 +98,7 @@ Rectangle {
             Text {
                 width: parent.width
 
-                text: root.modelData?.body
+                text: root.modelData?.body ?? ""
 
                 font.family: Theme.fonts.sans
                 font.pixelSize: Theme.fontSize.small

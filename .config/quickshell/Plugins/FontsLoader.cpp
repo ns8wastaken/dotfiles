@@ -3,6 +3,7 @@
 #include <QFontDatabase>
 #include <QDirIterator>
 #include <QSet>
+#include <qcontainerfwd.h>
 
 FontsLoader::FontsLoader(QObject *parent)
     : QObject(parent)
@@ -59,14 +60,13 @@ void FontsLoader::load() {
         if (id < 0)
             continue;
 
-        const auto fams = QFontDatabase::applicationFontFamilies(id);
+        const QStringList fams = QFontDatabase::applicationFontFamilies(id);
 
         for (const QString &f : fams)
             families.insert(f);
     }
 
     m_families = QStringList(families.begin(), families.end());
-    m_families.sort();
 
     emit familiesChanged();
 }

@@ -1,28 +1,30 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
+import qs.Modules.Bar.Clock
 import qs.Services
 import qs.Theme
 
 Item {
     id: root
 
-    width: text.width
-    height: text.height
+    width: clockText.width
+    height: clockText.height
 
     Text {
-        id: text
+        id: clockText
 
         anchors.centerIn: parent
 
         color: Theme.colors.textPrimary
 
         font.pixelSize: Theme.fontSize.normal
-        font.family: Theme.fonts.clock
+        font.family: Theme.fonts.sans
         text: TimeService.time
 
-        HoverHandler {
-            id: hoverHandler
-        }
+        HoverHandler { id: hoverHandler }
     }
 
     Popup {
@@ -31,20 +33,46 @@ Item {
         visible: hoverHandler.hovered
 
         background: Rectangle {
+            id: popupBg
+
             color: Theme.colors.backgroundPrimary
-            radius: 12
+            radius: 16
             border.color: Theme.colors.outline
             border.width: 1
         }
 
-        padding: 6
+        padding: 8
 
         x: (parent.width - width) / 2
         y: 30
 
-        Rectangle {
-            implicitWidth: 200
-            implicitHeight: 100
+        ColumnLayout {
+            id: innerPopup
+
+            anchors.fill: parent
+
+            Text {
+                Layout.preferredWidth: innerPopup.implicitWidth
+
+                text: Qt.formatDate(TimeService.date, "dddd, MMMM d, yyyy")
+
+                color: Theme.colors.textPrimary
+
+                font.family: Theme.fonts.sans
+                font.pixelSize: Theme.fontSize.normal
+
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Rectangle {
+                Layout.preferredWidth: calendar.implicitWidth
+                Layout.preferredHeight: calendar.implicitHeight
+
+                color: Theme.colors.backgroundSecondary
+                radius: popupBg.radius - popup.padding
+
+                Calendar { id: calendar }
+            }
         }
     }
 }
