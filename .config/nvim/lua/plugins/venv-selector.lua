@@ -6,7 +6,7 @@ return {
         "nvim-telescope/telescope.nvim"
     },
 
-    branch = "regexp", -- This is the regexp branch, use this for the new version
+    branch = "regexp", -- Use this for the new version
 
     keys = {
         { "<Leader>v", "<cmd>VenvSelect<cr>" }

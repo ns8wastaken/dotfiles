@@ -7,19 +7,26 @@ import qs.Services
 import qs.Theme
 
 ColumnLayout {
+    spacing: 8
+
     DayOfWeekRow {
         Layout.fillWidth: true
-        // Layout.topMargin: 8
+        Layout.topMargin: 8
         Layout.leftMargin: 8
         Layout.rightMargin: 8
+
+        implicitHeight: contentItem.height
 
         locale: monthGrid.locale
 
         delegate: Text {
+            id: dayOfWeekText
+
             required property var model
 
+            anchors.verticalCenter: parent.verticalCenter
+            verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
-
             text: model.shortName
 
             font.family: Theme.fonts.sans
@@ -52,8 +59,7 @@ ColumnLayout {
             x: todayItem ? todayItem.x + (todayItem.width - implicitWidth) / 2 : 0
             y: todayItem?.y ?? 0
 
-            // radius: Math.min(implicitWidth, implicitHeight) / 2
-            radius: 10000
+            radius: Math.min(implicitWidth, implicitHeight) / 2
             color: Theme.colors.highlight
 
             visible: todayItem

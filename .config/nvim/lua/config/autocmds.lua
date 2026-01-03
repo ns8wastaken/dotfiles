@@ -1,6 +1,9 @@
-local autocmd = vim.api.nvim_create_autocmd;
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
-autocmd('FileType', {
+local general = augroup("General", { clear = true})
+
+autocmd("FileType", {
     pattern = '*',
     callback = function()
         -- Disable comment on new line
@@ -22,7 +25,7 @@ autocmd("ModeChanged", {
     desc = "Highlighting matched words when searching"
 })
 
--- autocmd({ 'ColorScheme', 'VimEnter', 'OptionSet' }, {
+-- autocmd({ "ColorScheme", "VimEnter", "OptionSet" }, {
 --     callback = function()
 --         vim.cmd([[
 --             hi Normal       guibg=NONE
@@ -42,10 +45,10 @@ autocmd("ModeChanged", {
 --             hi TelescopeBorder guibg=NONE
 --         ]])
 --
---         -- vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#1a1a1a' })
+--         -- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1a1a1a" })
 --     end,
 --     group = general,
---     desc = 'Hide background and other elements'
+--     desc = "Hide background and other elements"
 -- })
 
 autocmd({ "ColorScheme", "VimEnter", "OptionSet" }, {
@@ -54,5 +57,6 @@ autocmd({ "ColorScheme", "VimEnter", "OptionSet" }, {
             "hi IndentLine guifg=#303030
             hi IndentLineCurrent guifg=#505050
         ]])
-    end
+    end,
+    group = general
 })

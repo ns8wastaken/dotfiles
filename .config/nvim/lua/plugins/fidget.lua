@@ -9,7 +9,8 @@ return {
             window = {
                 normal_hl = "Float",
                 winblend = 0,      -- Opacity = (255 - value)
-                border = "rounded"
+                border = "rounded",
+                y_padding = 1
             }
         }
     }

@@ -33,17 +33,42 @@ vim.g.load_colorscheme = function()
     end
 end
 
-vim.g.require_dir = function(dir)
-    local keymaps_path = vim.fn.stdpath("config") .. dir
+vim.g.require_dir = function(module_dir)
+    local lua_root = vim.fn.stdpath("config") .. "/lua/"
+    local fs_dir = module_dir:gsub("%.", "/")
+    local path = lua_root .. fs_dir
 
-    -- Iterate over all .lua files in the keymaps folder
-    for _, file in ipairs(vim.fn.glob(keymaps_path .. "*.lua", false, true)) do
-        -- Strip path and extension to get module name
-        local module_name = file:match("lua/(.*)%.lua$")
-        if module_name then
-            require(module_name:gsub("/", "."))
+    for _, file in ipairs(vim.fn.globpath(path, "*.lua", false, true)) do
+        local name = vim.fn.fnamemodify(file, ":t:r")
+        require(module_dir .. "." .. name)
+    end
+end
+
+---@param module_dir string
+---@param ignore? table<string, true> -- set of module names to ignore
+---@return table<string, any>?
+vim.g.require_dir_table = function(module_dir, ignore)
+    local modules = {}
+
+    if module_dir == nil then
+        return nil
+    end
+
+    local _ignore = ignore or {}
+
+    local lua_root = vim.fn.stdpath("config") .. "/lua/"
+    local fs_dir = module_dir:gsub("%.", "/")
+    local path = lua_root .. fs_dir
+
+    for _, file in ipairs(vim.fn.globpath(path, "*.lua", false, true)) do
+        local name = vim.fn.fnamemodify(file, ":t:r")
+
+        if not _ignore[name] then
+            modules[name] = require(module_dir .. "." .. name)
         end
     end
+
+    return modules
 end
 
 vim.g.keymap_opts = { noremap = true, silent = true }

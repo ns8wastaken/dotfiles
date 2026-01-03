@@ -2,12 +2,10 @@ local themes = require("themes")
 
 return {
     "neovim/nvim-lspconfig",
-    "hrsh7th/cmp-nvim-lsp",
     "ntpeters/vim-better-whitespace",
     "nvim-lualine/lualine.nvim",
     "preservim/nerdcommenter",
-    "rcarriga/nvim-notify",
-    "nvim-lua/plenary.nvim",
+    { "rcarriga/nvim-notify", opts = { background_colour = "#000000" } },
     "mg979/vim-visual-multi",
     { "echasnovski/mini.surround", opts = {} },
     "johmsalas/text-case.nvim",
@@ -15,6 +13,7 @@ return {
     "junegunn/vim-easy-align",
     { "nvim-tree/nvim-web-devicons", opts = {} },
     "nvim-pack/nvim-spectre",
+    { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 
     themes
 }

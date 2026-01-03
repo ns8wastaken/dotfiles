@@ -96,6 +96,8 @@ Rectangle {
 
             /* ---- Body ---- */
             Text {
+                visible: text !== ""
+
                 width: parent.width
 
                 text: root.modelData?.body ?? ""

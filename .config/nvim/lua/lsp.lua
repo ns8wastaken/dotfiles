@@ -1,6 +1,5 @@
--- local lspconfig = require('lspconfig')
-local cmp_lsp = require("cmp_nvim_lsp")
-local capabilities = cmp_lsp.default_capabilities()
+local blink = require("blink.cmp")
+local capabilities = blink.get_lsp_capabilities()
 
 local enable_inlayhints = function()
     vim.lsp.inlay_hint.enable(true, { 0 })
