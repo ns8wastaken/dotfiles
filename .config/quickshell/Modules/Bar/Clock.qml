@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import qs.Modules.Bar.Clock
+import qs.Components
 import qs.Services
 import qs.Theme
 
@@ -51,17 +52,26 @@ Item {
 
             anchors.fill: parent
 
-            Text {
-                Layout.preferredWidth: innerPopup.implicitWidth
+            RowLayout {
+                spacing: 6
+                anchors.horizontalCenter: parent.horizontalCenter
 
-                text: Qt.formatDate(TimeService.date, "dddd, MMMM d, yyyy")
+                LucideIcon {
+                    source: "calendar"
+                    size: Theme.fontSize.normal
+                    color: Theme.colors.textPrimary
+                }
 
-                color: Theme.colors.textPrimary
+                Text {
+                    text: Qt.formatDate(TimeService.date, "dddd, MMMM d, yyyy")
 
-                font.family: Theme.fonts.sans
-                font.pixelSize: Theme.fontSize.normal
+                    color: Theme.colors.textPrimary
 
-                horizontalAlignment: Text.AlignHCenter
+                    font.family: Theme.fonts.sans
+                    font.pixelSize: Theme.fontSize.normal
+
+                    horizontalAlignment: Text.AlignHCenter
+                }
             }
 
             Rectangle {

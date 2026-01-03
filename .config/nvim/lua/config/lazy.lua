@@ -34,6 +34,8 @@ require("lazy").setup({
         -- version = "*", -- try installing the latest stable version for plugins that support semver
     },
 
+    lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json",
+
     ui = {
         border = "rounded"
     },

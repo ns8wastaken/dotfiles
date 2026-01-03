@@ -1,6 +1,8 @@
 return {
     "xiyaowong/transparent.nvim",
 
+    lazy = false,
+
     opts = {
         groups = {
             -- "Comment", "Constant", "Special", "Identifier",
@@ -16,7 +18,7 @@ return {
 
         -- additional groups that should be cleared
         extra_groups = {
-            "ModeMsg", -- notification message body
+            "ModeMsg", "ErrorMsg", -- notification message body
             "LspInlayHint"
         },
 
@@ -32,7 +34,6 @@ return {
         local transparent = require("transparent")
         transparent.clear_prefix("Telescope")
         transparent.clear_prefix("Notify")
-    end,
-
-    lazy = false
+        transparent.clear_prefix("Grug")
+    end
 }

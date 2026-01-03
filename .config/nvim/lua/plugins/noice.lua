@@ -9,6 +9,10 @@ return {
     },
 
     opts = {
+        -- cmdline = {
+        --     view = "cmdline"
+        -- },
+
         -- Show stuff in notifications
         routes = {
             -- { view = "notify",         filter = { event = "msg_showmode" } },
@@ -36,7 +40,7 @@ return {
 
             cmdline_output = {
                 format = "details",
-                view = "mini",
+                view = "notify",
             },
 
             cmdline_popup = {
@@ -57,7 +61,7 @@ return {
             popupmenu = {
                 relative = "editor",
                 position = {
-                    row = 8,
+                    row = 5 + 3,
                     col = "50%"
                 },
                 size = {

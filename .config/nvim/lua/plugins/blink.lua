@@ -6,16 +6,19 @@ return {
     build = "cargo build --release",
 
     opts = {
-        -- completion = {
-        --     menu = {
-        --         border = "rounded"
-        --     },
-        --
-        --     documentation = {
-        --         window = {
-        --             border = "rounded"
-        --         }
-        --     }
-        -- }
+        fuzzy = {
+            sorts = {
+                "exact",
+                -- defaults
+                "score",
+                "sort_text"
+            }
+        },
+
+        snippets = { preset = "luasnip" },
+
+        sources = {
+            default = { "lsp", "path", "snippets", "buffer" }
+        }
     }
 }

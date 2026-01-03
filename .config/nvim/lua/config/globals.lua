@@ -86,25 +86,3 @@ vim.o.shell = vim.g.ternary(vim.g.is_windows, "powershell -NoLogo", "fish")
 
 -- Set the <Leader> char
 vim.g.mapleader = ','
-
--- Gruvbox theme settings ('soft', 'medium', 'hard')
-vim.g.gruvbox_material_background = "medium"
-vim.g.gruvbox_material_foreground = "medium"
-
-
--- Neovide
-
--- Railgun particle effect on cursor jump
-vim.g.neovide_cursor_vfx_mode = ""
-vim.g.neovide_cursor_vfx_particle_density = 3.0
-vim.g.neovide_cursor_vfx_particle_phase = 2.5
-vim.g.neovide_cursor_vfx_opacity = 200.0
-
--- vim.g.neovide_cursor_animation_length = 0.075
-vim.g.neovide_cursor_animation_length = 0
-
-vim.g.neovide_scroll_animation_length = 0
-
-if vim.g.is_linux then
-    vim.g.neovide_opacity = 0.825
-end

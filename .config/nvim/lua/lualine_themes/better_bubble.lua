@@ -41,7 +41,7 @@ M = {
         lualine_x = {}
     },
     inactive_sections = {
-        -- these are to remove the defaults
+        -- These are to remove the defaults
         lualine_a = {},
         lualine_b = {},
         lualine_y = {},

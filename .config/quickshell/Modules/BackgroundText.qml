@@ -21,7 +21,7 @@ Scope {
         }
 
         text.text: "吃\n喝\n拉\n撒\n睡"
-        text.color: "#000000"
+        text.color: "#ffffff"
         text.font.family: bgTextFont.name
         text.font.pointSize: 40
     }
@@ -38,7 +38,7 @@ Scope {
         }
 
         text.text: "我\n操\n你\n妈"
-        text.color: "#000000"
+        text.color: "#ffffff"
         text.font.family: bgTextFont.name
         text.font.pointSize: 40
     }
@@ -55,7 +55,7 @@ Scope {
         }
 
         text.text: "自\n强\n不\n息"
-        text.color: "#000000"
+        text.color: "#ffffff"
         text.font.family: bgTextFont.name
         text.font.pointSize: 40
     }

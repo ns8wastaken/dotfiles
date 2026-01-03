@@ -1,6 +1,8 @@
 return {
     "m4xshen/autoclose.nvim",
 
+    cond = false,
+
     opts = {
         keys = {
             ["("] = { escape = false, close = true, pair = "()" },

@@ -12,8 +12,8 @@ return {
     "matze/vim-move",
     "junegunn/vim-easy-align",
     { "nvim-tree/nvim-web-devicons", opts = {} },
-    "nvim-pack/nvim-spectre",
     { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+    "MagicDuck/grug-far.nvim",
 
     themes
 }
