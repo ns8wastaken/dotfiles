@@ -3,7 +3,8 @@ return {
 
     -- dependencies = { 'rafamadriz/friendly-snippets' },
 
-    build = "cargo build --release",
+    version = "1.*", -- downloads prebuilt binaries
+    -- build = "cargo build --release",
 
     opts = {
         fuzzy = {
