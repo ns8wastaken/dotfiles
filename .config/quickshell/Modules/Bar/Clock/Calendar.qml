@@ -48,6 +48,8 @@ ColumnLayout {
         implicitHeight: monthGrid.implicitHeight
 
         Rectangle {
+            id: todayIndicator
+
             readonly property Item todayItem: monthGrid
                 .contentItem
                 .children
@@ -72,7 +74,7 @@ ColumnLayout {
 
             month: TimeService.date.getMonth()
             year: TimeService.date.getFullYear()
-            locale: Qt.locale()
+            locale: Qt.locale("zh_CN")
 
             delegate: Item {
                 id: monthGridEntry
@@ -100,23 +102,5 @@ ColumnLayout {
                 }
             }
         }
-        // Rectangle {
-        //     readonly property Item todayItem: monthGrid
-        //         .contentItem
-        //         .children
-        //         .find(c => c.model.today) ?? null;
-        //
-        //     implicitWidth: todayItem?.implicitWidth ?? 0
-        //     implicitHeight: todayItem?.implicitHeight ?? 0
-        //
-        //     x: todayItem ? todayItem.x + (todayItem.implicitWidth - implicitWidth) / 2 : 0
-        //     y: todayItem?.y ?? 0
-        //
-        //     // radius: Math.min(implicitWidth, implicitHeight) / 2
-        //     radius: 10000
-        //     color: Theme.colors.highlight
-        //
-        //     visible: todayItem
-        // }
     }
 }

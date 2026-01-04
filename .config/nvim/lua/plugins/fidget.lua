@@ -10,7 +10,7 @@ return {
                 normal_hl = "Float",
                 winblend = 0,      -- Opacity = (255 - value)
                 border = "rounded",
-                y_padding = 1
+                y_padding = 0
             }
         }
     }

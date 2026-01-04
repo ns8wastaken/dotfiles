@@ -15,12 +15,12 @@ vim.g.load_colorscheme()
 
 vim.notify = require("notify")
 
-local ll_themes = vim.g.require_dir_table(
-    "lualine_themes",
-    { diagnostics_symbols = true }
-)
+-- local ll_themes = vim.g.require_dir_table(
+--     "lualine_themes",
+--     { diagnostics_symbols = true }
+-- )
 
-require("lualine").setup(ll_themes.better_bubble)
+require("lualine").setup(require("lualine_themes.better_bubble"))
 require("lualine").setup({
     refresh = {
         -- statusline = 250,

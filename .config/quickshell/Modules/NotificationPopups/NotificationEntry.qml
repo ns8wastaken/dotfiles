@@ -126,7 +126,7 @@ Rectangle {
         property: "x"
         from: 0
         to: root.width
-        duration: 150
+        duration: Theme.anim.small
         easing.type: Easing.InCubic
         onStopped: root.modelData.expire()
         running: false
@@ -138,7 +138,7 @@ Rectangle {
         property: "x"
         from: 0
         to: root.width
-        duration: 150
+        duration: Theme.anim.small
         easing.type: Easing.InCubic
         onStopped: root.modelData.dismiss()
         running: false

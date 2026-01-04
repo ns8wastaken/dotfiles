@@ -25,6 +25,7 @@ Singleton {
 
     property alias colors:   themeAdapter
 
+    property alias anim:     themeConfigAdapter.anim
     property alias fonts:    themeConfigAdapter.fonts
     property alias fontSize: themeConfigAdapter.fontSize
     property alias spacing:  themeConfigAdapter.spacing
@@ -52,6 +53,7 @@ Singleton {
         adapter: JsonAdapter {
             id: themeConfigAdapter
 
+            property AnimTheme     anim:     AnimTheme {}
             property FontTheme     fonts:    FontTheme {}
             property FontSizeTheme fontSize: FontSizeTheme {}
             property SpacingTheme  spacing:  SpacingTheme {}

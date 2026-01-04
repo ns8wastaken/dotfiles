@@ -17,7 +17,7 @@ ListView {
     cacheBuffer: Config.wallpaperPicker.wallpaperWidth * 2
     reuseItems: true
 
-    highlightMoveDuration: 200
+    highlightMoveDuration: Theme.anim.normal
     highlightRangeMode: ListView.StrictlyEnforceRange
     preferredHighlightBegin: (width - Config.wallpaperPicker.wallpaperWidth) / 2
     preferredHighlightEnd: preferredHighlightBegin + Config.wallpaperPicker.wallpaperWidth

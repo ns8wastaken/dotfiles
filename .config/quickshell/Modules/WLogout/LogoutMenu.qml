@@ -82,7 +82,7 @@ WmWindow {
 
                     Behavior on scale {
                         NumberAnimation {
-                            duration: 100
+                            duration: Theme.anim.xsmall
                             easing.type: Easing.InOutQuad
                         }
                     }

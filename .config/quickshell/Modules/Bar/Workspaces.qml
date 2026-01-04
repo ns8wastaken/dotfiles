@@ -10,8 +10,6 @@ Row {
 
     spacing: Theme.spacing.normal
 
-    readonly property int animationDuration: 125
-
     Repeater {
         model: Hyprland.workspaces
 
@@ -27,14 +25,14 @@ Row {
             // Scaling animation
             Behavior on width {
                 NumberAnimation {
-                    duration: root.animationDuration
+                    duration: Theme.anim.small
                     easing.type: Easing.InOutCubic
                 }
             }
 
             Behavior on color {
                 ColorAnimation {
-                    duration: root.animationDuration
+                    duration: Theme.anim.small
                 }
             }
 
@@ -57,7 +55,7 @@ Row {
 
                 Behavior on color {
                     ColorAnimation {
-                        duration: root.animationDuration
+                        duration: Theme.anim.small
                     }
                 }
             }

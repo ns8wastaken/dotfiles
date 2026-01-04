@@ -68,10 +68,10 @@ Popup {
             id: trayEntry
 
             required property QsMenuEntry modelData
-            readonly property bool isSeparator: trayEntry?.modelData.isSeparator ?? false
+            readonly property bool isSeparator: trayEntry?.modelData?.isSeparator ?? false
 
             width: listView.width
-            height: modelData.isSeparator ? 8 : 32
+            height: modelData?.isSeparator ? 8 : 32
 
             color: "transparent"
 
@@ -82,7 +82,7 @@ Popup {
                 anchors.centerIn: parent
                 anchors.verticalCenterOffset: 1
 
-                visible: trayEntry.isSeparator
+                visible: trayEntry?.isSeparator
 
                 width: parent.width - 20
                 height: 1
@@ -116,9 +116,9 @@ Popup {
                     Text {
                         Layout.fillWidth: true
 
-                        text: trayEntry ? trayEntry.modelData.text : ""
+                        text: trayEntry?.modelData?.text ?? ""
 
-                        color: trayEntry?.modelData.enabled
+                        color: trayEntry?.modelData?.enabled
                             ? button.hoverTextColor
                             : Theme.colors.textDisabled;
 
@@ -132,12 +132,12 @@ Popup {
                     Image {
                         id: iconImage
 
-                        visible: !!trayEntry.modelData.icon
+                        visible: !!trayEntry.modelData?.icon
 
                         Layout.preferredWidth: 16
                         Layout.preferredHeight: 16
 
-                        source: trayEntry ? trayEntry.modelData.icon : ""
+                        source: trayEntry?.modelData?.icon ?? ""
 
                         fillMode: Image.PreserveAspectFit
                     }
@@ -150,8 +150,8 @@ Popup {
 
                     hoverEnabled: true
 
-                    enabled: trayEntry?.modelData.enabled
-                        && !trayEntry?.modelData.isSeparator
+                    enabled: (trayEntry?.modelData?.enabled ?? false)
+                        && !(trayEntry?.modelData?.isSeparator ?? true)
                         && root.visible;
 
                     onClicked: {

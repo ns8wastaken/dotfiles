@@ -23,7 +23,7 @@ Item {
 
         font.pixelSize: Theme.fontSize.normal
         font.family: Theme.fonts.sans
-        text: TimeService.time
+        text: TimeService.format("hh:mm")
 
         HoverHandler { id: hoverHandler }
     }
@@ -54,7 +54,7 @@ Item {
 
             RowLayout {
                 spacing: 6
-                anchors.horizontalCenter: parent.horizontalCenter
+                Layout.alignment: Qt.AlignHCenter
 
                 LucideIcon {
                     source: "calendar"
@@ -63,7 +63,7 @@ Item {
                 }
 
                 Text {
-                    text: Qt.formatDate(TimeService.date, "dddd, MMMM d, yyyy")
+                    text: TimeService.format("dddd, MMMM d, yyyy")
 
                     color: Theme.colors.textPrimary
 

@@ -1,8 +1,8 @@
-import Quickshell
 import QtQuick
 import qs.Modules.NotificationPopups
 import qs.Services
 import qs.Config
+import qs.Theme
 
 ListView {
     id: root
@@ -17,14 +17,14 @@ ListView {
             PropertyAnimation {
                 property: "x"
                 from: root.implicitWidth
-                duration: 200
+                duration: Theme.anim.small
                 easing.type: Easing.InOutCubic
             }
             PropertyAnimation {
                 property: "opacity"
                 from: 0
                 to: 1
-                duration: 300
+                duration: Theme.anim.normal
                 easing.type: Easing.InOutCubic
             }
         }
@@ -33,7 +33,7 @@ ListView {
     addDisplaced: Transition {
         PropertyAnimation {
             property: "y"
-            duration: 200
+            duration: Theme.anim.small
             easing.type: Easing.InOutCubic
         }
     }

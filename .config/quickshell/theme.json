@@ -1,4 +1,12 @@
 {
+    "anim": {
+        "xsmall": 110,
+        "small": 180,
+        "normal": 260,
+        "large": 420,
+        "xlarge": 700
+    },
+
     "fonts": {
         "sans": "Itim",
         "mono": "Cascadia Code",

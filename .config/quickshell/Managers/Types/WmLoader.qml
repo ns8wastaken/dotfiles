@@ -1,5 +1,6 @@
 import QtQuick
 import qs.Managers
+import qs.Theme
 
 Loader {
     id: root
@@ -55,7 +56,7 @@ Loader {
             PropertyAnimation {
                 target: root
                 properties: "opacity, scale"
-                duration: 130
+                duration: Theme.anim.xsmall
                 easing.type: Easing.InOutCubic
             }
         }

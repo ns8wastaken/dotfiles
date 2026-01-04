@@ -1,6 +1,7 @@
 import Quickshell.Widgets
 import QtQuick
 import qs.Config
+import qs.Theme
 
 Item {
     id: root
@@ -32,7 +33,7 @@ Item {
 
         Behavior on opacity {
             NumberAnimation {
-                duration: 300
+                duration: Theme.anim.normal
                 easing.type: Easing.OutCubic
             }
         }
@@ -41,7 +42,7 @@ Item {
         scale: root.isHovered ? 1.15 : 1.0
         Behavior on scale {
             NumberAnimation {
-                duration: 200
+                duration: Theme.anim.small
                 easing.type: Easing.OutCubic
             }
         }
@@ -50,7 +51,7 @@ Item {
         rotation: root.isHovered ? 5 : 0
         Behavior on rotation {
             NumberAnimation {
-                duration: 200
+                duration: Theme.anim.small
                 easing.type: Easing.OutCubic
             }
         }
