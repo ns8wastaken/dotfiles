@@ -66,16 +66,8 @@ install_uninstalled \
     "fish" \
     "fastfetch" \
     "grimblast" \
-    "hyprpicker"
-
-
-if ! is_installed "starship"; then
-    echo "=========================================="
-    echo "           Installing starship            "
-    echo "=========================================="
-
-    $INSTALL "starship"
-fi
+    "hyprpicker" \
+    "starship"
 
 
 echo "=========================================="

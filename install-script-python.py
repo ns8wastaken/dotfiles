@@ -6,8 +6,9 @@ INSTALL_CMD = "yay -S --needed --noconfirm"
 
 # TODO: install quickshell from source
 CORE_PACKAGES = [
-    "swww", "neovim", "kitty", "wallust", "fish", "fastfetch",
-    # Utilities?
+    "kitty", "fish", "starship",
+    "swww", "wallust",
+    "neovim", "fastfetch",
     "grimblast", "hyprpicker"
 ]
 
@@ -110,10 +111,6 @@ def main():
 
     announce("Installing core packages")
     install_packages(CORE_PACKAGES)
-
-    if not is_installed("starship"):
-        announce("Installing starship")
-        install_package("starship")
 
     announce("Installing other wanted packages")
     install_packages(OTHER_PACKAGES)
