@@ -13,4 +13,4 @@ dotfiles add \
     ~/.config/fish/ \
     ~/.config/starship.toml \
     ~/.config/quickshell/ \
-    ~/.config/wallust/
+    ~/.config/matugen/
