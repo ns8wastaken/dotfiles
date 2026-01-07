@@ -8,7 +8,7 @@ Pill {
     width: text.width + 2 * 6
     height: 18
 
-    color: Theme.color.primary_container
+    color: Theme.color.secondary_container
 
     LucideIcon {
         id: text
@@ -17,7 +17,7 @@ Pill {
 
         source: "ellipsis"
 
-        color: Theme.color.on_primary_container
+        color: Theme.color.on_secondary_container
         size: Theme.fontSize.normal
     }
 

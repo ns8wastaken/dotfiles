@@ -9,7 +9,7 @@ Pill {
     width: row.implicitWidth
     height: 18
 
-    color: Theme.color.primary_container
+    color: Theme.color.secondary_container
 
     MouseArea {
         id: mouseArea

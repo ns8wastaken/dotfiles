@@ -11,15 +11,15 @@ Row {
     spacing: Theme.spacing.normal
 
     function getWorkspaceColor(modelData: HyprlandWorkspace): color {
-        if (modelData.active) return Theme.color.primary;
+        if (modelData.active) return Theme.color.secondary;
         if (modelData.urgent) return Theme.color.error;
-        return Theme.color.primary_container;
+        return Theme.color.secondary_container;
     }
 
     function getWorkspaceTextColor(modelData: HyprlandWorkspace): color {
-        if (modelData.active) return Theme.color.on_primary;
+        if (modelData.active) return Theme.color.on_secondary;
         if (modelData.urgent) return Theme.color.on_error;
-        return Theme.color.on_primary_container;
+        return Theme.color.on_secondary_container;
     }
 
     Repeater {

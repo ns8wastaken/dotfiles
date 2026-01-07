@@ -25,7 +25,7 @@ Item {
         source: AudioService.source.muted ? "mic-off" : "mic";
 
         size: Theme.fontSize.normal
-        color: Theme.color.on_primary_container
+        color: Theme.color.on_secondary_container
         opacity: AudioService.source.muted ? 0.38 : 1.0
     }
 }

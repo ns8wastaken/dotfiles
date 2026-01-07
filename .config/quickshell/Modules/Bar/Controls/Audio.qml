@@ -41,7 +41,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
 
             size: Theme.fontSize.normal
-            color: Theme.color.on_primary_container
+            color: Theme.color.on_secondary_container
             opacity: AudioService.sink.muted ? 0.38 : 1.0
         }
 
@@ -52,7 +52,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             text: AudioService.sink.percentage + '%'
 
-            color: Theme.color.on_primary_container
+            color: Theme.color.on_secondary_container
             opacity: AudioService.sink.muted ? 0.38 : 1.0
 
             font.family: Theme.fonts.sans
