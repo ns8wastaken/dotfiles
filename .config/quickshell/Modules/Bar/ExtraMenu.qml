@@ -2,14 +2,13 @@ import Quickshell
 import QtQuick
 import qs.Services
 import qs.Components
-import qs.Config
 import qs.Theme
 
 Pill {
     width: text.width + 2 * 6
     height: 18
 
-    color: Theme.colors.surface
+    color: Theme.color.primary_container
 
     LucideIcon {
         id: text
@@ -18,7 +17,7 @@ Pill {
 
         source: "ellipsis"
 
-        color: Theme.colors.textPrimary
+        color: Theme.color.on_primary_container
         size: Theme.fontSize.normal
     }
 

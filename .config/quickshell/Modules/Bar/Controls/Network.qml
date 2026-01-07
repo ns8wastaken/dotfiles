@@ -1,6 +1,5 @@
 import QtQuick
 import qs.Components
-import qs.Config
 import qs.Theme
 
 Item {
@@ -17,7 +16,7 @@ Item {
             anchors.centerIn: parent
 
             source: "wifi"
-            color: Theme.colors.textPrimary
+            color: Theme.color.on_primary_container
             size: Theme.fontSize.normal
         }
     }

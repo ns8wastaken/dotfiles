@@ -11,7 +11,7 @@ Rectangle {
 
     readonly property int margins: 4
 
-    color: isSelected ? Theme.colors.highlight : Theme.colors.backgroundPrimary
+    color: isSelected ? Theme.color.primary : Theme.color.surface
 
     RowLayout {
         id: entryRow
@@ -33,7 +33,7 @@ Rectangle {
 
             radius: 8
 
-            color: Theme.colors.backgroundPrimary
+            color: Theme.color.surface
 
             visible: itemIcon.isLoaded
 
@@ -64,8 +64,8 @@ Rectangle {
             font.pixelSize: Theme.fontSize.small
 
             color: root.isSelected
-                ? Theme.colors.textPrimaryInverted
-                : Theme.colors.textPrimary;
+                ? Theme.color.on_primary
+                : Theme.color.on_background;
 
             elide: Text.ElideRight
         }

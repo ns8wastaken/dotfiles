@@ -13,17 +13,18 @@ Singleton {
     }
 
     function getWorkspaceColor(modelData): color {
-        if (modelData.active) return colors.accentPrimary;
-        if (modelData.urgent) return colors.error;
-        return colors.surface;
+        if (modelData.active) return color.primary;
+        if (modelData.urgent) return color.error;
+        return color.primary_container;
     }
 
     function getWorkspaceTextColor(modelData): color {
-        if (modelData.active) return colors.textDark;
-        return colors.textPrimary;
+        if (modelData.active) return color.on_primary;
+        return color.on_surface;
     }
 
-    property alias colors:   themeAdapter
+    property alias color:    themeAdapter.color
+    property alias palette:  themeAdapter.palette
 
     property alias anim:     themeConfigAdapter.anim
     property alias fonts:    themeConfigAdapter.fonts
@@ -39,7 +40,12 @@ Singleton {
 
         onLoadFailed: console.log("Error while loading theme (this may be a complete lie)")
 
-        adapter: ColorsTheme { id: themeAdapter }
+        adapter: JsonAdapter {
+            id: themeAdapter
+
+            property ColorsTheme  color: ColorsTheme {}
+            property PaletteTheme palette: PaletteTheme {}
+        }
     }
 
     FileView {

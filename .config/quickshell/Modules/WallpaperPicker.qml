@@ -27,11 +27,11 @@ WmWindow {
 
     height: pickerCol.implicitHeight + pickerCol.anchors.margins * 2
 
-    color: Theme.colors.backgroundPrimary
+    color: Theme.color.surface
     radius: 30
 
     border.width: 1
-    border.color: Theme.colors.outline
+    border.color: Theme.color.outline
 
     ColumnLayout {
         id: pickerCol
@@ -47,16 +47,16 @@ WmWindow {
             Layout.fillWidth: true
             Layout.preferredHeight: 40
 
-            backgroundColor: Theme.colors.backgroundPrimary
-            borderColor: Theme.colors.outline
+            backgroundColor: Theme.color.surface
+            borderColor: Theme.color.outline
             borderWidth: 1
 
-            iconColor: Theme.colors.textPrimary
+            iconColor: Theme.color.on_background
             iconSize: Theme.fontSize.large
 
-            placeholderColor: Theme.colors.textPrimary
+            placeholderColor: Theme.color.on_background
             placeholderText: "Search wallpapers..."
-            textColor: Theme.colors.textPrimary
+            textColor: Theme.color.on_background
 
             textFont.family: Theme.fonts.sans
             textFont.pixelSize: Theme.fontSize.normal
@@ -67,7 +67,7 @@ WmWindow {
             Layout.preferredHeight: Config.wallpaperPicker.spacing * 2
                 + wallpaperView.implicitHeight;
 
-            color: Theme.colors.backgroundSecondary
+            color: Theme.color.surface_container
             radius: searchBar.radius
 
             ClippingRectangle {

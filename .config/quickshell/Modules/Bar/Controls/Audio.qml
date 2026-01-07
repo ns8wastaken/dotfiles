@@ -1,7 +1,6 @@
 import QtQuick
 import qs.Services
 import qs.Widgets
-import qs.Config
 import qs.Theme
 
 Item {
@@ -42,7 +41,8 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
 
             size: Theme.fontSize.normal
-            color: AudioService.sink.muted ? Theme.colors.textDisabled : Theme.colors.textPrimary
+            color: Theme.color.on_primary_container
+            opacity: AudioService.sink.muted ? 0.38 : 1.0
         }
 
         Text {
@@ -52,7 +52,8 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             text: AudioService.sink.percentage + '%'
 
-            color: AudioService.sink.muted ? Theme.colors.textDisabled : Theme.colors.textPrimary
+            color: Theme.color.on_primary_container
+            opacity: AudioService.sink.muted ? 0.38 : 1.0
 
             font.family: Theme.fonts.sans
             font.pixelSize: Theme.fontSize.small

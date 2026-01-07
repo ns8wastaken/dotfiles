@@ -2,7 +2,6 @@ import QtQuick
 import Quickshell.Services.UPower
 import qs.Components
 import qs.Widgets
-import qs.Config
 import qs.Theme
 
 Pill {
@@ -11,7 +10,7 @@ Pill {
     width: text.width + 12
     height: 18
 
-    color: Theme.colors.surface
+    color: Theme.color.primary_container
 
     visible: UPower.displayDevice.isLaptopBattery
 
@@ -29,7 +28,7 @@ Pill {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            color: Theme.colors.textPrimary
+            color: Theme.color.on_background
             size: Theme.fontSize.normal
         }
 
@@ -41,7 +40,7 @@ Pill {
             font.pixelSize: Theme.fontSize.small
             font.family: Theme.fonts.sans
 
-            color: Theme.colors.textPrimary
+            color: Theme.color.on_background
         }
     }
 }

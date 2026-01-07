@@ -13,7 +13,7 @@ WmWindow {
 
     default property list<LogoutButton> buttons
 
-    color: Theme.colors.backgroundPrimary.alpha(Config.wlogout.bgAlpha)
+    color: Theme.color.surface.alpha(Config.wlogout.bgAlpha)
 
     focus: true
 
@@ -46,9 +46,9 @@ WmWindow {
 
                 radius: 16
 
-                color: mouseArea.containsMouse ? Theme.colors.highlight : Theme.colors.backgroundPrimary
+                color: mouseArea.containsMouse ? Theme.color.primary : Theme.color.surface
 
-                border.color: Theme.colors.outline
+                border.color: Theme.color.outline
                 border.width: mouseArea.containsMouse ? 0 : 1
 
                 MouseArea {

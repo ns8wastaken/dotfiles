@@ -19,8 +19,7 @@ WmWindow {
         selectedIdx = 0;
     }
 
-    onWmFocused: {searchBar.focusField(); console.log("focused")}
-    onWmUnfocused: console.log("unfocused")
+    onWmFocused: searchBar.focusField()
 
     readonly property int margins: 8
     readonly property int appEntryRadius: 10
@@ -37,14 +36,14 @@ WmWindow {
     implicitWidth: Config.launcher.width + 2 * margins
     implicitHeight: column.implicitHeight + 2 * margins
 
-    color: Theme.colors.backgroundPrimary
+    color: Theme.color.surface
 
     topLeftRadius: root.margins + searchBar.radius
     topRightRadius: root.margins + searchBar.radius
     bottomLeftRadius: root.margins + root.appEntryRadius
     bottomRightRadius: root.margins + root.appEntryRadius
 
-    border.color: Theme.colors.outline
+    border.color: Theme.color.outline
     border.width: 1
 
     // Search bar + app list
@@ -63,15 +62,15 @@ WmWindow {
             Layout.fillWidth: true
             Layout.preferredHeight: 40
 
-            backgroundColor: Theme.colors.backgroundPrimary
-            borderColor: Theme.colors.outline
+            backgroundColor: Theme.color.surface
+            borderColor: Theme.color.outline
             borderWidth: 1
 
-            iconColor: Theme.colors.textPrimary
+            iconColor: Theme.color.on_background
             iconSize: Theme.fontSize.large
 
-            textColor: Theme.colors.textPrimary
-            placeholderColor: Theme.colors.textPrimary
+            textColor: Theme.color.on_background
+            placeholderColor: Theme.color.on_background
             placeholderText: "Run program..."
 
             textFont.family: Theme.fonts.sans

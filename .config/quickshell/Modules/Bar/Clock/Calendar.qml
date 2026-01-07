@@ -33,7 +33,7 @@ ColumnLayout {
             font.pixelSize: Theme.fontSize.small
             font.weight: 500
 
-            color: Theme.colors.textPrimary
+            color: Theme.color.on_background
         }
     }
 
@@ -62,7 +62,7 @@ ColumnLayout {
             y: todayItem?.y ?? 0
 
             radius: Math.min(implicitWidth, implicitHeight) / 2
-            color: Theme.colors.highlight
+            color: Theme.color.primary
 
             visible: todayItem
         }
@@ -97,7 +97,7 @@ ColumnLayout {
                     font.family: Theme.fonts.sans
                     font.pixelSize: Theme.fontSize.small
 
-                    color: Theme.colors.textPrimary
+                    color: Theme.color.on_background
                     opacity: monthGridEntry.model.month === monthGrid.month ? 1 : 0.4
                 }
             }

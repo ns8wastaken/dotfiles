@@ -6,10 +6,10 @@ import qs.Theme
 Rectangle {
     id: root
 
-    color: Theme.colors.backgroundPrimary
+    color: Theme.color.surface
     radius: 8
 
-    border.color: Theme.colors.outline
+    border.color: Theme.color.outline
     border.width: 1
 
     // Left

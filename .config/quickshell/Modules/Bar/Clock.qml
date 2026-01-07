@@ -19,7 +19,7 @@ Item {
 
         anchors.centerIn: parent
 
-        color: Theme.colors.textPrimary
+        color: Theme.color.on_background
 
         font.pixelSize: Theme.fontSize.normal
         font.family: Theme.fonts.sans
@@ -36,9 +36,9 @@ Item {
         background: Rectangle {
             id: popupBg
 
-            color: Theme.colors.backgroundPrimary
+            color: Theme.color.surface
             radius: 16
-            border.color: Theme.colors.outline
+            border.color: Theme.color.outline
             border.width: 1
         }
 
@@ -59,13 +59,13 @@ Item {
                 LucideIcon {
                     source: "calendar"
                     size: Theme.fontSize.normal
-                    color: Theme.colors.textPrimary
+                    color: Theme.color.on_background
                 }
 
                 Text {
                     text: TimeService.format("dddd, MMMM d, yyyy")
 
-                    color: Theme.colors.textPrimary
+                    color: Theme.color.on_background
 
                     font.family: Theme.fonts.sans
                     font.pixelSize: Theme.fontSize.normal
@@ -78,7 +78,7 @@ Item {
                 Layout.preferredWidth: calendar.implicitWidth
                 Layout.preferredHeight: calendar.implicitHeight
 
-                color: Theme.colors.backgroundSecondary
+                color: Theme.color.surface_container
                 radius: popupBg.radius - popup.padding
 
                 Calendar { id: calendar }

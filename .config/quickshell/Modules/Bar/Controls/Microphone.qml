@@ -1,7 +1,6 @@
 import QtQuick
 import qs.Services
 import qs.Components
-import qs.Config
 import qs.Theme
 
 Item {
@@ -25,7 +24,8 @@ Item {
 
         source: AudioService.source.muted ? "mic-off" : "mic";
 
-        color: AudioService.source.muted ? Theme.colors.textDisabled : Theme.colors.textPrimary
         size: Theme.fontSize.normal
+        color: Theme.color.on_primary_container
+        opacity: AudioService.source.muted ? 0.38 : 1.0
     }
 }

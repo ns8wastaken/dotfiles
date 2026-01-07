@@ -30,9 +30,9 @@ Popup {
     popupType: Popup.Window
 
     background: Rectangle {
-        color: Theme.colors.backgroundPrimary
+        color: Theme.color.surface
         radius: 12
-        border.color: Theme.colors.outline
+        border.color: Theme.color.outline
         border.width: 1
     }
 
@@ -87,7 +87,7 @@ Popup {
                 width: parent.width - 20
                 height: 1
 
-                color: Theme.colors.surfaceVariant
+                color: Theme.color.primary_container
             }
 
             // Button
@@ -98,13 +98,13 @@ Popup {
 
                 visible: !trayEntry.isSeparator
 
-                color: mouseArea.containsMouse ? Theme.colors.highlight : "transparent"
+                color: mouseArea.containsMouse ? Theme.color.primary : "transparent"
 
                 radius: 8
 
                 property color hoverTextColor: mouseArea.containsMouse
-                    ? Theme.colors.textDark
-                    : Theme.colors.textPrimary;
+                    ? Theme.color.on_primary
+                    : Theme.color.on_background;
 
                 RowLayout {
                     anchors.fill: parent
@@ -120,7 +120,7 @@ Popup {
 
                         color: trayEntry?.modelData?.enabled
                             ? button.hoverTextColor
-                            : Theme.colors.textDisabled;
+                            : button.hoverTextColor.alpha(0.38);
 
                         font.family: Theme.fonts.sans
                         font.pixelSize: Theme.fontSize.small
@@ -137,7 +137,7 @@ Popup {
                         Layout.preferredWidth: 16
                         Layout.preferredHeight: 16
 
-                        source: trayEntry?.modelData?.icon ?? ""
+                        source: trayEntry?.modelData?.icon ?? Qt.resolvedUrl("")
 
                         fillMode: Image.PreserveAspectFit
                     }

@@ -33,7 +33,7 @@ Singleton {
         proc.command = [
             "./set_wallpaper.sh",
             "-w", wall,
-            "-t", 'wallust run "$WALLPAPER" -u -q'
+            "-t", 'matugen image $WALLPAPER'
         ];
         proc.running = true;
     }
