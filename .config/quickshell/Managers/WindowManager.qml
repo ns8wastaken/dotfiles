@@ -42,9 +42,12 @@ Singleton {
 
     function _focusLoader(loader: WmLoader) {
         loader.focus = true;
-        // TODO: make sure status === Loader.ready or something
-        loader.item.focused = true;
-        loader.item.wmFocused();
+        loader.focused = true;
+    }
+
+    function _unfocusLoader(loader: WmLoader) {
+        loader.focus = false;
+        loader.focused = false;
     }
 
     function _focusLastOpen() {
@@ -74,6 +77,7 @@ Singleton {
         if (!loader) return;
 
         _closeLoader(loader);
+        _unfocusLoader(loader);
 
         // Remove from history
         const idx = focusHistory.indexOf(handle);
@@ -95,13 +99,12 @@ Singleton {
      * --------------------------- */
     function focus(handle: string) {
         const loader = handles[handle];
-        if (!loader|| !loader.active) return;
+        if (!loader || !loader.active) return;
 
         // Unfocus the old handle
         if (focusedHandle && handles[focusedHandle]) {
             const old = handles[focusedHandle];
-            old.item.focused = false;
-            old.item.wmUnfocused();
+            _unfocusLoader(old);
         }
 
         focusedHandle = handle;

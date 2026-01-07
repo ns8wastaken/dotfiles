@@ -32,7 +32,7 @@ Singleton {
 
     FileView {
         // TODO: allow the user to use a premade theme
-        path: Quickshell.shellPath("Assets/Themes/Wallust/Theme.json")
+        path: Quickshell.shellPath("Assets/Themes/Dynamic/Colors.json")
 
         watchChanges: true
         onFileChanged: reload()

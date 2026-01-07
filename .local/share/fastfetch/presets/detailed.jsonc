@@ -75,11 +75,11 @@
         },
         {
             "type": "shell",
-            "key": "└ ",
+            "key": "├ ",
             "keyColor": "yellow"
         },
 
-        "break",
+        // "break",
 
         {
             "type": "de",

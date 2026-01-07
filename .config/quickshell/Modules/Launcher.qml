@@ -19,7 +19,8 @@ WmWindow {
         selectedIdx = 0;
     }
 
-    onWmFocused: searchBar.focusField()
+    onWmFocused: {searchBar.focusField(); console.log("focused")}
+    onWmUnfocused: console.log("unfocused")
 
     readonly property int margins: 8
     readonly property int appEntryRadius: 10

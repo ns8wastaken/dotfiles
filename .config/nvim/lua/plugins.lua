@@ -12,7 +12,7 @@ return {
     "matze/vim-move",
     "junegunn/vim-easy-align",
     { "nvim-tree/nvim-web-devicons", opts = {} },
-    { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+    { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" }, opts = {} },
     "MagicDuck/grug-far.nvim",
 
     themes

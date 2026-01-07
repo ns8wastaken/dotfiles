@@ -10,7 +10,7 @@ Loader {
     property bool focused: false
 
     property bool draggable: false
-    property bool resetPosition: true // TODO
+    property bool resetPosition: true // TODO:
 
     Component.onCompleted: {
         active = false;
@@ -25,6 +25,8 @@ Loader {
 
     visible: active
     focus: active
+    // TODO: fix the top window getting hidden behind others while closing anim plays
+    z: focused ? 1000 : 0
 
     /* ---- Animation ---- */
     opacity: 0
@@ -68,9 +70,20 @@ Loader {
     function toggle() { state === "" ? open() : close(); }
 
     /* ---- Delegated Updates ---- */
+    onFocusedChanged: {
+        if (status === Loader.Ready) {
+            item.focused = focused;
+            if (focused)
+                item.wmFocused();
+            else
+                item.wmUnfocused();
+        }
+    }
+
     onStatusChanged: {
         if (status === Loader.Ready) {
             item._handle = handle;
+            item.focused = focused;
         }
     }
 }

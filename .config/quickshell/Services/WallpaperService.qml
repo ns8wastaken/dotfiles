@@ -5,14 +5,13 @@ import Quickshell.Io
 import QtQuick
 import Qt.labs.folderlistmodel
 import qs.Utils
+import qs.Config
 
 Singleton {
     id: root
 
-    // TODO: make a setting for this
-    readonly property string wallpaperDir: Paths.resolved("~/wallpapers")
+    readonly property string wallpaperDir: Paths.resolved(Config.wallpaperDir)
     property alias wallpapers: wallpapersModel
-    property string _path: ""
 
     FolderListModel {
         id: wallpapersModel
@@ -25,13 +24,17 @@ Singleton {
     Process {
         id: proc
         workingDirectory: Quickshell.shellPath("Programs")
-        command: ["./set_wallpaper.sh", root._path]
-        stdout: StdioCollector {}
+        stdout: null
     }
 
     function setWallpaper(path: string) {
-        // TODO: perhaps find a better way to do this without using _path
-        _path = Paths.toLocalFile(path);
+        const wall = Paths.toLocalFile(path);
+
+        proc.command = [
+            "./set_wallpaper.sh",
+            "-w", wall,
+            "-t", 'wallust run "$WALLPAPER" -u -q'
+        ];
         proc.running = true;
     }
 }

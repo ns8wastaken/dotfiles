@@ -28,5 +28,5 @@ palette = "dark"
 # target: ABSOLUTE path in which to place a file with generated templated values.
 # ¡ If either one is a directory, then both SHOULD be one. !
 # zathura = { template = 'zathura', target = '~/.config/zathura/zathurarc' }
-quickshell = { template = 'quickshell.json', target = '~/.config/quickshell/Assets/Themes/Wallust/Theme.json' }
+quickshell = { template = 'quickshell.json', target = '~/.config/quickshell/Assets/Themes/Dynamic/Colors.json' }
 hyprland = { template = 'hyprland.conf', target = '~/.config/hypr/colors.conf' }
