@@ -19,7 +19,7 @@ Item {
 
         anchors.centerIn: parent
 
-        color: Theme.color.on_background
+        color: Theme.color.on_surface
 
         font.pixelSize: Theme.fontSize.normal
         font.family: Theme.fonts.sans
@@ -59,13 +59,13 @@ Item {
                 LucideIcon {
                     source: "calendar"
                     size: Theme.fontSize.normal
-                    color: Theme.color.on_background
+                    color: Theme.color.on_surface
                 }
 
                 Text {
                     text: TimeService.format("dddd, MMMM d, yyyy")
 
-                    color: Theme.color.on_background
+                    color: Theme.color.on_surface
 
                     font.family: Theme.fonts.sans
                     font.pixelSize: Theme.fontSize.normal

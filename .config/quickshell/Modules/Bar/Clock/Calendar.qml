@@ -33,7 +33,7 @@ ColumnLayout {
             font.pixelSize: Theme.fontSize.small
             font.weight: 500
 
-            color: Theme.color.on_background
+            color: Theme.color.on_surface
         }
     }
 
@@ -97,7 +97,7 @@ ColumnLayout {
                     font.family: Theme.fonts.sans
                     font.pixelSize: Theme.fontSize.small
 
-                    color: Theme.color.on_background
+                    color: Theme.color.on_surface
                     opacity: monthGridEntry.model.month === monthGrid.month ? 1 : 0.4
                 }
             }

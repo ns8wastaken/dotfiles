@@ -50,7 +50,7 @@ Rectangle {
         LucideIcon {
             source: "bell-ring"
             size: row.height - 2 * Config.notifications.imageMargins
-            color: Theme.color.on_background
+            color: Theme.color.on_surface
         }
     }
 
@@ -89,7 +89,7 @@ Rectangle {
                 font.pixelSize: Theme.fontSize.normal
                 font.bold: true
 
-                color: Theme.color.on_background
+                color: Theme.color.on_surface
 
                 elide: Text.ElideRight
             }
@@ -105,7 +105,7 @@ Rectangle {
                 font.family: Theme.fonts.sans
                 font.pixelSize: Theme.fontSize.small
 
-                color: Theme.color.on_background
+                color: Theme.color.on_surface
 
                 maximumLineCount: 2
                 wrapMode: Text.WrapAtWordBoundaryOrAnywhere

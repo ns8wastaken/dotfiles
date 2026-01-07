@@ -65,7 +65,7 @@ Rectangle {
 
             color: root.isSelected
                 ? Theme.color.on_primary
-                : Theme.color.on_background;
+                : Theme.color.on_surface;
 
             elide: Text.ElideRight
         }

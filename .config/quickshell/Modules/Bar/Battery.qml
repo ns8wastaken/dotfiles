@@ -28,7 +28,7 @@ Pill {
 
             anchors.verticalCenter: parent.verticalCenter
 
-            color: Theme.color.on_background
+            color: Theme.color.on_surface
             size: Theme.fontSize.normal
         }
 
@@ -40,7 +40,7 @@ Pill {
             font.pixelSize: Theme.fontSize.small
             font.family: Theme.fonts.sans
 
-            color: Theme.color.on_background
+            color: Theme.color.on_surface
         }
     }
 }

@@ -51,12 +51,12 @@ WmWindow {
             borderColor: Theme.color.outline
             borderWidth: 1
 
-            iconColor: Theme.color.on_background
+            iconColor: Theme.color.on_surface
             iconSize: Theme.fontSize.large
 
-            placeholderColor: Theme.color.on_background
+            placeholderColor: Theme.color.on_surface
             placeholderText: "Search wallpapers..."
-            textColor: Theme.color.on_background
+            textColor: Theme.color.on_surface
 
             textFont.family: Theme.fonts.sans
             textFont.pixelSize: Theme.fontSize.normal

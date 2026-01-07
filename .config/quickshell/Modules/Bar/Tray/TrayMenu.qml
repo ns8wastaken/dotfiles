@@ -104,7 +104,7 @@ Popup {
 
                 property color hoverTextColor: mouseArea.containsMouse
                     ? Theme.color.on_primary
-                    : Theme.color.on_background;
+                    : Theme.color.on_surface;
 
                 RowLayout {
                     anchors.fill: parent
@@ -118,9 +118,8 @@ Popup {
 
                         text: trayEntry?.modelData?.text ?? ""
 
-                        color: trayEntry?.modelData?.enabled
-                            ? button.hoverTextColor
-                            : button.hoverTextColor.alpha(0.38);
+                        color: button.hoverTextColor
+                        opacity: trayEntry?.modelData?.enabled ? 1.0 : 0.38
 
                         font.family: Theme.fonts.sans
                         font.pixelSize: Theme.fontSize.small

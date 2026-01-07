@@ -12,17 +12,6 @@ Singleton {
         console.log("Loaded fonts:", FontsLoader.families);
     }
 
-    function getWorkspaceColor(modelData): color {
-        if (modelData.active) return color.primary;
-        if (modelData.urgent) return color.error;
-        return color.primary_container;
-    }
-
-    function getWorkspaceTextColor(modelData): color {
-        if (modelData.active) return color.on_primary;
-        return color.on_surface;
-    }
-
     property alias color:    themeAdapter.color
     property alias palette:  themeAdapter.palette
 

@@ -10,6 +10,18 @@ Row {
 
     spacing: Theme.spacing.normal
 
+    function getWorkspaceColor(modelData: HyprlandWorkspace): color {
+        if (modelData.active) return Theme.color.primary;
+        if (modelData.urgent) return Theme.color.error;
+        return Theme.color.primary_container;
+    }
+
+    function getWorkspaceTextColor(modelData: HyprlandWorkspace): color {
+        if (modelData.active) return Theme.color.on_primary;
+        if (modelData.urgent) return Theme.color.on_error;
+        return Theme.color.on_primary_container;
+    }
+
     Repeater {
         model: Hyprland.workspaces
 
@@ -20,7 +32,7 @@ Row {
             width: (modelData.active ? 40 : 20) + workspaceLabel.width
             height: 18
             radius: 40
-            color: Theme.getWorkspaceColor(modelData)
+            color: root.getWorkspaceColor(modelData)
 
             // Scaling animation
             Behavior on width {
@@ -47,7 +59,7 @@ Row {
 
                 anchors.centerIn: parent
 
-                color: Theme.getWorkspaceTextColor(parent.modelData)
+                color: root.getWorkspaceTextColor(parent.modelData)
 
                 font.family: Theme.fonts.japanese
                 font.pixelSize: Theme.fontSize.small

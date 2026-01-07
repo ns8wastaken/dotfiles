@@ -33,8 +33,8 @@ WmWindow {
     property int selectedIdx: 0
     readonly property DesktopEntry selectedEntry: entries[selectedIdx] ?? null
 
-    implicitWidth: Config.launcher.width + 2 * margins
-    implicitHeight: column.implicitHeight + 2 * margins
+    width: Config.launcher.width
+    height: column.implicitHeight + 2 * margins
 
     color: Theme.color.surface
 
@@ -66,11 +66,11 @@ WmWindow {
             borderColor: Theme.color.outline
             borderWidth: 1
 
-            iconColor: Theme.color.on_background
+            iconColor: Theme.color.on_surface
             iconSize: Theme.fontSize.large
 
-            textColor: Theme.color.on_background
-            placeholderColor: Theme.color.on_background
+            textColor: Theme.color.on_surface
+            placeholderColor: Theme.color.on_surface
             placeholderText: "Run program..."
 
             textFont.family: Theme.fonts.sans
