@@ -1,14 +1,8 @@
 import Quickshell
 import QtQuick
 import qs.Widgets
-import qs.Config
 
 Scope {
-    FontLoader {
-        id: bgTextFont
-        source: Config.shellFont("HanyiSentyScholar.ttf")
-    }
-
     BackgroundText {
         anchors {
             right: true
@@ -21,8 +15,8 @@ Scope {
         }
 
         text.text: "吃\n喝\n拉\n撒\n睡"
-        text.color: "#ffffff"
-        text.font.family: bgTextFont.name
+        text.color: "#000000"
+        text.font.family: "HanyiSentyScholar"
         text.font.pointSize: 40
     }
 
@@ -38,8 +32,8 @@ Scope {
         }
 
         text.text: "我\n操\n你\n妈"
-        text.color: "#ffffff"
-        text.font.family: bgTextFont.name
+        text.color: "#000000"
+        text.font.family: "HanyiSentyScholar"
         text.font.pointSize: 40
     }
 
@@ -55,8 +49,8 @@ Scope {
         }
 
         text.text: "自\n强\n不\n息"
-        text.color: "#ffffff"
-        text.font.family: bgTextFont.name
+        text.color: "#000000"
+        text.font.family: "HanyiSentyScholar"
         text.font.pointSize: 40
     }
 }

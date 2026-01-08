@@ -2,6 +2,7 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import Quickshell.Hyprland
+import qs.Components
 import qs.Config
 import qs.Theme
 
@@ -26,12 +27,11 @@ Row {
         model: Hyprland.workspaces
 
         // Workspace button
-        delegate: Rectangle {
+        delegate: Pill {
             required property HyprlandWorkspace modelData
 
             width: (modelData.active ? 40 : 20) + workspaceLabel.width
             height: 18
-            radius: 40
             color: root.getWorkspaceColor(modelData)
 
             // Scaling animation

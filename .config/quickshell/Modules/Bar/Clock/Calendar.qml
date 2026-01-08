@@ -74,7 +74,7 @@ ColumnLayout {
 
             month: TimeService.date.getMonth()
             year: TimeService.date.getFullYear()
-            locale: Qt.locale("zh_CN")
+            locale: Qt.locale()
 
             delegate: Item {
                 id: monthGridEntry
@@ -97,7 +97,7 @@ ColumnLayout {
                     font.family: Theme.fonts.sans
                     font.pixelSize: Theme.fontSize.small
 
-                    color: Theme.color.on_surface
+                    color: monthGridEntry.model.today ? Theme.color.on_primary : Theme.color.on_surface
                     opacity: monthGridEntry.model.month === monthGrid.month ? 1 : 0.4
                 }
             }
