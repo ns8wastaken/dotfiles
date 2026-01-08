@@ -1,7 +1,7 @@
 import QtQuick
-import Quickshell.Io
 import qs.Components
 import qs.Widgets
+import qs.Services
 import qs.Theme
 
 Pill {
@@ -10,31 +10,9 @@ Pill {
     width: textRow.width + 12
     height: 18
 
-    color: Theme.colors.surface
+    color: Theme.color.secondary_container
 
     // visible: UPower.displayDevice.isLaptopBattery
-
-    FileView {
-        id: backlightBrightness
-        watchChanges: true
-        onFileChanged: reload()
-        // WARNING: uses intel_backlight
-        path: "/sys/class/backlight/intel_backlight/brightness"
-        readonly property real value: +data()
-    }
-
-    FileView {
-        id: backlightMaxBrightness
-        watchChanges: true
-        onFileChanged: reload()
-        // WARNING: uses intel_backlight
-        path: "/sys/class/backlight/intel_backlight/max_brightness"
-        onLoaded: console.log("FILE VIEW:", data())
-        readonly property real value: +data()
-    }
-
-    readonly property real brightness: backlightBrightness.value / backlightMaxBrightness.value
-    readonly property real brightnessPercentage: brightness * 100
 
     Row {
         id: textRow
@@ -44,25 +22,25 @@ Pill {
 
         LevelLucideIcon {
             icons: ["circle-small", "sun-dim", "sun-medium", "sun"]
-            value: root.brightness
+            value: BacklightService.brightnessNormalized
             min: 0.10
             max: 0.80
 
             anchors.verticalCenter: parent.verticalCenter
 
-            color: Theme.colors.textPrimary
+            color: Theme.color.on_secondary_container
             size: Theme.fontSize.normal
         }
 
         Text {
             anchors.verticalCenter: parent.verticalCenter
 
-            text: Math.round(root.brightnessPercentage) + '%'
+            text: Math.round(BacklightService.brightnessPercentage) + '%'
 
             font.pixelSize: Theme.fontSize.small
             font.family: Theme.fonts.sans
 
-            color: Theme.colors.textPrimary
+            color: Theme.color.on_secondary_container
         }
     }
 }

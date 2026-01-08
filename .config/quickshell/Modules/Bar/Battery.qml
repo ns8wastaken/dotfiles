@@ -10,7 +10,7 @@ Pill {
     width: text.width + 12
     height: 18
 
-    color: Theme.color.primary_container
+    color: Theme.color.secondary_container
 
     visible: UPower.displayDevice.isLaptopBattery
 
@@ -40,7 +40,7 @@ Pill {
             font.pixelSize: Theme.fontSize.small
             font.family: Theme.fonts.sans
 
-            color: Theme.color.on_surface
+            color: Theme.color.on_secondary_container
         }
     }
 }
