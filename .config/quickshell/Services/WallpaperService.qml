@@ -10,8 +10,8 @@ import qs.Config
 Singleton {
     id: root
 
-    readonly property string wallpaperDir: Paths.resolved(Config.wallpaperDir)
-    property alias wallpapers: wallpapersModel
+    readonly property string wallpaperDir: FsPaths.resolved(Config.wallpaperDir)
+    readonly property alias wallpapers: wallpapersModel
 
     FolderListModel {
         id: wallpapersModel
@@ -28,11 +28,10 @@ Singleton {
     }
 
     function setWallpaper(path: string) {
-        const wall = Paths.toLocalFile(path);
-
+        const wallPath = FsPaths.toLocalFile(path);
         proc.command = [
             "./set_wallpaper.sh",
-            "-w", wall,
+            "-w", wallPath,
             "-t", 'matugen image $WALLPAPER'
         ];
         proc.running = true;

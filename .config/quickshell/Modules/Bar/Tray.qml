@@ -25,13 +25,13 @@ Row {
 
             onClicked: function(mouse) {
                 if (mouse.button === Qt.LeftButton) {
-                    if (!modelData.onlyMenu) {
+                    if (!modelData.onlyMenu)
                         modelData.activate();
-                    }
                 }
 
                 else if (mouse.button === Qt.RightButton) {
-                    root.menu.update(trayEntry);
+                    if (menuAvailable)
+                        root.menu.update(trayEntry);
                 }
             }
         }

@@ -6,7 +6,7 @@ import QtQuick
 Singleton {
     /*
      * This entire singleton is meant to operate entirely on filesystem paths,
-     * not qml url starting with file:// or anything else
+     * not urls starting with file:// or anything else
      */
 
     readonly property string home: Quickshell.env("HOME")

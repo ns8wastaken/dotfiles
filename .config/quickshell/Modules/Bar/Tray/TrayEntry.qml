@@ -1,5 +1,6 @@
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Controls
 import qs.Config
 import qs.Theme
 
@@ -55,6 +56,48 @@ Item {
                 easing.type: Easing.OutCubic
             }
         }
+    }
+
+    ToolTip {
+        id: trayEntryTooltip
+
+        visible: root.isHovered
+
+        delay: 300
+
+        text: root.modelData.tooltipTitle
+            || root.modelData.name
+            || root.modelData.id
+            || "Tray Item";
+
+        font.family: Theme.fonts.sans
+        font.pixelSize: Theme.fontSize.small
+
+        contentItem: Text {
+            anchors.centerIn: tooltipRect
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            text: trayEntryTooltip.text
+            font: trayEntryTooltip.font
+            color: Theme.color.on_surface
+        }
+
+        background: Rectangle {
+            id: tooltipRect
+
+            width: trayEntryTooltip.width + 24
+            height: trayEntryTooltip.height + 16
+
+            color: Theme.color.surface
+
+            radius: 6
+
+            border.color: Theme.color.outline
+            border.width: 1
+        }
+
+        x: (root.width - tooltipRect.width) / 2
+        y: root.height + 12
     }
 
     MouseArea {

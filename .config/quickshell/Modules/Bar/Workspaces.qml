@@ -28,11 +28,13 @@ Row {
 
         // Workspace button
         delegate: Pill {
+            id: workspaceButton
+
             required property HyprlandWorkspace modelData
 
             width: (modelData.active ? 40 : 20) + workspaceLabel.width
             height: 18
-            color: root.getWorkspaceColor(modelData)
+            color: modelData ? root.getWorkspaceColor(modelData) : "transparent"
 
             // Scaling animation
             Behavior on width {
@@ -59,11 +61,15 @@ Row {
 
                 anchors.centerIn: parent
 
-                color: root.getWorkspaceTextColor(parent.modelData)
+                color: workspaceButton.modelData
+                    ? root.getWorkspaceTextColor(workspaceButton.modelData)
+                    : "transparent";
 
                 font.family: Theme.fonts.japanese
                 font.pixelSize: Theme.fontSize.small
-                text: Icons.getWorkspaceLabel(parent.modelData.id)
+                text: workspaceButton.modelData
+                    ? Icons.getWorkspaceLabel(workspaceButton.modelData.id)
+                    : "";
 
                 Behavior on color {
                     ColorAnimation {
