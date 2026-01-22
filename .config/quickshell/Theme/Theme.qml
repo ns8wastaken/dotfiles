@@ -22,7 +22,7 @@ Singleton {
 
     FileView {
         // TODO: allow the user to use a premade theme
-        path: Quickshell.shellPath("Assets/Themes/Dynamic/Colors.json")
+        path: Quickshell.shellPath("Assets/Colors/Colors.json")
 
         watchChanges: true
         onFileChanged: reload()

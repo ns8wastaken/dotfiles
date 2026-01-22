@@ -23,17 +23,13 @@ Singleton {
 
     Process {
         id: proc
-        workingDirectory: Quickshell.shellPath("Programs")
+        workingDirectory: Quickshell.shellPath("Programs/bin")
         stdout: null
     }
 
     function setWallpaper(path: string) {
         const wallPath = FsPaths.toLocalFile(path);
-        proc.command = [
-            "./set_wallpaper.sh",
-            "-w", wallPath,
-            "-t", 'matugen image $WALLPAPER'
-        ];
+        proc.command = ["./wallpaperctl", "-w", wallPath];
         proc.running = true;
     }
 }

@@ -11,7 +11,8 @@ return {
 
             "Normal", "NormalNC", "NormalFloat", "FloatBorder",
             "MsgArea", "ModeMsg", "ErrorMsg",
-            "LineNr", "CursorLineNr", "EndOfBuffer", "SignColumn",
+            "LineNr", "CursorLineNr", "EndOfBuffer",
+            "SignColumn", "DiagnosticSignError", "DiagnosticSignWarn", "DiagnosticSignInfo", "DiagnosticSignHint", "DiagnosticSignOk",
             "VertSplit", "WinSeparator",
             "CursorLine", "StatusLine", "StatusLineNC"
         },

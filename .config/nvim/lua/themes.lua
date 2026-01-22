@@ -20,5 +20,6 @@ return {
         "aktersnurra/no-clown-fiesta.nvim",
         opts = { transparent = true },
         name = "no-clown-fiesta"
-    }
+    },
+    { "ramojus/mellifluous.nvim",         name = "mellifluous" }
 }

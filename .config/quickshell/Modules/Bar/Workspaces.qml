@@ -32,7 +32,7 @@ Row {
 
             required property HyprlandWorkspace modelData
 
-            width: (modelData.active ? 40 : 20) + workspaceLabel.width
+            width: (modelData.active ? 50 : 20) + workspaceLabel.width
             height: 18
             color: modelData ? root.getWorkspaceColor(modelData) : "transparent"
 
