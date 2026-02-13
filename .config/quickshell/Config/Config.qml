@@ -11,8 +11,7 @@ Singleton {
         return Quickshell.shellPath("Assets/Fonts/" + name);
     }
 
-    property alias wallpaperDir: adapter.wallpaperDir
-
+    property alias general:         adapter.general
     property alias bar:             adapter.bar
     property alias launcher:        adapter.launcher
     property alias notifications:   adapter.notifications
@@ -28,8 +27,7 @@ Singleton {
         adapter: JsonAdapter {
             id: adapter
 
-            property string wallpaperDir
-
+            property GeneralConfig         general: GeneralConfig {}
             property BarConfig             bar:             BarConfig {}
             property LauncherConfig        launcher:        LauncherConfig {}
             property NotificationConfig    notifications:   NotificationConfig {}

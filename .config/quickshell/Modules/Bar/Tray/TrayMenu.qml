@@ -4,6 +4,7 @@ import Quickshell
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import qs.Components
 import qs.Theme
 
 Popup {
@@ -113,7 +114,7 @@ Popup {
                     spacing: Theme.spacing.normal
 
                     // Button text
-                    Text {
+                    StyledText {
                         Layout.fillWidth: true
 
                         text: trayEntry?.modelData?.text ?? ""
@@ -121,7 +122,6 @@ Popup {
                         color: button.hoverTextColor
                         opacity: trayEntry?.modelData?.enabled ? 1.0 : 0.38
 
-                        font.family: Theme.fonts.sans
                         font.pixelSize: Theme.fontSize.small
 
                         elide: Text.ElideRight

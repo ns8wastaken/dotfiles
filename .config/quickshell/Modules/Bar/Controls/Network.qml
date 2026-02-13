@@ -10,14 +10,15 @@ Item {
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
 
-        LucideIcon {
+        MaterialIcon {
             id: text
 
             anchors.centerIn: parent
 
-            source: "wifi"
+            text: "signal_wifi_4_bar"
+
             color: Theme.color.on_secondary_container
-            size: Theme.fontSize.normal
+            font.pixelSize: Theme.fontSize.normal
         }
     }
 }

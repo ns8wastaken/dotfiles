@@ -1,6 +1,6 @@
 import QtQuick
-import Quickshell.Services.UPower
 import qs.Components
+import qs.Services
 import qs.Widgets
 import qs.Theme
 
@@ -12,7 +12,7 @@ Pill {
 
     color: Theme.color.secondary_container
 
-    visible: UPower.displayDevice.isLaptopBattery
+    visible: BatteryService.isValidBattery
 
     Row {
         id: text
@@ -20,25 +20,42 @@ Pill {
         anchors.centerIn: parent
         spacing: Theme.spacing.small
 
-        LevelLucideIcon {
-            icons: ["battery-warning", "battery", "battery-low", "battery-medium", "battery-full"]
-            value: UPower.displayDevice.percentage
+        LevelMaterialIcon {
+            readonly property list<string> normalIcons: [
+                "battery_0_bar",
+                "battery_1_bar",
+                "battery_2_bar",
+                "battery_3_bar",
+                "battery_4_bar",
+                "battery_5_bar",
+                "battery_6_bar"
+            ]
+            readonly property list<string> chargingIcons: [
+                "battery_charging_20",
+                "battery_charging_30",
+                "battery_charging_50",
+                "battery_charging_60",
+                "battery_charging_80",
+                "battery_charging_90",
+                "battery_charging_full"
+            ]
+            icons: BatteryService.isCharging ? chargingIcons : normalIcons
+            value: BatteryService.percentage
             min: 0.10
             max: 0.95
 
             anchors.verticalCenter: parent.verticalCenter
 
             color: Theme.color.on_surface
-            size: Theme.fontSize.normal
+            font.pixelSize: Theme.fontSize.normal
         }
 
-        Text {
+        StyledText {
             anchors.verticalCenter: parent.verticalCenter
 
-            text: Math.round(UPower.displayDevice.percentage * 100) + '%'
+            text: Math.round(BatteryService.percentage * 100) + '%'
 
             font.pixelSize: Theme.fontSize.small
-            font.family: Theme.fonts.sans
 
             color: Theme.color.on_secondary_container
         }

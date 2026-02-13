@@ -113,7 +113,7 @@ WmWindow {
         }
     }
 
-    Keys.onPressed: function(event) {
+    Keys.onPressed: function(event: KeyEvent) {
         if (!focused)
             return;
 

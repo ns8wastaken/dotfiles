@@ -1,9 +1,9 @@
 import Quickshell.Io
 
 JsonObject {
-    property int xsmall: 110
-    property int small: 180
+    property int faster: 110
+    property int fast: 180
     property int normal: 260
-    property int large: 420
-    property int xlarge: 700
+    property int slow: 420
+    property int slower: 700
 }

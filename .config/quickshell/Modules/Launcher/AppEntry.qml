@@ -1,6 +1,7 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import qs.Components
 import qs.Theme
 
 Rectangle {
@@ -55,12 +56,11 @@ Rectangle {
         }
 
         // App name
-        Text {
+        StyledText {
             Layout.fillWidth: true
 
             text: root.modelData.name
 
-            font.family: Theme.fonts.sans
             font.pixelSize: Theme.fontSize.small
 
             color: root.isSelected

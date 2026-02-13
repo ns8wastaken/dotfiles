@@ -46,7 +46,7 @@ ListView {
         image.mipmap: true
 
         // Wallpaper name
-        Text {
+        StyledText {
             anchors {
                 bottom: parent.bottom
                 left: parent.left
@@ -58,7 +58,6 @@ ListView {
 
             color: "#ffffff"
 
-            font.family: Theme.fonts.sans
             font.pixelSize: Theme.fontSize.smaller
 
             style: Text.Outline

@@ -1,5 +1,8 @@
 {
-    "wallpaperDir": "~/wallpapers",
+    "general": {
+        "darkMode": false,
+        "wallpaperDir": "~/wallpapers"
+    },
 
     "bar": {
         "spacing": 8,

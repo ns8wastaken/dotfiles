@@ -14,18 +14,18 @@ Loader {
 
     Component.onCompleted: {
         active = false;
-        WindowManager.register(handle, root);
+        PopupManager.register(handle, root);
     }
 
     Component.onDestruction: {
-        WindowManager.unregister(handle);
+        PopupManager.unregister(handle);
     }
 
     DragHandler { enabled: root.draggable }
 
     visible: active
     focus: active
-    // TODO: fix the top window getting hidden behind others while closing anim plays
+    // TODO: fix the top popup getting hidden behind others while closing anim plays
     z: focused ? 1000 : 0
 
     /* ---- Animation ---- */
@@ -65,8 +65,8 @@ Loader {
     }
 
     /* ---- Functions ---- */
-    function open() { WindowManager.open(handle); }
-    function close() { WindowManager.close(handle); }
+    function open() { PopupManager.open(handle); }
+    function close() { PopupManager.close(handle); }
     function toggle() { state === "" ? open() : close(); }
 
     /* ---- Delegated Updates ---- */

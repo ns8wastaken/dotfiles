@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Hyprland
 import qs.Components
+import qs.Components.Animations
 import qs.Config
 import qs.Theme
 
@@ -36,19 +37,8 @@ Row {
             height: 18
             color: modelData ? root.getWorkspaceColor(modelData) : "transparent"
 
-            // Scaling animation
-            Behavior on width {
-                NumberAnimation {
-                    duration: Theme.anim.small
-                    easing.type: Easing.InOutCubic
-                }
-            }
-
-            Behavior on color {
-                ColorAnimation {
-                    duration: Theme.anim.small
-                }
-            }
+            Behavior on width { NAnim { duration: Theme.anim.fast } }
+            Behavior on color { ColorAnimation { duration: Theme.anim.fast } }
 
             // Switch to workspace on click
             MouseArea {
@@ -56,7 +46,7 @@ Row {
                 onClicked: Hyprland.dispatch("workspace " + parent.modelData.id)
             }
 
-            Text {
+            StyledText {
                 id: workspaceLabel
 
                 anchors.centerIn: parent
@@ -71,11 +61,7 @@ Row {
                     ? Icons.getWorkspaceLabel(workspaceButton.modelData.id)
                     : "";
 
-                Behavior on color {
-                    ColorAnimation {
-                        duration: Theme.anim.small
-                    }
-                }
+                Behavior on color { CAnim { duration: Theme.anim.fast } }
             }
         }
     }

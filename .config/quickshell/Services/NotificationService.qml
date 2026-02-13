@@ -9,7 +9,7 @@ Singleton {
 
     property alias notifications: notifServer.trackedNotifications
 
-    signal notification(notification: Notification)
+    signal notification(notif: Notification)
 
     NotificationServer {
         id: notifServer
@@ -22,7 +22,7 @@ Singleton {
         persistenceSupported: false
         imageSupported: true
 
-        onNotification: function(notif) {
+        onNotification: function(notif: Notification) {
             notif.tracked = true;
             root.notification(notif);
         }

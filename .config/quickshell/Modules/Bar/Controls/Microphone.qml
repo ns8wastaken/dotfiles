@@ -12,19 +12,17 @@ Item {
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.LeftButton
 
-        onClicked: function(mouse) {
-            AudioService.source.toggleMute();
-        }
+        onClicked: AudioService.source.toggleMute()
     }
 
-    LucideIcon {
+    MaterialIcon {
         id: text
 
         anchors.centerIn: parent
 
-        source: AudioService.source.muted ? "mic-off" : "mic";
+        text: AudioService.source.muted ? "mic_off" : "mic";
 
-        size: Theme.fontSize.normal
+        font.pixelSize: Theme.fontSize.normal
         color: Theme.color.on_secondary_container
         opacity: AudioService.source.muted ? 0.38 : 1.0
     }

@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Services.Notifications
 import QtQuick
 import qs.Components
+import qs.Components.Animations
 import qs.Config
 import qs.Theme
 
@@ -47,9 +48,9 @@ Rectangle {
     // Svg Icon (used if there is no image)
     Component {
         id: fallbackIcon
-        LucideIcon {
-            source: "bell-ring"
-            size: row.height - 2 * Config.notifications.imageMargins
+        MaterialIcon {
+            text: "notifications_active"
+            font.pixelSize: row.height - 2 * Config.notifications.imageMargins
             color: Theme.color.on_surface
         }
     }
@@ -80,13 +81,11 @@ Rectangle {
             width: root.width - iconLoader.width - Config.notifications.imageMargins * 3
 
             /* ---- Title ---- */
-            Text {
+            StyledText {
                 width: parent.width
 
                 text: root.modelData?.summary ?? ""
 
-                font.family: Theme.fonts.sans
-                font.pixelSize: Theme.fontSize.normal
                 font.bold: true
 
                 color: Theme.color.on_surface
@@ -95,14 +94,13 @@ Rectangle {
             }
 
             /* ---- Body ---- */
-            Text {
+            StyledText {
                 visible: text !== ""
 
                 width: parent.width
 
                 text: root.modelData?.body ?? ""
 
-                font.family: Theme.fonts.sans
                 font.pixelSize: Theme.fontSize.small
 
                 color: Theme.color.on_surface
@@ -120,26 +118,24 @@ Rectangle {
         onTriggered: root.expire()
     }
 
-    NumberAnimation {
+    NAnim {
         id: slideOutExpire
         target: root
         property: "x"
         from: 0
         to: root.width
-        duration: Theme.anim.small
-        easing.type: Easing.InCubic
+        duration: Theme.anim.fast
         onStopped: root.modelData.expire()
         running: false
     }
 
-    NumberAnimation {
+    NAnim {
         id: slideOutDismiss
         target: root
         property: "x"
         from: 0
         to: root.width
-        duration: Theme.anim.small
-        easing.type: Easing.InCubic
+        duration: Theme.anim.fast
         onStopped: root.modelData.dismiss()
         running: false
     }

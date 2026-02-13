@@ -23,7 +23,7 @@ Row {
                 root.menu
             );
 
-            onClicked: function(mouse) {
+            onClicked: function(mouse: MouseEvent) {
                 if (mouse.button === Qt.LeftButton) {
                     if (!modelData.onlyMenu)
                         modelData.activate();

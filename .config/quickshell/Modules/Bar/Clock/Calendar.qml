@@ -3,6 +3,9 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQml
+import qs.Components
+import qs.Components.Animations
 import qs.Services
 import qs.Theme
 
@@ -19,7 +22,7 @@ ColumnLayout {
 
         locale: monthGrid.locale
 
-        delegate: Text {
+        delegate: StyledText {
             id: dayOfWeekText
 
             required property var model
@@ -29,7 +32,6 @@ ColumnLayout {
             horizontalAlignment: Text.AlignHCenter
             text: model.shortName
 
-            font.family: Theme.fonts.sans
             font.pixelSize: Theme.fontSize.small
             font.weight: 500
 
@@ -53,7 +55,7 @@ ColumnLayout {
             readonly property Item todayItem: monthGrid
                 .contentItem
                 .children
-                .find(c => c.model.today) ?? null;
+                .find(c => c.isToday) ?? null;
 
             implicitWidth: todayItem?.implicitWidth ?? 0
             implicitHeight: todayItem?.implicitHeight ?? 0
@@ -65,6 +67,9 @@ ColumnLayout {
             color: Theme.color.primary
 
             visible: todayItem
+
+            Behavior on x { NAnim {} }
+            Behavior on y { NAnim {} }
         }
 
         MonthGrid {
@@ -80,11 +85,13 @@ ColumnLayout {
                 id: monthGridEntry
 
                 required property var model
+                readonly property bool isToday: (TimeService.date.getDate() == model.date.getDate())
+                    && (TimeService.date.getMonth() == model.date.getMonth());
 
                 implicitWidth: implicitHeight
                 implicitHeight: monthGridEntryText.height + 4 * 2
 
-                Text {
+                StyledText {
                     id: monthGridEntryText
 
                     anchors.centerIn: parent
@@ -94,11 +101,17 @@ ColumnLayout {
 
                     text: monthGridEntry.model.day
 
-                    font.family: Theme.fonts.sans
                     font.pixelSize: Theme.fontSize.small
 
-                    color: monthGridEntry.model.today ? Theme.color.on_primary : Theme.color.on_surface
+                    color: monthGridEntry.isToday ? Theme.color.on_primary : Theme.color.on_surface
                     opacity: monthGridEntry.model.month === monthGrid.month ? 1 : 0.4
+
+                    Behavior on color {
+                        ColorAnimation {
+                            duration: Theme.anim.normal
+                            easing.type: Easing.InOutCubic
+                        }
+                    }
                 }
             }
         }

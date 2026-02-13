@@ -10,15 +10,15 @@ Pill {
 
     color: Theme.color.secondary_container
 
-    LucideIcon {
+    MaterialIcon {
         id: text
 
         anchors.centerIn: parent
 
-        source: "ellipsis"
+        text: "more_horiz"
 
         color: Theme.color.on_secondary_container
-        size: Theme.fontSize.normal
+        font.pixelSize: Theme.fontSize.normal
     }
 
     MouseArea {

@@ -1,16 +1,16 @@
 {
     "anim": {
-        "xsmall": 110,
-        "small": 180,
+        "faster": 110,
+        "fast": 180,
         "normal": 260,
-        "large": 420,
-        "xlarge": 700
+        "slow": 420,
+        "slower": 700
     },
 
     "fonts": {
         "sans": "Itim",
         "mono": "Cascadia Code",
-        "icon": "Material Icons Round",
+        "icon": "Material Symbols Rounded",
         "clock": "Itim",
         "japanese": "KAWAIITEGAKIMOJI",
         "cute": "Pacifico"

@@ -1,6 +1,7 @@
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
+import qs.Components.Animations
 import qs.Config
 import qs.Theme
 
@@ -32,30 +33,15 @@ Item {
 
         opacity: status === Image.Ready ? 1 : 0
 
-        Behavior on opacity {
-            NumberAnimation {
-                duration: Theme.anim.normal
-                easing.type: Easing.OutCubic
-            }
-        }
+        Behavior on opacity { NAnim { easing.type: Easing.OutCubic } }
 
         // Hover scale animation
         scale: root.isHovered ? 1.15 : 1.0
-        Behavior on scale {
-            NumberAnimation {
-                duration: Theme.anim.small
-                easing.type: Easing.OutCubic
-            }
-        }
+        Behavior on scale { NAnim { duration: Theme.anim.fast; easing.type: Easing.OutCubic } }
 
         // Subtle rotation on hover
         rotation: root.isHovered ? 5 : 0
-        Behavior on rotation {
-            NumberAnimation {
-                duration: Theme.anim.small
-                easing.type: Easing.OutCubic
-            }
-        }
+        Behavior on rotation { NAnim { duration: Theme.anim.faster } }
     }
 
     ToolTip {
@@ -109,7 +95,7 @@ Item {
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-        onClicked: function(event) {
+        onClicked: function(event: MouseEvent) {
             root.clicked(event);
         }
     }

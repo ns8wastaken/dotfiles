@@ -10,7 +10,7 @@ import qs.Config
 Singleton {
     id: root
 
-    readonly property string wallpaperDir: FsPaths.resolved(Config.wallpaperDir)
+    readonly property string wallpaperDir: FsPaths.resolved(Config.general.wallpaperDir)
     readonly property alias wallpapers: wallpapersModel
 
     FolderListModel {

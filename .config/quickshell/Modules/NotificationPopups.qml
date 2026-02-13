@@ -17,7 +17,7 @@ ListView {
             PropertyAnimation {
                 property: "x"
                 from: root.implicitWidth
-                duration: Theme.anim.small
+                duration: Theme.anim.fast
                 easing.type: Easing.InOutCubic
             }
             PropertyAnimation {
@@ -33,7 +33,7 @@ ListView {
     addDisplaced: Transition {
         PropertyAnimation {
             property: "y"
-            duration: Theme.anim.small
+            duration: Theme.anim.fast
             easing.type: Easing.InOutCubic
         }
     }

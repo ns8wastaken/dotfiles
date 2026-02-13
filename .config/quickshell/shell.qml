@@ -4,8 +4,9 @@
 
 import Quickshell
 import Quickshell.Wayland
-import Quickshell.Hyprland
 import QtQuick
+import qs.Components
+import qs.Components.Effects
 import qs.Managers
 import qs.Managers.Types
 import qs.Modules
@@ -49,11 +50,9 @@ ShellRoot {
 
         color: "transparent"
 
-        PanelWindow {
+        ExclusiveZone {
             id: barExclusiveZone
             anchors.top: true
-            implicitWidth: 0
-            implicitHeight: 0
             // -4 because its hyprland's outer gap
             exclusiveZone: bar.height + bar.anchors.topMargin + bar.anchors.bottomMargin - 4
         }
@@ -72,6 +71,7 @@ ShellRoot {
                 rightMargin: Config.bar.margins.right
             }
         }
+        PanelShadow { target: bar }
 
         NotificationPopups {
             anchors {
@@ -114,17 +114,17 @@ ShellRoot {
             sourceComponent: WLogout {}
         }
 
-        GlobalShortcut {
+        CustomShortcut {
             name: "launcher"
             onPressed: launcher.toggle()
         }
 
-        GlobalShortcut {
+        CustomShortcut {
             name: "wallpaperPicker"
             onPressed: wallpaperPicker.toggle()
         }
 
-        GlobalShortcut {
+        CustomShortcut {
             name: "wlogout"
             onPressed: wlogout.toggle()
         }

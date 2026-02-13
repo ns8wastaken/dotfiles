@@ -20,8 +20,16 @@ Pill {
         anchors.centerIn: parent
         spacing: Theme.spacing.small
 
-        LevelLucideIcon {
-            icons: ["circle-small", "sun-dim", "sun-medium", "sun"]
+        LevelMaterialIcon {
+            icons: [
+                "brightness_1",
+                "brightness_2",
+                "brightness_3",
+                "brightness_4",
+                "brightness_5",
+                "brightness_6",
+                "brightness_7"
+            ]
             value: BacklightService.brightnessNormalized
             min: 0.10
             max: 0.80
@@ -29,16 +37,15 @@ Pill {
             anchors.verticalCenter: parent.verticalCenter
 
             color: Theme.color.on_secondary_container
-            size: Theme.fontSize.normal
+            font.pixelSize: Theme.fontSize.normal
         }
 
-        Text {
+        StyledText {
             anchors.verticalCenter: parent.verticalCenter
 
             text: Math.round(BacklightService.brightnessPercentage) + '%'
 
             font.pixelSize: Theme.fontSize.small
-            font.family: Theme.fonts.sans
 
             color: Theme.color.on_secondary_container
         }

@@ -3,6 +3,8 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import qs.Components
+import qs.Components.Animations
 import qs.Managers.Types
 import qs.Config
 import qs.Theme
@@ -80,15 +82,10 @@ WmWindow {
                     antialiasing: true
                     mipmap: true
 
-                    Behavior on scale {
-                        NumberAnimation {
-                            duration: Theme.anim.xsmall
-                            easing.type: Easing.InOutQuad
-                        }
-                    }
+                    Behavior on scale { NAnim { duration: Theme.anim.faster } }
                 }
 
-                Text {
+                StyledText {
                     anchors {
                         bottom: logoutButton.bottom
                         bottomMargin: 20
@@ -106,7 +103,7 @@ WmWindow {
         }
     }
 
-    Keys.onPressed: function(event) {
+    Keys.onPressed: function(event: KeyEvent) {
         if (!focused)
             return;
 

@@ -1,4 +1,5 @@
 import QtQuick
+import qs.Components
 import qs.Services
 import qs.Widgets
 import qs.Theme
@@ -12,11 +13,9 @@ Item {
         cursorShape: Qt.PointingHandCursor
         acceptedButtons: Qt.LeftButton
 
-        onClicked: function(mouse) {
-            AudioService.sink.toggleMute();
-        }
+        onClicked: AudioService.sink.toggleMute()
 
-        onWheel: function(event) {
+        onWheel: function(event: WheelEvent) {
             if (event.angleDelta.y > 0) {
                 AudioService.sink.increaseVolume();
             } else if (event.angleDelta.y < 0) {
@@ -32,20 +31,20 @@ Item {
         anchors.centerIn: parent
         spacing: Theme.spacing.small
 
-        LevelLucideIcon {
-            icons: ["volume-off", "volume", "volume-1", "volume-2"]
+        LevelMaterialIcon {
+            icons: ["volume_off", "volume_mute", "volume_down", "volume_up"]
             value: AudioService.sink.volume
             min: 0.05
             max: 0.95
 
             anchors.verticalCenter: parent.verticalCenter
 
-            size: Theme.fontSize.normal
             color: Theme.color.on_secondary_container
             opacity: AudioService.sink.muted ? 0.38 : 1.0
+            font.pixelSize: Theme.fontSize.normal
         }
 
-        Text {
+        StyledText {
             // TODO: add a setting for this
             visible: true
 
@@ -55,7 +54,6 @@ Item {
             color: Theme.color.on_secondary_container
             opacity: AudioService.sink.muted ? 0.38 : 1.0
 
-            font.family: Theme.fonts.sans
             font.pixelSize: Theme.fontSize.small
         }
     }
