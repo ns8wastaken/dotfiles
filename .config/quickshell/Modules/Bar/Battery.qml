@@ -39,6 +39,7 @@ Pill {
                 "battery_charging_90",
                 "battery_charging_full"
             ]
+
             icons: BatteryService.isCharging ? chargingIcons : normalIcons
             value: BatteryService.percentage
             min: 0.10
