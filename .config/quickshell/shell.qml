@@ -78,8 +78,8 @@ ShellRoot {
                 right: parent.right
                 top: parent.top
                 // +4 because its hyprland's outer gap
-                topMargin: barExclusiveZone.exclusiveZone + Config.notifications.marginTop + 4
-                rightMargin: Config.notifications.marginRight
+                topMargin: barExclusiveZone.exclusiveZone + Config.notifs.marginTop + 4
+                rightMargin: Config.notifs.marginRight
             }
         }
 
@@ -138,6 +138,8 @@ ShellRoot {
 
     Loader {
         active: true
-        sourceComponent: BackgroundText {}
+        sourceComponent: BackgroundText {
+            col: "#ffffff"
+        }
     }
 }

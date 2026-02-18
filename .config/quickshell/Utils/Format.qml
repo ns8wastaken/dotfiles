@@ -9,9 +9,9 @@ Singleton {
         const min = Math.floor(s / 60) % 60;
 
         let comps = [];
-        if (day > 0) comps.push(day + 'd');
-        if (hr  > 0) comps.push(hr  + 'h');
-        if (min > 0) comps.push(min + 'm');
+        if (day > 0) comps.push(`${day}d`);
+        if (hr  > 0) comps.push(`${hr}h`);
+        if (min > 0) comps.push(`${min}m`);
 
         return comps.join(' ');
     }

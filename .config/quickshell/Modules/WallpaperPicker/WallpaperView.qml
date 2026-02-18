@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import QtQuick
+import Quickshell.Widgets
 import qs.Components
 import qs.Config
 import qs.Theme
@@ -27,7 +28,7 @@ ListView {
     flickDeceleration: 2000
 
     // Wallpaper
-    delegate: RoundedImage {
+    delegate: ClippingRectangle {
         id: wallpaperEntry
 
         required property int index
@@ -39,11 +40,13 @@ ListView {
 
         radius: 16
 
-        image.source: fileUrl
-        image.sourceSize.height: Config.wallpaperPicker.wallpaperHeight
-        image.fillMode: Image.PreserveAspectCrop
-        image.asynchronous: true
-        image.mipmap: true
+        Image {
+            source: wallpaperEntry.fileUrl
+            sourceSize.height: Config.wallpaperPicker.wallpaperHeight
+            fillMode: Image.PreserveAspectCrop
+            asynchronous: true
+            mipmap: true
+        }
 
         // Wallpaper name
         StyledText {

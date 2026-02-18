@@ -1,52 +1,45 @@
+pragma ComponentBehavior: Bound
+
 import QtQuick
+import Quickshell
 import qs.Modules.NotificationPopups
+import qs.Components.Animations
 import qs.Services
 import qs.Config
 import qs.Theme
 
 ListView {
-    id: root
+    model: ScriptModel {
+        values: NotificationService.popups.filter(n => !n.closed)
+    }
 
-    implicitWidth: Config.notifications.width
-    implicitHeight: Math.min(contentHeight, parent.height)
-
-    spacing: Config.notifications.spacing
+    spacing: Theme.spacing.small
+    width: Config.notifs.width
+    height: contentHeight
 
     add: Transition {
-        ParallelAnimation {
-            PropertyAnimation {
-                property: "x"
-                from: root.implicitWidth
-                duration: Theme.anim.fast
-                easing.type: Easing.InOutCubic
-            }
-            PropertyAnimation {
-                property: "opacity"
-                from: 0
-                to: 1
-                duration: Theme.anim.normal
-                easing.type: Easing.InOutCubic
-            }
+        NAnim {
+            property: "x"
+            from: Config.notifs.width
+            easing.type: Easing.OutBack
         }
     }
 
-    addDisplaced: Transition {
-        PropertyAnimation {
-            property: "y"
-            duration: Theme.anim.fast
-            easing.type: Easing.InOutCubic
-        }
-    }
-
-    removeDisplaced: addDisplaced
-
-    orientation: ListView.Vertical
-
-    // Causes a bit of flickering
-    // model: ScriptModel {
-    //     values: [...NotificationService.notifications.values].reverse()
+    // remove: Transition {
+    //     NAnim {
+    //         property: "x"
+    //         to: Config.notifs.width
+    //         easing.type: Easing.InBack
+    //     }
     // }
-    model: NotificationService.notifications
+
+    displaced: Transition {
+        NAnim {
+            property: "y"
+            alwaysRunToEnd: false
+            easing.type: Easing.OutBack
+        }
+    }
 
     delegate: NotificationEntry {}
 }

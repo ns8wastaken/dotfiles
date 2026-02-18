@@ -2,7 +2,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Core Qml Gui)
+find_package(Qt6 REQUIRED COMPONENTS Core Qml Gui Quick)
 
 set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml")
 qt_standard_project_setup(REQUIRES 6.9)
@@ -36,11 +36,13 @@ function(qml_module arg_TARGET)
     target_link_libraries(${arg_TARGET} PRIVATE Qt::Core Qt::Qml ${arg_LIBRARIES})
 endfunction()
 
-qml_module(shellModule
-    URI ShellModule
+qml_module(myShellModule
+    URI MyShellModule
     SOURCES
         TestPlug.hpp TestPlug.cpp
         FontsLoader.hpp FontsLoader.cpp
+        ImageAnalyzer.hpp ImageAnalyzer.cpp
     LIBRARIES
         Qt::Gui
+        Qt::Quick
 )

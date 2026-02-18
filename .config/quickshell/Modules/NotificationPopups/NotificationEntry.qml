@@ -1,145 +1,252 @@
 pragma ComponentBehavior: Bound
 
 import Quickshell
+import Quickshell.Widgets
 import Quickshell.Services.Notifications
 import QtQuick
 import qs.Components
+import qs.Components.Effects
 import qs.Components.Animations
+import qs.Utils
+import qs.Services
 import qs.Config
 import qs.Theme
 
 Rectangle {
     id: root
 
-    required property Notification modelData
-    readonly property int expireTimeout: modelData?.expireTimeout >= 0
-        ? modelData.expireTimeout
-        : Config.notifications.defaultExpireTimeout;
-    readonly property string appIconPath: Quickshell.iconPath(root.modelData?.appIcon, true)
+    required property NotificationService.Notif modelData
 
-    width: Config.notifications.width
-    height: Config.notifications.height
+    readonly property bool hasImage: modelData.image.length > 0
+    readonly property bool hasAppIcon: modelData.appIcon.length > 0
+    property bool expanded: false
+
+    Component.onCompleted: {
+        x = 0;
+        modelData.lock(this);
+    }
+    Component.onDestruction: modelData.unlock(this)
+
+    height: Config.notifs.iconSize + 2 * Theme.spacing.normal
+    width: Config.notifs.width
 
     color: Theme.color.surface
 
     border.color: Theme.color.outline
     border.width: 1
 
-    radius: 12
+    radius: 8
 
-    MouseArea {
+    Item {
+        id: inner
+
         anchors.fill: parent
-        cursorShape: Qt.PointingHandCursor
-        onClicked: root.dismiss()
-    }
+        anchors.margins: Theme.spacing.normal
 
-    // Icon (used if it has one)
-    Component {
-        id: realImage
-        RoundedImage {
-            width: row.height - 2 * Config.notifications.imageMargins
-            height: row.height - 2 * Config.notifications.imageMargins
-            image.fillMode: Image.PreserveAspectFit
-            image.source: root.appIconPath
-            radius: 8
-        }
-    }
-
-    // Svg Icon (used if there is no image)
-    Component {
-        id: fallbackIcon
-        MaterialIcon {
-            text: "notifications_active"
-            font.pixelSize: row.height - 2 * Config.notifications.imageMargins
-            color: Theme.color.on_surface
-        }
-    }
-
-    // Notification
-    Row {
-        id: row
-
-        width: parent.width
-        height: parent.height
-
-        padding: Config.notifications.imageMargins
-        spacing: Config.notifications.imageMargins
-
-        // Image
+        /* ---- Icon / Image ---- */
         Loader {
-            id: iconLoader
-            anchors.verticalCenter: parent.verticalCenter
-            sourceComponent: root.appIconPath !== ""
-                ? realImage
-                : fallbackIcon;
+            id: image
+
+            active: root.hasImage
+            visible: root.hasImage || root.hasAppIcon
+
+            anchors.top: parent.top
+            anchors.left: parent.left
+
+            width: Config.notifs.iconSize
+            height: Config.notifs.iconSize
+
+            sourceComponent: ClippingRectangle {
+                implicitWidth: Config.notifs.iconSize
+                implicitHeight: Config.notifs.iconSize
+
+                radius: 9999
+
+                color: "transparent"
+
+                Image {
+                    anchors.fill: parent
+                    source: Qt.resolvedUrl(root.modelData.image)
+                    fillMode: Image.PreserveAspectCrop
+                    cache: false
+                    asynchronous: true
+                }
+            }
         }
 
-        // Notification contents
-        Column {
-            anchors.verticalCenter: parent.verticalCenter
+        Loader {
+            id: appIcon
 
-            width: root.width - iconLoader.width - Config.notifications.imageMargins * 3
+            active: root.hasAppIcon || !root.hasImage
 
-            /* ---- Title ---- */
-            StyledText {
-                width: parent.width
+            anchors.horizontalCenter: root.hasImage ? undefined    : image.horizontalCenter
+            anchors.verticalCenter:   root.hasImage ? undefined    : image.verticalCenter
+            anchors.right:            root.hasImage ? image.right  : undefined
+            anchors.bottom:           root.hasImage ? image.bottom : undefined
 
-                text: root.modelData?.summary ?? ""
+            sourceComponent: StyledRect {
+                radius: 9999
 
-                font.bold: true
+                color: root.modelData.urgency === NotificationUrgency.Critical
+                    ? Theme.color.error
+                    : root.modelData.urgency === NotificationUrgency.Low
+                        // TODO: Colors.layer
+                        // ? Colors.layer(Theme.color.surface_container_highest, 2)
+                        ? Theme.color.secondary_container
+                        : Theme.color.secondary_container;
 
-                color: Theme.color.on_surface
+                // implicitWidth: root.hasImage ? Config.notifs.sizes.badge : Config.notifs.sizes.image
+                // implicitHeight: root.hasImage ? Config.notifs.sizes.badge : Config.notifs.sizes.image
+                implicitWidth: inner.height
+                implicitHeight: inner.height
 
-                elide: Text.ElideRight
+                Loader {
+                    id: icon
+
+                    active: root.hasAppIcon
+
+                    anchors.centerIn: parent
+
+                    width: Math.round(parent.width * 0.6)
+                    height: width
+
+                    sourceComponent: ColoredIcon {
+                        anchors.fill: parent
+                        source: Quickshell.iconPath(root.modelData.appIcon)
+                        color: root.modelData.urgency === NotificationUrgency.Critical
+                            ? Theme.color.on_error
+                            : root.modelData.urgency === NotificationUrgency.Low
+                                ? Theme.color.on_surface
+                                : Theme.color.on_secondary_container;
+                        layer.enabled: root.modelData.appIcon.endsWith("symbolic")
+                    }
+                }
+
+                Loader {
+                    active: !root.hasAppIcon
+
+                    anchors.centerIn: parent
+                    // TODO : figure out how to center ts
+                    anchors.horizontalCenterOffset: -Theme.fontSize.large * 0.02
+                    anchors.verticalCenterOffset: Theme.fontSize.large * 0.02
+
+                    sourceComponent: MaterialIcon {
+                        text: Icons.getNotifIcon(root.modelData.summary, root.modelData.urgency)
+                        color: root.modelData.urgency === NotificationUrgency.Critical
+                            ? Theme.color.on_error
+                            : root.modelData.urgency === NotificationUrgency.Low
+                                ? Theme.color.on_surface
+                                : Theme.color.on_secondary_container;
+                        font.pixelSize: Theme.fontSize.large
+                    }
+                }
+            }
+        }
+
+        /* ---- Title ---- */
+        StyledText {
+            id: title
+
+            anchors.top: inner.top
+            anchors.left: image.right
+            anchors.leftMargin: Theme.spacing.normal
+
+            text: root.modelData?.summary ?? ""
+            font.bold: true
+            color: Theme.color.on_surface
+
+            elide: Text.ElideRight
+        }
+
+        /* ---- Body ---- */
+        StyledText {
+            id: body
+
+            anchors.top: title.bottom
+            anchors.bottom: inner.bottom
+            anchors.left: title.left
+            anchors.right: inner.right
+
+            visible: text.length > 0
+
+            text: root.modelData?.body ?? ""
+            font.pixelSize: Theme.fontSize.small
+            color: Theme.color.on_surface
+
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            elide: Text.ElideRight
+        }
+
+        MouseArea {
+            property int startY
+
+            anchors.fill: parent
+            hoverEnabled: true
+            // TODO: root.expanded
+            cursorShape: (root.expanded && body.hoveredLink)
+                ? Qt.PointingHandCursor
+                : pressed
+                    ? Qt.ClosedHandCursor
+                    : undefined;
+            acceptedButtons: Qt.LeftButton | Qt.MiddleButton
+            preventStealing: true
+
+            onEntered: root.modelData.timer.stop()
+            onExited: {
+                if (!pressed)
+                    root.modelData.timer.start();
             }
 
-            /* ---- Body ---- */
-            StyledText {
-                visible: text !== ""
+            drag.target: parent
+            drag.axis: Drag.XAxis
 
-                width: parent.width
+            onPressed: event => {
+                root.modelData.timer.stop();
+                startY = event.y;
+                if (event.button === Qt.MiddleButton)
+                    root.modelData.close();
+            }
+            onReleased: event => {
+                if (!containsMouse)
+                    root.modelData.timer.start();
 
-                text: root.modelData?.body ?? ""
+                if (Math.abs(root.x) < Config.notifs.width * Config.notifs.clearThreshold)
+                    root.x = 0;
+                else
+                    root.modelData.popup = false;
+            }
+            onPositionChanged: event => {
+                if (pressed) {
+                    const diffY = event.y - startY;
+                    if (Math.abs(diffY) > Config.notifs.expandThreshold)
+                        root.expanded = diffY > 0;
+                }
+            }
+            onClicked: event => {
+                if (!Config.notifs.actionOnClick || event.button !== Qt.LeftButton)
+                    return;
 
-                font.pixelSize: Theme.fontSize.small
-
-                color: Theme.color.on_surface
-
-                maximumLineCount: 2
-                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                elide: Text.ElideRight
+                const actions = root.modelData.actions;
+                if (actions.length === 1)
+                    actions[0].invoke();
             }
         }
     }
 
-    Timer {
-        interval: root.expireTimeout
-        running: true
-        onTriggered: root.expire()
-    }
+    // TODO: figure this shit out
+    ListView.onRemove: removeAnim.start()
 
     NAnim {
-        id: slideOutExpire
+        id: removeAnim
+
         target: root
         property: "x"
-        from: 0
-        to: root.width
-        duration: Theme.anim.fast
-        onStopped: root.modelData.expire()
+        to: Config.notifs.width
+
+        easing.type: Easing.InBack
+
         running: false
     }
 
-    NAnim {
-        id: slideOutDismiss
-        target: root
-        property: "x"
-        from: 0
-        to: root.width
-        duration: Theme.anim.fast
-        onStopped: root.modelData.dismiss()
-        running: false
-    }
-
-    function expire() { slideOutExpire.start(); }
-    function dismiss() { slideOutDismiss.start(); }
+    // Behavior on x { NAnim {} }
 }

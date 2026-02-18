@@ -8,7 +8,6 @@ return {
     { "rcarriga/nvim-notify", opts = { background_colour = "#000000" } },
     "mg979/vim-visual-multi",
     { "echasnovski/mini.surround", opts = {} },
-    "johmsalas/text-case.nvim",
     "matze/vim-move",
     "junegunn/vim-easy-align",
     { "nvim-tree/nvim-web-devicons", opts = {} },

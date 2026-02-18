@@ -4,7 +4,7 @@ import QtQuick
 import Quickshell.Hyprland
 import qs.Components
 import qs.Components.Animations
-import qs.Config
+import qs.Utils
 import qs.Theme
 
 Row {
@@ -37,7 +37,7 @@ Row {
             height: 18
             color: modelData ? root.getWorkspaceColor(modelData) : "transparent"
 
-            Behavior on width { NAnim { duration: Theme.anim.fast } }
+            Behavior on width { NAnim { duration: Theme.anim.normal; easing.type: Easing.OutCubic } }
             Behavior on color { ColorAnimation { duration: Theme.anim.fast } }
 
             // Switch to workspace on click

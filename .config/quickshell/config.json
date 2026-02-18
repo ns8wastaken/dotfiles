@@ -20,17 +20,19 @@
         }
     },
 
-    "notifications": {
+    "notifs": {
         "width": 350,
-        "height": 60,
-
-        "imageMargins": 10,
-        "spacing": 4,
+        "iconSize": 45,
 
         "marginTop": 0,
         "marginRight": 4,
 
-        "defaultExpireTimeout": 5000
+        "clearThreshold": 0.3,
+        "expandThreshold": 20,
+
+        "actionOnClick": false,
+
+        "defaultExpireTimeout": 6000
     },
 
     "launcher": {

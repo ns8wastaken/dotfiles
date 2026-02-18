@@ -58,8 +58,8 @@ Loader {
             PropertyAnimation {
                 target: root
                 properties: "opacity, scale"
-                duration: Theme.anim.faster
-                easing.type: Easing.InOutCubic
+                duration: Theme.anim.fast
+                easing.type: Easing.OutCubic
             }
         }
     }

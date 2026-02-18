@@ -1,35 +1,37 @@
-local map_set = vim.keymap.set
+local map = function(mode, bind, func)
+    vim.keymap.set(mode, bind, func, { noremap = true, silent = true })
+end
 
 -- Save file
-map_set('n', "<Leader>w", "<Cmd>w<CR>", vim.g.keymap_opts)
+map('n', "<Leader>w", "<Cmd>w<CR>")
 
 -- Copy / paste
-map_set('v', "<C-c>", '"+y',       vim.g.keymap_opts)
-map_set('i', "<C-v>", '<Esc>"+pa', vim.g.keymap_opts)
-map_set('n', "<C-v>", '<Esc>"+pa', vim.g.keymap_opts)
+map('v', "<C-c>", '"+y')
+map('i', "<C-v>", '<Esc>"+pa')
+map('n', "<C-v>", '<Esc>"+pa')
 
 -- Exit insert mode
-map_set('i', "jk", "<Esc>", vim.g.keymap_opts)
+map('i', "jk", "<Esc>")
 
 -- Put the rest of the line on a new line
-map_set('n', "<A-o>", "mzi<CR><Esc>`z", vim.g.keymap_opts)
+map('n', "<A-o>", "mzi<CR><Esc>`z")
 
 -- Lsp stuff
-map_set('n', "gd",        vim.lsp.buf.definition,     vim.g.keymap_opts)
-map_set('n', "gD",        vim.lsp.buf.declaration,    vim.g.keymap_opts)
-map_set('n', "<C-k>",     vim.lsp.buf.signature_help, vim.g.keymap_opts)
-map_set('n', "<Leader>e", vim.diagnostic.open_float,  vim.g.keymap_opts)
+map('n', "gd",        vim.lsp.buf.definition)
+map('n', "gD",        vim.lsp.buf.declaration)
+map('n', "<C-k>",     vim.lsp.buf.signature_help)
+map('n', "<Leader>e", vim.diagnostic.open_float)
 
 -- Lsp goto errors
-map_set('n', "]g", function() vim.diagnostic.jump({count=1, float=true}) end, vim.g.keymap_opts)
-map_set('n', "[g", function() vim.diagnostic.jump({count=-1, float=true}) end, vim.g.keymap_opts)
+map('n', "]g", function() vim.diagnostic.jump({ count=1, float=true }) end)
+map('n', "[g", function() vim.diagnostic.jump({ count=-1, float=true }) end)
 
-map_set('n', "]e", function()
-    vim.diagnostic.jump({count=1, float=true, severity=vim.diagnostic.severity.ERROR})
-end, vim.g.keymap_opts)
+map('n', "]e", function()
+    vim.diagnostic.jump({ count=1, float=true, severity=vim.diagnostic.severity.ERROR })
+end)
 
-map_set('n', "[e", function()
-    vim.diagnostic.jump({count=-1, float=true, severity=vim.diagnostic.severity.ERROR})
-end, vim.g.keymap_opts)
+map('n', "[e", function()
+    vim.diagnostic.jump({ count=-1, float=true, severity=vim.diagnostic.severity.ERROR })
+end)
 
-map_set('n', "<Leader>r", vim.lsp.buf.rename, vim.g.keymap_opts)
+map('n', "<Leader>r", vim.lsp.buf.rename)

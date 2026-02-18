@@ -71,8 +71,6 @@ vim.g.require_dir_table = function(module_dir, ignore)
     return modules
 end
 
-vim.g.keymap_opts = { noremap = true, silent = true }
-
 -- Make floating window borders rounded
 vim.o.winborder = "rounded"
 

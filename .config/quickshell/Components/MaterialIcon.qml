@@ -4,7 +4,7 @@ import QtQuick
 import qs.Theme
 
 StyledText {
-    property real fill: 1
+    property real fill: 1.0
     // TODO: add light mode!!!!!!!!!!!!!!
     property int grade: Theme.light ? 0 : -25
 

@@ -1,15 +1,17 @@
-local map_set = vim.keymap.set
+local map = function(mode, bind, func)
+    vim.keymap.set(mode, bind, func, { noremap = true, silent = true })
+end
 
 local telescope = require("telescope");
-map_set('n', "<Leader>fb", function()
+map('n', "<Leader>fb", function()
     telescope.extensions.file_browser.file_browser({
         grouped = true,
         hidden = true
     })
-end, vim.g.keymap_opts)
+end)
 
 local telescope_builtin = require("telescope.builtin")
-map_set('n', "<Leader>ff", function()
+map('n', "<Leader>ff", function()
     telescope_builtin.find_files({
         find_command = {
             "fd",
@@ -17,7 +19,7 @@ map_set('n', "<Leader>ff", function()
             "--no-require-git"
         }
     })
-end,  vim.g.keymap_opts)
-map_set('n', "<leader>fg", telescope_builtin.live_grep,   vim.g.keymap_opts)
-map_set('n', "<Leader>km", telescope_builtin.keymaps,     vim.g.keymap_opts)
-map_set('n', "<Leader>cs", telescope_builtin.colorscheme, vim.g.keymap_opts)
+end)
+map('n', "<leader>fg", telescope_builtin.live_grep)
+map('n', "<Leader>km", telescope_builtin.keymaps)
+map('n', "<Leader>cs", telescope_builtin.colorscheme)
