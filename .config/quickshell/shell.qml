@@ -128,6 +128,62 @@ ShellRoot {
             name: "wlogout"
             onPressed: wlogout.toggle()
         }
+
+        // RadialMenu {
+        //     anchors.fill: parent
+        //     radius: 140
+        //
+        //     center: Rectangle {
+        //         anchors.centerIn: parent
+        //         width: 20
+        //         height: 20
+        //         radius: 10
+        //         color: "white"
+        //     }
+        //
+        //     items: [
+        //         Rectangle {
+        //             width: 40;
+        //             height: 40;
+        //             radius: 20;
+        //             color: "red";
+        //             Text {
+        //                 text: "1";
+        //                 anchors.centerIn: parent
+        //             }
+        //         },
+        //         Rectangle {
+        //             width: 40;
+        //             height: 40;
+        //             radius: 20;
+        //             color: "blue";
+        //             Text {
+        //                 text: "2";
+        //                 anchors.centerIn: parent
+        //             }
+        //         },
+        //         Rectangle {
+        //             width: 40;
+        //             height: 40;
+        //             radius: 20;
+        //             color: "green";
+        //             Text {
+        //                 text: "3";
+        //                 anchors.centerIn: parent
+        //             }
+        //         },
+        //         Rectangle {
+        //             width: 40;
+        //             height: 40;
+        //             radius: 20;
+        //             color: "orange";
+        //             Text {
+        //                 text: "4";
+        //                 anchors.centerIn: parent
+        //             }
+        //         }
+        //     ]
+        // }
     }
 
     // "Activate Linux" watermark

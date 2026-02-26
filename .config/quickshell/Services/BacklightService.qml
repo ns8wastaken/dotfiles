@@ -9,6 +9,7 @@ Singleton {
     readonly property real brightnessNormalized: brightness / maxBrightness
     readonly property real brightnessPercentage: brightnessNormalized * 100
 
+    // TODO: use brightnessctl
     FileView {
         id: backlightBrightness
         watchChanges: true
