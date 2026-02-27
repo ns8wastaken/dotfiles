@@ -11,6 +11,7 @@ import qs.Managers
 import qs.Managers.Types
 import qs.Modules
 import qs.Config
+import MyShellModule
 
 ShellRoot {
     readonly property bool disableHotReload:
@@ -183,6 +184,25 @@ ShellRoot {
         //             }
         //         }
         //     ]
+        // }
+
+        // Rectangle {
+        //     x: mousePos.x
+        //     y: mousePos.y
+        //     width: 100
+        //     height: 100
+        // }
+        //
+        // MousePos {
+        //     id: mousePos
+        //     active: true
+        // }
+        //
+        // Timer {
+        //     running: true
+        //     repeat: true
+        //     interval: 16
+        //     onTriggered: {console.log(mousePos.pos); mousePos.update()}
         // }
     }
 

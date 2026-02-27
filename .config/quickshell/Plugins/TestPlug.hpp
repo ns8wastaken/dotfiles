@@ -1,5 +1,5 @@
 #include <QObject>
-#include <QtQml/qqml.h>
+#include <qqml.h>
 
 class TestPlug : public QObject {
     Q_OBJECT

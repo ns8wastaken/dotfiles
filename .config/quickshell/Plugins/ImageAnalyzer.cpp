@@ -14,7 +14,8 @@ ImageAnalyser::ImageAnalyser(QObject* parent)
     , m_sourceItem(nullptr)
     , m_rescaleSize(128)
     , m_dominantColour(0, 0, 0)
-    , m_luminance(0) {
+    , m_luminance(0)
+{
     QObject::connect(m_futureWatcher, &QFutureWatcher<AnalyseResult>::finished, this, [this]() {
         if (!m_futureWatcher->future().isResultReadyAt(0)) {
             return;

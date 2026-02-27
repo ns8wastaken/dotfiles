@@ -2,7 +2,7 @@
 
 #include <QObject>
 #include <QStringList>
-#include <QtQml/qqml.h>
+#include <qqml.h>
 
 class FontsLoader final : public QObject {
     Q_OBJECT

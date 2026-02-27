@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QtQuick/qquickitem.h>
+#include <qquickitem.h>
 #include <qfuture.h>
 #include <qfuturewatcher.h>
 #include <qobject.h>
