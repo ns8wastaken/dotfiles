@@ -11,6 +11,7 @@ vim.opt.mouse = 'a'
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 4
+vim.opt.splitbelow = true
 
 -- vim.opt.ignorecase = true
 -- vim.opt.smartcase = true

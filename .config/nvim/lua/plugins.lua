@@ -4,7 +4,7 @@ return {
     "neovim/nvim-lspconfig",
     "ntpeters/vim-better-whitespace",
     "nvim-lualine/lualine.nvim",
-    "preservim/nerdcommenter",
+    -- "preservim/nerdcommenter",
     { "rcarriga/nvim-notify", opts = { background_colour = "#000000" } },
     "mg979/vim-visual-multi",
     { "echasnovski/mini.surround", opts = {} },

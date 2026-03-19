@@ -1,6 +1,8 @@
 local blink = require("blink.cmp")
 local capabilities = blink.get_lsp_capabilities()
 
+vim.lsp.inlay_hint.enable(false)
+
 local enable_inlayhints = function()
     vim.lsp.inlay_hint.enable(true, { 0 })
 end -- Function to enable inlay hints on current buffer
