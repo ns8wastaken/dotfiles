@@ -18,7 +18,8 @@ OTHER_PACKAGES = [
     "ncdu", "btop",
     "blueman",
     "copyq", "nwg-look",
-    "vesktop", "zen-browser-bin", "speedcrunch"
+    "vesktop", "zen-browser-bin", "speedcrunch",
+    "sioyek"
 ]
 
 OPTIONAL_PACKAGES = {

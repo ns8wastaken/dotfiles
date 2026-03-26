@@ -8,7 +8,6 @@ local enable_inlayhints = function()
 end -- Function to enable inlay hints on current buffer
 
 -- Python
--- lspconfig.pyright.setup({ capabilities = capabilities })
 vim.lsp.enable("pyright")
 vim.lsp.config("pyright", { capabilities = capabilities })
 
@@ -88,6 +87,24 @@ vim.lsp.config("nim_langserver", {
     settings = {
         nim = {
             nimSuggestPath = "~/.nimble/bin/nimsuggest"
+        }
+    }
+})
+
+-- Svelte
+vim.lsp.enable("svelte")
+vim.lsp.config("svelte", {
+    capabilities = capabilities,
+    -- on_attach = enable_inlayhints,
+
+    -- This doesnt seem to work
+    settings = {
+        tyepscript = {
+            inlayHints = {
+                variableTypes = {
+                    enabled = false
+                }
+            }
         }
     }
 })

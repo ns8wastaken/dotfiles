@@ -1,5 +1,7 @@
 #!/usr/bin/fish
 
+# TODO: Add tmux
+
 dotfiles add \
     ~/dotfiles_refresh.fish \
     ~/setwp.sh \

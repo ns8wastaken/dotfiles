@@ -1,6 +1,6 @@
 # Dependencies
 ### wallpaperctl
-- `swww`
+- `awww`
 - `matugen`
 
 ## Default config deps

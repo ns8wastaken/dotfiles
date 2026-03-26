@@ -16,7 +16,7 @@ fn notify(summary: &str, body: &str, critical: bool) {
 }
 
 fn set_wallpaper(wallpaper: &str) -> std::io::Result<ExitStatus> {
-    Command::new("swww")
+    Command::new("awww")
         .arg("img")
         .arg(wallpaper)
         .arg("--transition-type").arg("any")
@@ -71,7 +71,7 @@ fn main() {
         }
         notify("Wallpaper set", &wallpaper, false);
     } else {
-        notify("Wallpaper", "swww failed to set the wallpaper", true);
+        notify("Wallpaper", "awww failed to set the wallpaper", true);
         std::process::exit(1);
     }
 }
