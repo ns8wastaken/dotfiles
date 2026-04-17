@@ -29,6 +29,7 @@ fn set_wallpaper(wallpaper: &str) -> std::io::Result<ExitStatus> {
 fn generate_theme(wallpaper: &str, light_mode: bool) -> std::io::Result<ExitStatus> {
     let mut cmd = Command::new("matugen");
     cmd.arg("image").arg(wallpaper);
+    cmd.arg("--source-color-index").arg("0");
 
     if light_mode {
         cmd.arg("-m").arg("light");
