@@ -43,6 +43,7 @@ Rectangle {
             Popup {
                 id: popup
 
+                // WARNING: `popupHoverHandler` doesnt work (its outside the bar so the mask ignores it)
                 readonly property bool isHovered: popupHoverHandler.hovered || clockHoverHandler.hovered
 
                 visible: isHovered
@@ -61,7 +62,8 @@ Rectangle {
                     border.width: 1
                 }
 
-                Component.onCompleted: y = -300
+                x: (parent.width - width) / 2
+                Component.onCompleted: y = 38
 
                 topInset: -8
                 leftInset: -8
@@ -70,10 +72,8 @@ Rectangle {
 
                 padding: 0
 
-                x: (parent.width - width) / 2
-
-                enter: Transition { PropertyAnimation { property: "y"; to: 38 } }
-                exit: Transition { PropertyAnimation { property: "y"; to: -300 } }
+                enter: Transition { PropertyAnimation { property: "opacity"; to: 1 } }
+                exit: Transition { PropertyAnimation { property: "opacity"; to: 0 } }
 
                 ColumnLayout {
                     id: innerPopup
