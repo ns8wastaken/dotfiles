@@ -43,7 +43,7 @@ Row {
             // Switch to workspace on click
             MouseArea {
                 anchors.fill: parent
-                onClicked: Hyprland.dispatch("workspace " + parent.modelData.id)
+                onClicked: Hyprland.dispatch("hl.dsp.focus({workspace=" + parent.modelData.id + "})")
             }
 
             StyledText {
