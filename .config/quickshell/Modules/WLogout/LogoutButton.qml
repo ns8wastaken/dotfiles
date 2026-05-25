@@ -1,16 +1,21 @@
 import QtQuick
 import Quickshell.Io
 
-QtObject {
-    id: button
+Item {
+    id: root
 
-    required property string command
-    required property string text
-    required property string icon
+    property color cardColor1: Qt.rgba(1, 1, 1, 0.145)
+    property color cardColor2: Qt.rgba(1, 1, 1, 0.145)
+    property real gradientAngle: 0.0
+
+    property real rotationAngle: 0.0
+    property string labelText: ""
+    property string iconSource: ""
+    property string command: ""
     property var keybind: null
 
     readonly property Process process: Process {
-        command: ["sh", "-c", button.command]
+        command: ["sh", "-c", root.command]
     }
 
     function exec() { process.startDetached(); }

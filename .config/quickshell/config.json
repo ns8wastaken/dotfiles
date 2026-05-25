@@ -49,12 +49,12 @@
     },
 
     "wlogout": {
-        "width": 1100,
-        "height": 550,
+        "width": 1200,
+        "height": 600,
         "nCols": 3,
 
         "bgAlpha": 0.8,
 
-        "spacing": 8
+        "spacing": 48
     }
 }

@@ -6,6 +6,4 @@ JsonObject {
     property int nCols
 
     property real bgAlpha
-
-    property int spacing
 }

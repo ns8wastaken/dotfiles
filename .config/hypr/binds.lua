@@ -6,6 +6,8 @@ local neovim      = "nvim"
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
+
+-- Keybind funcs
 local nomod_bind = function(key, dispatcher, extra)
     hl.bind(key, dispatcher, extra)
 end
@@ -14,13 +16,10 @@ local mod_bind = function(key, dispatcher, extra)
     hl.bind(mainMod .. " + " .. key, dispatcher, extra)
 end
 
-local exec = function(cmd)
-    return hl.dsp.exec_cmd(cmd)
-end
+-- Dispatcher funcs
+local exec = function(cmd) return hl.dsp.exec_cmd(cmd) end
+local global = function(cmd) return hl.dsp.global(cmd) end
 
-local global = function(cmd)
-    return hl.dsp.global(cmd)
-end
 
 -- Logout menu
 mod_bind("R", global("quickshell:wlogout"))
@@ -39,8 +38,8 @@ mod_bind("H", global("quickshell:wallpaperPicker"))
 mod_bind("D", exec("wayscriber --active"))
 
 -- System
--- mod_bind("SHIFT + F", "fullscreen")
--- mod_bind("F",         "togglefloating")
+mod_bind("SHIFT + F", hl.dsp.window.fullscreen())
+mod_bind("F",         hl.dsp.window.float())
 -- mod_bind("J",         "togglesplit")
 mod_bind("Q",         hl.dsp.window.close())
 mod_bind("T",         exec(terminal))

@@ -32,67 +32,148 @@ WmWindow {
         height: Config.wlogout.height
 
         columns: Config.wlogout.nCols
-        columnSpacing: Config.wlogout.spacing
-        rowSpacing: Config.wlogout.spacing
+        columnSpacing: 48
+        rowSpacing: 64
 
         Repeater {
             model: root.buttons
 
-            delegate: Rectangle {
+            delegate: Item {
                 id: logoutButton
 
                 required property LogoutButton modelData
 
+                readonly property real cardRadius:       38
+                readonly property real cardBorderWidth:  2.5
+                readonly property real cardBorderAlpha:  0.18
+                readonly property real hoverBorderAlpha: 0.35
+                readonly property real hoverLightFactor: 1.25
+                readonly property real hoverScale:       1.03
+
+                readonly property int iconSize: 250
+
                 Layout.fillWidth: true
                 Layout.fillHeight: true
 
-                radius: 16
+                Item {
+                    id: cardItem
 
-                color: mouseArea.containsMouse ? Theme.color.primary : Theme.color.surface
-
-                border.color: Theme.color.outline
-                border.width: mouseArea.containsMouse ? 0 : 1
-
-                MouseArea {
-                    id: mouseArea
                     anchors.fill: parent
-                    hoverEnabled: true
-                    onClicked: {
-                        logoutButton.modelData.exec();
-                        root.close();
-                    }
-                }
 
-                Image {
-                    id: icon
-
-                    readonly property int size: Math.min(parent.width, parent.height) * 0.75
-
-                    anchors.centerIn: parent
-                    // TODO: not offset manually
-                    anchors.verticalCenterOffset: -20
-                    source: Qt.resolvedUrl(Quickshell.shellPath("Assets/WLogout/" + logoutButton.modelData.icon))
-
-                    width: size
-                    height: size
-                    scale: mouseArea.containsMouse ? 1.05 : 1
-
-                    fillMode: Image.PreserveAspectFit
+                    scale: mouseArea.containsMouse ? logoutButton.hoverScale : 1.0
 
                     antialiasing: true
-                    mipmap: true
 
-                    Behavior on scale { NAnim { duration: Theme.anim.faster } }
+                    Behavior on scale { NAnim { easing.type: Easing.OutCubic } }
+
+                    MouseArea {
+                        id: mouseArea
+                        anchors.fill: parent
+                        hoverEnabled: true
+                        onClicked: {
+                            logoutButton.modelData.exec();
+                            root.close();
+                        }
+                    }
+
+                    // Card body
+                    Rectangle {
+                        id: cardBody
+                        anchors.centerIn: parent
+
+                        rotation: logoutButton.modelData.rotationAngle
+
+                        width: parent.width
+                        height: parent.height
+                        radius: logoutButton.cardRadius
+
+                        layer.enabled: true
+                        layer.smooth: true
+                        layer.effect: Component {
+                            ShaderEffect {
+                                required property variant source
+
+                                property color colorTop:    logoutButton.modelData.cardColor1
+                                property color colorBottom: logoutButton.modelData.cardColor2
+                                property real  angle:       logoutButton.modelData.gradientAngle * Math.PI / 180.0
+                                property real  hovered:     mouseArea.containsMouse ? 1.0 : 0.0
+
+                                Behavior on hovered { NAnim { easing.type: Easing.OutCubic } }
+
+                                fragmentShader: Qt.resolvedUrl(
+                                    Quickshell.shellPath("Shaders/Qsb/WLogoutCardGradient.frag.qsb")
+                                )
+                            }
+                        }
+                    }
+
+                    // Border
+                    Rectangle {
+                        anchors.fill: cardBody
+
+                        color: "transparent"
+                        radius: cardBody.radius
+
+                        antialiasing: true
+
+                        border.width: logoutButton.cardBorderWidth
+                        border.color: Qt.rgba(
+                            1, 1, 1,
+                            mouseArea.containsMouse
+                                ? logoutButton.hoverBorderAlpha
+                                : logoutButton.cardBorderAlpha
+                        )
+
+                        Behavior on border.color {
+                            CAnim { easing.type: Easing.OutCubic }
+                        }
+                    }
+
+                    // Icon
+                    Image {
+                        id: icon
+
+                        anchors.centerIn: parent
+
+                        source: Qt.resolvedUrl(
+                            Quickshell.shellPath("Assets/WLogout/" + logoutButton.modelData.iconSource)
+                        )
+
+                        width: logoutButton.iconSize
+                        height: logoutButton.iconSize
+
+                        fillMode: Image.PreserveAspectFit
+                        asynchronous: true
+
+                        // Alt text (in case img fails to load)
+                        Rectangle {
+                            anchors.fill: parent
+
+                            visible: icon.status === Image.Null || icon.status === Image.Error
+                            color: "transparent"
+
+                            radius: 24
+                            border.color: Qt.rgba(1, 1, 1, logoutButton.cardBorderAlpha)
+                            border.width: logoutButton.cardBorderWidth
+
+                            Text {
+                                anchors.centerIn: parent
+                                text: "?"
+                                color: "#ffffff"
+                                font.pixelSize: Theme.fontSize.larger
+                            }
+                        }
+                    }
                 }
 
                 StyledText {
                     anchors {
-                        bottom: logoutButton.bottom
-                        bottomMargin: 20
                         horizontalCenter: parent.horizontalCenter
+                        top: parent.bottom
+                        topMargin: 5
                     }
 
-                    text: logoutButton.modelData.text
+                    text: logoutButton.modelData.labelText
 
                     font.family: Theme.fonts.cute
                     font.pixelSize: Theme.fontSize.larger
@@ -109,14 +190,14 @@ WmWindow {
 
         // Escape -> close
         if (Key.match(event, Qt.Key_Escape)) {
-            close()
+            close();
             event.accepted = true;
             return;
         }
 
         // Handle button keybinds
         for (const button of buttons) {
-            if (event.key == button.keybind) {
+            if (event.key === button.keybind) {
                 button.exec();
                 close();
             }
