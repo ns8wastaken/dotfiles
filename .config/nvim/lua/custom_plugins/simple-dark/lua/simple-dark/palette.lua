@@ -40,6 +40,7 @@ local M = {}
 -- #7a9ab5
 -- #f290de
 -- #d387c0
+-- #d8fa3c
 
 ---@type SimpleDarkPalette
 M.palette = {

@@ -1,7 +1,8 @@
 import Quickshell
 import QtQuick
-import qs.Services
+import qs.Core.Services
 import qs.Components
+import qs.Components.Icons
 import qs.Theme
 
 Pill {

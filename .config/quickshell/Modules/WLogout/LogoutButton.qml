@@ -11,6 +11,7 @@ Item {
     property real rotationAngle: 0.0
     property string labelText: ""
     property string iconSource: ""
+
     property string command: ""
     property var keybind: null
 

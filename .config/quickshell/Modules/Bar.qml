@@ -4,8 +4,9 @@ import QtQuick.Layouts
 import qs.Modules.Bar
 import qs.Modules.Bar.Clock
 import qs.Components
-import qs.Services
-import qs.Config
+import qs.Components.Icons
+import qs.Core.Services
+import qs.Core.Config
 import qs.Theme
 
 Rectangle {

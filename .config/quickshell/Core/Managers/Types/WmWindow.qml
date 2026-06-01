@@ -1,5 +1,5 @@
 import QtQuick
-import qs.Managers
+import qs.Core.Managers
 
 Rectangle {
     /* ---- WM-controlled state ---- */

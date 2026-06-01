@@ -3,11 +3,11 @@ pragma ComponentBehavior: Bound
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
-import qs.Services
-import qs.Managers.Types
+import qs.Core.Services
+import qs.Core.Managers.Types
 import qs.Components
 import qs.Modules.WallpaperPicker
-import qs.Config
+import qs.Core.Config
 import qs.Theme
 import qs.Utils
 import "../Utils/Scripts/Fuzzy.js" as Fuzzy
@@ -64,8 +64,7 @@ WmWindow {
 
         Rectangle {
             Layout.fillWidth: true
-            Layout.preferredHeight: Config.wallpaperPicker.spacing * 2
-                + wallpaperView.implicitHeight;
+            Layout.preferredHeight: Config.wallpaperPicker.spacing * 2 + wallpaperView.implicitHeight;
 
             color: Theme.color.surface_container
             radius: searchBar.radius
@@ -95,16 +94,23 @@ WmWindow {
                         }
 
                         component WEntry: QtObject { property string fileName }
+
                         sorters: FunctionSorter {
-                            function sort(lhsData: WEntry, rhsData: WEntry) : int {
-                                return Fuzzy.score(sorter.query, rhsData.fileName.toLowerCase())
-                                    - Fuzzy.score(sorter.query, lhsData.fileName.toLowerCase());
+                            function sort(lhsData: WEntry, rhsData: WEntry): int {
+                                let lhsMatch = Fuzzy.score(sorter.query, lhsData.fileName.toLowerCase());
+                                let rhsMatch = Fuzzy.score(sorter.query, rhsData.fileName.toLowerCase());
+
+                                return rhsMatch.score - lhsMatch.score;
                             }
                         }
+
                         filters: FunctionFilter {
                             function filter(data: WEntry): bool {
                                 if (!searchBar.text) return true;
-                                return Fuzzy.score(sorter.query, data.fileName) > 0;
+
+                                let match = Fuzzy.score(sorter.query, data.fileName.toLowerCase());
+
+                                return match.isValid;
                             }
                         }
                     }

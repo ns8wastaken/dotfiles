@@ -1,5 +1,5 @@
 import QtQuick
-import qs.Managers
+import qs.Core.Managers
 import qs.Theme
 
 Loader {
@@ -14,18 +14,18 @@ Loader {
 
     Component.onCompleted: {
         active = false;
-        PopupManager.register(handle, root);
+        WindowManager.register(handle, root);
     }
 
     Component.onDestruction: {
-        PopupManager.unregister(handle);
+        WindowManager.unregister(handle);
     }
 
     DragHandler { enabled: root.draggable }
 
     visible: active
     focus: active
-    // TODO: fix the top popup getting hidden behind others while closing anim plays
+    // TODO: fix the top window getting hidden behind others while closing anim plays
     z: focused ? 1000 : 0
 
     /* ---- Animation ---- */
@@ -58,15 +58,15 @@ Loader {
             PropertyAnimation {
                 target: root
                 properties: "opacity, scale"
-                duration: Theme.anim.faster
-                easing.type: Easing.InOutCubic
+                duration: Theme.anim.fast
+                easing.type: Easing.OutCubic
             }
         }
     }
 
     /* ---- Functions ---- */
-    function open() { PopupManager.open(handle); }
-    function close() { PopupManager.close(handle); }
+    function open() { WindowManager.open(handle); }
+    function close() { WindowManager.close(handle); }
     function toggle() { state === "" ? open() : close(); }
 
     /* ---- Delegated Updates ---- */

@@ -2,7 +2,7 @@ pragma ComponentBehavior: Bound
 
 import QtQuick
 import qs.Components
-import qs.Services
+import qs.Core.Services
 import qs.Theme
 
 Item {

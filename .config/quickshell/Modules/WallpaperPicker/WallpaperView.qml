@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Widgets
 import qs.Components
-import qs.Config
+import qs.Core.Config
 import qs.Theme
 
 ListView {
@@ -41,11 +41,13 @@ ListView {
         radius: 16
 
         Image {
+            anchors.centerIn: parent
             source: wallpaperEntry.fileUrl
             sourceSize.height: Config.wallpaperPicker.wallpaperHeight
             fillMode: Image.PreserveAspectCrop
             asynchronous: true
-            mipmap: true
+            // mipmap: true
+            cache: false
         }
 
         // Wallpaper name

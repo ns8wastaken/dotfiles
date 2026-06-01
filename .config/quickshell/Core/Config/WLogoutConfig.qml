@@ -3,7 +3,6 @@ import Quickshell.Io
 JsonObject {
     property int width
     property int height
-    property int nCols
 
     property real bgAlpha
 }

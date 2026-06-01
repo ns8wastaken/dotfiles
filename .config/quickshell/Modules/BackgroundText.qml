@@ -1,6 +1,6 @@
 import Quickshell
 import QtQuick
-import qs.Widgets
+import qs.Components
 
 Scope {
     id: root

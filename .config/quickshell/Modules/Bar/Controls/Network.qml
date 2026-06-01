@@ -1,5 +1,6 @@
 import QtQuick
 import qs.Components
+import qs.Components.Icons
 import qs.Theme
 
 Item {

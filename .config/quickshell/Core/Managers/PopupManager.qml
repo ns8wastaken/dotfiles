@@ -2,7 +2,7 @@ pragma Singleton
 
 import Quickshell
 import QtQuick
-import qs.Managers.Types
+import qs.Core.Managers.Types
 
 Singleton {
     /* -----------------------------

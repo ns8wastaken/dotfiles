@@ -6,7 +6,7 @@ import QtQuick.Layouts
 import QtQml
 import qs.Components
 import qs.Components.Animations
-import qs.Services
+import qs.Core.Services
 import qs.Theme
 
 ColumnLayout {

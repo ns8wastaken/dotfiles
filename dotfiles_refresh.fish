@@ -6,7 +6,6 @@ dotfiles add \
     ~/dotfiles_refresh.fish \
     ~/setwp.sh \
     ~/clear-caches.sh \
-    ~/install-script.sh \
     ~/install-script-python.py \
     ~/.config/nvim/ \
     ~/.config/hypr/ \

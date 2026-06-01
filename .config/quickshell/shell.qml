@@ -7,10 +7,12 @@ import Quickshell.Wayland
 import QtQuick
 import qs.Components
 import qs.Components.Effects
-import qs.Managers
-import qs.Managers.Types
 import qs.Modules
-import qs.Config
+import qs.Core.Managers
+import qs.Core.Managers.Types
+import qs.Core.Config
+
+import qs.Tests
 
 ShellRoot {
     readonly property bool disableHotReload:

@@ -1,6 +1,6 @@
 local terminal    = "kitty"
 local termShell   = "fish"
-local fileManager = "nemo"
+local fileManager = "kitty yazi"
 local calculator  = "speedcrunch"
 local neovim      = "nvim"
 
@@ -17,7 +17,7 @@ local mod_bind = function(key, dispatcher, extra)
 end
 
 -- Dispatcher funcs
-local exec = function(cmd) return hl.dsp.exec_cmd(cmd) end
+local exec   = function(cmd) return hl.dsp.exec_cmd(cmd) end
 local global = function(cmd) return hl.dsp.global(cmd) end
 
 
@@ -31,7 +31,7 @@ mod_bind("G",         exec("hyprpicker --autocopy"))
 nomod_bind("F8",      exec("~/bin/autoclicker.sh"))
 
 -- Software
-mod_bind("N", exec(termShell .. "-c '" .. terminal .. neovim .. "'"))
+mod_bind("N", exec(termShell .. " -c '" .. terminal .. " " .. neovim .. "'"))
 mod_bind("C", exec(calculator))
 mod_bind("V", exec("copyq toggle"))
 mod_bind("H", global("quickshell:wallpaperPicker"))
@@ -43,7 +43,7 @@ mod_bind("F",         hl.dsp.window.float())
 -- mod_bind("J",         "togglesplit")
 mod_bind("Q",         hl.dsp.window.close())
 mod_bind("T",         exec(terminal))
-mod_bind("E",         exec(fileManager))
+mod_bind("E",         exec(termShell .. " -c '" .. fileManager .. "'"))
 mod_bind("SPACE",     global("quickshell:launcher"))
 
 -- Move focus with mainMod + arrow keys

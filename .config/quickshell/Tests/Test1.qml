@@ -1,47 +1,29 @@
-pragma ComponentBehavior: Bound
-
-import Quickshell
 import QtQuick
+import Quickshell
 
-Item {
-    width: 400
-    height: 400
+PanelWindow {
+    id: root
+    width: 200
+    height: 200
+    visible: true
+    color: "#1e1e2e"
 
-    Rectangle {
-        id: sourceRect
-        width: 200
-        height: 100
-        anchors.centerIn: parent
-        
-        // 1. Apply your radius and rotation here
-        radius: 20
-        rotation: 45 
+    mask: Region {}
 
-        // 2. Enable layering so the radius mask is baked into the texture
-        layer.enabled: true
-        layer.effect: ShaderEffect {
-            property var source: sourceRect // Pass the rounded rect texture
+    ShaderEffect {
+        anchors.fill: parent
 
-            // 3. Define your uniform properties matching the shader buffer
-            property color colorTop: "#ff007f"
-            property color colorBottom: "#7f00ff"
-            property double angle: 1.0 // in radians
-            property double hovered: mixArea.containsMouse ? 1.0 : 0.0
+        property vector2d resolution: Qt.vector2d(width, height)
+        property real radius: 4.0
+        property real jointRadius: 4.0
+        property color shapeColor: "#89b4fa"
+        property int rectCount: 3
 
-            // Link your fragment shader (separate .frag file or QSB binary)
-            fragmentShader: Qt.resolvedUrl(
-                Quickshell.shellPath("Shaders/Qsb/WLogoutCardGradient.frag.qsb")
-            )
+        property vector4d rect0: Qt.vector4d(0.0, 0.0, 0.0, 0.0)
+        property vector4d rect1: Qt.vector4d(0.0, 0.0, 0.0, 0.0)
+        property vector4d rect2: Qt.vector4d(0.0, 0.0, 0.0, 0.0)
+        property vector4d rect3: Qt.vector4d(0.0, 0.0, 0.0, 0.0)
 
-            Behavior on hovered {
-                NumberAnimation { duration: 200 }
-            }
-        }
-
-        MouseArea {
-            id: mixArea
-            anchors.fill: parent
-            hoverEnabled: true
-        }
+        fragmentShader: Quickshell.shellPath("Shaders/Qsb/RoundedJoints.frag.qsb")
     }
 }

@@ -4,8 +4,8 @@ import QtQuick
 import Quickshell
 import qs.Modules.NotificationPopups
 import qs.Components.Animations
-import qs.Services
-import qs.Config
+import qs.Core.Services
+import qs.Core.Config
 import qs.Theme
 
 ListView {
@@ -25,13 +25,13 @@ ListView {
         }
     }
 
-    // remove: Transition {
-    //     NAnim {
-    //         property: "x"
-    //         to: Config.notifs.width
-    //         easing.type: Easing.InBack
-    //     }
-    // }
+    remove: Transition {
+        NAnim {
+            property: "x"
+            to: Config.notifs.width
+            easing.type: Easing.InBack
+        }
+    }
 
     displaced: Transition {
         NAnim {

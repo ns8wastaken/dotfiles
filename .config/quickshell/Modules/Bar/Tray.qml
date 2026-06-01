@@ -3,7 +3,7 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell.Services.SystemTray
 import qs.Modules.Bar.Tray
-import qs.Config
+import qs.Core.Config
 
 Row {
     id: root

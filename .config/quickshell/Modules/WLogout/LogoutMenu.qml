@@ -5,8 +5,8 @@ import QtQuick
 import QtQuick.Layouts
 import qs.Components
 import qs.Components.Animations
-import qs.Managers.Types
-import qs.Config
+import qs.Core.Managers.Types
+import qs.Core.Config
 import qs.Theme
 import qs.Utils
 
@@ -31,7 +31,7 @@ WmWindow {
         width: Config.wlogout.width
         height: Config.wlogout.height
 
-        columns: Config.wlogout.nCols
+        columns: 3
         columnSpacing: 48
         rowSpacing: 64
 
@@ -66,25 +66,13 @@ WmWindow {
 
                     Behavior on scale { NAnim { easing.type: Easing.OutCubic } }
 
-                    MouseArea {
-                        id: mouseArea
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onClicked: {
-                            logoutButton.modelData.exec();
-                            root.close();
-                        }
-                    }
-
                     // Card body
                     Rectangle {
                         id: cardBody
-                        anchors.centerIn: parent
+                        anchors.fill: parent
 
                         rotation: logoutButton.modelData.rotationAngle
 
-                        width: parent.width
-                        height: parent.height
                         radius: logoutButton.cardRadius
 
                         layer.enabled: true
@@ -98,6 +86,9 @@ WmWindow {
                                 property real  angle:       logoutButton.modelData.gradientAngle * Math.PI / 180.0
                                 property real  hovered:     mouseArea.containsMouse ? 1.0 : 0.0
 
+                                property vector2d cardSize:     Qt.point(cardBody.width, cardBody.height)
+                                property real     cornerRadius: logoutButton.cardRadius
+
                                 Behavior on hovered { NAnim { easing.type: Easing.OutCubic } }
 
                                 fragmentShader: Qt.resolvedUrl(
@@ -105,27 +96,15 @@ WmWindow {
                                 )
                             }
                         }
-                    }
 
-                    // Border
-                    Rectangle {
-                        anchors.fill: cardBody
-
-                        color: "transparent"
-                        radius: cardBody.radius
-
-                        antialiasing: true
-
-                        border.width: logoutButton.cardBorderWidth
-                        border.color: Qt.rgba(
-                            1, 1, 1,
-                            mouseArea.containsMouse
-                                ? logoutButton.hoverBorderAlpha
-                                : logoutButton.cardBorderAlpha
-                        )
-
-                        Behavior on border.color {
-                            CAnim { easing.type: Easing.OutCubic }
+                        MouseArea {
+                            id: mouseArea
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            onClicked: {
+                                logoutButton.modelData.exec();
+                                root.close();
+                            }
                         }
                     }
 
@@ -144,6 +123,7 @@ WmWindow {
 
                         fillMode: Image.PreserveAspectFit
                         asynchronous: true
+                        mipmap: true
 
                         // Alt text (in case img fails to load)
                         Rectangle {

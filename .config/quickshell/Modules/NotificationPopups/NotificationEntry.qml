@@ -5,11 +5,12 @@ import Quickshell.Widgets
 import Quickshell.Services.Notifications
 import QtQuick
 import qs.Components
+import qs.Components.Icons
 import qs.Components.Effects
 import qs.Components.Animations
 import qs.Utils
-import qs.Services
-import qs.Config
+import qs.Core.Services
+import qs.Core.Config
 import qs.Theme
 
 Rectangle {
@@ -66,7 +67,9 @@ Rectangle {
 
                 Image {
                     anchors.fill: parent
-                    source: Qt.resolvedUrl(root.modelData.image)
+                    source: root.modelData
+                        ? Qt.resolvedUrl(root.modelData.image)
+                        : "";
                     fillMode: Image.PreserveAspectCrop
                     cache: false
                     asynchronous: true
@@ -87,13 +90,15 @@ Rectangle {
             sourceComponent: StyledRect {
                 radius: 9999
 
-                color: root.modelData.urgency === NotificationUrgency.Critical
-                    ? Theme.color.error
-                    : root.modelData.urgency === NotificationUrgency.Low
-                        // TODO: Colors.layer
-                        // ? Colors.layer(Theme.color.surface_container_highest, 2)
-                        ? Theme.color.secondary_container
-                        : Theme.color.secondary_container;
+                color: root.modelData
+                    ? root.modelData.urgency === NotificationUrgency.Critical
+                        ? Theme.color.error
+                        : root.modelData.urgency === NotificationUrgency.Low
+                            // TODO: Colors.layer
+                            // ? Colors.layer(Theme.color.surface_container_highest, 2)
+                            ? Theme.color.secondary_container
+                            : Theme.color.secondary_container
+                    : "";
 
                 // implicitWidth: root.hasImage ? Config.notifs.sizes.badge : Config.notifs.sizes.image
                 // implicitHeight: root.hasImage ? Config.notifs.sizes.badge : Config.notifs.sizes.image
@@ -131,12 +136,16 @@ Rectangle {
                     anchors.verticalCenterOffset: Theme.fontSize.large * 0.02
 
                     sourceComponent: MaterialIcon {
-                        text: Icons.getNotifIcon(root.modelData.summary, root.modelData.urgency)
-                        color: root.modelData.urgency === NotificationUrgency.Critical
-                            ? Theme.color.on_error
-                            : root.modelData.urgency === NotificationUrgency.Low
-                                ? Theme.color.on_surface
-                                : Theme.color.on_secondary_container;
+                        text: root.modelData
+                            ? Icons.getNotifIcon(root.modelData.summary, root.modelData.urgency)
+                            : "";
+                        color: root.modelData
+                            ? root.modelData.urgency === NotificationUrgency.Critical
+                                ? Theme.color.on_error
+                                : root.modelData.urgency === NotificationUrgency.Low
+                                    ? Theme.color.on_surface
+                                    : Theme.color.on_secondary_container
+                            : "";
                         font.pixelSize: Theme.fontSize.large
                     }
                 }

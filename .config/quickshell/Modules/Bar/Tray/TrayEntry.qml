@@ -2,7 +2,7 @@ import Quickshell.Widgets
 import QtQuick
 import QtQuick.Controls
 import qs.Components.Animations
-import qs.Config
+import qs.Core.Config
 import qs.Theme
 
 Item {

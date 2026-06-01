@@ -6,29 +6,43 @@ function score(query, str) {
 
     for (const char of query) {
         const index = str.indexOf(char, lastIndex + 1);
-        if (index === -1) return -1; // no match
-        score += 100 - (index - lastIndex); // closer = higher score
+        if (index === -1) {
+            return { isValid: false, score: 0 };
+        }
+
+        if (lastIndex === -1) {
+            score += Math.max(0, 100 - index);
+        } else {
+            let distance = index - lastIndex;
+            if (distance === 1) {
+                score += 200;
+            } else {
+                score += Math.max(0, 100 - distance);
+            }
+        }
+
         lastIndex = index;
     }
 
-    return score;
+    return { isValid: true, score: score };
 }
 
-function sort(query, src, keyFn = x => x) {
+function fuzzySort(query, src, keyFn = x => x) {
     if (!query) return src;
 
     const q = query.toLowerCase();
-
     const result = [];
+
     for (const item of src) {
-        const s = score(q, keyFn(item).toLowerCase());
-        if (s > 0) result.push({ item, score: s });
+        const match = score(q, keyFn(item).toLowerCase());
+
+        if (match.isValid) {
+            result.push({ item, score: match.score });
+        }
     }
 
-    // sort in place
     result.sort((a, b) => b.score - a.score);
 
-    // extract items
     for (let i = 0; i < result.length; i++) {
         result[i] = result[i].item;
     }

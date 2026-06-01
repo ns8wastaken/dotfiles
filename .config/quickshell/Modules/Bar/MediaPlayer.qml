@@ -1,6 +1,6 @@
 import QtQuick
 import qs.Components
-import qs.Services
+import qs.Core.Services
 import qs.Theme
 
 Pill {

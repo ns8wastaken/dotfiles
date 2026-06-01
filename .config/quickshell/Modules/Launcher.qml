@@ -3,10 +3,11 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.Managers.Types
+import qs.Core.Managers.Types
 import qs.Components
+import qs.Core.Services
 import qs.Modules.Launcher
-import qs.Config
+import qs.Core.Config
 import qs.Theme
 import qs.Utils
 import "../Utils/Scripts/Fuzzy.js" as Fuzzy
@@ -24,9 +25,9 @@ WmWindow {
     readonly property int margins: 8
     readonly property int appEntryRadius: 10
 
-    readonly property list<DesktopEntry> entries: Fuzzy.sort(
+    readonly property list<DesktopEntry> entries: Fuzzy.fuzzySort(
         searchBar.text,
-        Array.from(DesktopEntries.applications.values)
+        Array.from(ApplicationsService.applications)
             .sort((e1, e2) => e1.name.localeCompare(e2.name)),
         e => e.name
     );

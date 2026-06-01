@@ -51,10 +51,7 @@
     "wlogout": {
         "width": 1200,
         "height": 600,
-        "nCols": 3,
 
-        "bgAlpha": 0.8,
-
-        "spacing": 48
+        "bgAlpha": 0.8
     }
 }
