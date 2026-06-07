@@ -16,6 +16,47 @@ fn round1(x: f32) -> f32 {
     (x * 10.0).round() / 10.0
 }
 
+struct AmdSysfsPaths {
+    busy_percent: String,
+    temp_input:   String,
+    vram_used:    String,
+    vram_total:   String,
+}
+
+// --- Helpers -------------------------------------------------------------------
+
+/// Case-insensitive substring match for "core" without any heap allocation.
+/// Matches "Core 0", "Core 1", "coretemp Package id 0", etc.
+#[inline]
+fn is_core_label(label: &str) -> bool {
+    label.as_bytes().windows(4).any(|w| {
+        matches!(w, [b'c' | b'C', b'o' | b'O', b'r' | b'R', b'e' | b'E'])
+    })
+}
+
+fn detect_amd_sysfs() -> Option<AmdSysfsPaths> {
+    // Try card0..card3 - pick the first with a GPU busy file
+    let card = (0..4)
+        .map(|i| format!("/sys/class/drm/card{}/device", i))
+        .find(|p| std::path::Path::new(&format!("{}/gpu_busy_percent", p)).exists())?;
+
+    // Enumerate hwmon subdirs to find the one with temp1_input
+    let hwmon = std::fs::read_dir(format!("{}/hwmon", card))
+        .ok()?
+        .filter_map(|e| e.ok())
+        .map(|e| e.path())
+        .find(|p| p.join("temp1_input").exists())?
+        .to_string_lossy()
+        .into_owned();
+
+    Some(AmdSysfsPaths {
+        busy_percent: format!("{}/gpu_busy_percent", card),
+        temp_input:   format!("{}/temp1_input", hwmon),
+        vram_used:    format!("{}/mem_info_vram_used", card),
+        vram_total:   format!("{}/mem_info_vram_total", card),
+    })
+}
+
 // --- Types ---------------------------------------------------------------------
 
 #[derive(Serialize)]
@@ -55,7 +96,7 @@ struct Network {
 #[derive(Serialize)]
 struct SystemMetrics {
     cpu: Cpu,
-    gpu: Gpu,
+    gpu: Option<Gpu>,
     ram: Ram,
     disk: Option<Disk>,
     network: Network,
@@ -68,6 +109,7 @@ struct Collector {
     networks: Networks,
     disks: Disks,
     components: Components,
+    amd_sysfs: Option<AmdSysfsPaths>,
     nvml_device: Option<nvml_wrapper::device::Device<'static>>,
     core_indices: Vec<usize>,
     interval_ms: u64,
@@ -87,6 +129,12 @@ impl Collector {
             None
         };
 
+        let amd_sysfs = if nvml_device.is_none() {
+            detect_amd_sysfs()
+        } else {
+            None
+        };
+
         let components = Components::new_with_refreshed_list();
 
         let core_indices: Vec<usize> = components
@@ -101,6 +149,7 @@ impl Collector {
             networks: Networks::new(),
             disks: Disks::new(),
             components,
+            amd_sysfs,
             nvml_device,
             core_indices,
             interval_ms: interval.as_millis() as u64,
@@ -152,7 +201,7 @@ impl Collector {
         Cpu { percent: round1(percent), temp }
     }
 
-    fn gpu(&self) -> Gpu {
+    fn gpu(&self) -> Option<Gpu> {
         // Try NVIDIA first via NVML
         if let Some(device) = &self.nvml_device {
             let percent = device.utilization_rates()
@@ -167,30 +216,32 @@ impl Collector {
                 .map(|mem| (Some(mem.used), Some(mem.total)))
                 .unwrap_or((None, None));
 
-            return Gpu { percent, temp, vram_used, vram_total };
+            return Some(Gpu { percent, temp, vram_used, vram_total });
         }
 
-        // AMD fallback via sysfs
-        let percent = fs::read_to_string("/sys/class/drm/card0/device/gpu_busy_percent")
-            .ok()
-            .and_then(|v| v.trim().parse().ok());
+        // Try AMD using sysfs
+        if let Some(p) = &self.amd_sysfs {
+            let percent = fs::read_to_string(&p.busy_percent)
+                .ok()
+                .and_then(|v| v.trim().parse().ok());
 
-        // NOTE: hwmon index may vary per system
-        let temp = fs::read_to_string("/sys/class/drm/card0/device/hwmon/hwmon0/temp1_input")
-            .ok()
-            .and_then(|v| v.trim().parse::<u32>().ok())
-            .map(|milli_c| milli_c / 1000);
+            let temp = fs::read_to_string(&p.temp_input)
+                .ok()
+                .and_then(|v| v.trim().parse::<u32>().ok())
+                .map(|milli_c| milli_c / 1000);
 
-        // Fetch AMD VRAM metrics
-        let vram_used = fs::read_to_string("/sys/class/drm/card0/device/mem_info_vram_used")
-            .ok()
-            .and_then(|v| v.trim().parse::<u64>().ok());
+            let vram_used = fs::read_to_string(&p.vram_used)
+                .ok()
+                .and_then(|v| v.trim().parse::<u64>().ok());
 
-        let vram_total = fs::read_to_string("/sys/class/drm/card0/device/mem_info_vram_total")
-            .ok()
-            .and_then(|v| v.trim().parse::<u64>().ok());
+            let vram_total = fs::read_to_string(&p.vram_total)
+                .ok()
+                .and_then(|v| v.trim().parse::<u64>().ok());
 
-        Gpu { percent, temp, vram_used, vram_total }
+            return Some(Gpu { percent, temp, vram_used, vram_total });
+        }
+
+        None
     }
 
     fn ram(&self) -> Ram {
@@ -203,17 +254,14 @@ impl Collector {
     }
 
     fn disk(&self) -> Option<Disk> {
-        self.disks.list().first().map_or(
-            None,
-            |d| {
-                let total_gb = d.total_space() / GB;
-                let free_gb = d.available_space() / GB;
-                Some(Disk {
-                    total_gb,
-                    used_gb: total_gb.saturating_sub(free_gb)
-                })
-            },
-        )
+        self.disks.list().first().map(|d| {
+            let total_gb = d.total_space() / GB;
+            let available_gb = d.available_space() / GB;
+            Disk {
+                used_gb: total_gb.saturating_sub(available_gb),
+                total_gb,
+            }
+        })
     }
 
     fn network(&self) -> Network {
@@ -227,17 +275,6 @@ impl Collector {
             tx_kbps: tx * 1000 / (self.interval_ms * KB),
         }
     }
-}
-
-// --- Helpers -------------------------------------------------------------------
-
-/// Case-insensitive substring match for "core" without any heap allocation.
-/// Matches "Core 0", "Core 1", "coretemp Package id 0", etc.
-#[inline]
-fn is_core_label(label: &str) -> bool {
-    label.as_bytes().windows(4).any(|w| {
-        matches!(w, [b'c' | b'C', b'o' | b'O', b'r' | b'R', b'e' | b'E'])
-    })
 }
 
 // --- Entry point ---------------------------------------------------------------
@@ -269,8 +306,9 @@ fn main() {
         buf.clear();
         if serde_json::to_writer(&mut buf, &collector.collect()).is_ok() {
             buf.push(b'\n');
-            let _ = out.write_all(&buf);
-            let _ = out.flush();
+            if out.write_all(&buf).is_err() || out.flush().is_err() {
+                break; // consumer gone; exit cleanly
+            }
         }
 
         let elapsed = start.elapsed();
