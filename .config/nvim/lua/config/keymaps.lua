@@ -12,6 +12,9 @@ map('n', "<C-v>", '<Esc>"+pa')
 
 -- Exit insert mode
 map('i', "jk", "<Esc>")
+map('i', "Jk", "<Esc>")
+map('i', "jK", "<Esc>")
+map('i', "JK", "<Esc>")
 
 -- Put the rest of the line on a new line
 map('n', "<A-o>", "mzi<CR><Esc>`z")

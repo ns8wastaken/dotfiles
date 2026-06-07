@@ -1,0 +1,6 @@
+# Build all workspace projects in release mode and copy to `bin` folder.
+release:
+    cargo build --workspace --release
+    @mkdir -p bin
+    @rm -f bin/*
+    @find target/release -maxdepth 1 -type f -executable -exec cp {} bin/ \;

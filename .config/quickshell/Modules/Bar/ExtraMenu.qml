@@ -30,38 +30,32 @@ Pill {
 
     PanelWindow {
         visible: mouseArea.containsMouse
+        implicitWidth: 300
 
         Text {
             anchors.centerIn: parent
             anchors.verticalCenterOffset: -40
-            text: SysInfoService.cpuUsageStr
+            text: SysInfoService.cpu.percent
             color: "#000000"
         }
 
         Text {
             anchors.centerIn: parent
             anchors.verticalCenterOffset: -20
-            text: SysInfoService.cpuTempStr
+            text: SysInfoService.cpu.temp
             color: "#000000"
         }
 
         Text {
             anchors.centerIn: parent
-            text: SysInfoService.memoryUsageStr
+            text: SysInfoService.ram.used_mb
             color: "#000000"
         }
 
         Text {
             anchors.centerIn: parent
             anchors.verticalCenterOffset: 20
-            text: SysInfoService.memoryUsagePerStr
-            color: "#000000"
-        }
-
-        Text {
-            anchors.centerIn: parent
-            anchors.verticalCenterOffset: 40
-            text: SysInfoService.diskUsageStr
+            text: Math.round(SysInfoService.ram.used_mb / SysInfoService.ram.total_mb * 1000) / 10
             color: "#000000"
         }
     }

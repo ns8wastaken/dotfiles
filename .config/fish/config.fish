@@ -16,6 +16,7 @@ set -U fish_user_paths /var/lib/flatpak/exports/bin $fish_user_paths
 set -U fish_user_paths /usr/local/include           $fish_user_paths
 set -U fish_user_paths /usr/local/lib               $fish_user_paths
 set -U fish_user_paths /usr/lib/qt6/bin             $fish_user_paths
+set -U fish_user_paths ~/.cargo/bin                 $fish_user_paths
 
 function starship_transient_prompt_func
     starship module character --status $status
