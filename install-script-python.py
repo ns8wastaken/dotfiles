@@ -4,22 +4,21 @@ from pathlib import Path
 
 INSTALL_CMD = "yay -S --needed --noconfirm"
 
-# TODO: install quickshell from source
 CORE_PACKAGES = [
     "kitty", "fish", "starship",
-    "swww", "wallust",
+    "quickshell-git",
+    "awww", "matugen",
     "neovim", "fastfetch",
-    "grimblast", "hyprpicker"
+    "grimblast", "hyprpicker",
 ]
 
 OTHER_PACKAGES = [
     "man-db",
-    "7zip", "fd", "ripgrep", "tree",
-    "ncdu", "btop",
+    "7zip", "fd", "ripgrep", "tree", "ncdu", "btop",
     "blueman",
     "copyq", "nwg-look",
-    "vesktop", "zen-browser-bin", "speedcrunch",
-    "sioyek"
+    "equicord", "zen-browser-bin", "speedcrunch",
+    "sioyek",
 ]
 
 OPTIONAL_PACKAGES = {
@@ -28,7 +27,7 @@ OPTIONAL_PACKAGES = {
     "steam-native-runtime":  "Install Steam?",
     "prismlauncher":         "Install PrismLauncher (Minecraft)?",
     "heroic-games-launcher": "Install HeroicGames Launcher (GOG + Epic Games)?",
-    "qbittorrent":           "Install QBittorrent?"
+    "qbittorrent":           "Install QBittorrent?",
 }
 
 

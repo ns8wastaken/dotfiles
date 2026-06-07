@@ -295,8 +295,7 @@ fn main() {
     let stdout = std::io::stdout();
     let mut out = BufWriter::new(stdout.lock());
 
-    // Reuse a single Vec<u8> as the JSON write target; clear() keeps the capacity,
-    // so after the first tick there are zero heap allocations in the write path.
+    // Allocate buffer for printing only once
     let mut buf: Vec<u8> = Vec::with_capacity(512);
 
     loop {
