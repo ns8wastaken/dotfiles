@@ -5,8 +5,8 @@ input_path = './templates/quickshell-theme.json'
 output_path = '~/.config/quickshell/Assets/Colors/Dynamic/Colors.json'
 
 [templates.hyprland]
-input_path = './templates/hyprland-colors.conf'
-output_path = '~/.config/hypr/colors.conf'
+input_path = './templates/hyprland-colors.lua'
+output_path = '~/.config/hypr/colors.lua'
 
 [templates.kitty]
 input_path = './templates/kitty-colors.conf'

@@ -6,13 +6,10 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import qs.Components
-import qs.Components.Effects
 import qs.Modules
 import qs.Core.Managers
 import qs.Core.Managers.Types
 import qs.Core.Config
-
-import qs.Tests
 
 ShellRoot {
     readonly property bool disableHotReload:
@@ -55,32 +52,24 @@ ShellRoot {
         ExclusiveZone {
             id: barExclusiveZone
             anchors.top: true
-            // -4 because its hyprland's outer gap
-            exclusiveZone: bar.height + bar.anchors.topMargin + bar.anchors.bottomMargin - 4
+            exclusiveZone: bar.height
         }
         Bar {
             id: bar
-
-            height: 32
 
             anchors {
                 top: parent.top
                 left: parent.left
                 right: parent.right
-                topMargin: Config.bar.margins.top
-                bottomMargin: Config.bar.margins.bottom
-                leftMargin: Config.bar.margins.left
-                rightMargin: Config.bar.margins.right
             }
         }
-        PanelShadow { target: bar }
 
         NotificationPopups {
             anchors {
                 right: parent.right
                 top: parent.top
-                // +4 because its hyprland's outer gap
-                topMargin: barExclusiveZone.exclusiveZone + Config.notifs.marginTop + 4
+                // +6 because its hyprland's outer gap
+                topMargin: barExclusiveZone.exclusiveZone + 6
                 rightMargin: Config.notifs.marginRight
             }
         }

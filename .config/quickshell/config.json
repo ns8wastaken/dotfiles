@@ -7,13 +7,6 @@
     "bar": {
         "spacing": 8,
 
-        "margins": {
-            "top": 4,
-            "left": 4,
-            "right": 4,
-            "bottom": 4
-        },
-
         "tray": {
             "iconSize": 16,
             "spacing": 12
@@ -23,9 +16,6 @@
     "notifs": {
         "width": 350,
         "iconSize": 45,
-
-        "marginTop": 0,
-        "marginRight": 4,
 
         "clearThreshold": 0.3,
         "expandThreshold": 20,

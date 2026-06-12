@@ -4,7 +4,6 @@
 
 dotfiles add \
     ~/dotfiles_refresh.fish \
-    ~/setwp.sh \
     ~/clear-caches.sh \
     ~/install-script-python.py \
     ~/.config/nvim/ \

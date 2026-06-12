@@ -3,8 +3,6 @@ import Quickshell.Io
 JsonObject {
     property int spacing
 
-    property MarginsConfig margins: MarginsConfig {}
-
     property TrayConfig tray: TrayConfig {}
 
     component MarginsConfig: JsonObject {

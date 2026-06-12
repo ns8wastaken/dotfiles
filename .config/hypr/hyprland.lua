@@ -1,3 +1,4 @@
+local colors = require("colors")
 require("binds")
 require("animations.fast")
 
@@ -53,14 +54,19 @@ hl.env("QT_QPA_PLATFORMTHEME",                "qt5ct")
 hl.config({
     general = {
         gaps_in = 2,
-        gaps_out = 4,
+        gaps_out = 6,
 
-        border_size = 1,
+        border_size = 2,
 
-        -- col = {
-        --     active_border = $primary $on_primary 45deg,
-        --     inactive_border = $outline,
-        -- },
+        col = {
+            active_border = {
+                colors = { colors.primary, colors.on_primary, colors.primary },
+                angle = 45
+            },
+            inactive_border = {
+                colors = { colors.outline }
+            },
+        },
 
         layout = "dwindle",
     },

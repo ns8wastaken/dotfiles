@@ -4,7 +4,6 @@ import QtQuick
 import Quickshell.Hyprland
 import qs.Components
 import qs.Components.Animations
-import qs.Utils
 import qs.Theme
 
 Row {
@@ -18,12 +17,6 @@ Row {
         return Theme.color.secondary_container;
     }
 
-    function getWorkspaceTextColor(modelData: HyprlandWorkspace): color {
-        if (modelData.active) return Theme.color.on_secondary;
-        if (modelData.urgent) return Theme.color.on_error;
-        return Theme.color.on_secondary_container;
-    }
-
     Repeater {
         model: Hyprland.workspaces
 
@@ -33,35 +26,23 @@ Row {
 
             required property HyprlandWorkspace modelData
 
-            width: (modelData.active ? 50 : 20) + workspaceLabel.width
-            height: 18
+            readonly property int baseSize: 11
+
+            width: (modelData.active ? 3 * baseSize : baseSize)
+            height: baseSize
             color: modelData ? root.getWorkspaceColor(modelData) : "transparent"
 
-            Behavior on width { NAnim { duration: Theme.anim.normal; easing.type: Easing.OutCubic } }
-            Behavior on color { ColorAnimation { duration: Theme.anim.fast } }
+            Behavior on width {
+                NAnim { easing.type: Easing.OutCubic }
+            }
+            Behavior on color {
+                ColorAnimation { duration: Theme.anim.fast; easing.type: Easing.OutCubic }
+            }
 
             // Switch to workspace on click
             MouseArea {
                 anchors.fill: parent
-                onClicked: Hyprland.dispatch("hl.dsp.focus({workspace=" + parent.modelData.id + "})")
-            }
-
-            StyledText {
-                id: workspaceLabel
-
-                anchors.centerIn: parent
-
-                color: workspaceButton.modelData
-                    ? root.getWorkspaceTextColor(workspaceButton.modelData)
-                    : "transparent";
-
-                font.family: Theme.fonts.japanese
-                font.pixelSize: Theme.fontSize.small
-                text: workspaceButton.modelData
-                    ? Icons.getWorkspaceLabel(workspaceButton.modelData.id)
-                    : "";
-
-                Behavior on color { CAnim { duration: Theme.anim.fast } }
+                onClicked: Hyprland.dispatch(`hl.dsp.focus({workspace=${parent.modelData.id}})`)
             }
         }
     }
