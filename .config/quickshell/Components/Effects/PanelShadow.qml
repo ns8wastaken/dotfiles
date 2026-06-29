@@ -11,8 +11,8 @@ MultiEffect {
 
     shadowEnabled: true
     shadowColor: Theme.color.shadow
-    shadowOpacity: 0.75
+    shadowOpacity: 1
     shadowVerticalOffset: 0
     shadowHorizontalOffset: 0
-    shadowBlur: 0.75
+    shadowBlur: 1.5
 }

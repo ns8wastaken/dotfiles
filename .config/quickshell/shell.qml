@@ -7,6 +7,7 @@ import Quickshell.Wayland
 import QtQuick
 import qs.Components
 import qs.Modules
+import qs.Core.Services
 import qs.Core.Managers
 import qs.Core.Managers.Types
 import qs.Core.Config
@@ -68,9 +69,8 @@ ShellRoot {
             anchors {
                 right: parent.right
                 top: parent.top
-                // +6 because its hyprland's outer gap
-                topMargin: barExclusiveZone.exclusiveZone + 6
-                rightMargin: Config.notifs.marginRight
+                topMargin: barExclusiveZone.exclusiveZone + HyprlandConfigService.gapsOutTop
+                rightMargin: HyprlandConfigService.gapsOutRight
             }
         }
 
@@ -129,8 +129,6 @@ ShellRoot {
 
     Loader {
         active: true
-        sourceComponent: BackgroundText {
-            col: "#ffffff"
-        }
+        sourceComponent: BackgroundText {}
     }
 }

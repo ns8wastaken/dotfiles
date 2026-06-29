@@ -1,6 +1,6 @@
 local colors = require("colors")
 require("binds")
-require("animations.fast")
+require("animations.mine")
 
 
 ----------------
@@ -72,9 +72,9 @@ hl.config({
     },
 
     decoration = {
-        -- screen_shader = ~/.config/hypr/shaders/cinema.glsl,
+        -- screen_shader = "./shaders/reading-mode.glsl",
 
-        rounding = 8,
+        rounding = 12,
         rounding_power = 2,
 
         -- Change transparency of focused and unfocused windows

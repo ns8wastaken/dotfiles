@@ -13,4 +13,5 @@ dotfiles add \
     ~/.config/fish/ \
     ~/.config/starship.toml \
     ~/.config/quickshell/ \
-    ~/.config/matugen/
+    ~/.config/matugen/ \
+    ~/.config/mpv/

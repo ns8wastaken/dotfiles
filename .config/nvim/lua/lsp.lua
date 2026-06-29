@@ -108,3 +108,6 @@ vim.lsp.config("svelte", {
         }
     }
 })
+
+vim.lsp.enable("jdtls")
+vim.lsp.config("jdtls", { capabilities = capabilities })

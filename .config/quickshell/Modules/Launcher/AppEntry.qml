@@ -45,13 +45,11 @@ Rectangle {
 
                 anchors.centerIn: parent
 
-                width: parent.height - 8
-                height: parent.height - 8
-
                 source: Quickshell.iconPath(root.modelData.icon, true)
+                sourceSize: Qt.size(parent.height - 8, parent.height - 8)
 
-                mipmap: true
-                antialiasing: true
+                cache: false
+                asynchronous: true
             }
         }
 

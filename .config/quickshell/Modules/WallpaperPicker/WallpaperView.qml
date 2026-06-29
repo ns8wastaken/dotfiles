@@ -46,7 +46,6 @@ ListView {
             sourceSize.height: Config.wallpaperPicker.wallpaperHeight
             fillMode: Image.PreserveAspectCrop
             asynchronous: true
-            // mipmap: true
             cache: false
         }
 
