@@ -12,7 +12,10 @@ Rectangle {
 
     readonly property int margins: 4
 
+    radius: height / 2
+
     color: isSelected ? Theme.color.primary : Theme.color.surface
+    Behavior on color { ColorAnimation { duration: Theme.anim.fast } }
 
     RowLayout {
         id: entryRow

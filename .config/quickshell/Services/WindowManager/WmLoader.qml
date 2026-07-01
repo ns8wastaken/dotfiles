@@ -9,6 +9,7 @@ Loader {
     property bool focused: false
 
     property bool draggable: false
+    property bool animate: true
     property bool resetPosition: true // TODO:
 
     Component.onCompleted: {
@@ -28,8 +29,8 @@ Loader {
     z: focused ? 1000 : 0
 
     /* ---- Animation ---- */
-    opacity: 0
-    scale: 0.75
+    opacity: animate ? 0 : 1
+    scale: animate ? 0.75 : 1
 
     states: State {
         name: "VISIBLE"

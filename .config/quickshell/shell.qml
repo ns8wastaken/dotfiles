@@ -13,6 +13,7 @@ import "Features/WLogout"
 import "Features/BackgroundText"
 import "Shared/Components"
 import "Shared/Shortcuts"
+import "Shared/Theme"
 import "Services"
 import "Services/WindowManager"
 import "Services/Config"
@@ -87,10 +88,24 @@ ShellRoot {
         WmLoader {
             id: launcher
             handle: "launcher"
-            draggable: true
+            animate: false
             x: (fsPanelWindow.width - width) / 2
-            y: (fsPanelWindow.height - height) / 2
             sourceComponent: Launcher {}
+
+            readonly property real margin: 20
+            readonly property real closedY: fsPanelWindow.height + margin
+            readonly property real openY: height > 0
+                ? fsPanelWindow.height - height
+                : closedY
+
+            y: opened ? openY : closedY
+
+            Behavior on y {
+                NumberAnimation {
+                    duration: Theme.anim.fast
+                    easing.type: Easing.OutCubic
+                }
+            }
         }
 
         WmLoader {

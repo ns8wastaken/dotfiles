@@ -5,6 +5,7 @@ import QtQuick
 import QtQuick.Layouts
 import "../../Services/WindowManager"
 import "../../Shared/Components"
+import "../../Shared/Effects"
 import "../../Services"
 import "../../Services/Config"
 import "../../Shared/Theme"
@@ -34,69 +35,92 @@ WmWindow {
     readonly property DesktopEntry selectedEntry: entries[selectedIdx] ?? null
 
     width: Config.launcher.width
-    height: column.implicitHeight + 2 * margins
+    height: frp.height
 
-    color: Theme.color.surface
+    color: "transparent"
 
-    topLeftRadius: root.margins + searchBar.radius
-    topRightRadius: root.margins + searchBar.radius
-    bottomLeftRadius: root.margins + root.appEntryRadius
-    bottomRightRadius: root.margins + root.appEntryRadius
+    FancyRoundedPanel {
+        id: frp
 
-    border.color: Theme.color.outline
-    border.width: 1
+        readonly property real rounding: 12
+        readonly property real tabSize: 18
 
-    // Search bar + app list
-    ColumnLayout {
-        id: column
+        panelWidth: root.width
+        panelHeight: column.implicitHeight + 2 * root.margins
 
-        anchors.centerIn: parent
-        anchors.fill: parent
-        anchors.margins: root.margins
+        topLeftRadius: rounding
+        topRightRadius: rounding
+        bottomLeftRadius: -tabSize
+        bottomRightRadius: -tabSize
 
-        spacing: Theme.spacing.normal
+        color: Theme.color.surface
 
-        SearchBar {
-            id: searchBar
+        // Search bar + app list
+        Item {
+            anchors.fill: parent
 
-            Layout.fillWidth: true
-            Layout.preferredHeight: 40
+            anchors.leftMargin: frp.rounding
+            anchors.rightMargin: frp.rounding
+            // Rectangle {anchors.fill:parent}
 
-            backgroundColor: Theme.color.surface
-            borderColor: Theme.color.outline
-            borderWidth: 1
+            ColumnLayout {
+                id: column
 
-            iconColor: Theme.color.on_surface
-            iconSize: Theme.fontSize.large
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                    topMargin: root.margins
+                    leftMargin: root.margins
+                    rightMargin: root.margins
+                }
 
-            textColor: Theme.color.on_surface
-            placeholderColor: Theme.color.on_surface
-            placeholderText: "Run program..."
+                spacing: Theme.spacing.normal
 
-            textFont.family: Theme.fonts.sans
-            textFont.pixelSize: Theme.fontSize.normal
-        }
+                SearchBar {
+                    id: searchBar
 
-        // App list
-        ListView {
-            id: entryListView
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 40
 
-            readonly property int appEntryHeight: 40
+                    backgroundColor: Theme.color.surface_container
+                    borderColor: Theme.color.outline
+                    borderWidth: 0
 
-            model: root.entries
+                    iconColor: Theme.color.on_surface
+                    iconSize: Theme.fontSize.large
 
-            spacing: Config.launcher.spacing
-            implicitHeight: (appEntryHeight + spacing) * Config.launcher.nVisible - spacing
+                    textColor: Theme.color.on_surface
+                    placeholderColor: Theme.color.on_surface
+                    placeholderText: "Run program..."
 
-            delegate: AppEntry {
-                id: appEntry
-                width: searchBar.width
-                height: entryListView.appEntryHeight
-                radius: root.appEntryRadius
-                isSelected: modelData.name === root.selectedEntry?.name
+                    textFont.family: Theme.fonts.sans
+                    textFont.pixelSize: Theme.fontSize.normal
+                }
+
+                // App list
+                ListView {
+                    id: entryListView
+
+                    readonly property int appEntryHeight: 40
+
+                    model: root.entries
+
+                    spacing: Config.launcher.spacing
+                    implicitHeight: (appEntryHeight + spacing) * Config.launcher.nVisible - spacing
+
+                    delegate: AppEntry {
+                        id: appEntry
+                        width: searchBar.width
+                        height: entryListView.appEntryHeight
+                        isSelected: modelData.name === root.selectedEntry?.name
+                    }
+                }
             }
         }
     }
+
+    PanelShadow { target: frp }
 
     function offsetSelectedIdx(n: int) {
         root.selectedIdx = Math.min(
