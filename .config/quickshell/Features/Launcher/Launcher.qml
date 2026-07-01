@@ -23,7 +23,8 @@ WmWindow {
     onWmFocused: searchBar.focusField()
 
     readonly property int margins: 8
-    readonly property int appEntryRadius: 10
+    readonly property real rounding: 12
+    readonly property real tabSize: 18
 
     readonly property list<DesktopEntry> entries: Fuzzy.fuzzySort(
         searchBar.text,
@@ -34,7 +35,7 @@ WmWindow {
     property int selectedIdx: 0
     readonly property DesktopEntry selectedEntry: entries[selectedIdx] ?? null
 
-    width: Config.launcher.width
+    width: Config.launcher.width + 2 * rounding + 2 * tabSize
     height: frp.height
 
     color: "transparent"
@@ -42,42 +43,32 @@ WmWindow {
     FancyRoundedPanel {
         id: frp
 
-        readonly property real rounding: 12
-        readonly property real tabSize: 18
+        panelWidth: Config.launcher.width + 2 * rounding
+        panelHeight: root.rounding + column.implicitHeight + root.tabSize + root.margins
 
-        panelWidth: root.width
-        panelHeight: column.implicitHeight + 2 * root.margins
-
-        topLeftRadius: rounding
-        topRightRadius: rounding
-        bottomLeftRadius: -tabSize
-        bottomRightRadius: -tabSize
+        topLeftRadius: root.rounding
+        topRightRadius: root.rounding
+        bottomLeftRadius: -root.tabSize
+        bottomRightRadius: -root.tabSize
 
         color: Theme.color.surface
 
         // Search bar + app list
-        Item {
-            anchors.fill: parent
+        ColumnLayout {
+            id: column
 
-            anchors.leftMargin: frp.rounding
-            anchors.rightMargin: frp.rounding
-            // Rectangle {anchors.fill:parent}
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+                topMargin: parent.topExtension + root.rounding
+                leftMargin: parent.leftExtension + root.rounding
+                rightMargin: parent.rightExtension + root.rounding
+            }
 
-            ColumnLayout {
-                id: column
+            spacing: Theme.spacing.normal
 
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    right: parent.right
-                    topMargin: root.margins
-                    leftMargin: root.margins
-                    rightMargin: root.margins
-                }
-
-                spacing: Theme.spacing.normal
-
-                SearchBar {
+            SearchBar {
                     id: searchBar
 
                     Layout.fillWidth: true
@@ -118,7 +109,6 @@ WmWindow {
                 }
             }
         }
-    }
 
     PanelShadow { target: frp }
 
