@@ -3,7 +3,6 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import "../../Services/WindowManager"
 import "../../Shared/Components"
 import "../../Shared/Effects"
 import "../../Services"
@@ -12,15 +11,10 @@ import "../../Shared/Theme"
 import "../../Shared/Utils"
 import "../../Shared/Utils/Fuzzy.js" as Fuzzy
 
-WmWindow {
+PanelWindow {
     id: root
 
-    Component.onCompleted: {
-        searchBar.clear();
-        selectedIdx = 0;
-    }
-
-    onWmFocused: searchBar.focusField()
+    signal closeRequested()
 
     readonly property int margins: 8
     readonly property real rounding: 12
@@ -35,82 +29,146 @@ WmWindow {
     property int selectedIdx: 0
     readonly property DesktopEntry selectedEntry: entries[selectedIdx] ?? null
 
-    width: Config.launcher.width + 2 * rounding + 2 * tabSize
-    height: frp.height
-
+    anchors { left: true; right: true; top: true; bottom: true }
+    exclusionMode: ExclusionMode.Ignore
+    aboveWindows: true
+    focusable: true
     color: "transparent"
+    onVisibleChanged: if (visible) Qt.callLater(() => searchBar.forceActiveFocus())
 
-    FancyRoundedPanel {
-        id: frp
-
-        panelWidth: Config.launcher.width + 2 * rounding
-        panelHeight: root.rounding + column.implicitHeight + root.tabSize + root.margins
-
-        topLeftRadius: root.rounding
-        topRightRadius: root.rounding
-        bottomLeftRadius: -root.tabSize
-        bottomRightRadius: -root.tabSize
-
-        color: Theme.color.surface
-
-        // Search bar + app list
-        ColumnLayout {
-            id: column
-
-            anchors {
-                top: parent.top
-                left: parent.left
-                right: parent.right
-                topMargin: parent.topExtension + root.rounding
-                leftMargin: parent.leftExtension + root.rounding
-                rightMargin: parent.rightExtension + root.rounding
+    Item {
+        id: wrapper
+        anchors.fill: parent
+        focus: true
+        Keys.onPressed: function(event) {
+            if (Key.match(event, Qt.Key_W, Qt.ControlModifier)) {
+                searchBar.deletePreviousWord();
+                event.accepted = true;
+                return;
             }
 
-            spacing: Theme.spacing.normal
+            if (Key.match(event, Qt.Key_Escape)) {
+                closeRequested();
+                event.accepted = true;
+                return;
+            }
 
-            SearchBar {
-                    id: searchBar
+            if (Key.match(event, Qt.Key_P, Qt.ControlModifier)) {
+                offsetSelectedIdx(-1);
+                event.accepted = true;
+                return;
+            }
 
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 40
+            if (Key.match(event, Qt.Key_N, Qt.ControlModifier)) {
+                offsetSelectedIdx(1);
+                event.accepted = true;
+                return;
+            }
 
-                    backgroundColor: Theme.color.surface_container
-                    borderColor: Theme.color.outline
-                    borderWidth: 0
-
-                    iconColor: Theme.color.on_surface
-                    iconSize: Theme.fontSize.large
-
-                    textColor: Theme.color.on_surface
-                    placeholderColor: Theme.color.on_surface
-                    placeholderText: "Run program..."
-
-                    textFont.family: Theme.fonts.sans
-                    textFont.pixelSize: Theme.fontSize.normal
-                }
-
-                // App list
-                ListView {
-                    id: entryListView
-
-                    readonly property int appEntryHeight: 40
-
-                    model: root.entries
-
-                    spacing: Config.launcher.spacing
-                    implicitHeight: (appEntryHeight + spacing) * Config.launcher.nVisible - spacing
-
-                    delegate: AppEntry {
-                        id: appEntry
-                        width: searchBar.width
-                        height: entryListView.appEntryHeight
-                        isSelected: modelData.name === root.selectedEntry?.name
-                    }
-                }
+            if (Key.match(event, Qt.Key_Return) || Key.match(event, Qt.Key_Enter)) {
+                run();
+                closeRequested();
+                event.accepted = true;
+                return;
             }
         }
 
-    PanelShadow { target: frp }
+        Item {
+            id: slideItem
+            y: 9999
+            height: frp.height
+            width: frp.width
+
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Behavior on y {
+                NumberAnimation {
+                    duration: Theme.anim.fast
+                    easing.type: Easing.OutCubic
+                }
+            }
+
+            FancyRoundedPanel {
+                id: frp
+
+                anchors.centerIn: parent
+
+                panelWidth: Config.launcher.width + 2 * rounding
+                panelHeight: root.rounding + column.implicitHeight + root.tabSize + root.margins
+
+                topLeftRadius: root.rounding
+                topRightRadius: root.rounding
+                bottomLeftRadius: -root.tabSize
+                bottomRightRadius: -root.tabSize
+
+                color: Theme.color.surface
+
+                ColumnLayout {
+                    id: column
+
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                        topMargin: parent.topExtension + root.rounding
+                        leftMargin: parent.leftExtension + root.rounding
+                        rightMargin: parent.rightExtension + root.rounding
+                    }
+
+                    spacing: Theme.spacing.normal
+
+                    SearchBar {
+                        id: searchBar
+
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 40
+
+                        backgroundColor: Theme.color.surface_container
+                        borderColor: Theme.color.outline
+                        borderWidth: 0
+
+                        iconColor: Theme.color.on_surface
+                        iconSize: Theme.fontSize.large
+
+                        textColor: Theme.color.on_surface
+                        placeholderColor: Theme.color.on_surface
+                        placeholderText: "Run program..."
+
+                        textFont.family: Theme.fonts.sans
+                        textFont.pixelSize: Theme.fontSize.normal
+                    }
+
+                    ListView {
+                        id: entryListView
+
+                        readonly property int appEntryHeight: 40
+
+                        model: root.entries
+
+                        spacing: Config.launcher.spacing
+                        implicitHeight: (appEntryHeight + spacing) * Config.launcher.nVisible - spacing
+
+                        delegate: AppEntry {
+                            id: appEntry
+                            width: searchBar.width
+                            height: entryListView.appEntryHeight
+                            isSelected: modelData.name === root.selectedEntry?.name
+                        }
+                    }
+                }
+            }
+
+            PanelShadow { target: frp }
+        }
+
+    }
+    Component.onCompleted: {
+        searchBar.clear();
+        selectedIdx = 0;
+        Qt.callLater(() => {
+            slideItem.y = (root.screen ? root.screen.height : 0) - slideItem.height;
+        });
+    }
 
     function offsetSelectedIdx(n: int) {
         root.selectedIdx = Math.min(
@@ -126,7 +184,6 @@ WmWindow {
         entryListView.positionViewAtIndex(root.selectedIdx, ListView.Contain);
     }
 
-    // Scroll the list when the selected index changes
     Connections {
         target: root
         function onSelectedIdxChanged() {
@@ -134,53 +191,11 @@ WmWindow {
         }
     }
 
-    // Clamp the selected index when typing (as the old idx may become > entries.length)
     Connections {
         target: searchBar
         function onTextChanged() {
             root.offsetSelectedIdx(0);
             root.centerScroll();
-        }
-    }
-
-    Keys.onPressed: function(event: KeyEvent) {
-        if (!focused)
-            return;
-
-        // Ctrl+W -> delete previous word
-        if (Key.match(event, Qt.Key_W, Qt.ControlModifier)) {
-            searchBar.deletePreviousWord();
-            event.accepted = true;
-            return;
-        }
-
-        // Escape -> close
-        if (Key.match(event, Qt.Key_Escape)) {
-            close();
-            event.accepted = true;
-            return;
-        }
-
-        // Ctrl+P -> previous entry
-        if (Key.match(event, Qt.Key_P, Qt.ControlModifier)) {
-            offsetSelectedIdx(-1);
-            event.accepted = true;
-            return;
-        }
-
-        // Ctrl+N -> next entry
-        if (Key.match(event, Qt.Key_N, Qt.ControlModifier)) {
-            offsetSelectedIdx(1);
-            event.accepted = true;
-            return;
-        }
-
-        // Enter / Return -> run program
-        if (Key.match(event, Qt.Key_Return) || Key.match(event, Qt.Key_Enter)) {
-            run();
-            close();
-            event.accepted = true;
-            return;
         }
     }
 

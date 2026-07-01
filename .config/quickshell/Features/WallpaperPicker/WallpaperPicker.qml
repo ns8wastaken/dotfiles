@@ -1,115 +1,158 @@
 pragma ComponentBehavior: Bound
 
+import Quickshell
 import Quickshell.Widgets
 import QtQuick
 import QtQuick.Layouts
 import "../../Services"
-import "../../Services/WindowManager"
 import "../../Shared/Components"
 import "../../Services/Config"
 import "../../Shared/Theme"
 import "../../Shared/Utils"
 import "../../Shared/Utils/Fuzzy.js" as Fuzzy
 
-WmWindow {
+PanelWindow {
     id: root
 
-    Component.onCompleted: searchBar.clear();
+    signal closeRequested()
 
-    onWmFocused: searchBar.focusField();
+    anchors { left: true; right: true; top: true; bottom: true }
+    exclusionMode: ExclusionMode.Ignore
+    aboveWindows: true
+    focusable: true
+    color: "transparent"
+    onVisibleChanged: if (visible) Qt.callLater(() => searchBar.forceActiveFocus())
 
-    width: (
-        pickerCol.anchors.margins
-        + Config.wallpaperPicker.wallpaperWidth
-        + Config.wallpaperPicker.spacing
-    ) * 2;
-
-    height: pickerCol.implicitHeight + pickerCol.anchors.margins * 2
-
-    color: Theme.color.surface
-    radius: 30
-
-    border.width: 1
-    border.color: Theme.color.outline
-
-    ColumnLayout {
-        id: pickerCol
-
+    Item {
+        id: wrapper
         anchors.fill: parent
-        anchors.margins: 12
+        focus: true
+        Keys.onPressed: function(event) {
+            if (Key.match(event, Qt.Key_W, Qt.ControlModifier)) {
+                searchBar.deletePreviousWord();
+                event.accepted = true;
+                return;
+            }
 
-        spacing: Theme.spacing.large
+            if (Key.match(event, Qt.Key_Escape)) {
+                closeRequested();
+                event.accepted = true;
+                return;
+            }
 
-        SearchBar {
-            id: searchBar
+            if (Key.match(event, Qt.Key_P, Qt.ControlModifier)) {
+                wallpaperView.incrementCurrentIndex();
+                event.accepted = true;
+                return;
+            }
 
-            Layout.fillWidth: true
-            Layout.preferredHeight: 40
+            if (Key.match(event, Qt.Key_N, Qt.ControlModifier)) {
+                wallpaperView.decrementCurrentIndex();
+                event.accepted = true;
+                return;
+            }
 
-            backgroundColor: Theme.color.surface
-            borderColor: Theme.color.outline
-            borderWidth: 1
-
-            iconColor: Theme.color.on_surface
-            iconSize: Theme.fontSize.large
-
-            placeholderColor: Theme.color.on_surface
-            placeholderText: "Search wallpapers..."
-            textColor: Theme.color.on_surface
-
-            textFont.family: Theme.fonts.sans
-            textFont.pixelSize: Theme.fontSize.normal
+            if (Key.match(event, Qt.Key_Return) || Key.match(event, Qt.Key_Enter)) {
+                WallpaperService.setWallpaper(wallpaperView.currentItem.fileUrl);
+                closeRequested();
+                event.accepted = true;
+                return;
+            }
         }
 
-        Rectangle {
-            Layout.fillWidth: true
-            Layout.preferredHeight: Config.wallpaperPicker.spacing * 2 + wallpaperView.implicitHeight;
+        Item {
+            anchors.centerIn: parent
+            width: (12 + Config.wallpaperPicker.wallpaperWidth + Config.wallpaperPicker.spacing) * 2
+            height: pickerCol.implicitHeight + 24
 
-            color: Theme.color.surface_container
-            radius: searchBar.radius
-
-            ClippingRectangle {
+            Rectangle {
                 anchors.fill: parent
-                anchors.margins: Config.wallpaperPicker.spacing
+                color: Theme.color.surface
+                radius: 30
+                border.width: 1
+                border.color: Theme.color.outline
+            }
 
-                radius: 16
+            ColumnLayout {
+                id: pickerCol
 
-                color: "transparent"
+                anchors.fill: parent
+                anchors.margins: 12
 
-                WallpaperView {
-                    id: wallpaperView
-                    anchors.fill: parent
+                spacing: Theme.spacing.large
 
-                    model: SortFilterProxyModel {
-                        id: sorter
-                        model: WallpaperService.wallpapers
+                SearchBar {
+                    id: searchBar
 
-                        readonly property string query: searchBar.text.toLowerCase();
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 40
 
-                        onQueryChanged: {
-                            invalidate();
-                            invalidateSorter();
-                            wallpaperView.currentIndex = 0;
-                        }
+                    backgroundColor: Theme.color.surface
+                    borderColor: Theme.color.outline
+                    borderWidth: 1
 
-                        component WEntry: QtObject { property string fileName }
+                    iconColor: Theme.color.on_surface
+                    iconSize: Theme.fontSize.large
 
-                        sorters: FunctionSorter {
-                            function sort(lhsData: WEntry, rhsData: WEntry): int {
-                                let lhsMatch = Fuzzy.score(sorter.query, lhsData.fileName.toLowerCase());
-                                let rhsMatch = Fuzzy.score(sorter.query, rhsData.fileName.toLowerCase());
+                    placeholderColor: Theme.color.on_surface
+                    placeholderText: "Search wallpapers..."
+                    textColor: Theme.color.on_surface
 
-                                return rhsMatch.score - lhsMatch.score;
-                            }
-                        }
+                    textFont.family: Theme.fonts.sans
+                    textFont.pixelSize: Theme.fontSize.normal
+                }
 
-                        filters: FunctionFilter {
-                            function filter(data: WEntry): bool {
-                                if (!searchBar.text) return true;
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: Config.wallpaperPicker.spacing * 2 + wallpaperView.implicitHeight;
 
-                                let match = Fuzzy.score(sorter.query, data.fileName.toLowerCase());
+                    color: Theme.color.surface_container
+                    radius: searchBar.radius
 
-                                return match.isValid;
+                    ClippingRectangle {
+                        anchors.fill: parent
+                        anchors.margins: Config.wallpaperPicker.spacing
+
+                        radius: 16
+
+                        color: "transparent"
+
+                        WallpaperView {
+                            id: wallpaperView
+                            anchors.fill: parent
+
+                            model: SortFilterProxyModel {
+                                id: sorter
+                                model: WallpaperService.wallpapers
+
+                                readonly property string query: searchBar.text.toLowerCase();
+
+                                onQueryChanged: {
+                                    invalidate();
+                                    invalidateSorter();
+                                    wallpaperView.currentIndex = 0;
+                                }
+
+                                component WEntry: QtObject { property string fileName }
+
+                                sorters: FunctionSorter {
+                                    function sort(lhsData: WEntry, rhsData: WEntry): int {
+                                        let lhsMatch = Fuzzy.score(sorter.query, lhsData.fileName.toLowerCase());
+                                        let rhsMatch = Fuzzy.score(sorter.query, rhsData.fileName.toLowerCase());
+
+                                        return rhsMatch.score - lhsMatch.score;
+                                    }
+                                }
+
+                                filters: FunctionFilter {
+                                    function filter(data: WEntry): bool {
+                                        if (!searchBar.text) return true;
+
+                                        let match = Fuzzy.score(sorter.query, data.fileName.toLowerCase());
+
+                                        return match.isValid;
+                                    }
+                                }
                             }
                         }
                     }
@@ -118,44 +161,7 @@ WmWindow {
         }
     }
 
-    Keys.onPressed: function(event: KeyEvent) {
-        if (!focused)
-            return;
-
-        // Ctrl+W -> delete previous word
-        if (Key.match(event, Qt.Key_W, Qt.ControlModifier)) {
-            searchBar.deletePreviousWord();
-            event.accepted = true;
-            return;
-        }
-
-        // Escape -> close
-        if (Key.match(event, Qt.Key_Escape)) {
-            close();
-            event.accepted = true;
-            return;
-        }
-
-        // Ctrl+P -> next wallpaper
-        if (Key.match(event, Qt.Key_P, Qt.ControlModifier)) {
-            wallpaperView.incrementCurrentIndex();
-            event.accepted = true;
-            return;
-        }
-
-        // Ctrl+N -> previous wallpaper
-        if (Key.match(event, Qt.Key_N, Qt.ControlModifier)) {
-            wallpaperView.decrementCurrentIndex();
-            event.accepted = true;
-            return;
-        }
-
-        // Enter / Return -> set wallpaper
-        if (Key.match(event, Qt.Key_Return) || Key.match(event, Qt.Key_Enter)) {
-            WallpaperService.setWallpaper(wallpaperView.currentItem.fileUrl);
-            close();
-            event.accepted = true;
-            return;
-        }
+    Component.onCompleted: {
+        searchBar.clear();
     }
 }

@@ -14,5 +14,5 @@ MultiEffect {
     shadowOpacity: 1
     shadowVerticalOffset: 0
     shadowHorizontalOffset: 0
-    shadowBlur: 1.5
+    shadowBlur: 0.5
 }

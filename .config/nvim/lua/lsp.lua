@@ -76,8 +76,12 @@ vim.lsp.enable("glsl_analyzer")
 vim.lsp.config("glsl_analyzer", { capabilities = capabilities })
 
 -- QML
-vim.lsp.enable("qmlls")
-vim.lsp.config("qmlls", { capabilities = capabilities })
+vim.lsp.config("qml-language-server", {
+    cmd = { "qml-language-server" },
+    filetypes = { "qml" },
+    root_markers = { { "qmldir", "shell.qml" }, ".git" },
+})
+vim.lsp.enable("qml-language-server")
 
 -- Nim
 vim.lsp.enable("nim_langserver")
@@ -109,5 +113,6 @@ vim.lsp.config("svelte", {
     }
 })
 
+-- Java
 vim.lsp.enable("jdtls")
 vim.lsp.config("jdtls", { capabilities = capabilities })

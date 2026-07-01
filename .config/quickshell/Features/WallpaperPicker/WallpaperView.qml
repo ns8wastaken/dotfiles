@@ -40,6 +40,11 @@ ListView {
 
         radius: 16
 
+        Rectangle {
+            anchors.fill: parent
+            color: Theme.color.surface
+        }
+
         Image {
             anchors.centerIn: parent
             source: wallpaperEntry.fileUrl
