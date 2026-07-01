@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import Quickshell
 import Quickshell.Widgets
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import "../../Services"
 import "../../Shared/Components"
@@ -15,6 +16,10 @@ PanelWindow {
     id: root
 
     signal closeRequested()
+
+    readonly property int margins: 8
+    readonly property real rounding: 12
+    readonly property real tabSize: 18
 
     anchors { left: true; right: true; top: true; bottom: true }
     exclusionMode: ExclusionMode.Ignore
@@ -61,96 +66,130 @@ PanelWindow {
         }
 
         Item {
-            anchors.centerIn: parent
-            width: (12 + Config.wallpaperPicker.wallpaperWidth + Config.wallpaperPicker.spacing) * 2
-            height: pickerCol.implicitHeight + 24
+            id: slideItem
+            y: 9999
+            height: frp.height
+            width: frp.width
 
-            Rectangle {
-                anchors.fill: parent
-                color: Theme.color.surface
-                radius: 30
-                border.width: 1
-                border.color: Theme.color.outline
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Behavior on y {
+                NumberAnimation {
+                    duration: Theme.anim.fast
+                    easing.type: Easing.OutCubic
+                }
             }
 
-            ColumnLayout {
-                id: pickerCol
+            FancyRoundedPanel {
+                id: frp
 
-                anchors.fill: parent
-                anchors.margins: 12
+                anchors.centerIn: parent
 
-                spacing: Theme.spacing.large
+                panelWidth: Config.wallpaperPicker.width + 2 * rounding
+                panelHeight: root.rounding + column.implicitHeight + root.tabSize + root.margins
 
-                SearchBar {
-                    id: searchBar
+                topLeftRadius: root.rounding
+                topRightRadius: root.rounding
+                bottomLeftRadius: -root.tabSize
+                bottomRightRadius: -root.tabSize
 
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 40
-
-                    backgroundColor: Theme.color.surface
-                    borderColor: Theme.color.outline
-                    borderWidth: 1
-
-                    iconColor: Theme.color.on_surface
-                    iconSize: Theme.fontSize.large
-
-                    placeholderColor: Theme.color.on_surface
-                    placeholderText: "Search wallpapers..."
-                    textColor: Theme.color.on_surface
-
-                    textFont.family: Theme.fonts.sans
-                    textFont.pixelSize: Theme.fontSize.normal
+                color: Theme.color.surface
+                layer.enabled: true
+                layer.effect: MultiEffect {
+                    source: frp
+                    shadowEnabled: true
+                    shadowColor: Theme.color.shadow
+                    shadowOpacity: 1
+                    shadowVerticalOffset: 0
+                    shadowHorizontalOffset: 0
+                    shadowBlur: 0.5
                 }
 
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: Config.wallpaperPicker.spacing * 2 + wallpaperView.implicitHeight;
+                ColumnLayout {
+                    id: column
 
-                    color: Theme.color.surface_container
-                    radius: searchBar.radius
+                    anchors {
+                        top: parent.top
+                        left: parent.left
+                        right: parent.right
+                        topMargin: parent.topExtension + root.rounding
+                        leftMargin: parent.leftExtension + root.rounding
+                        rightMargin: parent.rightExtension + root.rounding
+                    }
 
-                    ClippingRectangle {
-                        anchors.fill: parent
-                        anchors.margins: Config.wallpaperPicker.spacing
+                    spacing: Theme.spacing.normal
 
-                        radius: 16
+                    SearchBar {
+                        id: searchBar
 
-                        color: "transparent"
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 40
 
-                        WallpaperView {
-                            id: wallpaperView
+                        backgroundColor: Theme.color.surface_container
+                        borderColor: Theme.color.outline
+                        borderWidth: 0
+
+                        iconColor: Theme.color.on_surface
+                        iconSize: Theme.fontSize.large
+
+                        textColor: Theme.color.on_surface
+                        placeholderColor: Theme.color.on_surface
+                        placeholderText: "Search wallpapers..."
+
+                        textFont.family: Theme.fonts.sans
+                        textFont.pixelSize: Theme.fontSize.normal
+                    }
+
+                    Rectangle {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: Config.wallpaperPicker.spacing * 2 + wallpaperView.implicitHeight
+
+                        color: Theme.color.surface_container
+                        radius: searchBar.radius
+
+                        ClippingRectangle {
                             anchors.fill: parent
+                            anchors.margins: Config.wallpaperPicker.spacing
 
-                            model: SortFilterProxyModel {
-                                id: sorter
-                                model: WallpaperService.wallpapers
+                            radius: 16
 
-                                readonly property string query: searchBar.text.toLowerCase();
+                            color: "transparent"
 
-                                onQueryChanged: {
-                                    invalidate();
-                                    invalidateSorter();
-                                    wallpaperView.currentIndex = 0;
-                                }
+                            WallpaperView {
+                                id: wallpaperView
+                                anchors.fill: parent
 
-                                component WEntry: QtObject { property string fileName }
+                                model: SortFilterProxyModel {
+                                    id: sorter
+                                    model: WallpaperService.wallpapers
 
-                                sorters: FunctionSorter {
-                                    function sort(lhsData: WEntry, rhsData: WEntry): int {
-                                        let lhsMatch = Fuzzy.score(sorter.query, lhsData.fileName.toLowerCase());
-                                        let rhsMatch = Fuzzy.score(sorter.query, rhsData.fileName.toLowerCase());
+                                    readonly property string query: searchBar.text.toLowerCase()
 
-                                        return rhsMatch.score - lhsMatch.score;
+                                    onQueryChanged: {
+                                        invalidate();
+                                        invalidateSorter();
+                                        wallpaperView.currentIndex = 0;
                                     }
-                                }
 
-                                filters: FunctionFilter {
-                                    function filter(data: WEntry): bool {
-                                        if (!searchBar.text) return true;
+                                    component WEntry: QtObject { property string fileName }
 
-                                        let match = Fuzzy.score(sorter.query, data.fileName.toLowerCase());
+                                    sorters: FunctionSorter {
+                                        function sort(lhsData: WEntry, rhsData: WEntry): int {
+                                            let lhsMatch = Fuzzy.score(sorter.query, lhsData.fileName.toLowerCase());
+                                            let rhsMatch = Fuzzy.score(sorter.query, rhsData.fileName.toLowerCase());
 
-                                        return match.isValid;
+                                            return rhsMatch.score - lhsMatch.score;
+                                        }
+                                    }
+
+                                    filters: FunctionFilter {
+                                        function filter(data: WEntry): bool {
+                                            if (!searchBar.text) return true;
+
+                                            let match = Fuzzy.score(sorter.query, data.fileName.toLowerCase());
+
+                                            return match.isValid;
+                                        }
                                     }
                                 }
                             }
@@ -163,5 +202,8 @@ PanelWindow {
 
     Component.onCompleted: {
         searchBar.clear();
+        Qt.callLater(() => {
+            slideItem.y = (root.screen ? root.screen.height : 0) - slideItem.height;
+        });
     }
 }

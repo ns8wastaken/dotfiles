@@ -48,7 +48,7 @@ ShellRoot {
         exclusionMode: ExclusionMode.Normal
         exclusiveZone: root.barHeight
         color: "transparent"
-        implicitHeight: root.barHeight + 20
+        implicitHeight: root.barHeight + 20 // TODO: instead of +20 use the bottom rounding of the bar
 
         Bar {
             id: bar
@@ -85,20 +85,29 @@ ShellRoot {
         NotificationPopups { id: notifs }
     }
 
+    // Shared mutex for togglable overlays (launcher, wallpaper picker: only one at a time)
+    QtObject {
+        id: overlayGroup
+        property string active: ""
+        function toggle(name: string) {
+            active = active === name ? "" : name
+        }
+    }
+
     // --- Togglable windows (loaded on demand) ---
     Loader {
         id: launcherLoader
-        active: false
+        active: overlayGroup.active === "launcher"
         sourceComponent: Launcher {
-            onCloseRequested: launcherLoader.active = false
+            onCloseRequested: overlayGroup.active = ""
         }
     }
 
     Loader {
         id: wallpaperPickerLoader
-        active: false
+        active: overlayGroup.active === "wallpaper"
         sourceComponent: WallpaperPicker {
-            onCloseRequested: wallpaperPickerLoader.active = false
+            onCloseRequested: overlayGroup.active = ""
         }
     }
 
@@ -113,12 +122,12 @@ ShellRoot {
     // --- Keyboard shortcuts ---
     CustomShortcut {
         name: "launcher"
-        onPressed: launcherLoader.active = !launcherLoader.active
+        onPressed: overlayGroup.toggle("launcher")
     }
 
     CustomShortcut {
         name: "wallpaperPicker"
-        onPressed: wallpaperPickerLoader.active = !wallpaperPickerLoader.active
+        onPressed: overlayGroup.toggle("wallpaper")
     }
 
     CustomShortcut {

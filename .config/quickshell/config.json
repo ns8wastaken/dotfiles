@@ -32,6 +32,7 @@
     },
 
     "wallpaperPicker": {
+        "width": 960,
         "wallpaperWidth": 450,
         "wallpaperHeight": 300,
 
