@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Effects
 import QtQuick.Layouts
 import "../../Shared/Components"
 import "../../Shared/Animations"
@@ -50,6 +51,16 @@ Item {
         bottomRightRadius: root.rounding
 
         color: Theme.color.surface
+        layer.enabled: true
+        layer.effect: MultiEffect {
+            source: barLeft
+            shadowEnabled: true
+            shadowColor: Theme.color.shadow
+            shadowOpacity: 1
+            shadowVerticalOffset: 0
+            shadowHorizontalOffset: 0
+            shadowBlur: 0.5
+        }
 
         Behavior on panelWidth {
             NAnim { easing.type: Easing.OutCubic }
@@ -90,6 +101,16 @@ Item {
         bottomRightRadius: root.rounding
 
         color: Theme.color.surface
+        layer.enabled: true
+        layer.effect: MultiEffect {
+            source: barMiddle
+            shadowEnabled: true
+            shadowColor: Theme.color.shadow
+            shadowOpacity: 1
+            shadowVerticalOffset: 0
+            shadowHorizontalOffset: 0
+            shadowBlur: 0.5
+        }
 
         Behavior on panelWidth {
             NAnim { easing.type: Easing.OutCubic }
@@ -137,6 +158,16 @@ Item {
         isBottomRightVertical: true
 
         color: Theme.color.surface
+        layer.enabled: true
+        layer.effect: MultiEffect {
+            source: barRight
+            shadowEnabled: true
+            shadowColor: Theme.color.shadow
+            shadowOpacity: 1
+            shadowVerticalOffset: 0
+            shadowHorizontalOffset: 0
+            shadowBlur: 0.5
+        }
 
         Behavior on panelWidth {
             NAnim { easing.type: Easing.OutCubic }
@@ -168,16 +199,20 @@ Item {
         height: 24
 
         color: Theme.color.surface
+        layer.enabled: true
+        layer.effect: MultiEffect {
+            source: barTray
+            shadowEnabled: true
+            shadowColor: Theme.color.shadow
+            shadowOpacity: 1
+            shadowVerticalOffset: 0
+            shadowHorizontalOffset: 0
+            shadowBlur: 0.5
+        }
 
         Tray {
             id: tray
             anchors.centerIn: parent
         }
     }
-
-
-    PanelShadow { target: barLeft }
-    PanelShadow { target: barMiddle }
-    PanelShadow { target: barRight }
-    PanelShadow { target: barTray }
 }

@@ -2,9 +2,9 @@ pragma ComponentBehavior: Bound
 
 import Quickshell
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Layouts
 import "../../Shared/Components"
-import "../../Shared/Effects"
 import "../../Services"
 import "../../Services/Config"
 import "../../Shared/Theme"
@@ -102,6 +102,16 @@ PanelWindow {
                 bottomRightRadius: -root.tabSize
 
                 color: Theme.color.surface
+                layer.enabled: true
+                layer.effect: MultiEffect {
+                    source: frp
+                    shadowEnabled: true
+                    shadowColor: Theme.color.shadow
+                    shadowOpacity: 1
+                    shadowVerticalOffset: 0
+                    shadowHorizontalOffset: 0
+                    shadowBlur: 0.5
+                }
 
                 ColumnLayout {
                     id: column
@@ -157,8 +167,6 @@ PanelWindow {
                     }
                 }
             }
-
-            PanelShadow { target: frp }
         }
 
     }

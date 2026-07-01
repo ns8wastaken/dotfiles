@@ -48,11 +48,14 @@ ShellRoot {
         exclusionMode: ExclusionMode.Normal
         exclusiveZone: root.barHeight
         color: "transparent"
-        implicitHeight: root.barHeight
+        implicitHeight: root.barHeight + 20
 
         Bar {
             id: bar
-            anchors.fill: parent
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: root.barHeight
             calendarState: calendarState
         }
     }
