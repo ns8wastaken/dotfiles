@@ -5,12 +5,17 @@
 import Quickshell
 import Quickshell.Wayland
 import QtQuick
-import qs.Components
-import qs.Modules
-import qs.Core.Services
-import qs.Core.Managers
-import qs.Core.Managers.Types
-import qs.Core.Config
+import "Features/Bar"
+import "Features/Launcher"
+import "Features/Notifications"
+import "Features/WallpaperPicker"
+import "Features/WLogout"
+import "Features/BackgroundText"
+import "Shared/Components"
+import "Shared/Shortcuts"
+import "Services"
+import "Services/WindowManager"
+import "Services/Config"
 
 ShellRoot {
     readonly property bool disableHotReload:

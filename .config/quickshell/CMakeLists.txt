@@ -20,4 +20,4 @@ add_compile_options(
     -Wunreachable-code
 )
 
-add_subdirectory(Plugins)
+add_subdirectory(Native/Plugins)

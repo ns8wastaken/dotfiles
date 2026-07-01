@@ -1,0 +1,44 @@
+pragma ComponentBehavior: Bound
+
+import QtQuick
+import Quickshell
+import "../../Shared/Animations"
+import "../../Services"
+import "../../Services/Config"
+import "../../Shared/Theme"
+
+ListView {
+    model: ScriptModel {
+        values: NotificationService.popups.filter(n => !n.closed)
+    }
+
+    spacing: Theme.spacing.small
+    width: Config.notifs.width
+    height: contentHeight
+
+    add: Transition {
+        NAnim {
+            property: "x"
+            from: Config.notifs.width
+            easing.type: Easing.OutBack
+        }
+    }
+
+    remove: Transition {
+        NAnim {
+            property: "x"
+            to: Config.notifs.width
+            easing.type: Easing.InBack
+        }
+    }
+
+    displaced: Transition {
+        NAnim {
+            property: "y"
+            alwaysRunToEnd: false
+            easing.type: Easing.OutBack
+        }
+    }
+
+    delegate: NotificationEntry {}
+}
