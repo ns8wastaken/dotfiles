@@ -30,5 +30,6 @@ Pill {
         Audio { anchors.verticalCenter: parent.verticalCenter }
         Microphone { anchors.verticalCenter: parent.verticalCenter }
         Network { anchors.verticalCenter: parent.verticalCenter }
+        Screenshot { anchors.verticalCenter: parent.verticalCenter }
     }
 }

@@ -1,18 +1,31 @@
 import QtQuick
+import QtQuick.Effects
 import "../../Shared/Components"
 import "../../Shared/Icons"
 import "../../Services"
+import "../../Services/Config"
 import "../../Shared/Theme"
 
 Pill {
     id: root
 
-    width: text.width + 12
-    height: 18
+    width: text.width + Config.bar.spacing * 2
+    height: 20
 
-    color: Theme.color.secondary_container
+    color: Theme.color.surface
 
     visible: BatteryService.isValidBattery
+
+    layer.enabled: true
+    layer.effect: MultiEffect {
+        source: root
+        shadowEnabled: true
+        shadowColor: Theme.color.shadow
+        shadowOpacity: 1
+        shadowVerticalOffset: 0
+        shadowHorizontalOffset: 0
+        shadowBlur: 0.5
+    }
 
     Row {
         id: text
@@ -58,7 +71,7 @@ Pill {
 
             font.pixelSize: Theme.fontSize.small
 
-            color: Theme.color.on_secondary_container
+            color: Theme.color.on_surface
         }
     }
 }

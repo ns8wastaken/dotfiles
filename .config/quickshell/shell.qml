@@ -135,6 +135,22 @@ ShellRoot {
         onPressed: wlogoutLoader.active = !wlogoutLoader.active
     }
 
+    // --- Screen capture ---
+    CustomShortcut {
+        name: "screenshotFull"
+        onPressed: ScreenCaptureService.screenshot("all")
+    }
+
+    CustomShortcut {
+        name: "screenshotArea"
+        onPressed: ScreenCaptureService.screenshot("area")
+    }
+
+    CustomShortcut {
+        name: "ocrArea"
+        onPressed: ScreenCaptureService.ocr("area")
+    }
+
     // "Activate Linux" watermark
     Loader {
         active: false

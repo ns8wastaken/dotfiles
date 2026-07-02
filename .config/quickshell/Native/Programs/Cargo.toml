@@ -3,6 +3,7 @@ resolver = "3"
 members = [
     "src/sys-monitor",
     "src/wallpaperctl",
+    "src/screencap",
 ]
 
 [profile.release]

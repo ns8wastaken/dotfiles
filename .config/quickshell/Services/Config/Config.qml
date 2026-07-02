@@ -17,6 +17,7 @@ Singleton {
     property alias notifs:          adapter.notifs
     property alias wallpaperPicker: adapter.wallpaperPicker
     property alias wlogout:         adapter.wlogout
+    property alias screenCapture:   adapter.screenCapture
 
     FileView {
         path: Quickshell.shellPath("config.json")
@@ -33,6 +34,7 @@ Singleton {
             property NotificationConfig    notifs:          NotificationConfig {}
             property WallpaperPickerConfig wallpaperPicker: WallpaperPickerConfig {}
             property WLogoutConfig         wlogout:         WLogoutConfig {}
+            property ScreenCaptureConfig   screenCapture:   ScreenCaptureConfig {}
         }
     }
 }

@@ -1,15 +1,30 @@
 import Quickshell
 import QtQuick
+import QtQuick.Effects
 import "../../Services"
 import "../../Shared/Components"
 import "../../Shared/Icons"
 import "../../Shared/Theme"
+import "../../Services/Config"
 
 Pill {
-    width: text.width + 2 * 6
-    height: 18
+    id: root
 
-    color: Theme.color.secondary_container
+    width: text.width + Config.bar.spacing * 2
+    height: 20
+
+    color: Theme.color.surface
+
+    layer.enabled: true
+    layer.effect: MultiEffect {
+        source: root
+        shadowEnabled: true
+        shadowColor: Theme.color.shadow
+        shadowOpacity: 1
+        shadowVerticalOffset: 0
+        shadowHorizontalOffset: 0
+        shadowBlur: 0.5
+    }
 
     MaterialIcon {
         id: text
@@ -18,7 +33,7 @@ Pill {
 
         text: "more_horiz"
 
-        color: Theme.color.on_secondary_container
+        color: Theme.color.on_surface
         font.pixelSize: Theme.fontSize.normal
     }
 

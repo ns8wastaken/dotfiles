@@ -10,23 +10,6 @@ import "../../Services"
 import "../../Services/Config"
 import "../../Shared/Theme"
 
-// // Right
-// Row {
-//     anchors {
-//         verticalCenter: parent.verticalCenter
-//         right: parent.right
-//         rightMargin: 10
-//     }
-//     spacing: Config.bar.spacing
-//
-//     MediaPlayer { anchors.verticalCenter: parent.verticalCenter }
-//     // Tray { anchors.verticalCenter: parent.verticalCenter }
-//     Controls { anchors.verticalCenter: parent.verticalCenter }
-//     Battery { anchors.verticalCenter: parent.verticalCenter }
-//     Backlight { anchors.verticalCenter: parent.verticalCenter }
-//     ExtraMenu { anchors.verticalCenter: parent.verticalCenter }
-// }
-
 Item {
     id: root
 
@@ -35,7 +18,8 @@ Item {
     readonly property real rounding: height / 2
     readonly property real bottomRounding: 18 // hyprland rounding + outer gap (12 + 6)
 
-    // Left
+    // ── Left · Workspaces ────────────────────────────────────────────────
+
     FancyRoundedPanel {
         id: barLeft
 
@@ -85,7 +69,8 @@ Item {
         }
     }
 
-    // Middle - dynamic island
+    // ── Center · Clock ───────────────────────────────────────────────────
+
     FancyRoundedPanel {
         id: barMiddle
 
@@ -116,8 +101,6 @@ Item {
             NAnim { easing.type: Easing.OutCubic }
         }
 
-        // WARNING: for some fucking reason if i click and drag from the clock to the calendar then the popup stays open?
-
         Item {
             id: barMiddleContainer
 
@@ -136,13 +119,12 @@ Item {
                     onHoveredChanged: root.calendarState.clockHovered = hovered
                 }
             }
-
         }
     }
 
+    // ── Right · Controls → ExtraMenu → Backlight → Battery → Tray → Media ─
 
-
-    // Right
+    // Rightmost: system controls (audio, screenshot, mic, network)
     FancyRoundedPanel {
         id: barRight
 
@@ -187,16 +169,43 @@ Item {
         }
     }
 
-    // Tray
+    // Extra menu: system info popup on hover
+    ExtraMenu {
+        id: barExtraMenu
+
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: barRight.left
+        anchors.rightMargin: -root.rounding / 2
+    }
+
+    // Backlight indicator
+    Backlight {
+        id: barBacklight
+
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: barExtraMenu.left
+        anchors.rightMargin: Config.bar.spacing
+    }
+
+    // Battery indicator
+    Battery {
+        id: barBattery
+
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: barBacklight.left
+        anchors.rightMargin: Config.bar.spacing
+    }
+
+    // System tray
     Pill {
         id: barTray
 
         anchors.verticalCenter: parent.verticalCenter
-        anchors.right: barRight.left
-        anchors.rightMargin: -(root.rounding + root.height) / 4
+        anchors.right: barBattery.visible ? barBattery.left : barBacklight.left
+        anchors.rightMargin: Config.bar.spacing
 
-        width: tray.width + (2 * tray.spacing)
-        height: 24
+        width: trayContent.width + Config.bar.tray.spacing * 2
+        height: 22
 
         color: Theme.color.surface
         layer.enabled: true
@@ -211,8 +220,17 @@ Item {
         }
 
         Tray {
-            id: tray
+            id: trayContent
             anchors.centerIn: parent
         }
+    }
+
+    // Media player info
+    MediaPlayer {
+        id: barMedia
+
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.right: barTray.left
+        anchors.rightMargin: Config.bar.spacing
     }
 }

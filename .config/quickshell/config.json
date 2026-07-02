@@ -44,5 +44,9 @@
         "height": 600,
 
         "bgAlpha": 0.8
+    },
+
+    "screenCapture": {
+        "screenshotsDir": "~/Pictures/screenshots"
     }
 }
