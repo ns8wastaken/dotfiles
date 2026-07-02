@@ -1,2 +1,0 @@
-all:
-    cargo install --path . --root ../../ -f

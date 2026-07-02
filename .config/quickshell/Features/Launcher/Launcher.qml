@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 
 import Quickshell
+import Quickshell.Wayland
 import QtQuick
 import QtQuick.Effects
 import QtQuick.Layouts
@@ -29,12 +30,23 @@ PanelWindow {
     property int selectedIdx: 0
     readonly property DesktopEntry selectedEntry: entries[selectedIdx] ?? null
 
-    anchors { left: true; right: true; top: true; bottom: true }
+    WlrLayershell.namespace: "shellous:launcher"
+
+    anchors.bottom: true
+
+    implicitWidth: frp.width
+    implicitHeight: frp.height + 16 // + (shadow.blurMax (32) * shadow.shadowBlur (0.5))
+
     exclusionMode: ExclusionMode.Ignore
     aboveWindows: true
     focusable: true
     color: "transparent"
-    onVisibleChanged: if (visible) Qt.callLater(() => searchBar.forceActiveFocus())
+
+    onVisibleChanged: {
+        if (visible) {
+            Qt.callLater(() => searchBar.focusField());
+        }
+    }
 
     Item {
         id: wrapper
@@ -73,109 +85,90 @@ PanelWindow {
             }
         }
 
-        Item {
-            id: slideItem
-            y: 9999
-            height: frp.height
-            width: frp.width
+        FancyRoundedPanel {
+            id: frp
 
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
 
-            Behavior on y {
-                NumberAnimation {
-                    duration: Theme.anim.fast
-                    easing.type: Easing.OutCubic
-                }
+            panelWidth: Config.launcher.width + 2 * rounding
+            panelHeight: root.rounding + column.implicitHeight + root.tabSize + root.margins
+
+            topLeftRadius: root.rounding
+            topRightRadius: root.rounding
+            bottomLeftRadius: -root.tabSize
+            bottomRightRadius: -root.tabSize
+
+            color: Theme.color.surface
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                source: frp
+                shadowEnabled: true
+                shadowColor: Theme.color.shadow
+                shadowOpacity: 1
+                shadowVerticalOffset: 0
+                shadowHorizontalOffset: 0
+                shadowBlur: 0.5
             }
 
-            FancyRoundedPanel {
-                id: frp
+            ColumnLayout {
+                id: column
 
-                anchors.centerIn: parent
-
-                panelWidth: Config.launcher.width + 2 * rounding
-                panelHeight: root.rounding + column.implicitHeight + root.tabSize + root.margins
-
-                topLeftRadius: root.rounding
-                topRightRadius: root.rounding
-                bottomLeftRadius: -root.tabSize
-                bottomRightRadius: -root.tabSize
-
-                color: Theme.color.surface
-                layer.enabled: true
-                layer.effect: MultiEffect {
-                    source: frp
-                    shadowEnabled: true
-                    shadowColor: Theme.color.shadow
-                    shadowOpacity: 1
-                    shadowVerticalOffset: 0
-                    shadowHorizontalOffset: 0
-                    shadowBlur: 0.5
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                    topMargin: parent.topExtension + root.rounding
+                    leftMargin: parent.leftExtension + root.rounding
+                    rightMargin: parent.rightExtension + root.rounding
                 }
 
-                ColumnLayout {
-                    id: column
+                spacing: Theme.spacing.normal
 
-                    anchors {
-                        top: parent.top
-                        left: parent.left
-                        right: parent.right
-                        topMargin: parent.topExtension + root.rounding
-                        leftMargin: parent.leftExtension + root.rounding
-                        rightMargin: parent.rightExtension + root.rounding
-                    }
+                SearchBar {
+                    id: searchBar
 
-                    spacing: Theme.spacing.normal
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 40
 
-                    SearchBar {
-                        id: searchBar
+                    backgroundColor: Theme.color.surface_container
+                    borderColor: Theme.color.outline
+                    borderWidth: 0
 
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 40
+                    iconColor: Theme.color.on_surface
+                    iconSize: Theme.fontSize.large
 
-                        backgroundColor: Theme.color.surface_container
-                        borderColor: Theme.color.outline
-                        borderWidth: 0
+                    textColor: Theme.color.on_surface
+                    placeholderColor: Theme.color.on_surface
+                    placeholderText: "Run program..."
 
-                        iconColor: Theme.color.on_surface
-                        iconSize: Theme.fontSize.large
+                    textFont.family: Theme.fonts.sans
+                    textFont.pixelSize: Theme.fontSize.normal
+                }
 
-                        textColor: Theme.color.on_surface
-                        placeholderColor: Theme.color.on_surface
-                        placeholderText: "Run program..."
+                ListView {
+                    id: entryListView
 
-                        textFont.family: Theme.fonts.sans
-                        textFont.pixelSize: Theme.fontSize.normal
-                    }
+                    readonly property int appEntryHeight: 40
 
-                    ListView {
-                        id: entryListView
+                    model: root.entries
 
-                        readonly property int appEntryHeight: 40
+                    spacing: Config.launcher.spacing
+                    implicitHeight: (appEntryHeight + spacing) * Config.launcher.nVisible - spacing
 
-                        model: root.entries
-
-                        spacing: Config.launcher.spacing
-                        implicitHeight: (appEntryHeight + spacing) * Config.launcher.nVisible - spacing
-
-                        delegate: AppEntry {
-                            id: appEntry
-                            width: searchBar.width
-                            height: entryListView.appEntryHeight
-                            isSelected: modelData.name === root.selectedEntry?.name
-                        }
+                    delegate: AppEntry {
+                        id: appEntry
+                        width: searchBar.width
+                        height: entryListView.appEntryHeight
+                        isSelected: modelData.name === root.selectedEntry?.name
                     }
                 }
             }
         }
-
     }
+
     Component.onCompleted: {
         searchBar.clear();
         selectedIdx = 0;
-        Qt.callLater(() => {
-            slideItem.y = (root.screen ? root.screen.height : 0) - slideItem.height;
-        });
     }
 
     function offsetSelectedIdx(n: int) {

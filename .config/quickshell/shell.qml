@@ -30,10 +30,10 @@ ShellRoot {
     }
 
     // --- Background layer (behind everything) ---
-    Loader {
-        active: true
-        sourceComponent: BackgroundText {}
-    }
+    // Loader {
+    //     active: true
+    //     sourceComponent: BackgroundText {}
+    // }
 
     // Shared hover state for calendar popup
     QtObject {
@@ -48,7 +48,7 @@ ShellRoot {
         exclusionMode: ExclusionMode.Normal
         exclusiveZone: root.barHeight
         color: "transparent"
-        implicitHeight: root.barHeight + 20 // TODO: instead of +20 use the bottom rounding of the bar
+        implicitHeight: root.barHeight + bar.bottomRounding
 
         Bar {
             id: bar

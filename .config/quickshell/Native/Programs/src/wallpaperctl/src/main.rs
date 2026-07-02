@@ -3,7 +3,7 @@ use std::path::Path;
 use std::process::{Command, ExitStatus};
 
 fn show_usage() -> ! {
-    eprintln!("Usage: wallpaper_setter -w /path/to/image [-l|--light]");
+    eprintln!("Usage: wallpaperctl -w /path/to/image [-l|--light]");
     eprintln!("Options:");
     eprintln!("  -w <path>      Path to wallpaper image (required)");
     eprintln!("  -l, --light    Use light mode theme");
@@ -25,7 +25,7 @@ fn set_wallpaper(wallpaper: &str) -> std::io::Result<ExitStatus> {
     Command::new("awww")
         .args(["img", wallpaper])
         .args(["--transition-type", "any"])
-        .args(["--transition-duration", "1.5"])
+        .args(["--transition-duration", "0.5"])
         .args(["--transition-step", "20"])
         .args(["--transition-fps", "144"])
         .status()
