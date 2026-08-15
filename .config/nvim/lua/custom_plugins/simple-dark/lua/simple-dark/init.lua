@@ -1,15 +1,18 @@
 local M = {}
 
--- Setup opts (override defaults)
+M.config = {}
+
 ---@param opts? SimpleDarkSettingsOverride
----@return SimpleDarkSettings
 function M.setup(opts)
-    return require("simple-dark.settings").with(opts)
+    -- Store the user's opts globally so the colorscheme can find them later
+    M.config = opts or {}
 end
 
 ---@param opts? SimpleDarkSettingsOverride
 function M.load(opts)
-    local config = M.setup(opts)
+    -- Use provided opts if present, otherwise fall back to the stored M.config
+    local current_opts = opts or M.config
+    local config = require("simple-dark.settings").with(current_opts)
 
     vim.api.nvim_command("hi clear")
     if vim.fn.exists("syntax_on") == 1 then

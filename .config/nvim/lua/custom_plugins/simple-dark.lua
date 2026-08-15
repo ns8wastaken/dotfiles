@@ -3,7 +3,9 @@ return {
 
     ---@type SimpleDarkSettings
     opts = {
-        palette = {},
+        palette = {
+            string = "#e09a88"
+        },
         overrides = {}
     }
 }

@@ -54,6 +54,13 @@ local layer_rules = {
         },
         animation = "slide",
     },
+    {
+        name = "shellous-noanim",
+        match = {
+            namespace = "^shellous:(notifs)$",
+        },
+        animation = "noanim",
+    },
 }
 
 for _, rule in ipairs(layer_rules) do

@@ -1,4 +1,4 @@
-require("animations.mine")
+require("animations.fast")
 
 require("config.binds")
 require("config.monitors")

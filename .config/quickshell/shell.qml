@@ -72,6 +72,8 @@ ShellRoot {
 
     // --- Notification popups (top-right corner) ---
     PanelWindow {
+        WlrLayershell.namespace: "shellous:notifs"
+
         anchors { right: true; top: true }
         margins {
             top: root.barHeight + HyprlandConfigService.gapsOutTop

@@ -24,8 +24,8 @@ return function(c) return {
     -- Other
     Comment      = { fg = c.fg_dim },
     Constant     = { fg = c.fg },
-    String       = { fg = c.fg },
-    Character    = { fg = c.fg },
+    String       = { fg = c.string },
+    Character    = { fg = c.string },
     Type         = { fg = c.type },
     StorageClass = { fg = c.fg },
     Structure    = { fg = c.fg },

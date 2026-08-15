@@ -14,4 +14,5 @@ dotfiles add \
     ~/.config/starship.toml \
     ~/.config/quickshell/ \
     ~/.config/matugen/ \
-    ~/.config/mpv/
+    ~/.config/mpv/ \
+    ~/.config/opencode

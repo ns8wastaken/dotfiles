@@ -8,10 +8,11 @@ hl.config({
         border_size = 2,
 
         col = {
-            active_border = {
-                colors = { colors.primary, colors.on_primary, colors.primary },
-                angle = 45
-            },
+            active_border = colors.primary,
+            -- active_border = {
+            --     colors = { colors.primary, colors.on_primary, colors.primary },
+            --     angle = 45
+            -- },
             inactive_border = {
                 colors = { colors.outline }
             },
@@ -40,9 +41,9 @@ hl.config({
         blur = {
             enabled = true,
             size = 4,
-            passes = 3,
+            passes = 4,
             vibrancy = 1,
-            noise = 0.075,
+            noise = 0.025,
             -- vibrancy = 0.169,
         },
     },

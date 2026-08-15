@@ -1,5 +1,5 @@
 local commands = {
-    "QS_DISABLE_HOT_RELOAD=1 quickshell -d",
+    -- "QS_DISABLE_HOT_RELOAD=1 quickshell -d",
     "copyq",
     "awww-daemon",
 }
